@@ -1,0 +1,28 @@
+# .gitignore file Oliver's iOS projects
+
+# macOS specific
+.DS_Store
+
+# Managed by Cocoapods
+Pods/
+
+# Xcode user
+xcuserdata
+*.xcuserstate
+
+# Xcode shared (but unwanted)
+*.xcscmblueprint
+*.xccheckout
+
+# Xcode build output
+/DerivedData
+/build
+/build.*
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# IntelliJ IDEA / AppCode
+/.idea

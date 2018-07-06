@@ -1,0 +1,418 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A701175E20EE320F00B3D45B /* WebKit.framework */; };
+		A701176220EE35BC00B3D45B /* FLUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A701176120EE35BC00B3D45B /* FLUSBDevice.m */; };
+		A701176520EE677F00B3D45B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A701176320EE677F00B3D45B /* Main.storyboard */; };
+		A7458B4A20EF8286008F4899 /* FLGettingStartedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */; };
+		A7458B4C20EF86C7008F4899 /* Payloads in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4B20EF86C7008F4899 /* Payloads */; };
+		A7458B4E20EF86D5008F4899 /* Tutorial in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4D20EF86D5008F4899 /* Tutorial */; };
+		A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78BBEC820EE30F4007C3514 /* IOKit.framework */; };
+		A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */; };
+		A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */; };
+		A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */; };
+		A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE1820EE27DD00E59587 /* AppDelegate.m */; };
+		A7FDBE2120EE27DE00E59587 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7FDBE2020EE27DE00E59587 /* Assets.xcassets */; };
+		A7FDBE2420EE27DE00E59587 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7FDBE2220EE27DE00E59587 /* LaunchScreen.storyboard */; };
+		A7FDBE2720EE27DE00E59587 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE2620EE27DE00E59587 /* main.m */; };
+		A7FDBE3220EE2AB900E59587 /* FLExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE3120EE2AB900E59587 /* FLExec.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A701175E20EE320F00B3D45B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		A701176020EE35BC00B3D45B /* FLUSBDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLUSBDevice.h; sourceTree = "<group>"; };
+		A701176120EE35BC00B3D45B /* FLUSBDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLUSBDevice.m; sourceTree = "<group>"; };
+		A701176420EE677F00B3D45B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A7458B4820EF8286008F4899 /* FLGettingStartedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLGettingStartedViewController.h; sourceTree = "<group>"; };
+		A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLGettingStartedViewController.m; sourceTree = "<group>"; };
+		A7458B4B20EF86C7008F4899 /* Payloads */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Payloads; sourceTree = "<group>"; };
+		A7458B4D20EF86D5008F4899 /* Tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Tutorial; sourceTree = "<group>"; };
+		A78BBEC820EE30F4007C3514 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLBootProfilesViewController.h; sourceTree = "<group>"; };
+		A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLBootProfilesViewController.m; sourceTree = "<group>"; };
+		A7C4EA1420EE2D1B0026FFC9 /* FLMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLMainViewController.h; sourceTree = "<group>"; };
+		A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLMainViewController.m; sourceTree = "<group>"; };
+		A7C4EA1720EE2D770026FFC9 /* FLUSBDeviceEnumerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLUSBDeviceEnumerator.h; sourceTree = "<group>"; };
+		A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLUSBDeviceEnumerator.m; sourceTree = "<group>"; };
+		A7FDBE1420EE27DD00E59587 /* MobileFuseeLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileFuseeLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7FDBE1720EE27DD00E59587 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A7FDBE1820EE27DD00E59587 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A7FDBE2020EE27DE00E59587 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A7FDBE2320EE27DE00E59587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A7FDBE2520EE27DE00E59587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A7FDBE2620EE27DE00E59587 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A7FDBE3020EE2AB900E59587 /* FLExec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLExec.h; sourceTree = "<group>"; };
+		A7FDBE3120EE2AB900E59587 /* FLExec.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLExec.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A7FDBE1120EE27DD00E59587 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */,
+				A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A7C4EA1220EE2AFA0026FFC9 /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				A7FDBE2520EE27DE00E59587 /* Info.plist */,
+				A7FDBE2620EE27DE00E59587 /* main.m */,
+			);
+			name = Misc;
+			sourceTree = "<group>";
+		};
+		A7C4EA1320EE2B050026FFC9 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A7FDBE1720EE27DD00E59587 /* AppDelegate.h */,
+				A7FDBE1820EE27DD00E59587 /* AppDelegate.m */,
+				A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */,
+				A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */,
+				A7FDBE3020EE2AB900E59587 /* FLExec.h */,
+				A7FDBE3120EE2AB900E59587 /* FLExec.m */,
+				A7458B4820EF8286008F4899 /* FLGettingStartedViewController.h */,
+				A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */,
+				A7C4EA1420EE2D1B0026FFC9 /* FLMainViewController.h */,
+				A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */,
+				A701176020EE35BC00B3D45B /* FLUSBDevice.h */,
+				A701176120EE35BC00B3D45B /* FLUSBDevice.m */,
+				A7C4EA1720EE2D770026FFC9 /* FLUSBDeviceEnumerator.h */,
+				A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		A7FDBE0B20EE27DD00E59587 = {
+			isa = PBXGroup;
+			children = (
+				A7FDBE1620EE27DD00E59587 /* MobileFuseeLoader */,
+				A7FDBE1520EE27DD00E59587 /* Products */,
+				A7FDBE2D20EE2A1700E59587 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A7FDBE1520EE27DD00E59587 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A7FDBE1420EE27DD00E59587 /* MobileFuseeLoader.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A7FDBE1620EE27DD00E59587 /* MobileFuseeLoader */ = {
+			isa = PBXGroup;
+			children = (
+				A7C4EA1220EE2AFA0026FFC9 /* Misc */,
+				A7FDBE3320EE2AC600E59587 /* Resources */,
+				A7C4EA1320EE2B050026FFC9 /* Sources */,
+			);
+			path = MobileFuseeLoader;
+			sourceTree = "<group>";
+		};
+		A7FDBE2D20EE2A1700E59587 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A78BBEC820EE30F4007C3514 /* IOKit.framework */,
+				A701175E20EE320F00B3D45B /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A7FDBE3320EE2AC600E59587 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A7FDBE2020EE27DE00E59587 /* Assets.xcassets */,
+				A7458B4B20EF86C7008F4899 /* Payloads */,
+				A7458B4D20EF86D5008F4899 /* Tutorial */,
+				A7FDBE2220EE27DE00E59587 /* LaunchScreen.storyboard */,
+				A701176320EE677F00B3D45B /* Main.storyboard */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A7FDBE1320EE27DD00E59587 /* MobileFuseeLoader */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "MobileFuseeLoader" */;
+			buildPhases = (
+				A7FDBE1020EE27DD00E59587 /* Sources */,
+				A7FDBE1120EE27DD00E59587 /* Frameworks */,
+				A7FDBE1220EE27DD00E59587 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MobileFuseeLoader;
+			productName = MobileFuseeLoader;
+			productReference = A7FDBE1420EE27DD00E59587 /* MobileFuseeLoader.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A7FDBE0C20EE27DD00E59587 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = "Oliver Kuckertz";
+				TargetAttributes = {
+					A7FDBE1320EE27DD00E59587 = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
+				};
+			};
+			buildConfigurationList = A7FDBE0F20EE27DD00E59587 /* Build configuration list for PBXProject "MobileFuseeLoader" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A7FDBE0B20EE27DD00E59587;
+			productRefGroup = A7FDBE1520EE27DD00E59587 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A7FDBE1320EE27DD00E59587 /* MobileFuseeLoader */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A7FDBE1220EE27DD00E59587 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A701176520EE677F00B3D45B /* Main.storyboard in Resources */,
+				A7458B4C20EF86C7008F4899 /* Payloads in Resources */,
+				A7458B4E20EF86D5008F4899 /* Tutorial in Resources */,
+				A7FDBE2420EE27DE00E59587 /* LaunchScreen.storyboard in Resources */,
+				A7FDBE2120EE27DE00E59587 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A7FDBE1020EE27DD00E59587 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7FDBE2720EE27DE00E59587 /* main.m in Sources */,
+				A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */,
+				A7458B4A20EF8286008F4899 /* FLGettingStartedViewController.m in Sources */,
+				A701176220EE35BC00B3D45B /* FLUSBDevice.m in Sources */,
+				A7FDBE3220EE2AB900E59587 /* FLExec.m in Sources */,
+				A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */,
+				A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */,
+				A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A701176320EE677F00B3D45B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A701176420EE677F00B3D45B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A7FDBE2220EE27DE00E59587 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A7FDBE2320EE27DE00E59587 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A7FDBE2820EE27DE00E59587 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		A7FDBE2920EE27DE00E59587 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A7FDBE2B20EE27DE00E59587 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N3S4C3QL65;
+				INFOPLIST_FILE = MobileFuseeLoader/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.MobileFuseeLoader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A7FDBE2C20EE27DE00E59587 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = N3S4C3QL65;
+				INFOPLIST_FILE = MobileFuseeLoader/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.MobileFuseeLoader;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A7FDBE0F20EE27DD00E59587 /* Build configuration list for PBXProject "MobileFuseeLoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7FDBE2820EE27DE00E59587 /* Debug */,
+				A7FDBE2920EE27DE00E59587 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "MobileFuseeLoader" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7FDBE2B20EE27DE00E59587 /* Debug */,
+				A7FDBE2C20EE27DE00E59587 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A7FDBE0C20EE27DD00E59587 /* Project object */;
+}
