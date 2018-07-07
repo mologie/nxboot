@@ -7,13 +7,12 @@
 #import "FLExec.h"
 #import "FLUSBDeviceEnumerator.h"
 
-#define TEGRA_RCM_VID 0x0955
-#define TEGRA_RCM_PID 0x7321
+#define kTegraNintendoSwitchVendorID  0x0955
+#define kTegraNintendoSwitchProductID 0x7321
 
-@interface FLMainViewController () <FLExecDelegate, FLUSBDeviceEnumeratorDelegate>
+@interface FLMainViewController () <FLUSBDeviceEnumeratorDelegate>
 @property (strong, nonatomic) FLUSBDeviceEnumerator *usbEnum;
 @property (strong, nonatomic) FLUSBDevice *device;
-@property (strong, nonatomic) FLExec *comm;
 @property (strong, nonatomic) NSString *bootStatus;
 @property (strong, nonatomic) NSString *bootNowText;
 @property (weak, nonatomic) IBOutlet UILabel *bootButtonLabel;
@@ -33,7 +32,7 @@
 
     self.usbEnum = [[FLUSBDeviceEnumerator alloc] init];
     self.usbEnum.delegate = self;
-    [self.usbEnum addFilterForVendorID:TEGRA_RCM_VID productID:TEGRA_RCM_PID];
+    [self.usbEnum addFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
     [self.usbEnum start];
 }
 
@@ -111,20 +110,20 @@
 
 - (void)bootExecSelected {
     assert(self.device != nil);
-    self.bootStatus = @"Device connected! Boot & root...";
-    self.comm = [[FLExec alloc] init];
-    self.comm.delegate = self;
-    self.comm.device = self.device;
-    self.comm.relocator = [self fuseeRelocator];
-    self.comm.bootImage = [self fuseeBootImage];
-    [self.comm boot];
+    self.bootStatus = @"Device connected! Booting...";
+
+    // TODO run in a thread/queue? if so:
+    // TODO when reporting status ensure that self.device still matches
+    // TODO keep a week handle to device and compare to nil!
+    NSString *err = nil;
+    if (!FLExec(self.device, [self fuseeRelocator], [self fuseeBootImage], &err)) {
+        self.bootStatus = [NSString stringWithFormat:@"Error: %@", err];
+    }
 }
 
 - (void)bootStop {
     [self.bootActivityIndicator stopAnimating];
     [self setIdleBootStatus];
-    [self.comm cancel];
-    self.comm = nil;
     self.bootButtonLabel.text = self.bootNowText;
     self.active = NO;
 }
@@ -146,10 +145,6 @@
     [self bootStop];
 }
 
-#pragma mark - FLExecDelegate
-
-// TODO delegate
-
 #pragma mark - FLUSBDeviceEnumeratorDelegate
 
 - (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceConnected:(FLUSBDevice *)device {
@@ -160,10 +155,12 @@
 }
 
 - (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceDisconnected:(FLUSBDevice *)device {
-    [self.comm cancel];
-    self.comm = nil;
     self.device = nil;
     self.bootStatus = @"Device disconnected. Waiting for next connection...";
+}
+
+- (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceError:(NSString *)err {
+    self.bootStatus = [NSString stringWithFormat:@"Connection error: %@", err];
 }
 
 @end

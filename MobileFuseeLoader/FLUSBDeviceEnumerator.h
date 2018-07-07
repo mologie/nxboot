@@ -11,6 +11,7 @@
 @protocol FLUSBDeviceEnumeratorDelegate
 - (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceConnected:(FLUSBDevice *)device;
 - (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceDisconnected:(FLUSBDevice *)device;
+- (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceError:(NSString *)err;
 @end
 
 @interface FLUSBDeviceEnumerator : NSObject

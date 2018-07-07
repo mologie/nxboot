@@ -7,10 +7,10 @@
 #import <IOKit/IOKitLib.h>
 #import <IOKit/usb/IOUSBLib.h>
 
-#define FLUSBDeviceInterface     IOUSBDeviceInterface245
-#define FLUSBDeviceInterfaceUUID kIOUSBDeviceInterfaceID245
-#define FLUSBSubInterface        IOUSBInterfaceInterface245
-#define FLUSBSubInterfaceUUID    kIOUSBInterfaceInterfaceID245
+#define FLUSBDeviceInterface      IOUSBDeviceInterface245
+#define kFLUSBDeviceInterfaceUUID kIOUSBDeviceInterfaceID245
+#define FLUSBSubInterface         IOUSBInterfaceInterface245
+#define kFLUSBSubInterfaceUUID    kIOUSBInterfaceInterfaceID245
 
 #define FLCOMCall(OBJECT, METHOD, ...) (*(OBJECT))->METHOD((OBJECT), ##__VA_ARGS__)
 #define FLUSBCall(DEVICE, METHOD, ...) FLCOMCall((DEVICE)->_intf, METHOD, ##__VA_ARGS__)

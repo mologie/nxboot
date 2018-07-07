@@ -10,9 +10,11 @@
 		A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A701175E20EE320F00B3D45B /* WebKit.framework */; };
 		A701176220EE35BC00B3D45B /* FLUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A701176120EE35BC00B3D45B /* FLUSBDevice.m */; };
 		A701176520EE677F00B3D45B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A701176320EE677F00B3D45B /* Main.storyboard */; };
+		A740E25020F038FB0003FD32 /* NSData+FLHexEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = A740E24F20F038FB0003FD32 /* NSData+FLHexEncoding.m */; };
 		A7458B4A20EF8286008F4899 /* FLGettingStartedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */; };
 		A7458B4C20EF86C7008F4899 /* Payloads in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4B20EF86C7008F4899 /* Payloads */; };
 		A7458B4E20EF86D5008F4899 /* Tutorial in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4D20EF86D5008F4899 /* Tutorial */; };
+		A753DB4720F13CF00009E4D4 /* FLCmdTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A753DB4620F13CF00009E4D4 /* FLCmdTool.m */; };
 		A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78BBEC820EE30F4007C3514 /* IOKit.framework */; };
 		A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */; };
 		A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */; };
@@ -29,10 +31,14 @@
 		A701176020EE35BC00B3D45B /* FLUSBDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLUSBDevice.h; sourceTree = "<group>"; };
 		A701176120EE35BC00B3D45B /* FLUSBDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLUSBDevice.m; sourceTree = "<group>"; };
 		A701176420EE677F00B3D45B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A740E24E20F038FB0003FD32 /* NSData+FLHexEncoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+FLHexEncoding.h"; sourceTree = "<group>"; };
+		A740E24F20F038FB0003FD32 /* NSData+FLHexEncoding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+FLHexEncoding.m"; sourceTree = "<group>"; };
 		A7458B4820EF8286008F4899 /* FLGettingStartedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLGettingStartedViewController.h; sourceTree = "<group>"; };
 		A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLGettingStartedViewController.m; sourceTree = "<group>"; };
 		A7458B4B20EF86C7008F4899 /* Payloads */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Payloads; sourceTree = "<group>"; };
 		A7458B4D20EF86D5008F4899 /* Tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Tutorial; sourceTree = "<group>"; };
+		A753DB4520F13CF00009E4D4 /* FLCmdTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLCmdTool.h; sourceTree = "<group>"; };
+		A753DB4620F13CF00009E4D4 /* FLCmdTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLCmdTool.m; sourceTree = "<group>"; };
 		A78BBEC820EE30F4007C3514 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLBootProfilesViewController.h; sourceTree = "<group>"; };
 		A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLBootProfilesViewController.m; sourceTree = "<group>"; };
@@ -80,6 +86,8 @@
 				A7FDBE1820EE27DD00E59587 /* AppDelegate.m */,
 				A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */,
 				A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */,
+				A753DB4520F13CF00009E4D4 /* FLCmdTool.h */,
+				A753DB4620F13CF00009E4D4 /* FLCmdTool.m */,
 				A7FDBE3020EE2AB900E59587 /* FLExec.h */,
 				A7FDBE3120EE2AB900E59587 /* FLExec.m */,
 				A7458B4820EF8286008F4899 /* FLGettingStartedViewController.h */,
@@ -90,6 +98,8 @@
 				A701176120EE35BC00B3D45B /* FLUSBDevice.m */,
 				A7C4EA1720EE2D770026FFC9 /* FLUSBDeviceEnumerator.h */,
 				A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */,
+				A740E24E20F038FB0003FD32 /* NSData+FLHexEncoding.h */,
+				A740E24F20F038FB0003FD32 /* NSData+FLHexEncoding.m */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -218,9 +228,11 @@
 				A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */,
 				A7458B4A20EF8286008F4899 /* FLGettingStartedViewController.m in Sources */,
 				A701176220EE35BC00B3D45B /* FLUSBDevice.m in Sources */,
+				A740E25020F038FB0003FD32 /* NSData+FLHexEncoding.m in Sources */,
 				A7FDBE3220EE2AB900E59587 /* FLExec.m in Sources */,
 				A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */,
 				A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */,
+				A753DB4720F13CF00009E4D4 /* FLCmdTool.m in Sources */,
 				A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

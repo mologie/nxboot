@@ -51,33 +51,31 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
 
 - (void)start {
     kern_return_t kr;
-    mach_port_t masterPort = 0;
     NSMutableDictionary *matchingDict = nil;
 
     // clean up previous run before starting a new one
     [self stop];
 
-    kr = IOMasterPort(MACH_PORT_NULL, &masterPort);
-    if (kr || !masterPort) {
-        NSLog(@"ERR: Could not acquire master mach port (%08x)", kr);
-        goto cleanup;
-    }
-
-    matchingDict = (__bridge_transfer NSMutableDictionary *)IOServiceMatching(kIOUSBDeviceClassName);
+    // Note we're searching for IOUSBHostDevice kernel objects, which only works on macOS 10.11+ and iOS 9+.
+    // macOS has backwards-compatibility for IOUSBDevice, but iOS does not.
+    matchingDict = (__bridge_transfer NSMutableDictionary *)IOServiceMatching("IOUSBHostDevice");
     if (!matchingDict) {
         NSLog(@"ERR: Could not create service matching dict");
-        goto cleanup;
+        return;
     }
     [matchingDict setValue:@(self.VID) forKey:@(kUSBVendorID)];
     [matchingDict setValue:@(self.PID) forKey:@(kUSBProductID)];
 
-    self.notifyPort = IONotificationPortCreate(masterPort);
+    self.notifyPort = IONotificationPortCreate(kIOMasterPortDefault);
     if (!self.notifyPort) {
         NSLog(@"ERR: Could not create notification port");
-        goto cleanup;
+        return;
     }
 
-    CFRunLoopAddSource(CFRunLoopGetCurrent(), IONotificationPortGetRunLoopSource(self.notifyPort), kCFRunLoopDefaultMode);
+    CFRunLoopAddSource(CFRunLoopGetCurrent(),
+                       IONotificationPortGetRunLoopSource(self.notifyPort),
+                       kCFRunLoopDefaultMode);
+
     kr = IOServiceAddMatchingNotification(self.notifyPort,
                                           kIOFirstMatchNotification,
                                           (__bridge_retained CFDictionaryRef)matchingDict,
@@ -86,19 +84,15 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
                                           &_deviceIter);
     if (kr) {
         NSLog(@"ERR: Could not add matching service notification (%08x)", kr);
-        goto cleanup;
+        return;
     }
 
     NSLog(@"USB: OK, listening for devices matching VID:%04x PID:%04x", self.VID, self.PID);
 
-    [self handleDevicesAdded:_deviceIter];
-
-    NSLog(@"USB: Done processing initial device list");
-
-cleanup:
-    if (masterPort) {
-        mach_port_deallocate(mach_task_self(), masterPort);
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self handleDevicesAdded:self->_deviceIter];
+        NSLog(@"USB: Done processing initial device list");
+    });
 }
 
 - (void)stop {
@@ -126,13 +120,13 @@ cleanup:
         // retrieve service name as device name
         io_name_t ioDeviceName;
         kr = IORegistryEntryGetName(service, ioDeviceName);
-        if (kr != KERN_SUCCESS) {
+        if (kr) {
             ioDeviceName[0] = '\0';
         }
         device.name = [NSString stringWithCString:ioDeviceName encoding:NSASCIIStringEncoding];
         NSLog(@"USB: Device added: 0x%08x `%@'", service, device.name);
 
-        // load and open device interface
+        // load the device interface implementation bundle
         IOCFPlugInInterface **plugInInterface = NULL;
         SInt32 plugInScore;
         kr = IOCreatePlugInInterfaceForService(service,
@@ -140,14 +134,14 @@ cleanup:
                                                kIOCFPlugInInterfaceID,
                                                &plugInInterface,
                                                &plugInScore);
-        if ((kr != kIOReturnSuccess) || !plugInInterface) {
-            NSLog(@"ERR: Could not create USB device plugin instance (%08x), skipping device", kr);
+        if (kr || !plugInInterface) {
+            NSLog(@"ERR: Could not create USB device plugin instance (%08x)", kr);
             goto cleanup;
         }
         kr = (*plugInInterface)->QueryInterface(plugInInterface,
-                                                CFUUIDGetUUIDBytes(FLUSBDeviceInterfaceUUID),
+                                                CFUUIDGetUUIDBytes(kFLUSBDeviceInterfaceUUID),
                                                 (void*)&device->_intf);
-        IODestroyPlugInInterface(plugInInterface);
+        FLCOMCall(plugInInterface, Release);
         plugInInterface = NULL;
         if (kr || !device->_intf) {
             NSLog(@"ERR: Could not get USB device interface (%08x)", kr);
@@ -173,6 +167,9 @@ cleanup:
             NSLog(@"ERR: IOServiceAddInterestNotification failed with code 0x%08x", kr);
             goto cleanup;
         }
+
+        // notify delegate
+        [self.delegate usbDeviceEnumerator:self deviceConnected:device];
 
     cleanup:
         kr = IOObjectRelease(service);
