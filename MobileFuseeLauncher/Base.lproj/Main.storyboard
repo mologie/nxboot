@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Fusée Loader-->
+        <!--Fusée Launcher-->
         <scene sceneID="yCM-dp-Tps">
             <objects>
                 <tableViewController id="NyU-eS-xwT" customClass="FLMainViewController" sceneMemberID="viewController">
@@ -137,7 +137,7 @@
                             <outlet property="delegate" destination="NyU-eS-xwT" id="jgL-TU-3hb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Fusée Loader" id="Efn-As-kGg"/>
+                    <navigationItem key="navigationItem" title="Fusée Launcher" id="Efn-As-kGg"/>
                     <connections>
                         <outlet property="bootActivityIndicator" destination="PKu-kp-ZF5" id="xj2-8t-zYd"/>
                         <outlet property="bootButtonLabel" destination="fUO-FO-BzK" id="WWT-k1-9kb"/>
@@ -155,8 +155,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fusée Gelée Loader for iOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufd-n3-Hw1">
-                                <rect key="frame" x="60" y="156" width="255" height="24"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fusée Gelée Launcher for iOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufd-n3-Hw1">
+                                <rect key="frame" x="49" y="156" width="277.5" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" red="1" green="0.5230926494" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
