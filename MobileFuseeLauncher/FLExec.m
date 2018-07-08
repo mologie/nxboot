@@ -11,17 +11,14 @@
 #import <IOKit/IOCFPlugIn.h>
 #import <IOKit/usb/IOUSBLib.h>
 
-// USB protocol
-static UInt8  const kTegraDevToHost    = 0x82;
-static UInt8  const kTegraReqGetStatus = 0x00;
+static UInt32 const kNXCopyBuf1        = 0x40009000;
+static UInt32 const kNXStackLowest     = 0x40010000;
+static UInt32 const kNXPayloadAddr     = kNXStackLowest;
+static UInt32 const kNXRelocatorAddr   = 0x40010E40;
+static UInt32 const kNXStackSprayStart = 0x40014E40;
+static UInt32 const kNXStackSprayEnd   = 0x40017000;
 
-// exploit implementation details
-static UInt32 const kTegraCopyBuf1         = 0x40009000;
-static UInt32 const kTegraRCMStackEnd      = 0x40010000;
-static UInt32 const kTegraRCMPayloadAddr   = kTegraRCMStackEnd;
-static UInt32 const kTegraPayloadStartAddr = 0x40010E40;
-static UInt32 const kTegraStackSprayStart  = 0x40014E40;
-static UInt32 const kTegraStackSprayEnd    = 0x40017000;
+static UInt8 DMADummyBuffer[kNXStackLowest - kNXCopyBuf1]; // 0x7000 / 28 KiB
 
 #define ERR(FMT, ...) FLSetError([NSString stringWithFormat:FMT, ##__VA_ARGS__], err)
 
@@ -66,7 +63,7 @@ static NSData *FLExecReadDeviceID(struct FLExecDesc const *desc) {
     return [NSData dataWithBytes:deviceID length:sizeof(deviceID)];
 }
 
-static BOOL FLExecFuseeGelee(struct FLExecDesc const *desc, NSData *relocator, NSData *iramImage, NSString **err) {
+static BOOL FLExecFuseeGelee(FLUSBDevice *device, struct FLExecDesc const *desc, NSData *relocator, NSData *iramImage, NSString **err) {
     // There are two implementations for CVE-2018-6242: Fusée Gelée and ShofEL2.
     //
     // Fusée Gelée's payload is structured like so:
@@ -100,18 +97,18 @@ static BOOL FLExecFuseeGelee(struct FLExecDesc const *desc, NSData *relocator, N
     NSLog(@"USB: Device ID: %@", deviceID.FL_hexLowerCaseString);
 
     // sanity check
-    if (relocator.length > kTegraPayloadStartAddr - kTegraRCMPayloadAddr) { // 3648 bytes
+    if (relocator.length > kNXRelocatorAddr - kNXPayloadAddr) { // 3648 bytes
         ERR(@"Relocator binary exceeds size limit");
         return NO;
     }
-    if (iramImage.length > payloadMaxLength - (kTegraStackSprayEnd - kTegraStackSprayStart) - (kTegraPayloadStartAddr - kTegraRCMPayloadAddr) - headerLength) {
+    if (iramImage.length > payloadMaxLength - (kNXStackSprayEnd - kNXStackSprayStart) - (kNXRelocatorAddr - kNXPayloadAddr) - headerLength) {
         ERR(@"Boot image binary exceeds size limit");
         return NO;
     }
 
     // split payload into lower and upper parts
     NSData *iramImage0, *iramImage1;
-    NSUInteger iramImage0N = kTegraStackSprayStart - kTegraPayloadStartAddr; // 16 KiB
+    NSUInteger iramImage0N = kNXStackSprayStart - kNXRelocatorAddr; // 16 KiB
     if (iramImage.length >= iramImage0N) {
         iramImage0 = [iramImage subdataWithRange:NSMakeRange(0, iramImage0N)];
         iramImage1 = [iramImage subdataWithRange:NSMakeRange(iramImage0N, iramImage.length - iramImage0N)];
@@ -128,10 +125,10 @@ static BOOL FLExecFuseeGelee(struct FLExecDesc const *desc, NSData *relocator, N
     [payload appendBytes:(void const *)&payloadMaxLengthLE length:4];
     FLPadData(payload, headerLength - payload.length);
     [payload appendData:relocator];
-    FLPadData(payload, kTegraPayloadStartAddr - (kTegraRCMPayloadAddr + relocator.length));
+    FLPadData(payload, kNXRelocatorAddr - (kNXPayloadAddr + relocator.length));
     [payload appendData:iramImage0];
-    UInt32 rcmPayloadAddrLE = OSSwapHostToLittleInt32(kTegraRCMPayloadAddr);
-    for (NSUInteger i = 0; i < (kTegraStackSprayEnd - kTegraStackSprayStart) / 4; i++) {
+    UInt32 rcmPayloadAddrLE = OSSwapHostToLittleInt32(kNXPayloadAddr);
+    for (NSUInteger i = 0; i < (kNXStackSprayEnd - kNXStackSprayStart) / 4; i++) {
         [payload appendBytes:&rcmPayloadAddrLE length:4];
     }
     [payload appendData:iramImage1];
@@ -146,10 +143,6 @@ static BOOL FLExecFuseeGelee(struct FLExecDesc const *desc, NSData *relocator, N
     NSLog(@"USB: Constructed payload with %lu (0x%lx) bytes", (unsigned long)payload.length, (unsigned long)payload.length);
     //[payload writeToFile:@"/tmp/flexec_payload" atomically:NO];
     //NSLog(@"DBG: Payload dumped at /tmp/flexec_payload");
-
-    // FIXME the following 3 blocks reliably make the kernel of my iPad with iOS 11.3.1 panic.
-    // panic(cpu 1 caller 0xfffffff018f34260): "complete() while dma active"
-    // works fine on macOS!
 
     // write the payload and track which DMA buffer each packet ends up in
     NSLog(@"USB: Transferring payload...");
@@ -180,24 +173,25 @@ static BOOL FLExecFuseeGelee(struct FLExecDesc const *desc, NSData *relocator, N
         NSLog(@"USB: Already in high buffer");
     }
 
-    // send oversized control request
+    // NOTE workaround: calling ControlRequest(TO) will crash iOS 11.3.1:
+    // panic(cpu 1 caller 0xfffffff018f34260): "complete() while dma active"
+    // We issue the control request on the device itself with invalid bmRequestType (endpoint bit is set,) which has
+    // the same effect as issuing a control request to an interface.
     NSLog(@"USB: Executing...");
-    NSUInteger const controlLength = kTegraRCMStackEnd - kTegraCopyBuf1; // 28 KiB
-    NSMutableData *controlDummyReturnBuf = [[NSMutableData alloc] initWithLength:controlLength];
     IOUSBDevRequestTO controlRequest = {
-        .bmRequestType     = kTegraDevToHost,
-        .bRequest          = kTegraReqGetStatus,
+        .bmRequestType     = 0x82, // 0x80 IN | 0x00 STANDARD | 0x02 ENDPOINT
+        .bRequest          = kUSBRqGetStatus,
         .wValue            = 0,
         .wIndex            = 0,
-        .wLength           = controlLength,
-        .pData             = (void *)controlDummyReturnBuf.bytes,
+        .wLength           = sizeof(DMADummyBuffer),
+        .pData             = DMADummyBuffer,
         .wLenDone          = 0,
         .noDataTimeout     = 100,
         .completionTimeout = 100
     };
-    kr = FLCOMCall(desc->intf, ControlRequestTO, 0, &controlRequest);
+    kr = FLUSBCall(device, DeviceRequestTO, &controlRequest);
     if (kr) {
-        NSLog(@"USB: ControlRequestTO failed - this is expected (code %08x)", kr);
+        NSLog(@"USB: DeviceRequestTO failed - this is expected (code %08x)", kr);
     }
     else {
         ERR(@"ControlRequestTO should have failed");
@@ -361,12 +355,12 @@ BOOL FLExec(FLUSBDevice *device, NSData *relocator, NSData *image, NSString **er
     if (desc.intf) {
         if (FLExecRelocatorIsCBFS(relocator)) {
             NSLog(@"USB: Treating the relocator as CBFS payload");
-            if (FLExecFuseeGelee(&desc, relocator, nil, err)) {
+            if (FLExecFuseeGelee(device, &desc, relocator, nil, err)) {
                 ok = FLExecCBFS(&desc, image, err);
             }
         }
         else {
-            ok = FLExecFuseeGelee(&desc, relocator, image, err);
+            ok = FLExecFuseeGelee(device, &desc, relocator, image, err);
         }
         FLExecReleaseDeviceInterface(device, desc.intf);
     }
