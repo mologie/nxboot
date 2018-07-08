@@ -9,8 +9,8 @@
 
 #define FLUSBDeviceInterface      IOUSBDeviceInterface245
 #define kFLUSBDeviceInterfaceUUID kIOUSBDeviceInterfaceID245
-#define FLUSBSubInterface         IOUSBInterfaceInterface245
-#define kFLUSBSubInterfaceUUID    kIOUSBInterfaceInterfaceID245
+#define FLUSBSubInterface         IOUSBInterfaceInterface300
+#define kFLUSBSubInterfaceUUID    kIOUSBInterfaceInterfaceID300
 
 #define FLCOMCall(OBJECT, METHOD, ...) (*(OBJECT))->METHOD((OBJECT), ##__VA_ARGS__)
 #define FLUSBCall(DEVICE, METHOD, ...) FLCOMCall((DEVICE)->_intf, METHOD, ##__VA_ARGS__)

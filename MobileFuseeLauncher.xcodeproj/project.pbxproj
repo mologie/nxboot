@@ -14,7 +14,6 @@
 		A7458B4A20EF8286008F4899 /* FLGettingStartedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */; };
 		A7458B4C20EF86C7008F4899 /* Payloads in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4B20EF86C7008F4899 /* Payloads */; };
 		A7458B4E20EF86D5008F4899 /* Tutorial in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4D20EF86D5008F4899 /* Tutorial */; };
-		A753DB4720F13CF00009E4D4 /* FLCmdTool.m in Sources */ = {isa = PBXBuildFile; fileRef = A753DB4620F13CF00009E4D4 /* FLCmdTool.m */; };
 		A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78BBEC820EE30F4007C3514 /* IOKit.framework */; };
 		A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */; };
 		A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */; };
@@ -37,8 +36,6 @@
 		A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLGettingStartedViewController.m; sourceTree = "<group>"; };
 		A7458B4B20EF86C7008F4899 /* Payloads */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Payloads; sourceTree = "<group>"; };
 		A7458B4D20EF86D5008F4899 /* Tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Tutorial; sourceTree = "<group>"; };
-		A753DB4520F13CF00009E4D4 /* FLCmdTool.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLCmdTool.h; sourceTree = "<group>"; };
-		A753DB4620F13CF00009E4D4 /* FLCmdTool.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLCmdTool.m; sourceTree = "<group>"; };
 		A78BBEC820EE30F4007C3514 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLBootProfilesViewController.h; sourceTree = "<group>"; };
 		A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLBootProfilesViewController.m; sourceTree = "<group>"; };
@@ -46,7 +43,7 @@
 		A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLMainViewController.m; sourceTree = "<group>"; };
 		A7C4EA1720EE2D770026FFC9 /* FLUSBDeviceEnumerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLUSBDeviceEnumerator.h; sourceTree = "<group>"; };
 		A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLUSBDeviceEnumerator.m; sourceTree = "<group>"; };
-		A7FDBE1420EE27DD00E59587 /* MobileFuseeLoader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileFuseeLoader.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7FDBE1420EE27DD00E59587 /* MobileFuseeLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileFuseeLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7FDBE1720EE27DD00E59587 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A7FDBE1820EE27DD00E59587 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A7FDBE2020EE27DE00E59587 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -86,8 +83,6 @@
 				A7FDBE1820EE27DD00E59587 /* AppDelegate.m */,
 				A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */,
 				A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */,
-				A753DB4520F13CF00009E4D4 /* FLCmdTool.h */,
-				A753DB4620F13CF00009E4D4 /* FLCmdTool.m */,
 				A7FDBE3020EE2AB900E59587 /* FLExec.h */,
 				A7FDBE3120EE2AB900E59587 /* FLExec.m */,
 				A7458B4820EF8286008F4899 /* FLGettingStartedViewController.h */,
@@ -107,7 +102,7 @@
 		A7FDBE0B20EE27DD00E59587 = {
 			isa = PBXGroup;
 			children = (
-				A7FDBE1620EE27DD00E59587 /* MobileFuseeLoader */,
+				A7FDBE1620EE27DD00E59587 /* MobileFuseeLauncher */,
 				A7FDBE1520EE27DD00E59587 /* Products */,
 				A7FDBE2D20EE2A1700E59587 /* Frameworks */,
 			);
@@ -116,19 +111,19 @@
 		A7FDBE1520EE27DD00E59587 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A7FDBE1420EE27DD00E59587 /* MobileFuseeLoader.app */,
+				A7FDBE1420EE27DD00E59587 /* MobileFuseeLauncher.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A7FDBE1620EE27DD00E59587 /* MobileFuseeLoader */ = {
+		A7FDBE1620EE27DD00E59587 /* MobileFuseeLauncher */ = {
 			isa = PBXGroup;
 			children = (
 				A7C4EA1220EE2AFA0026FFC9 /* Misc */,
 				A7FDBE3320EE2AC600E59587 /* Resources */,
 				A7C4EA1320EE2B050026FFC9 /* Sources */,
 			);
-			path = MobileFuseeLoader;
+			path = MobileFuseeLauncher;
 			sourceTree = "<group>";
 		};
 		A7FDBE2D20EE2A1700E59587 /* Frameworks */ = {
@@ -155,9 +150,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A7FDBE1320EE27DD00E59587 /* MobileFuseeLoader */ = {
+		A7FDBE1320EE27DD00E59587 /* MobileFuseeLauncher */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "MobileFuseeLoader" */;
+			buildConfigurationList = A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "MobileFuseeLauncher" */;
 			buildPhases = (
 				A7FDBE1020EE27DD00E59587 /* Sources */,
 				A7FDBE1120EE27DD00E59587 /* Frameworks */,
@@ -167,9 +162,9 @@
 			);
 			dependencies = (
 			);
-			name = MobileFuseeLoader;
-			productName = MobileFuseeLoader;
-			productReference = A7FDBE1420EE27DD00E59587 /* MobileFuseeLoader.app */;
+			name = MobileFuseeLauncher;
+			productName = MobileFuseeLauncher;
+			productReference = A7FDBE1420EE27DD00E59587 /* MobileFuseeLauncher.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +181,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A7FDBE0F20EE27DD00E59587 /* Build configuration list for PBXProject "MobileFuseeLoader" */;
+			buildConfigurationList = A7FDBE0F20EE27DD00E59587 /* Build configuration list for PBXProject "MobileFuseeLauncher" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -199,7 +194,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A7FDBE1320EE27DD00E59587 /* MobileFuseeLoader */,
+				A7FDBE1320EE27DD00E59587 /* MobileFuseeLauncher */,
 			);
 		};
 /* End PBXProject section */
@@ -232,7 +227,6 @@
 				A7FDBE3220EE2AB900E59587 /* FLExec.m in Sources */,
 				A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */,
 				A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */,
-				A753DB4720F13CF00009E4D4 /* FLCmdTool.m in Sources */,
 				A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -373,15 +367,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N3S4C3QL65;
-				INFOPLIST_FILE = MobileFuseeLoader/Info.plist;
+				INFOPLIST_FILE = MobileFuseeLauncher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.MobileFuseeLoader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.MobileFuseeLauncher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -390,15 +386,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N3S4C3QL65;
-				INFOPLIST_FILE = MobileFuseeLoader/Info.plist;
+				INFOPLIST_FILE = MobileFuseeLauncher/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.MobileFuseeLoader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.MobileFuseeLauncher;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -406,7 +404,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A7FDBE0F20EE27DD00E59587 /* Build configuration list for PBXProject "MobileFuseeLoader" */ = {
+		A7FDBE0F20EE27DD00E59587 /* Build configuration list for PBXProject "MobileFuseeLauncher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A7FDBE2820EE27DE00E59587 /* Debug */,
@@ -415,7 +413,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "MobileFuseeLoader" */ = {
+		A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "MobileFuseeLauncher" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A7FDBE2B20EE27DE00E59587 /* Debug */,

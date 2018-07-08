@@ -14,6 +14,8 @@
 - (void)invalidate {
     kern_return_t kr;
 
+    NSLog(@"USB: Discarding handles of device `%@'", self.name);
+
     if (_intf) {
         kr = FLUSBCall(self, Release);
         _intf = NULL;

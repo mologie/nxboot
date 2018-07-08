@@ -155,6 +155,7 @@ static BOOL FLExecFuseeGelee(struct FLExecDesc const *desc, NSData *relocator, N
     NSLog(@"USB: Transferring payload...");
     int currentBuffer = 0;
     for (UInt32 i = 0; i < payload.length; i += packetSize) {
+        NSLog(@"USB: Progress %lu/%lu", (unsigned long)i, (unsigned long)payload.length);
         kr = FLCOMCall(desc->intf, WritePipeTO, desc->writeRef, (void *)(payload.bytes + i), packetSize, 1000, 1000);
         if (kr) {
             ERR(@"Payload write failed at offset %lu with code %08x", (unsigned long)i, kr);
@@ -371,3 +372,5 @@ BOOL FLExec(FLUSBDevice *device, NSData *relocator, NSData *image, NSString **er
     }
     return ok;
 }
+
+#undef ERR

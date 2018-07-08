@@ -13,6 +13,8 @@
 #import <IOKit/usb/IOUSBLib.h>
 #import <mach/mach.h>
 
+#define ERR(FMT, ...) [self handleError:[NSString stringWithFormat:FMT, ##__VA_ARGS__]]
+
 @interface FLUSBDeviceEnumerator () {
     io_iterator_t _deviceIter;
 }
@@ -60,7 +62,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
     // macOS has backwards-compatibility for IOUSBDevice, but iOS does not.
     matchingDict = (__bridge_transfer NSMutableDictionary *)IOServiceMatching("IOUSBHostDevice");
     if (!matchingDict) {
-        NSLog(@"ERR: Could not create service matching dict");
+        ERR(@"Could not create service matching dict");
         return;
     }
     [matchingDict setValue:@(self.VID) forKey:@(kUSBVendorID)];
@@ -68,7 +70,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
 
     self.notifyPort = IONotificationPortCreate(kIOMasterPortDefault);
     if (!self.notifyPort) {
-        NSLog(@"ERR: Could not create notification port");
+        ERR(@"Could not create notification port");
         return;
     }
 
@@ -83,7 +85,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
                                           (__bridge void *)self,
                                           &_deviceIter);
     if (kr) {
-        NSLog(@"ERR: Could not add matching service notification (%08x)", kr);
+        ERR(@"Could not add matching service notification (%08x)", kr);
         return;
     }
 
@@ -135,7 +137,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
                                                &plugInInterface,
                                                &plugInScore);
         if (kr || !plugInInterface) {
-            NSLog(@"ERR: Could not create USB device plugin instance (%08x)", kr);
+            ERR(@"Could not create USB device plugin instance (%08x)", kr);
             goto cleanup;
         }
         kr = (*plugInInterface)->QueryInterface(plugInInterface,
@@ -144,14 +146,14 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
         FLCOMCall(plugInInterface, Release);
         plugInInterface = NULL;
         if (kr || !device->_intf) {
-            NSLog(@"ERR: Could not get USB device interface (%08x)", kr);
+            ERR(@"Could not get USB device interface (%08x)", kr);
             goto cleanup;
         }
 
         // fetch location ID
         kr = FLUSBCall(device, GetLocationID, &device->_locationID);
         if (kr != KERN_SUCCESS) {
-            NSLog(@"ERR: GetLocationID failed with code %08x, skipping device\n", kr);
+            ERR(@"GetLocationID failed with code %08x, skipping device\n", kr);
             goto cleanup;
         }
         NSLog(@"USB: Device location ID: 0x%lx\n", (unsigned long)device->_locationID);
@@ -164,7 +166,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
                                               (__bridge_retained void *)device,
                                               &device->_notification);
         if (kr != KERN_SUCCESS) {
-            NSLog(@"ERR: IOServiceAddInterestNotification failed with code 0x%08x", kr);
+            ERR(@"IOServiceAddInterestNotification failed with code 0x%08x", kr);
             goto cleanup;
         }
 
@@ -194,4 +196,11 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
     }
 }
 
+- (void)handleError:(NSString *)err {
+    NSLog(@"ERR: %@", err);
+    [self.delegate usbDeviceEnumerator:self deviceError:err];
+}
+
 @end
+
+#undef ERR

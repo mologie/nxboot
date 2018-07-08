@@ -1,10 +1,6 @@
-//
-//  main.m
-//  MobileFuseeLoader
-//
-//  Created by Oliver Kuckertz on 05.07.18.
-//  Copyright © 2018 Oliver Kuckertz. All rights reserved.
-//
+/**
+ * @file entry point
+ */
 
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
