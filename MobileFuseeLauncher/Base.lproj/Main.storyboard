@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -184,6 +185,13 @@ CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) a
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mologie" translatesAutoresizingMaskIntoConstraints="NO" id="o2s-qz-IuZ">
+                                <rect key="frame" x="226" y="518" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="o2s-qz-IuZ" secondAttribute="height" multiplier="1:1" id="2Ya-w2-gVx"/>
+                                    <constraint firstAttribute="height" constant="150" id="ClD-TM-8V5"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.16" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" red="1" green="0.5230926494" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -197,6 +205,8 @@ CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) a
                             <constraint firstItem="ufd-n3-Hw1" firstAttribute="centerX" secondItem="7ul-UM-W3v" secondAttribute="centerX" id="S8m-Q9-Ubf"/>
                             <constraint firstItem="ufd-n3-Hw1" firstAttribute="top" secondItem="7ul-UM-W3v" secondAttribute="top" constant="40" id="bl3-PV-TEj"/>
                             <constraint firstItem="bIF-jG-w4c" firstAttribute="top" secondItem="cbf-Uj-Jf9" secondAttribute="bottom" constant="5" id="dMW-IC-cUg"/>
+                            <constraint firstItem="o2s-qz-IuZ" firstAttribute="bottom" secondItem="7ul-UM-W3v" secondAttribute="bottom" constant="1" id="fWb-c7-8rL"/>
+                            <constraint firstItem="o2s-qz-IuZ" firstAttribute="trailing" secondItem="7ul-UM-W3v" secondAttribute="trailing" constant="1" id="uGj-N1-EoW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7ul-UM-W3v"/>
                     </view>
@@ -204,7 +214,7 @@ CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) a
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y3X-wU-RLe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2876" y="190.25487256371815"/>
+            <point key="canvasLocation" x="2874.375" y="190.14084507042253"/>
         </scene>
         <!--Boot Profiles-->
         <scene sceneID="cmb-uJ-NP2">
@@ -258,7 +268,7 @@ CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) a
                                 <rect key="frame" x="0.0" y="116" width="375" height="2"/>
                             </progressView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="lhO-g7-vLN">
-                                <rect key="frame" x="177" y="323" width="20" height="20"/>
+                                <rect key="frame" x="177.5" y="323.5" width="20" height="20"/>
                             </activityIndicatorView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="6UH-Fn-pcd">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
@@ -323,5 +333,6 @@ CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) a
     <resources>
         <image name="BrowserBack" width="22" height="22"/>
         <image name="BrowserForward" width="22" height="22"/>
+        <image name="Mologie" width="512" height="512"/>
     </resources>
 </document>
