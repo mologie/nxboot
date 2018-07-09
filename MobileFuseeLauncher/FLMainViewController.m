@@ -7,9 +7,6 @@
 #import "FLExec.h"
 #import "FLUSBDeviceEnumerator.h"
 
-#define kTegraNintendoSwitchVendorID  0x0955
-#define kTegraNintendoSwitchProductID 0x7321
-
 @interface FLMainViewController () <FLUSBDeviceEnumeratorDelegate>
 @property (strong, nonatomic) FLUSBDeviceEnumerator *usbEnum;
 @property (strong, nonatomic) FLUSBDevice *device;

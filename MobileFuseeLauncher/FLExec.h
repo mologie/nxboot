@@ -7,6 +7,9 @@
 #import <IOKit/IOKitLib.h>
 #import <IOKit/usb/IOUSBLib.h>
 
+#define kTegraNintendoSwitchVendorID  0x0955
+#define kTegraNintendoSwitchProductID 0x7321
+
 #define FLUSBDeviceInterface      IOUSBDeviceInterface245
 #define kFLUSBDeviceInterfaceUUID kIOUSBDeviceInterfaceID245
 #define FLUSBSubInterface         IOUSBInterfaceInterface245

@@ -22,7 +22,7 @@
 - (void)start {
     self.usbEnum = [[FLUSBDeviceEnumerator alloc] init];
     self.usbEnum.delegate = self;
-    [self.usbEnum addFilterForVendorID:0x0955 productID:0x7321];
+    [self.usbEnum addFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
     [self.usbEnum start];
 }
 
