@@ -151,7 +151,7 @@
         <!--About-->
         <scene sceneID="b1E-r6-iP7">
             <objects>
-                <viewController id="yXt-UC-in5" sceneMemberID="viewController">
+                <viewController id="yXt-UC-in5" customClass="FLAboutScreenViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZTg-rK-hPY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -168,8 +168,8 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version 1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbf-Uj-Jf9">
-                                <rect key="frame" x="140" y="185" width="95" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version X.Y.Z" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbf-Uj-Jf9">
+                                <rect key="frame" x="138" y="185" width="99" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -211,6 +211,9 @@ CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) a
                         <viewLayoutGuide key="safeArea" id="7ul-UM-W3v"/>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="7rq-IS-oKd"/>
+                    <connections>
+                        <outlet property="versionLabel" destination="cbf-Uj-Jf9" id="b75-7t-t87"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y3X-wU-RLe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
