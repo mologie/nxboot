@@ -4,6 +4,8 @@
  */
 
 #import <Foundation/Foundation.h>
+
+// inline source files for trivial, single-file compilation. sorry!
 #import "MobileFuseeLauncher/FLExec.m"
 #import "MobileFuseeLauncher/FLUSBDevice.m"
 #import "MobileFuseeLauncher/FLUSBDeviceEnumerator.m"
@@ -26,7 +28,7 @@
 
 - (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceConnected:(FLUSBDevice *)device {
     NSString *err = nil;
-    if (FLExec(device, self.relocator, self.image, &err)) {
+    if (FLExec(device->_intf, self.relocator, self.image, &err)) {
         NSLog(@"CMD: FLExec succeeded");
     }
     else {

@@ -116,7 +116,7 @@
     // TODO when reporting status ensure that self.device still matches
     // TODO keep a week handle to device and compare to nil!
     NSString *err = nil;
-    if (!FLExec(self.device, [self fuseeRelocator], [self fuseeBootImage], &err)) {
+    if (!FLExec(self.device->_intf, [self fuseeRelocator], [self fuseeBootImage], &err)) {
         self.bootStatus = [NSString stringWithFormat:@"Error: %@", err];
     }
 }

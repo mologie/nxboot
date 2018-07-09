@@ -151,7 +151,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
         }
 
         // fetch location ID
-        kr = FLUSBCall(device, GetLocationID, &device->_locationID);
+        kr = FLCOMCall(device->_intf, GetLocationID, &device->_locationID);
         if (kr != KERN_SUCCESS) {
             ERR(@"GetLocationID failed with code %08x, skipping device\n", kr);
             goto cleanup;

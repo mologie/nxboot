@@ -16,7 +16,7 @@
 
     if (_intf) {
         NSLog(@"USB: Discarding interface of device `%@'", self.name);
-        kr = FLUSBCall(self, Release);
+        kr = (*self->_intf)->Release(self->_intf);
         _intf = NULL;
     }
 

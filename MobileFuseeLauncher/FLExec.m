@@ -7,6 +7,7 @@
 
 #import "FLExec.h"
 #import "NSData+FLHexEncoding.h"
+#import <Foundation/Foundation.h>
 #import <IOKit/IOKitLib.h>
 #import <IOKit/IOCFPlugIn.h>
 #import <IOKit/usb/IOUSBLib.h>
@@ -63,7 +64,7 @@ static NSData *FLExecReadDeviceID(struct FLExecDesc const *desc) {
     return [NSData dataWithBytes:deviceID length:sizeof(deviceID)];
 }
 
-static BOOL FLExecFuseeGelee(FLUSBDevice *device, struct FLExecDesc const *desc, NSData *relocator, NSData *iramImage, NSString **err) {
+static BOOL FLExecFuseeGelee(FLUSBDeviceInterface **device, struct FLExecDesc const *desc, NSData *relocator, NSData *iramImage, NSString **err) {
     // There are two implementations for CVE-2018-6242: Fusée Gelée and ShofEL2.
     //
     // Fusée Gelée's payload is structured like so:
@@ -189,7 +190,7 @@ static BOOL FLExecFuseeGelee(FLUSBDevice *device, struct FLExecDesc const *desc,
         .noDataTimeout     = 100,
         .completionTimeout = 100
     };
-    kr = FLUSBCall(device, DeviceRequestTO, &controlRequest);
+    kr = FLCOMCall(device, DeviceRequestTO, &controlRequest);
     if (kr) {
         NSLog(@"USB: DeviceRequestTO failed - this is expected (code %08x)", kr);
     }
@@ -211,19 +212,19 @@ BOOL FLExecCBFS(struct FLExecDesc const *desc, NSData *cbfsImage, NSString **err
     return YES;
 }
 
-static struct FLExecDesc FLExecAcquireDeviceInterface(FLUSBDevice *device, NSString **err) {
+static struct FLExecDesc FLExecAcquireDeviceInterface(FLUSBDeviceInterface **device, NSString **err) {
     kern_return_t kr;
     struct FLExecDesc desc = kFLExecDescInvalid;
     io_iterator_t subIntfIter = 0;
     io_service_t intfService = 0;
 
     // open and configure device
-    kr = FLUSBCall(device, USBDeviceOpenSeize);
+    kr = FLCOMCall(device, USBDeviceOpenSeize);
     if (kr) {
         ERR(@"USBDeviceOpenSeize failed with code %08x", kr);
         goto cleanup_error;
     }
-    kr = FLUSBCall(device, SetConfiguration, 1);
+    kr = FLCOMCall(device, SetConfiguration, 1);
     if (kr) {
         ERR(@"SetConfiguration failed with code %08x", kr);
         goto cleanup_error;
@@ -236,7 +237,7 @@ static struct FLExecDesc FLExecAcquireDeviceInterface(FLUSBDevice *device, NSStr
         .bInterfaceProtocol = kIOUSBFindInterfaceDontCare,
         .bAlternateSetting  = kIOUSBFindInterfaceDontCare
     };
-    kr = FLUSBCall(device, CreateInterfaceIterator, &subIntfReq, &subIntfIter);
+    kr = FLCOMCall(device, CreateInterfaceIterator, &subIntfReq, &subIntfIter);
     if (kr) {
         ERR(@"CreateInterfaceIterator failed with code %08x", kr);
         goto cleanup_error;
@@ -330,14 +331,14 @@ cleanup_error:
         FLCOMCall(desc.intf, USBInterfaceClose);
         FLCOMCall(desc.intf, Release);
     }
-    FLUSBCall(device, USBDeviceClose);
+    FLCOMCall(device, USBDeviceClose);
     return kFLExecDescInvalid;
 }
 
-static void FLExecReleaseDeviceInterface(FLUSBDevice *device, FLUSBSubInterface **intf) {
+static void FLExecReleaseDeviceInterface(FLUSBDeviceInterface **device, FLUSBSubInterface **intf) {
     FLCOMCall(intf, USBInterfaceClose);
     FLCOMCall(intf, Release);
-    FLUSBCall(device, USBDeviceClose);
+    FLCOMCall(device, USBDeviceClose);
 }
 
 static BOOL FLExecRelocatorIsCBFS(NSData *relocator) {
@@ -346,7 +347,7 @@ static BOOL FLExecRelocatorIsCBFS(NSData *relocator) {
     return [relocator rangeOfData:tag options:0 range:NSMakeRange(0, relocator.length)].location != NSNotFound;
 }
 
-BOOL FLExec(FLUSBDevice *device, NSData *relocator, NSData *image, NSString **err) {
+BOOL FLExec(FLUSBDeviceInterface **device, NSData *relocator, NSData *image, NSString **err) {
     if (!device || !relocator) {
         return NO;
     }
