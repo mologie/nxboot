@@ -15,6 +15,7 @@
 		A7458B4C20EF86C7008F4899 /* Payloads in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4B20EF86C7008F4899 /* Payloads */; };
 		A7458B4E20EF86D5008F4899 /* Tutorial in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4D20EF86D5008F4899 /* Tutorial */; };
 		A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78BBEC820EE30F4007C3514 /* IOKit.framework */; };
+		A78D523520F343EC0045FC4F /* FLAboutScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */; };
 		A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */; };
 		A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */; };
 		A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */; };
@@ -37,6 +38,8 @@
 		A7458B4B20EF86C7008F4899 /* Payloads */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Payloads; sourceTree = "<group>"; };
 		A7458B4D20EF86D5008F4899 /* Tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Tutorial; sourceTree = "<group>"; };
 		A78BBEC820EE30F4007C3514 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		A78D523320F343EC0045FC4F /* FLAboutScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLAboutScreenViewController.h; sourceTree = "<group>"; };
+		A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLAboutScreenViewController.m; sourceTree = "<group>"; };
 		A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLBootProfilesViewController.h; sourceTree = "<group>"; };
 		A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLBootProfilesViewController.m; sourceTree = "<group>"; };
 		A7C4EA1420EE2D1B0026FFC9 /* FLMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLMainViewController.h; sourceTree = "<group>"; };
@@ -81,6 +84,8 @@
 			children = (
 				A7FDBE1720EE27DD00E59587 /* AppDelegate.h */,
 				A7FDBE1820EE27DD00E59587 /* AppDelegate.m */,
+				A78D523320F343EC0045FC4F /* FLAboutScreenViewController.h */,
+				A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */,
 				A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */,
 				A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */,
 				A7FDBE3020EE2AB900E59587 /* FLExec.h */,
@@ -225,6 +230,7 @@
 				A701176220EE35BC00B3D45B /* FLUSBDevice.m in Sources */,
 				A740E25020F038FB0003FD32 /* NSData+FLHexEncoding.m in Sources */,
 				A7FDBE3220EE2AB900E59587 /* FLExec.m in Sources */,
+				A78D523520F343EC0045FC4F /* FLAboutScreenViewController.m in Sources */,
 				A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */,
 				A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */,
 				A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */,
