@@ -25,6 +25,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(applicationWillResignActive:)
+                                                 name:UIApplicationWillResignActiveNotification object:nil];
+
     self.view.backgroundColor = [UIColor colorWithWhite:0.16 alpha:1.0];
 
     self.bootNowText = self.bootButtonLabel.text;
@@ -37,7 +41,12 @@
 }
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.usbEnum stop];
+}
+
+- (void)applicationWillResignActive:(NSNotification *)notification {
+    [self bootStop];
 }
 
 #pragma mark - Properties
@@ -141,7 +150,6 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // TODO stop automatic booting only if we're switching to the config screen?
     [self bootStop];
 }
 
