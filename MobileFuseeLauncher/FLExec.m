@@ -341,7 +341,7 @@ static void FLExecReleaseDeviceInterface(FLUSBDevice *device, FLUSBSubInterface 
 }
 
 static BOOL FLExecRelocatorIsCBFS(NSData *relocator) {
-    // dirty but sufficient: it's unlikely for a non-CBFS first stage to contain the string CBFS and a new-line char
+    // dirty but sufficient: it's unlikely for a non-CBFS first stage to contain the string 'CBFS' and a new-line char
     NSData *tag = [@"CBFS\n" dataUsingEncoding:NSASCIIStringEncoding];
     return [relocator rangeOfData:tag options:0 range:NSMakeRange(0, relocator.length)].location != NSNotFound;
 }
