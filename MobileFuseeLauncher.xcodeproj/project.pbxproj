@@ -17,6 +17,7 @@
 		A765643F20F4D265005EC7E6 /* FLConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A765643E20F4D265005EC7E6 /* FLConfig.m */; };
 		A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78BBEC820EE30F4007C3514 /* IOKit.framework */; };
 		A78D523520F343EC0045FC4F /* FLAboutScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */; };
+		A7999ECA20F5761B00F659EB /* PackageIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A7999EC920F5761B00F659EB /* PackageIcon.png */; };
 		A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */; };
 		A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */; };
 		A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */; };
@@ -45,6 +46,7 @@
 		A78BBEC820EE30F4007C3514 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A78D523320F343EC0045FC4F /* FLAboutScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLAboutScreenViewController.h; sourceTree = "<group>"; };
 		A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLAboutScreenViewController.m; sourceTree = "<group>"; };
+		A7999EC920F5761B00F659EB /* PackageIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PackageIcon.png; sourceTree = "<group>"; };
 		A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLBootProfilesViewController.h; sourceTree = "<group>"; };
 		A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLBootProfilesViewController.m; sourceTree = "<group>"; };
 		A7C4EA1420EE2D1B0026FFC9 /* FLMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLMainViewController.h; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 				A7458B4D20EF86D5008F4899 /* Tutorial */,
 				A7FDBE2220EE27DE00E59587 /* LaunchScreen.storyboard */,
 				A701176320EE677F00B3D45B /* Main.storyboard */,
+				A7999EC920F5761B00F659EB /* PackageIcon.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A701176520EE677F00B3D45B /* Main.storyboard in Resources */,
+				A7999ECA20F5761B00F659EB /* PackageIcon.png in Resources */,
 				A7458B4C20EF86C7008F4899 /* Payloads in Resources */,
 				A7458B4E20EF86D5008F4899 /* Tutorial in Resources */,
 				A7FDBE2420EE27DE00E59587 /* LaunchScreen.storyboard in Resources */,
