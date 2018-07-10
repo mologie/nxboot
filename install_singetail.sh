@@ -11,6 +11,7 @@ archivedest=dist/NXBoot-$version.tar.gz
 
 echo Cleaning...
 ssh root@$device rm -rf /jb/bin/nxboot /Applications/NXBoot.app
+ssh root@$device killall NXBoot
 
 echo Installing nxboot command-line tool...
 scp nxboot root@$device:/jb/bin/nxboot
