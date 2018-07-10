@@ -58,7 +58,8 @@
 }
 
 - (void)applicationWillResignActive:(NSNotification *)notification {
-    [self bootStop];
+    // eek: this is triggered by the 'device not compatible' notifications, too
+    // [self bootStop];
 }
 
 #pragma mark - Properties
@@ -135,7 +136,7 @@
     self.bootStatus = @"Device connected! Booting...";
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *error = nil;
-        if (!self.device) {
+        if (!self.device || !self.active) {
             return;
         }
         FLBootProfile *profile = self.bootProfile;
@@ -148,7 +149,10 @@
         if (!relocator || !bootImage) {
             return;
         }
-        if (!FLExec(self.device->_intf, relocator, bootImage, &error)) {
+        if (FLExec(self.device->_intf, relocator, bootImage, &error)) {
+            self.bootStatus = @"Success! 🎉";
+        }
+        else {
             self.bootStatus = [NSString stringWithFormat:@"Error: %@", error];
         }
     });
@@ -252,11 +256,19 @@
     if (self.active) {
         [self bootExecSelected];
     }
+    else {
+        [self setIdleBootStatus];
+    }
 }
 
 - (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceDisconnected:(FLUSBDevice *)device {
     self.device = nil;
-    self.bootStatus = @"Device disconnected. Waiting for next connection...";
+    if (self.active) {
+        self.bootStatus = @"Device disconnected. Waiting for next connection...";
+    }
+    else {
+        [self setIdleBootStatus];
+    }
 }
 
 - (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceError:(NSString *)err {
