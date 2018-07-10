@@ -29,9 +29,9 @@ struct FLExecDesc {
 };
 
 static struct FLExecDesc kFLExecDescInvalid = {
-    .intf       = NULL,
-    .readRef    = 0,
-    .writeRef   = 0
+    .intf     = NULL,
+    .readRef  = 0,
+    .writeRef = 0
 };
 
 static void FLPadData(NSMutableData *data, NSUInteger npad) {
