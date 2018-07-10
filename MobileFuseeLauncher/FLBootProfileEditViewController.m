@@ -32,7 +32,7 @@ enum {
 
     self.view.backgroundColor = [UIColor colorWithWhite:0.16 alpha:1.0];
 
-    self.builtInRelocators = @[@"intermezzo.bin", @"cbfs.bin"];
+    self.builtInRelocators = @[@"intermezzo.bin"];
     self.builtInPayloads = @[@"fusee.bin"];
 
     // create a new profile if none was specified
@@ -243,7 +243,7 @@ enum {
                 [self promptFileSelectionWithCompletion:^(NSURL *url) {
                     if (url) {
                         NSData *doc = [NSData dataWithContentsOfURL:url];
-                        if (doc) {
+                        if (doc.length > 0) {
                             NSString *name = url.lastPathComponent;
                             self.profile.payloadName = name;
                             self.profile.payloadBin = doc;

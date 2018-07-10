@@ -110,7 +110,8 @@
     label.numberOfLines = 0;
     CGSize newSize = [label sizeThatFits:label.frame.size];
     CGRect newFrame = label.frame;
-    newFrame.size.height = newSize.height; // discard width
+    newFrame.size.height = newSize.height;
+    newFrame.size.width = self.tableView.frame.size.width;
     label.frame = newFrame;
 }
 
@@ -210,9 +211,14 @@
         return profile.relocatorBin;
     }
     NSURL *url = [[NSBundle mainBundle] URLForResource:profile.relocatorName withExtension:nil subdirectory:@"Payloads"];
+    if (!url) {
+        self.bootStatus = [NSString stringWithFormat:@"Error: Could not locate relocator with name %@", profile.relocatorName];
+        return nil;
+    }
     NSData *data = [NSData dataWithContentsOfURL:url options:0 error:nil];
     if (!data) {
         self.bootStatus = [NSString stringWithFormat:@"Error: Could not load relocator with name %@", profile.relocatorName];
+        return nil;
     }
     return data;
 }
@@ -222,6 +228,10 @@
         return profile.payloadBin;
     }
     NSURL *url = [[NSBundle mainBundle] URLForResource:profile.payloadName withExtension:nil subdirectory:@"Payloads"];
+    if (!url) {
+        self.bootStatus = [NSString stringWithFormat:@"Error: Could not locate payload with name %@", profile.payloadName];
+        return nil;
+    }
     NSData *data = [NSData dataWithContentsOfURL:url options:0 error:nil];
     if (!data) {
         self.bootStatus = [NSString stringWithFormat:@"Error: Could not load payload with name %@", profile.payloadName];
