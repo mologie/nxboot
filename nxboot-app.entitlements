@@ -7,9 +7,12 @@
     <true/>
     <key>com.apple.private.security.container-required</key>
     <true/>
-	<key>com.apple.security.exception.iokit-user-client-class</key>
-	<array>
-		<string>AppleUSBHostDeviceUserClient</string>
-	</array>
+    <key>com.apple.security.exception.iokit-user-client-class</key>
+    <array>
+        <string>AppleUSBHostDeviceUserClient</string>
+        <string>AppleUSBHostInterfaceUserClient</string>
+    </array>
+    <key>com.apple.system.diagnostics.iokit-properties</key>
+    <true/>
 </dict>
 </plist>
