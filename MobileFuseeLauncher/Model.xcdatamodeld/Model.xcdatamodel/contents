@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="FLBootProfile" representedClassName="FLBootProfile" syncable="YES" codeGenerationType="class">
+        <attribute name="isDemoProfile" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="payloadBin" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="payloadName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="relocatorBin" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="relocatorName" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="FLBootProfile" positionX="-63" positionY="-18" width="128" height="135"/>
+    </elements>
+</model>

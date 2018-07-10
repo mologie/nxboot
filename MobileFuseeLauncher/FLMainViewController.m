@@ -4,12 +4,18 @@
  */
 
 #import "FLMainViewController.h"
+#import "FLBootProfile+CoreDataClass.h"
+#import "FLConfig.h"
 #import "FLExec.h"
 #import "FLUSBDeviceEnumerator.h"
+#import "AppDelegate.h"
 
 @interface FLMainViewController () <FLUSBDeviceEnumeratorDelegate>
+@property (nonatomic, strong) FLConfig *config;
 @property (strong, nonatomic) FLUSBDeviceEnumerator *usbEnum;
 @property (strong, nonatomic) FLUSBDevice *device;
+@property (weak, nonatomic) IBOutlet UILabel *profileNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *profileDetailLabel;
 @property (strong, nonatomic) NSString *bootStatus;
 @property (strong, nonatomic) NSString *bootNowText;
 @property (weak, nonatomic) IBOutlet UILabel *bootButtonLabel;
@@ -26,7 +32,15 @@
                                              selector:@selector(applicationWillResignActive:)
                                                  name:UIApplicationWillResignActiveNotification object:nil];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(bootProfileDidChange)
+                                                 name:FLConfigSelectedBootProfileIDChanged object:nil];
+
     self.view.backgroundColor = [UIColor colorWithWhite:0.16 alpha:1.0];
+
+    self.config = [FLConfig sharedConfig];
+    [self createDemoProfile];
+    [self bootProfileDidChange];
 
     self.bootNowText = self.bootButtonLabel.text;
     [self setIdleBootStatus];
@@ -35,6 +49,7 @@
     self.usbEnum.delegate = self;
     [self.usbEnum addFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
     [self.usbEnum start];
+
 }
 
 - (void)dealloc {
@@ -62,7 +77,7 @@
         self.bootStatus = @"Device connected! Tap the Boot Now button to start.";
     }
     else {
-        self.bootStatus = @"No Tegra device in RCM mode was connected yet. "
+        self.bootStatus = @"No Nintendo Switch in RCM mode was connected yet. "
             "Connect a device using a USB Type C to Lightning cable or adapter and tap the above button.";
     }
 }
@@ -110,21 +125,32 @@
         [self bootExecSelected];
     }
     else {
-        self.bootStatus = @"Waiting for Tegra device in RCM mode...";
+        self.bootStatus = @"Waiting for Nintendo Switch in RCM mode...";
     }
 }
 
 - (void)bootExecSelected {
     assert(self.device != nil);
     self.bootStatus = @"Device connected! Booting...";
-
-    // TODO run in a thread/queue? if so:
-    // TODO when reporting status ensure that self.device still matches
-    // TODO keep a week handle to device and compare to nil!
-    NSString *err = nil;
-    if (!FLExec(self.device->_intf, [self fuseeRelocator], [self fuseeBootImage], &err)) {
-        self.bootStatus = [NSString stringWithFormat:@"Error: %@", err];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSString *error = nil;
+        if (!self.device) {
+            return;
+        }
+        FLBootProfile *profile = self.bootProfile;
+        if (!profile) {
+            self.bootStatus = @"Error: No boot profile is selected.";
+            return;
+        }
+        NSData *relocator = [self relocatorForProfile:profile];
+        NSData *bootImage = [self bootImageForProfile:profile];
+        if (!relocator || !bootImage) {
+            return;
+        }
+        if (!FLExec(self.device->_intf, relocator, bootImage, &error)) {
+            self.bootStatus = [NSString stringWithFormat:@"Error: %@", error];
+        }
+    });
 }
 
 - (void)bootStop {
@@ -134,14 +160,73 @@
     self.active = NO;
 }
 
-- (NSData *)fuseeRelocator {
-    // TODO select file from config
-    return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"intermezzo.bin" ofType:nil]];
+#pragma mark - Core Data
+
+- (NSManagedObjectContext *)managedObjectContext {
+    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
+    return delegate.persistentContainer.viewContext;
 }
 
-- (NSData *)fuseeBootImage {
-    // TODO select file from config
-    return [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"fusee.bin" ofType:nil]];
+- (void)createDemoProfile {
+    // on first run, create a demo profile with the Fusée Demo payload and make it the active profile
+    NSFetchRequest *fetchRequest = [FLBootProfile fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isDemoProfile = 1"];
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    if (fetchedObjects.count == 0) {
+        FLBootProfile *demoProfile = [[FLBootProfile alloc] initWithContext:self.managedObjectContext];
+        demoProfile.name = @"Fusée Demo";
+        demoProfile.relocatorName = @"intermezzo.bin";
+        demoProfile.payloadName = @"fusee.bin";
+        demoProfile.isDemoProfile = YES;
+        if (![self.managedObjectContext save:&error]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Couldn't Initialize Database"
+                                                                           message:error.localizedDescription
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Quit" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+                exit(1);
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+            return;
+        }
+        self.config.selectedBootProfileID = demoProfile.objectID.URIRepresentation.absoluteString;
+    }
+}
+
+- (void)bootProfileDidChange {
+    FLBootProfile *profile = self.bootProfile;
+    self.profileNameLabel.text = profile.name;
+    self.profileDetailLabel.text = [NSString stringWithFormat:@"%@ loaded via %@", profile.payloadName, profile.relocatorName];
+}
+
+- (FLBootProfile *)bootProfile {
+    NSURL *url = [NSURL URLWithString:self.config.selectedBootProfileID];
+    NSManagedObjectID *objID = [self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:url];
+    return [self.managedObjectContext existingObjectWithID:objID error:nil];
+}
+
+- (NSData *)relocatorForProfile:(FLBootProfile *)profile {
+    if (profile.relocatorBin.length > 0) {
+        return profile.relocatorBin;
+    }
+    NSURL *url = [[NSBundle mainBundle] URLForResource:profile.relocatorName withExtension:nil subdirectory:@"Payloads"];
+    NSData *data = [NSData dataWithContentsOfURL:url options:0 error:nil];
+    if (!data) {
+        self.bootStatus = [NSString stringWithFormat:@"Error: Could not load relocator with name %@", profile.relocatorName];
+    }
+    return data;
+}
+
+- (NSData *)bootImageForProfile:(FLBootProfile *)profile {
+    if (profile.payloadBin.length > 0) {
+        return profile.payloadBin;
+    }
+    NSURL *url = [[NSBundle mainBundle] URLForResource:profile.payloadName withExtension:nil subdirectory:@"Payloads"];
+    NSData *data = [NSData dataWithContentsOfURL:url options:0 error:nil];
+    if (!data) {
+        self.bootStatus = [NSString stringWithFormat:@"Error: Could not load payload with name %@", profile.payloadName];
+    }
+    return data;
 }
 
 #pragma mark - Navigation

@@ -1,109 +1,117 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Fusée Launcher Intro</title>
-        <meta charset="UTF-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-        <style type="text/css">
-        body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0 1rem;
-            font-size: 1rem;
-            line-height: 1.25rem;
-            color: white;
-            background: #1F1F1F;
-        }
-        h1 {
-            font-size: 1.5rem;
-            font-weight: 500;
-        }
-        a {
-            color: white;
-        }
-        ul, ol {
-            margin-left: 0;
-            padding-left: 1.6rem;
-        }
-        </style>
-    </head>
-    <body>
-        <p>
-            This special-purpose application enables running custom boot code on Tegra X1 devices such as the Nintendo Switch.
-        </p>
-        <p>
-            Batteries are not included: This application contains relocators and {re}switched's demo binaries, but you'll have to import custom payloads with actual functionality yourself.
-        </p>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>Fusée Launcher Intro</title>
+    <style type="text/css">
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0 1rem;
+      font-size: 1rem;
+      line-height: 1.25rem;
+      color: white;
+      background: #1F1F1F;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 500;
+    }
+    a {
+      color: white;
+    }
+    ul, ol {
+      margin-left: 0;
+      padding-left: 1.6rem;
+    }
+    </style>
+  </head>
+  <body>
+    <p>
+      This special-purpose application enables running custom boot code on Tegra X1 devices such as the Nintendo Switch.
+    </p>
+    <p>
+      Batteries are not included: This application contains relocators and {re}switched's demo binaries, but you'll have to import custom payloads with actual functionality first.
+    </p>
 
-        <h1>Warning and Disclaimer</h1>
-        <p>
-            Early boot code has full access to the device it runs on and can damage it. No such code is shipped with this application. Responsibility of executing boot code remains with the user.
-        </p>
+    <h1>Warning and Disclaimer</h1>
+    <p>
+      Early boot code has full access to the device it runs on and can damage it. No such code is shipped with this application. Responsibility of executing boot code remains with the user.
+    </p>
 
-        <h1>Overview</h1>
-        <ol>
-            <li><a href="#section-hardware-requirements">Hardware Requirements</a></li>
-            <li><a href="#section-importing-boot-code">Importing Boot Code</a></li>
-            <li><a href="#section-booting">Booting the Target Device</a></li>
-            <li><a href="#section-tips-and-tricks">Tips &amp; Tricks</a></li>
-        </ol>
+    <h1>Overview</h1>
+    <ol>
+      <li><a href="#section-hardware-requirements">Hardware Requirements</a></li>
+      <li><a href="#section-importing-boot-code">Importing Boot Code</a></li>
+      <li><a href="#section-booting">Booting the Target Device</a></li>
+      <li><a href="#section-tips-and-tricks">Tips &amp; Tricks</a></li>
+    </ol>
 
-        <h1><a name="section-hardware-requirements">Hardware Requirements</a></h1>
-        <p>
-            An adapter is required for connecting your iOS device to the target Tegra X1 device. The following are known to work:
-        </p>
-        <ul>
-            <li>USB-C to Lightning adapters with data lines (charging only adapters do not work)</li>
-            <li>USB-C to Lightning cables</li>
-            <li>Apple Lightning USB 3 Camera Adapter with a USB 3 to USB 3 Type C cable</li>
-        </ul>
+    <h1><a name="section-hardware-requirements">Hardware Requirements</a></h1>
+    <p>
+      An OTG adapter is required for connecting your iOS device to the Nintendo Switch. The following configuration is known work:
+    </p>
+    <ul>
+      <li>Apple Lightning USB Camera Adapter on the iPad, connected to...</li>
+      <li>any USB 3 Type A  male to USB 3 Type C male cable, connected to...</li>
+      <Li>the Nintendo Switch</li>
+    </ul>
+    <p>
+      A direct Lightning to USB 3 Type C cable (without OTG adapter in between) does not work.
+      Third-party OTG adapters <i>may</i> work, but your mileage may vary.
+    </p>
 
-        <h1><a name="section-importing-boot-code">Importing Boot Code</a></h1>
-        <p>
-            Use Safari or any cloud storage provider, including iCloud Drive, to make Boot Code available in iOS' files app.
-            Afterwards the Boot Code may be added to a Boot Profile.
-        </p>
-        <p>
-            Create Boot Profiles by opening the Boot Code List from thie app's start page and selecting <i>New Profile</i>.
-        </p>
-        <p>
-            A description and two files must be provided:
-        </p>
-        <p>
-            <b>The first file is the relocator binary.</b>
-            The relocator is responsible for cleaning up the boot session and preparing the second file for execution.
-            Two relocators are shipped with this app: <i>cbfs.bin</i> (for loading Coreboot/Linux) and <i>intermezzo.bin</i> (for loading any custom firmware payload.)
-            You may also use a custom relocator.
-        </p>
-        <p>
-            <b>The second file is the payload.</b>
-            For Coreboot/Linux this file is usually named coreboot.rom. Other well-known payloads are <i>fusee.bin</i>, SX OS's <i>payload.bin</i>
-            or the Hekate bootloader's <i>hekate_ctcaer_X.Y.bin</i>.
-        </p>
-        <p>
-            Selected relocator and payload files are copied to this application's storage, so that they don't have to remain in iOS' Files or cloud storage.
-        </p>
+    <h1><a name="section-importing-boot-code">Importing Boot Code</a></h1>
+    <p>
+      There are multiple methods for importing payloads:
+    </p>
+    <ol>
+      <li>Store the payload in any container that is visible in your iOS Files app.</li>
+      <li>Transfer the file into the app using iTunes (may not work on all jailbroken firmwares.)</li>
+      <li>Copy the files into the app's Documents folder via SSH.</li>
+    </ol>
+    <p>
+      Create Boot Profiles by opening the Boot Code List from the app's start page and selecting <i>Add Profile</i>.
+      Files transferred through iTunes/SSH appear in the file selection list along with built-in options.
+    </p>
+    <p>
+      A description and two files must be provided:
+    </p>
+    <p>
+      <b>The first file is the relocator binary.</b>
+      The relocator is responsible for cleaning up the boot session and preparing the second file for execution.
+      Two relocators are shipped with this app: <i>intermezzo.bin</i> (for loading any custom firmware payload) and <i>cbfs.bin</i> (for loading Coreboot/Linux).
+      You may use a custom relocator or use a built-in one.
+    </p>
+    <p>
+      <b>The second file is the payload.</b>
+      For Coreboot/Linux this file is usually named coreboot.rom. Other well-known payloads are <i>fusee.bin</i>, SX OS's <i>payload.bin</i>
+      or the Hekate bootloader's <i>hekate_ctcaer_X.Y.bin</i>.
+    </p>
+    <p>
+      The selected relocator and payload files are copied to this application's storage, so that they don't have to remain in iOS' Files or cloud storage.
+    </p>
 
-        <h1><a name="section-booting">Booting the Target Device</a></h1>
-        <ol>
-            <li>Select your Boot Code on this application's start page after importing it.</li>
-            <li>In any order:</li>
-            <ul>
-                <li>Enter RCM mode on the target device.</li>
-                <li>Connect the target device via USB. A warning about an unsupported accessory appears and can be ignored.</li>
-                <li>Tap this app's <i>Boot Now</i> button.</li>
-            </ul>
-            <li>All detected Tegra X1 devices in RCM mode are automatically provisioned with the selected Boot Code. This app must remain in foreground for automatic booting.</li>
-        </ol>
+    <h1><a name="section-booting">Booting the Target Device</a></h1>
+    <ol>
+      <li>Select your Boot Code on this application's start page after importing it.</li>
+      <li>Tap this app's <i>Boot Now</i> button.</li>
+      <li>Enter RCM mode on the Nintendo Switch.</li>
+      <li>Connect the Nintendo Switch via USB.</li>
+    </ol>
+    <p>
+      A warning about an unsupported accessory appears and can be ignored.
+    </p>
+    <p>
+      <b>Always</b> power on the Nintendo Switch prior to connecting it. Otherwise iOS will disconnect the device for consuming too much power.
+    </p>
 
-        <h1><a name="section-tips-and-tricks">Tips and Tricks</a></h1>
-        <p>
-            The following section applies to the Nintendo Switch:
-        </p>
-        <ul>
-            <li>Enter RCM mode by 1. shorting the home pin to a ground pin on the right Joy-Con rail, 2. holding down Volume +, 3. tapping the POWER button once.</li>
-            <li>In RCM the screen remains black, but the device is detected as 'APX' by PCs and will work with this app.</li>
-            <li>Exit RCM mode without booting custom code by holding the POWER button for 12 seconds.</li>
-        </ul>
-    </body>
+    <h1><a name="section-tips-and-tricks">Tips and Tricks</a></h1>
+    <ul>
+      <li>Enter RCM mode by 1. shorting the home pin to a ground pin on the right Joy-Con rail, 2. holding down Volume +, 3. tapping the POWER button once.</li>
+      <li>In RCM the screen remains black, but the device is detected as 'APX' by PCs and will work with this app.</li>
+      <li>Exit RCM mode without booting custom code by holding the POWER button for 12 seconds.</li>
+    </ul>
+  </body>
 </html>

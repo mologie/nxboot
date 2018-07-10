@@ -14,11 +14,14 @@
 		A7458B4A20EF8286008F4899 /* FLGettingStartedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */; };
 		A7458B4C20EF86C7008F4899 /* Payloads in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4B20EF86C7008F4899 /* Payloads */; };
 		A7458B4E20EF86D5008F4899 /* Tutorial in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4D20EF86D5008F4899 /* Tutorial */; };
+		A765643F20F4D265005EC7E6 /* FLConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A765643E20F4D265005EC7E6 /* FLConfig.m */; };
 		A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78BBEC820EE30F4007C3514 /* IOKit.framework */; };
 		A78D523520F343EC0045FC4F /* FLAboutScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */; };
 		A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */; };
 		A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */; };
 		A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */; };
+		A7F0A88C20F4837F001C9D07 /* FLBootProfileEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0A88B20F4837F001C9D07 /* FLBootProfileEditViewController.m */; };
+		A7F0A88F20F48492001C9D07 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */; };
 		A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE1820EE27DD00E59587 /* AppDelegate.m */; };
 		A7FDBE2120EE27DE00E59587 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7FDBE2020EE27DE00E59587 /* Assets.xcassets */; };
 		A7FDBE2420EE27DE00E59587 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7FDBE2220EE27DE00E59587 /* LaunchScreen.storyboard */; };
@@ -37,6 +40,8 @@
 		A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLGettingStartedViewController.m; sourceTree = "<group>"; };
 		A7458B4B20EF86C7008F4899 /* Payloads */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Payloads; sourceTree = "<group>"; };
 		A7458B4D20EF86D5008F4899 /* Tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Tutorial; sourceTree = "<group>"; };
+		A765643D20F4D265005EC7E6 /* FLConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLConfig.h; sourceTree = "<group>"; };
+		A765643E20F4D265005EC7E6 /* FLConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLConfig.m; sourceTree = "<group>"; };
 		A78BBEC820EE30F4007C3514 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A78D523320F343EC0045FC4F /* FLAboutScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLAboutScreenViewController.h; sourceTree = "<group>"; };
 		A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLAboutScreenViewController.m; sourceTree = "<group>"; };
@@ -46,7 +51,10 @@
 		A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLMainViewController.m; sourceTree = "<group>"; };
 		A7C4EA1720EE2D770026FFC9 /* FLUSBDeviceEnumerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLUSBDeviceEnumerator.h; sourceTree = "<group>"; };
 		A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLUSBDeviceEnumerator.m; sourceTree = "<group>"; };
-		A7FDBE1420EE27DD00E59587 /* MobileFuseeLauncher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MobileFuseeLauncher.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7F0A88A20F4837F001C9D07 /* FLBootProfileEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLBootProfileEditViewController.h; sourceTree = "<group>"; };
+		A7F0A88B20F4837F001C9D07 /* FLBootProfileEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLBootProfileEditViewController.m; sourceTree = "<group>"; };
+		A7F0A88E20F48492001C9D07 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		A7FDBE1420EE27DD00E59587 /* NXBoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7FDBE1720EE27DD00E59587 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A7FDBE1820EE27DD00E59587 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		A7FDBE2020EE27DE00E59587 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -86,8 +94,12 @@
 				A7FDBE1820EE27DD00E59587 /* AppDelegate.m */,
 				A78D523320F343EC0045FC4F /* FLAboutScreenViewController.h */,
 				A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */,
+				A7F0A88A20F4837F001C9D07 /* FLBootProfileEditViewController.h */,
+				A7F0A88B20F4837F001C9D07 /* FLBootProfileEditViewController.m */,
 				A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */,
 				A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */,
+				A765643D20F4D265005EC7E6 /* FLConfig.h */,
+				A765643E20F4D265005EC7E6 /* FLConfig.m */,
 				A7FDBE3020EE2AB900E59587 /* FLExec.h */,
 				A7FDBE3120EE2AB900E59587 /* FLExec.m */,
 				A7458B4820EF8286008F4899 /* FLGettingStartedViewController.h */,
@@ -98,6 +110,7 @@
 				A701176120EE35BC00B3D45B /* FLUSBDevice.m */,
 				A7C4EA1720EE2D770026FFC9 /* FLUSBDeviceEnumerator.h */,
 				A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */,
+				A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */,
 				A740E24E20F038FB0003FD32 /* NSData+FLHexEncoding.h */,
 				A740E24F20F038FB0003FD32 /* NSData+FLHexEncoding.m */,
 			);
@@ -116,7 +129,7 @@
 		A7FDBE1520EE27DD00E59587 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A7FDBE1420EE27DD00E59587 /* MobileFuseeLauncher.app */,
+				A7FDBE1420EE27DD00E59587 /* NXBoot.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,9 +168,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A7FDBE1320EE27DD00E59587 /* MobileFuseeLauncher */ = {
+		A7FDBE1320EE27DD00E59587 /* NXBoot */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "MobileFuseeLauncher" */;
+			buildConfigurationList = A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "NXBoot" */;
 			buildPhases = (
 				A7FDBE1020EE27DD00E59587 /* Sources */,
 				A7FDBE1120EE27DD00E59587 /* Frameworks */,
@@ -167,9 +180,9 @@
 			);
 			dependencies = (
 			);
-			name = MobileFuseeLauncher;
+			name = NXBoot;
 			productName = MobileFuseeLauncher;
-			productReference = A7FDBE1420EE27DD00E59587 /* MobileFuseeLauncher.app */;
+			productReference = A7FDBE1420EE27DD00E59587 /* NXBoot.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -199,7 +212,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A7FDBE1320EE27DD00E59587 /* MobileFuseeLauncher */,
+				A7FDBE1320EE27DD00E59587 /* NXBoot */,
 			);
 		};
 /* End PBXProject section */
@@ -226,6 +239,7 @@
 			files = (
 				A7FDBE2720EE27DE00E59587 /* main.m in Sources */,
 				A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */,
+				A765643F20F4D265005EC7E6 /* FLConfig.m in Sources */,
 				A7458B4A20EF8286008F4899 /* FLGettingStartedViewController.m in Sources */,
 				A701176220EE35BC00B3D45B /* FLUSBDevice.m in Sources */,
 				A740E25020F038FB0003FD32 /* NSData+FLHexEncoding.m in Sources */,
@@ -233,7 +247,9 @@
 				A78D523520F343EC0045FC4F /* FLAboutScreenViewController.m in Sources */,
 				A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */,
 				A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */,
+				A7F0A88C20F4837F001C9D07 /* FLBootProfileEditViewController.m in Sources */,
 				A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */,
+				A7F0A88F20F48492001C9D07 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -381,7 +397,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.MobileFuseeLauncher;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBoot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -400,7 +416,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.MobileFuseeLauncher;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBoot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -419,7 +435,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "MobileFuseeLauncher" */ = {
+		A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "NXBoot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A7FDBE2B20EE27DE00E59587 /* Debug */,
@@ -429,6 +445,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A7F0A88E20F48492001C9D07 /* Model.xcdatamodel */,
+			);
+			currentVersion = A7F0A88E20F48492001C9D07 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A7FDBE0C20EE27DD00E59587 /* Project object */;
 }

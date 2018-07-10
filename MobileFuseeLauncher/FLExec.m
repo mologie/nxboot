@@ -203,11 +203,32 @@ static BOOL FLExecFuseeGelee(FLUSBDeviceInterface **device, struct FLExecDesc co
 }
 
 BOOL FLExecCBFS(struct FLExecDesc const *desc, NSData *cbfsImage, NSString **err) {
+    kern_return_t kr;
+
+    // read the "CBFS\n" string
     NSLog(@"USB: Waiting for CBFS");
+    UInt8 cbfsHeaderBuf[64];
+    UInt32 btransf = sizeof(cbfsHeaderBuf);
+    kr = FLCOMCall(desc->intf, ReadPipeTO, desc->readRef, cbfsHeaderBuf, &btransf, 1000, 1000);
+    if (kr) {
+        ERR(@"Failed to read CBFS header via ReadPipeTO with code %08x", kr);
+        return NO;
+    }
 
-    // TODO read first line and check for CBFS requesting data
+    // send the Coreboot image in 32 KiB chunks
+    NSLog(@"USB: Sending CBFS image...");
+    UInt32 const packetSize = 32 * 1024;
+    for (UInt32 i = 0; i < cbfsImage.length; i += packetSize) {
+        NSLog(@"USB: Progress %lu/%lu", (unsigned long)i, (unsigned long)cbfsImage.length);
+        UInt32 n = i + packetSize > cbfsImage.length ? (UInt32)cbfsImage.length - i : packetSize;
+        kr = FLCOMCall(desc->intf, WritePipeTO, desc->writeRef, (void *)(cbfsImage.bytes + i), n, 1000, 1000);
+        if (kr) {
+            ERR(@"CBFS image write failed at offset %lu with code %08x", (unsigned long)i, kr);
+            return NO;
+        }
+    }
 
-    // TODO send the coreboot image
+    NSLog(@"USB: Done sending CBFS image");
 
     return YES;
 }

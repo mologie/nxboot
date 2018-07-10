@@ -30,3 +30,6 @@ xcuserdata
 # nxboot command line utility
 .nx*
 /nxboot
+
+# Build scripts output
+/dist

@@ -26,7 +26,7 @@
             </objects>
             <point key="canvasLocation" x="319" y="508"/>
         </scene>
-        <!--Fusée Launcher-->
+        <!--NXBoot-->
         <scene sceneID="Bpr-8n-N4o">
             <objects>
                 <viewController id="ON2-8b-uGd" sceneMemberID="viewController">
@@ -36,7 +36,7 @@
                         <color key="backgroundColor" white="0.16" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="7Lf-G3-xLb"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Fusée Launcher" id="8hB-fJ-EVp"/>
+                    <navigationItem key="navigationItem" title="NXBoot" id="8hB-fJ-EVp"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ljy-WD-Xkt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
