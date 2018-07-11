@@ -1,16 +1,25 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <!-- iOS services integration -->
     <key>application-identifier</key>
     <string>N3S4C3QL65.com.mologie.NXBoot</string>
+    <key>com.apple.developer.team-identifier</key>
+    <string>N3S4C3QL65</string>
+
+    <!-- Required for some jailbreaks to run without valid signature -->
     <key>platform-application</key>
     <true/>
+
+    <!-- Explicitly enable the sandbox -->
+    <key>com.apple.private.security.container-required</key>
+    <true/>
+
+    <!-- Permit USB device access and identification -->
     <key>com.apple.private.MobileGestalt.AllowedProtectedKeys</key>
     <array>
         <string>UniqueDeviceID</string>
     </array>
-    <key>com.apple.private.security.container-required</key>
-    <true/>
     <key>com.apple.security.exception.iokit-user-client-class</key>
     <array>
         <string>AppleUSBHostDeviceUserClient</string>
