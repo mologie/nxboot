@@ -16,7 +16,6 @@ xcuserdata
 
 # Xcode build output
 /DerivedData
-/build
 *.moved-aside
 *.hmap
 *.ipa

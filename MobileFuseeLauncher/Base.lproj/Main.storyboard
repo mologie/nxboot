@@ -43,7 +43,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <segue destination="nUe-DO-7bu" kind="show" id="KPF-Of-Z4H"/>
+                                            <segue destination="nUe-DO-7bu" kind="show" identifier="GettingStarted" id="KPF-Of-Z4H"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="vWe-X7-JEq" style="IBUITableViewCellStyleDefault" id="v9D-h5-vzZ">
@@ -64,7 +64,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <segue destination="yXt-UC-in5" kind="show" id="8s2-4f-KYG"/>
+                                            <segue destination="yXt-UC-in5" kind="show" identifier="About" id="8s2-4f-KYG"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -96,7 +96,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <segue destination="40q-P7-yO1" kind="show" id="qnM-gB-ith"/>
+                                            <segue destination="40q-P7-yO1" kind="show" identifier="BootProfiles" id="qnM-gB-ith"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>

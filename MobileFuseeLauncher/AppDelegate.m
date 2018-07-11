@@ -5,12 +5,17 @@
 
 #import "AppDelegate.h"
 
+@import AppCenter;
+@import AppCenterAnalytics;
+@import AppCenterCrashes;
+
 @interface AppDelegate ()
 @end
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [MSAppCenter start:@"0665136b-48d8-4d13-98f9-1d21a3dbcd59" withServices:@[[MSAnalytics class], [MSCrashes class]]];
     return YES;
 }
 

@@ -18,6 +18,7 @@
 		A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78BBEC820EE30F4007C3514 /* IOKit.framework */; };
 		A78D523520F343EC0045FC4F /* FLAboutScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */; };
 		A7999ECA20F5761B00F659EB /* PackageIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A7999EC920F5761B00F659EB /* PackageIcon.png */; };
+		A7AD2A1120F63A3500D1A400 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A7AD2A1020F63A3500D1A400 /* libMobileGestalt.tbd */; };
 		A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */; };
 		A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */; };
 		A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */; };
@@ -28,9 +29,11 @@
 		A7FDBE2420EE27DE00E59587 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7FDBE2220EE27DE00E59587 /* LaunchScreen.storyboard */; };
 		A7FDBE2720EE27DE00E59587 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE2620EE27DE00E59587 /* main.m */; };
 		A7FDBE3220EE2AB900E59587 /* FLExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE3120EE2AB900E59587 /* FLExec.m */; };
+		DC1D6A26516D93CA82A07B67 /* libPods-NXBoot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC23C54F4535F403654E2FB8 /* libPods-NXBoot.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4F766E22F690D25403AB12FC /* Pods-NXBoot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NXBoot.release.xcconfig"; path = "Pods/Target Support Files/Pods-NXBoot/Pods-NXBoot.release.xcconfig"; sourceTree = "<group>"; };
 		A701175E20EE320F00B3D45B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A701176020EE35BC00B3D45B /* FLUSBDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLUSBDevice.h; sourceTree = "<group>"; };
 		A701176120EE35BC00B3D45B /* FLUSBDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLUSBDevice.m; sourceTree = "<group>"; };
@@ -47,6 +50,7 @@
 		A78D523320F343EC0045FC4F /* FLAboutScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLAboutScreenViewController.h; sourceTree = "<group>"; };
 		A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLAboutScreenViewController.m; sourceTree = "<group>"; };
 		A7999EC920F5761B00F659EB /* PackageIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PackageIcon.png; sourceTree = "<group>"; };
+		A7AD2A1020F63A3500D1A400 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
 		A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLBootProfilesViewController.h; sourceTree = "<group>"; };
 		A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLBootProfilesViewController.m; sourceTree = "<group>"; };
 		A7C4EA1420EE2D1B0026FFC9 /* FLMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLMainViewController.h; sourceTree = "<group>"; };
@@ -65,6 +69,8 @@
 		A7FDBE2620EE27DE00E59587 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A7FDBE3020EE2AB900E59587 /* FLExec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLExec.h; sourceTree = "<group>"; };
 		A7FDBE3120EE2AB900E59587 /* FLExec.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLExec.m; sourceTree = "<group>"; };
+		CCB33A19B7CC97EB47546F4F /* Pods-NXBoot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NXBoot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NXBoot/Pods-NXBoot.debug.xcconfig"; sourceTree = "<group>"; };
+		EC23C54F4535F403654E2FB8 /* libPods-NXBoot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NXBoot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,12 +80,23 @@
 			files = (
 				A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */,
 				A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */,
+				A7AD2A1120F63A3500D1A400 /* libMobileGestalt.tbd in Frameworks */,
+				DC1D6A26516D93CA82A07B67 /* libPods-NXBoot.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		422DE3698D5FA49548658B9F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CCB33A19B7CC97EB47546F4F /* Pods-NXBoot.debug.xcconfig */,
+				4F766E22F690D25403AB12FC /* Pods-NXBoot.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A7C4EA1220EE2AFA0026FFC9 /* Misc */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +142,7 @@
 				A7FDBE1620EE27DD00E59587 /* MobileFuseeLauncher */,
 				A7FDBE1520EE27DD00E59587 /* Products */,
 				A7FDBE2D20EE2A1700E59587 /* Frameworks */,
+				422DE3698D5FA49548658B9F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -149,8 +167,10 @@
 		A7FDBE2D20EE2A1700E59587 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7AD2A1020F63A3500D1A400 /* libMobileGestalt.tbd */,
 				A78BBEC820EE30F4007C3514 /* IOKit.framework */,
 				A701175E20EE320F00B3D45B /* WebKit.framework */,
+				EC23C54F4535F403654E2FB8 /* libPods-NXBoot.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -175,6 +195,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "NXBoot" */;
 			buildPhases = (
+				3C08ED910276C0BDC8112FF6 /* [CP] Check Pods Manifest.lock */,
 				A7FDBE1020EE27DD00E59587 /* Sources */,
 				A7FDBE1120EE27DD00E59587 /* Frameworks */,
 				A7FDBE1220EE27DD00E59587 /* Resources */,
@@ -235,6 +256,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3C08ED910276C0BDC8112FF6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NXBoot-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A7FDBE1020EE27DD00E59587 /* Sources */ = {
@@ -391,6 +433,7 @@
 		};
 		A7FDBE2B20EE27DE00E59587 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCB33A19B7CC97EB47546F4F /* Pods-NXBoot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -410,6 +453,7 @@
 		};
 		A7FDBE2C20EE27DE00E59587 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F766E22F690D25403AB12FC /* Pods-NXBoot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";

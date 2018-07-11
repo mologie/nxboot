@@ -10,6 +10,8 @@
 #import "FLUSBDeviceEnumerator.h"
 #import "AppDelegate.h"
 
+@import AppCenterAnalytics;
+
 @interface FLMainViewController () <FLUSBDeviceEnumeratorDelegate>
 @property (nonatomic, strong) FLConfig *config;
 @property (strong, nonatomic) FLUSBDeviceEnumerator *usbEnum;
@@ -133,26 +135,46 @@
 - (void)bootExecSelected {
     assert(self.device != nil);
     self.bootStatus = @"Device connected! Booting...";
+
+    // analytics: log start event for timing
+    // the end event and result will also be logged.
+    [MSAnalytics trackEvent:@"SwitchBootStart"];
+
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *error = nil;
-        if (!self.device || !self.active) {
+        if (!self.device) {
+            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"Device Disappeared"}];
+            return;
+        }
+        if (!self.active) {
+            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"User Canceled"}];
             return;
         }
         FLBootProfile *profile = self.bootProfile;
         if (!profile) {
             self.bootStatus = @"Error: No boot profile is selected.";
+            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"No Boot Profile Selected"}];
             return;
         }
         NSData *relocator = [self relocatorForProfile:profile];
         NSData *bootImage = [self bootImageForProfile:profile];
         if (!relocator || !bootImage) {
+            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"Boot Profile Invalid"}];
             return;
         }
         if (FLExec(self.device->_intf, relocator, bootImage, &error)) {
             self.bootStatus = @"Success! 🎉";
+
+            // analytics: log success events
+            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Success"}];
+            [MSAnalytics trackEvent:@"SwitchBootSuccess"];
         }
         else {
             self.bootStatus = [NSString stringWithFormat:@"Error: %@", error];
+
+            // analytics: log error events and error messages (these contain technical info only)
+            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Error", @"Messaage": error}];
+            [MSAnalytics trackEvent:@"SwitchBootFailure" withProperties:@{@"Messaage": error}];
         }
     });
 }
@@ -172,12 +194,12 @@
 }
 
 - (void)createDemoProfile {
-    // on first run, create a demo profile with the Fusée Demo payload and make it the active profile
     NSFetchRequest *fetchRequest = [FLBootProfile fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isDemoProfile = 1"];
     NSError *error = nil;
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
     if (fetchedObjects.count == 0) {
+        // on first run, create a demo profile with the Fusée Demo payload and make it the active profile
         FLBootProfile *demoProfile = [[FLBootProfile alloc] initWithContext:self.managedObjectContext];
         demoProfile.name = @"Fusée Demo";
         demoProfile.relocatorName = @"intermezzo.bin";
@@ -251,6 +273,9 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     [self bootStop];
+
+    // analytics: log navigation events from the main screen
+    [MSAnalytics trackEvent:@"Navigation" withProperties:@{@"ID": [NSString stringWithFormat:@"Main-%@", segue.identifier]}];
 }
 
 #pragma mark - FLUSBDeviceEnumeratorDelegate

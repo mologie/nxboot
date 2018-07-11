@@ -1,9 +1,10 @@
 Package: com.mologie.NXBoot
 Name: NXBoot
-Version: X.Y.Z
+Depends: firmware(>=10.0)
+Version: PLACEHOLDER
 Architecture: iphoneos-arm
-Maintainer: Oliver Kuckertz <oliver.kuckertz@mologie.de>
-Author: Oliver Kuckertz <oliver.kuckertz@mologie.de>
+Maintainer: Oliver Kuckertz <oliver.kuckertz+nxboot@mologie.de>
+Author: Oliver Kuckertz <oliver.kuckertz+nxboot@mologie.de>
 Section: Utilities
 Description: Starts custom firmware on the Nintendo Switch through the Fusée Gelée hardware exploit. Booting Coreboot/Linux is supported. Beware of Nintendo's banhammer!
 Homepage: https://mologie.github.io/nxboot/
