@@ -3,9 +3,6 @@ set -e
 set -o pipefail
 
 device=singetail
-
-echo Building...
-./build.sh
 version=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" MobileFuseeLauncher/Info.plist)
 archivedest=
 
