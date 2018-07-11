@@ -268,8 +268,8 @@ CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) a
                                             <color key="textColor" red="1" green="0.5230926494" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="fusee.bin (38 KiB)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="I1Q-bG-Hgs">
-                                            <rect key="frame" x="16" y="35.5" width="102.5" height="14.5"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Profile Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="I1Q-bG-Hgs">
+                                            <rect key="frame" x="16" y="35.5" width="72.5" height="14.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -366,7 +366,7 @@ CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) a
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="mAI-I3-J4w">
-                                <string key="footerTitle">The real deal, usually at least 10 KiB large. Intermezzo's max. payload size is 179 KiB. 'cbfs' needs Coreboot images with 28 KiB boot code and arbitrary size.</string>
+                                <string key="footerTitle">This file is usually at least 10 KiB large. Intermezzo's max. payload size is 179 KiB. Custom relocators such as 'cbfs' for Coreboot/Linux have different size limits.</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="h4U-iR-aU5" detailTextLabel="lax-VA-Yvk" style="IBUITableViewCellStyleValue1" id="3PR-lh-1Av">
                                         <rect key="frame" x="0.0" y="251" width="375" height="44"/>
