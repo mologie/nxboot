@@ -49,7 +49,6 @@
     self.usbEnum.delegate = self;
     [self.usbEnum addFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
     [self.usbEnum start];
-
 }
 
 - (void)dealloc {
@@ -194,6 +193,11 @@
             [self presentViewController:alert animated:YES completion:nil];
             return;
         }
+        self.config.selectedBootProfileID = demoProfile.objectID.URIRepresentation.absoluteString;
+    }
+    else if (!self.config.selectedBootProfileID) {
+        // the configuration file may have been deleted by the user. store the demo profile ID again.
+        FLBootProfile *demoProfile = fetchedObjects.firstObject;
         self.config.selectedBootProfileID = demoProfile.objectID.URIRepresentation.absoluteString;
     }
 }
