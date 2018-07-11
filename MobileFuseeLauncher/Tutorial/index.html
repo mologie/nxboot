@@ -12,11 +12,13 @@
       font-size: 1rem;
       line-height: 1.25rem;
       color: white;
-      background: #1F1F1F;
+      background: #292929;
     }
     h1 {
       font-size: 1.5rem;
       font-weight: 500;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #999;
     }
     a {
       color: white;
@@ -29,31 +31,40 @@
   </head>
   <body>
     <p>
-      This special-purpose application enables running custom boot code on Tegra X1 devices such as the Nintendo Switch.
+      <img src="../PackageIcon.png" height="60"/>
     </p>
     <p>
-      Batteries are not included: This application contains relocators and {re}switched's demo binaries, but you'll have to import custom payloads with actual functionality first.
+      NXBoot enables running custom boot code on Tegra X1 devices such as the Nintendo Switch.
     </p>
-
-    <h1>Warning and Disclaimer</h1>
     <p>
-      Early boot code has full access to the device it runs on and can damage it. No such code is shipped with this application. Responsibility of executing boot code remains with the user.
+      Batteries are not included: This application contains relocators and {re}switched's demo binaries, but you will have to import custom payloads with actual functionality first.
     </p>
 
     <h1>Overview</h1>
     <ol>
+      <li><a href="#section-disclaimer">Disclaimer</a></li>
       <li><a href="#section-hardware-requirements">Hardware Requirements</a></li>
       <li><a href="#section-importing-boot-code">Importing Boot Code</a></li>
       <li><a href="#section-booting">Booting the Target Device</a></li>
       <li><a href="#section-tips-and-tricks">Tips &amp; Tricks</a></li>
     </ol>
 
+    <h1><a name="section-disclaimer">Disclaimer</a></h1>
+    <p>
+      It is recommended that you become familiar with the Nintendo Switch homebrew community prior to using this application.
+      Early boot code has full access to the device it runs on and can damage it.
+      Nintendo is known to ban modified devices from online services if such modification is detected.
+    </p>
+    <p>
+      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    </p>
+
     <h1><a name="section-hardware-requirements">Hardware Requirements</a></h1>
     <p>
       An OTG adapter is required for connecting your iOS device to the Nintendo Switch. The following configuration is known work:
     </p>
     <ul>
-      <li>Apple Lightning USB Camera Adapter on the iPad, connected to...</li>
+      <li>Apple Lightning USB Camera Adapter on the iOS device, connected to...</li>
       <li>any USB 3 Type A  male to USB 3 Type C male cable, connected to...</li>
       <Li>the Nintendo Switch</li>
     </ul>
@@ -80,14 +91,12 @@
     </p>
     <p>
       <b>The first file is the relocator binary.</b>
-      The relocator is responsible for cleaning up the boot session and preparing the second file for execution.
-      Two relocators are shipped with this app: <i>intermezzo.bin</i> (for loading any custom firmware payload) and <i>cbfs.bin</i> (for loading Coreboot/Linux).
-      You may use a custom relocator or use a built-in one.
+      The relocator is responsible for cleaning up the boot session and preparing the payload for execution.
+      Most payloads want <i>intermezzo.bin</i>, which is shipped with this app. For loading Coreboot/Linux you must import a copy of <i>cbfs.bin</i>.
     </p>
     <p>
       <b>The second file is the payload.</b>
-      For Coreboot/Linux this file is usually named coreboot.rom. Other well-known payloads are <i>fusee.bin</i>, SX OS's <i>payload.bin</i>
-      or the Hekate bootloader's <i>hekate_ctcaer_X.Y.bin</i>.
+      For Coreboot/Linux this file is usually named coreboot.rom. Other well-known payloads are <i>fusee.bin</i> and the Hekate bootloader <i>hekate_ctcaer_X.Y.bin</i>.
     </p>
     <p>
       The selected relocator and payload files are copied to this application's storage, so that they don't have to remain in iOS' Files or cloud storage.
@@ -104,7 +113,7 @@
       A warning about an unsupported accessory appears and can be ignored.
     </p>
     <p>
-      <b>Always</b> power on the Nintendo Switch prior to connecting it. Otherwise iOS will disconnect the device for consuming too much power.
+      Always power on the Nintendo Switch prior to connecting it. Otherwise iOS will disconnect the device for consuming too much power.
     </p>
 
     <h1><a name="section-tips-and-tricks">Tips and Tricks</a></h1>
