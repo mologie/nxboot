@@ -112,7 +112,7 @@
     CGSize newSize = [label sizeThatFits:label.frame.size];
     CGRect newFrame = label.frame;
     newFrame.size.height = newSize.height;
-    newFrame.size.width = self.tableView.frame.size.width;
+    newFrame.size.width = self.tableView.frame.size.width - newFrame.origin.x * 2;
     label.frame = newFrame;
 }
 
