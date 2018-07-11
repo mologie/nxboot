@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>NXBoot</title>
+    <style type="text/css">
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0 auto;
+      background: white;
+      padding: 0 15px;
+    }
+    #header {
+      margin: 30px auto;
+      text-align: center;
+    }
+    #header h1, #header h2 {
+      margin: 7px 0;
+    }
+    #header h1 {
+      font-weight: 500;
+    }
+    #header h2 {
+      font-weight: 400;
+    }
+    #depiction {
+      max-width: 600px;
+      margin: auto;
+      border-top: 1px solid #c8c7cc;
+    }
+    pre {
+      border: 1px solid #c8c7cc;
+      background: #f0f0f0;
+      padding: 6px;
+    }
+    .text-mono {
+      font-family: monospace;
+    }
+    p {
+      line-height: 1.5;
+    }
+    p.compressed {
+      line-height: 1.25;
+    }
+    p small {
+      color: #707070;
+    }
+    hr {
+      height: 0;
+      border: 0;
+      border-top: 1px solid #c8c7cc;
+    }
+    </style>
+  </head>
+  <body>
+    <div id="header">
+      <img src="nxboot_icon.png" height="90" alt="NXBoot Icon"/><br/>
+      <h1>NXBoot</h1>
+      <h2 style="margin-top: 0;">Fusée Gelée / ShofEL2 implementation for iOS</h2>
+    </div>
+    <div id="depiction">
+      <p>NXBoot enables starting custom boot code on the Nintendo Switch through the Fusée Gelée hardware exploit. Booting Coreboot/Linux is supported.</p>
+      <p>A jailbreak is required. For jailbreaking info visit <a href="https://canijailbreak.com/">canijailbreak.com</a> and <a href="https://reddit.com/r/jailbreak">/r/jailbreak</a>. Please keep in mind that a jailbreak is detrimental to your mobile device's security and you should never jailbreak a device that stores sensitive data. Currently the minimum supported iOS version is iOS 10.0.</p>
+      <p><b>Install NXBoot by adding the following repository to Cydia:</b></p>
+      <p class="compressed">
+        <a class="text-mono" href="cydia://url/https://cydia.saurik.com/api/share#?source=https://mologie.github.io/repo/">https://mologie.github.io/repo/</a><br/>
+        <small>Tap with Safari to open Cydia</small>
+      </p>
+      <p>
+        Updates are provided automatically via Cydia too. A changelog is visible in the Cydia package description.
+      </p>
+      <hr/>
+
+      <h2>FAQ</h2>
+      <p>
+        <b>What are the iOS hardware requirements?</b><br/>
+        An OTG adapter is required. Setup example: An iPhone 6 with NXBoot, connected to an Apple Lightning USB 2 Camera Adapter, where a standard USB 3 Type A to Type C cable connects the adapter with the Nintendo Switch:<br/>
+        <a href="nxboot_setup_photo.jpg"><img src="nxboot_setup_photo.jpg" alt="NXBoot Setup Photo" style="height: 100px; border: 2px solid #333; margin-top: 8px;"/></a>
+      </p>
+      <p>
+        <b>Does it work without an OTG adapter?</b><br/>
+        Nope.
+      </p>
+      <p>
+        <b>Can you make it work without an OTG adapter?</b><br/>
+        Maybe, probably not. Send me a PoC and I'll build it in (or tell me why exactly it's technically not possible.)
+      </p>
+      <p>
+        <b>Will cheap, non-Apple OTG adapters work?</b><br/>
+        Maybe. I don't keep a list and neither do I own any.
+      </p>
+      <p>
+        <b>Why use your app at all if it requires a $35 adapter?</b><br/>
+        Because you've already got that adapter, or find it convenient, or found a cheap third-party adapter.
+      </p>
+      <p>
+        <b>iOS software requirements?</b><br/>
+        You tell me! At the time of this public beta release NXBoot was only tested on iOS 11.3.1 with Coolstar's Electra Jailbreak. It may work on iOS 10 and later.
+      </p>
+      <p>
+        <b>Nintendo Switch requirements?</b><br/>
+        Any first generation Nintendo Switch with any firmware will work. There are reports about patched Nintendo Switch hardware on which the exploit no longer runs, but any switch purchased before 2018-07 should be safe.
+      </p>
+      <p>
+        <b>Is this app free?</b><br/>
+        Yes and there are no ads. It was created as a fun experiment.
+      </p>
+      <p>
+        <b>Is it open-source / free software?</b><br/>
+        No, not yet. I usually release source code a few months after the initial release to avoid user base fragmentation. (No obligation under the GPL to release this app's source code exists - it was developed from scratch with no dependencies.)
+      </p>
+      <p>
+        <b>Can I pay anyway?</b><br/>
+        How nice of you! &lt;3 I've got a public <a href="https://www.amazon.de/registry/wishlist/1ILAPNVK5NTTY">Amazon Wishlist</a> - maybe you find something there that's in the price range you have in mind. Thanks. Please understand that sending a gift creates no obligation on my part to create a feature or support you with an issue with this app.<br/>
+      <hr/>
+
+      <p>If you've got a business inquiry please contact me at any time at my business email in the footer of my <a href="https://mologie.github.io/blog/">blog</a>. I solve challenging programming, reverse engineering and security problems, develop embedded software, high performance network applications and iOS mobile apps at my company Softwific.</p>
+      <p><small>2018 - Oliver Kuckertz</small></p>
+    </div>
+  </body>
+</html>
