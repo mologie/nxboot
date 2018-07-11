@@ -10,7 +10,7 @@ version=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" MobileF
 archivedest=
 
 echo Cleaning...
-ssh root@$device rm -rf /jb/bin/nxboot /Applications/NXBoot.app
+ssh root@$device rm -f /jb/bin/nxboot
 ssh root@$device killall NXBoot || true
 
 echo Installing nxboot command-line tool...
