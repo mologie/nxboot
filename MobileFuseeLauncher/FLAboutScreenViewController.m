@@ -18,4 +18,9 @@
     self.versionLabel.text = [NSString stringWithFormat:@"Version %@", info[@"CFBundleShortVersionString"]];
 }
 
+- (IBAction)homepageButtonTapped:(id)sender {
+    NSURL *homepageURL = [NSURL URLWithString:@"https://mologie.github.io/nxboot/"];
+    [[UIApplication sharedApplication] openURL:homepageURL options:@{} completionHandler:nil];
+}
+
 @end

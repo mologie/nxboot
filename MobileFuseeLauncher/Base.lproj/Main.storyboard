@@ -216,7 +216,13 @@ CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) a
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7ul-UM-W3v"/>
                     </view>
-                    <navigationItem key="navigationItem" title="About" id="7rq-IS-oKd"/>
+                    <navigationItem key="navigationItem" title="About" id="7rq-IS-oKd">
+                        <barButtonItem key="rightBarButtonItem" title="Homepage" id="bLG-v5-8QZ">
+                            <connections>
+                                <action selector="homepageButtonTapped:" destination="yXt-UC-in5" id="puH-FR-kEl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="versionLabel" destination="cbf-Uj-Jf9" id="b75-7t-t87"/>
                     </connections>
