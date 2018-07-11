@@ -6,6 +6,7 @@ Architecture: iphoneos-arm
 Maintainer: Oliver Kuckertz <oliver.kuckertz+nxboot@mologie.de>
 Author: Oliver Kuckertz <oliver.kuckertz+nxboot@mologie.de>
 Section: Utilities
-Description: Starts custom firmware on the Nintendo Switch through the Fusée Gelée hardware exploit. Booting Coreboot/Linux is supported. Beware of Nintendo's banhammer!
+Description: Nintendo Switch Tegra X1 RCM exploit (Fusée Gelée / ShofEL2)
+Depiction: https://mologie.github.io/nxboot/cydia-depiction.html
 Homepage: https://mologie.github.io/nxboot/
 Icon: file:///Applications/NXBoot.app/PackageIcon.png
