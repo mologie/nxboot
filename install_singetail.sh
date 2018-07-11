@@ -4,6 +4,7 @@ set -o pipefail
 
 device=singetail
 version=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" MobileFuseeLauncher/Info.plist)
+buildno=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" MobileFuseeLauncher/Info.plist)
 archivedest=
 
 echo Cleaning...
@@ -14,7 +15,7 @@ echo Installing nxboot command-line tool...
 scp nxboot root@$device:/jb/bin/nxboot
 
 echo Installing iOS application $version via dpkg...
-debname=com.mologie.NXBoot-$version.deb
+debname=com.mologie.NXBoot-$version-$buildno.deb
 scp dist/$debname root@$device:/tmp/$debname
 ssh root@$device dpkg -i /tmp/$debname
 
