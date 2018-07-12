@@ -44,6 +44,7 @@
 		A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLGettingStartedViewController.m; sourceTree = "<group>"; };
 		A7458B4B20EF86C7008F4899 /* Payloads */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Payloads; sourceTree = "<group>"; };
 		A7458B4D20EF86D5008F4899 /* Tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Tutorial; sourceTree = "<group>"; };
+		A75A515A20F75C4F00FCEF84 /* NXBoot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBoot.entitlements; sourceTree = "<group>"; };
 		A765643D20F4D265005EC7E6 /* FLConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLConfig.h; sourceTree = "<group>"; };
 		A765643E20F4D265005EC7E6 /* FLConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLConfig.m; sourceTree = "<group>"; };
 		A78BBEC820EE30F4007C3514 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
@@ -102,6 +103,7 @@
 			children = (
 				A7FDBE2520EE27DE00E59587 /* Info.plist */,
 				A7FDBE2620EE27DE00E59587 /* main.m */,
+				A75A515A20F75C4F00FCEF84 /* NXBoot.entitlements */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -220,6 +222,11 @@
 				TargetAttributes = {
 					A7FDBE1320EE27DD00E59587 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -436,6 +443,7 @@
 			baseConfigurationReference = CCB33A19B7CC97EB47546F4F /* Pods-NXBoot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MobileFuseeLauncher/NXBoot.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N3S4C3QL65;
@@ -456,6 +464,7 @@
 			baseConfigurationReference = 4F766E22F690D25403AB12FC /* Pods-NXBoot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MobileFuseeLauncher/NXBoot.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N3S4C3QL65;
