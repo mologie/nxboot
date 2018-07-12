@@ -80,7 +80,7 @@
     }
     else {
         self.bootStatus = @"No Nintendo Switch in RCM mode was connected yet. "
-            "Connect a device using a USB Type C to Lightning cable or adapter and tap the above button.";
+            "Connect a device using a Lightning OTG adapter and tap the above button.";
     }
 }
 
