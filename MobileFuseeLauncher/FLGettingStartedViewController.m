@@ -52,12 +52,10 @@
     [super viewDidLayoutSubviews];
 
     // determine additional web page margin relative to safe area
-    CGFloat topMargin = 0;
+    CGFloat topMargin = self.webView.scrollView.contentInset.top;
     CGFloat bottomMargin = self.toolbar.frame.size.height;
 
-    if (self.webView.scrollView.contentInset.top != topMargin ||
-        self.webView.scrollView.contentInset.bottom != bottomMargin)
-    {
+    if (self.webView.scrollView.contentInset.bottom != bottomMargin) {
         // ensure that web page does not overlap with statusbar and toolbar
         self.webView.scrollView.contentInset = UIEdgeInsetsMake(topMargin, 0, bottomMargin, 0);
 
