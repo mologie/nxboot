@@ -159,6 +159,11 @@ enum {
                 }]];
             }
             for (NSURL *docUrl in self.importedFiles) {
+                NSNumber *isDirectory = nil;
+                [docUrl getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+                if (isDirectory.boolValue) {
+                    continue;
+                }
                 NSString *title = [NSString stringWithFormat:@"Imported: %@", docUrl.lastPathComponent];
                 [alert addAction:[UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     NSData *doc = [NSData dataWithContentsOfURL:docUrl];
@@ -227,6 +232,11 @@ enum {
             }
             */
             for (NSURL *docUrl in self.importedFiles) {
+                NSNumber *isDirectory = nil;
+                [docUrl getResourceValue:&isDirectory forKey:NSURLIsDirectoryKey error:nil];
+                if (isDirectory.boolValue) {
+                    continue;
+                }
                 NSString *title = [NSString stringWithFormat:@"Imported: %@", docUrl.lastPathComponent];
                 [alert addAction:[UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     NSData *doc = [NSData dataWithContentsOfURL:docUrl];
@@ -301,7 +311,10 @@ enum {
 - (NSArray<NSURL *> *)importedFiles {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSURL *documentsDir = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-    return [fm contentsOfDirectoryAtURL:documentsDir includingPropertiesForKeys:nil options:0 error:nil];
+    return [fm contentsOfDirectoryAtURL:documentsDir
+             includingPropertiesForKeys:@[NSURLIsDirectoryKey]
+                                options:NSDirectoryEnumerationSkipsSubdirectoryDescendants
+                                  error:nil];
 }
 
 #pragma mark - UI Misc
