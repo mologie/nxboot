@@ -83,8 +83,6 @@
     <div id="depiction">
       <p>NXBoot enables starting custom boot code on the Nintendo Switch through the Fusée Gelée hardware exploit. Booting Coreboot/Linux is supported.</p>
       <p>A jailbreak is required. For jailbreaking info visit <a href="https://canijailbreak.com/">canijailbreak.com</a> and <a href="https://reddit.com/r/jailbreak">/r/jailbreak</a>. Please keep in mind that a jailbreak is detrimental to your mobile device's security and you should never jailbreak a device that stores sensitive data. Currently the minimum supported iOS version is iOS 10.0.</p>
-      <p><b>NXBoot is currently in semi-public beta. The adventurous are invited to test it by contacting me <a href="mailto:oliver.kuckertz+nxboot@mologie.de">via email</a>.</b></p>
-      <!--
       <p><b>Install NXBoot by adding the following repository to Cydia:</b></p>
       <p class="compressed">
         <a class="text-mono" href="cydia://url/https://cydia.saurik.com/api/share#?source=https://mologie.github.io/repo/">https://mologie.github.io/repo/</a><br/>
@@ -93,13 +91,12 @@
       <p>
         Updates are provided automatically via Cydia too. A changelog is visible in the Cydia package description.
       </p>
-      -->
       <hr/>
 
       <h2>FAQ</h2>
       <p>
         <b>What are the iOS hardware requirements?</b><br/>
-        An OTG adapter <b>on the Lightning end of the connection</b> is required. Setup example: An iPhone 6 with NXBoot, connected to an Apple Lightning USB 2 Camera Adapter, where a standard USB 3 Type A to Type C cable connects the adapter with the Nintendo Switch:<br/>
+        An OTG adapter <u>on the Lightning end of the connection</u> is required. Setup example: An iPhone 6 with NXBoot, connected to an Apple Lightning USB 2 Camera Adapter, where a standard USB 3 Type A to Type C cable connects the adapter with the Nintendo Switch:<br/>
         <a href="nxboot_setup_photo.jpg"><img src="nxboot_setup_photo.jpg" alt="NXBoot Setup Photo" style="height: 100px; border: 2px solid #333; margin-top: 8px;"/></a>
       </p>
       <p>
@@ -108,19 +105,19 @@
       </p>
       <p>
         <b>Can you make it work without an Lightning OTG adapter?</b><br/>
-        Maybe, probably not. Send me a PoC and I'll build it in (or tell me why exactly it's technically not possible.)
+        Maybe, probably not. I'd be interested in technical details about the Lightning Camera adapter's internals and how iOS deals with USB host and device mode.
       </p>
       <p>
         <b>Will cheap, non-Apple OTG adapters work?</b><br/>
-        Maybe. I don't keep a list and neither do I own any.
+        Maybe. I've received reports from some people who had success with cheap $5 Lightning OTG adapters, but others did not get their third-party adapter to work at all or had USB communication errors.
       </p>
       <p>
-        <b>Why use your app at all if it requires a $35 adapter?</b><br/>
-        Because you've already got that adapter, or find it convenient, or found a cheap third-party adapter.
+        <b>Why use your app at all if it requires a $30 adapter?</b><br/>
+        Because you've already got that adapter, or find it convenient, or found a cheap third-party adapter that works for you.
       </p>
       <p>
         <b>iOS software requirements?</b><br/>
-        You tell me! At the time of this public beta release NXBoot was only tested on iOS 11.3.1 with Coolstar's Electra Jailbreak. It may work on iOS 10 and later.
+        NXBoot was tested and found compatible with all jailbreaks for iOS 10 and later, up to Coolstar's iOS 11.3.1/11.4b3 jailbreak. It may break if Apple changes some of its private APIs or sandbox details in future iOS versions.
       </p>
       <p>
         <b>Nintendo Switch requirements?</b><br/>
@@ -136,7 +133,8 @@
       </p>
       <p>
         <b>Can I pay anyway?</b><br/>
-        How nice of you! &lt;3 I've got a public <a href="https://www.amazon.de/registry/wishlist/1ILAPNVK5NTTY">Amazon Wishlist</a> - maybe you find something there that's in the price range you have in mind. Thanks. Please understand that sending a gift creates no obligation on my part to create a feature or support you with an issue with this app.<br/>
+        How nice of you! &lt;3 I've got a public <a href="https://www.amazon.de/registry/wishlist/1ILAPNVK5NTTY">Amazon Wishlist</a> - maybe you find something there that's in the price range you have in mind. Thanks. Please understand that sending a gift creates no obligation on my part to create a feature or support you with an issue with this app.
+      </p>
       <hr/>
 
       <p>If you've got a business inquiry please contact me at any time at my business email in the footer of my <a href="https://mologie.github.io/blog/">blog</a>. I solve challenging programming, reverse engineering and security problems, develop embedded software, high performance network applications and iOS mobile apps at my company Softwific.</p>
