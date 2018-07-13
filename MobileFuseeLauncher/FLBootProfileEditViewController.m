@@ -156,8 +156,8 @@ enum {
                     [self updateSaveButton];
                 }]];
             }
-            for (NSURL *docUrl in self.iTunesDocumentFiles) {
-                NSString *title = [NSString stringWithFormat:@"iTunes: %@", docUrl.lastPathComponent];
+            for (NSURL *docUrl in self.importedFiles) {
+                NSString *title = [NSString stringWithFormat:@"Imported: %@", docUrl.lastPathComponent];
                 [alert addAction:[UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     NSData *doc = [NSData dataWithContentsOfURL:docUrl];
                     if (doc.length > 0 && doc.length <= kMaxRelocatorSize) {
@@ -167,13 +167,13 @@ enum {
                         self.relocatorUrlToDeleteOnSave = docUrl;
                         [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:kSectionRelocator]].detailTextLabel.text = name;
                         [self updateSaveButton];
-                        [self presentAlertWithTitle:@"iTunes Import" message:@"Note: The selected relocator is removed from the iTunes document list when the profile is saved."];
+                        [self presentAlertWithTitle:@"Imported File" message:@"Note: The selected relocator is removed from the imported files list when the profile is saved."];
                     }
                     else if (doc.length > kMaxRelocatorSize) {
                         [self presentAlertWithTitle:@"Error" message:@"The selected relocator binary is too large. Did you select the right file?"];
                     }
                     else {
-                        [self presentAlertWithTitle:@"Error" message:@"iTunes import failed, no data is available at the import path."];
+                        [self presentAlertWithTitle:@"Error" message:@"Import failed, no data is available at the import path."];
                     }
                 }]];
             }
@@ -221,8 +221,8 @@ enum {
                 }]];
             }
             */
-            for (NSURL *docUrl in self.iTunesDocumentFiles) {
-                NSString *title = [NSString stringWithFormat:@"iTunes: %@", docUrl.lastPathComponent];
+            for (NSURL *docUrl in self.importedFiles) {
+                NSString *title = [NSString stringWithFormat:@"Imported: %@", docUrl.lastPathComponent];
                 [alert addAction:[UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     NSData *doc = [NSData dataWithContentsOfURL:docUrl];
                     if (doc.length > 0) {
@@ -232,7 +232,7 @@ enum {
                         self.payloadUrlToDeleteOnSave = docUrl;
                         [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:kSectionPayload]].detailTextLabel.text = name;
                         [self updateSaveButton];
-                        [self presentAlertWithTitle:@"iTunes Import" message:@"Note: The selected payload is removed from the iTunes document list when the profile is saved."];
+                        [self presentAlertWithTitle:@"Imported File" message:@"Note: The selected payload is removed from the imported files list when the profile is saved."];
                     }
                     else {
                         [self presentAlertWithTitle:@"Error" message:@"iTunes import failed, no data is available at the import path."];
@@ -252,7 +252,7 @@ enum {
                             [self updateSaveButton];
                         }
                         else {
-                            [self presentAlertWithTitle:@"Error" message:@"File import failed, no data is available at the import path."];
+                            [self presentAlertWithTitle:@"Error" message:@"Import failed, no data is available at the import path."];
                         }
                     }
                 }];
@@ -290,12 +290,12 @@ enum {
     }
 }
 
-#pragma mark - iTunes Documents
+#pragma mark - Imported Files
 
-- (NSArray<NSURL *> *)iTunesDocumentFiles {
+- (NSArray<NSURL *> *)importedFiles {
     NSFileManager *fm = [NSFileManager defaultManager];
-    NSURL *iTunesDir = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-    return [fm contentsOfDirectoryAtURL:iTunesDir includingPropertiesForKeys:nil options:0 error:nil];
+    NSURL *documentsDir = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+    return [fm contentsOfDirectoryAtURL:documentsDir includingPropertiesForKeys:nil options:0 error:nil];
 }
 
 #pragma mark - UI Misc

@@ -29,6 +29,32 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {}
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+    // copy the file at 'url' to the documents directory
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSString *name = url.lastPathComponent;
+    NSURL *documentsDir = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+    NSError *error = nil;
+    BOOL copyOK = [fm copyItemAtURL:url toURL:[documentsDir URLByAppendingPathComponent:name] error:&error];
+    if (copyOK) {
+        NSString *message = [NSString stringWithFormat:@"The file %@ has been imported and is available in the boot profiles editor.", name];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"File Imported"
+                                                                       message:message
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        return YES;
+    }
+    else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Import Failed"
+                                                                       message:error.localizedDescription
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        return NO;
+    }
+}
+
 #pragma mark - Core Data Stack
 
 @synthesize persistentContainer = _persistentContainer;
