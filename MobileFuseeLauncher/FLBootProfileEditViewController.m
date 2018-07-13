@@ -151,6 +151,8 @@ enum {
                 NSString *title = [NSString stringWithFormat:@"Built-In: %@", relocatorName];
                 [alert addAction:[UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self.profile.relocatorName = relocatorName;
+                    self.profile.relocatorBin = nil;
+                    self.relocatorUrlToDeleteOnSave = nil;
                     NSString *detailText = [NSString stringWithFormat:@"built-in: %@", relocatorName];
                     [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:kSectionRelocator]].detailTextLabel.text = detailText;
                     [self updateSaveButton];
@@ -185,6 +187,7 @@ enum {
                             NSString *name = url.lastPathComponent;
                             self.profile.relocatorName = name;
                             self.profile.relocatorBin = doc;
+                            self.relocatorUrlToDeleteOnSave = nil;
                             [[NSFileManager defaultManager] removeItemAtURL:url error:nil]; // discard in-sandbox copy of the file
                             [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:kSectionRelocator]].detailTextLabel.text = name;
                             [self updateSaveButton];
@@ -215,6 +218,8 @@ enum {
                 NSString *title = [NSString stringWithFormat:@"Built-In: %@", payloadName];
                 [alert addAction:[UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                     self.profile.payloadName = payloadName;
+                    self.profile.payloadBin = nil;
+                    self.payloadUrlToDeleteOnSave = nil;
                     NSString *detailText = [NSString stringWithFormat:@"built-in: %@", payloadName];
                     [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:kSectionPayload]].detailTextLabel.text = detailText;
                     [self updateSaveButton];
@@ -247,6 +252,7 @@ enum {
                             NSString *name = url.lastPathComponent;
                             self.profile.payloadName = name;
                             self.profile.payloadBin = doc;
+                            self.payloadUrlToDeleteOnSave = nil;
                             [[NSFileManager defaultManager] removeItemAtURL:url error:nil]; // discard in-sandbox copy of the file
                             [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:kSectionPayload]].detailTextLabel.text = name;
                             [self updateSaveButton];
