@@ -34,9 +34,19 @@
     NSFileManager *fm = [NSFileManager defaultManager];
     NSString *name = url.lastPathComponent;
     NSURL *documentsDir = [fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+    NSURL *inboxDir = [[documentsDir URLByAppendingPathComponent:@"Inbox" isDirectory:YES] URLByResolvingSymlinksInPath];
+    NSURL *inParentDir = [[url URLByDeletingLastPathComponent] URLByResolvingSymlinksInPath];
+    NSURL *targetFilePath = [documentsDir URLByAppendingPathComponent:name];
     NSError *error = nil;
-    BOOL copyOK = [fm copyItemAtURL:url toURL:[documentsDir URLByAppendingPathComponent:name] error:&error];
-    if (copyOK) {
+    BOOL importOK = NO;
+    [fm removeItemAtURL:targetFilePath error:nil];
+    if ([inParentDir.absoluteString isEqualToString:inboxDir.absoluteString]) {
+        importOK = [fm moveItemAtURL:url toURL:targetFilePath error:&error]; // move file out of Inbox directory
+    }
+    else {
+        importOK = [fm copyItemAtURL:url toURL:targetFilePath error:&error];
+    }
+    if (importOK) {
         NSString *message = [NSString stringWithFormat:@"The file %@ has been imported and is available in the boot profiles editor.", name];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"File Imported"
                                                                        message:message
