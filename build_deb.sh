@@ -8,7 +8,7 @@ version=$3
 buildno=$4
 DPKGDIR=DerivedData/dpkg
 PROJDIR=$PWD
-RELEASEDIR=$PROJDIR/DerivedData/MobileFuseeLauncher/Build/Products/Release-iphoneos
+RELEASEDIR=$PROJDIR/DerivedData/NXBoot/Build/Products/Release-iphoneos
 
 rm -rf $DPKGDIR
 mkdir -p $DPKGDIR/com.mologie.NXBoot/{DEBIAN,Applications}

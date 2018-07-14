@@ -17,7 +17,7 @@
                BlueprintIdentifier = "A7FDBE1320EE27DD00E59587"
                BuildableName = "NXBoot.app"
                BlueprintName = "NXBoot"
-               ReferencedContainer = "container:MobileFuseeLauncher.xcodeproj">
+               ReferencedContainer = "container:NXBoot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "A7FDBE1320EE27DD00E59587"
             BuildableName = "NXBoot.app"
             BlueprintName = "NXBoot"
-            ReferencedContainer = "container:MobileFuseeLauncher.xcodeproj">
+            ReferencedContainer = "container:NXBoot.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "A7FDBE1320EE27DD00E59587"
             BuildableName = "NXBoot.app"
             BlueprintName = "NXBoot"
-            ReferencedContainer = "container:MobileFuseeLauncher.xcodeproj">
+            ReferencedContainer = "container:NXBoot.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,7 +77,7 @@
             BlueprintIdentifier = "A7FDBE1320EE27DD00E59587"
             BuildableName = "NXBoot.app"
             BlueprintName = "NXBoot"
-            ReferencedContainer = "container:MobileFuseeLauncher.xcodeproj">
+            ReferencedContainer = "container:NXBoot.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

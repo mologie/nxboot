@@ -141,7 +141,7 @@
 		A7FDBE0B20EE27DD00E59587 = {
 			isa = PBXGroup;
 			children = (
-				A7FDBE1620EE27DD00E59587 /* MobileFuseeLauncher */,
+				A7FDBE1620EE27DD00E59587 /* NXBoot */,
 				A7FDBE1520EE27DD00E59587 /* Products */,
 				A7FDBE2D20EE2A1700E59587 /* Frameworks */,
 				422DE3698D5FA49548658B9F /* Pods */,
@@ -156,14 +156,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A7FDBE1620EE27DD00E59587 /* MobileFuseeLauncher */ = {
+		A7FDBE1620EE27DD00E59587 /* NXBoot */ = {
 			isa = PBXGroup;
 			children = (
 				A7C4EA1220EE2AFA0026FFC9 /* Misc */,
 				A7FDBE3320EE2AC600E59587 /* Resources */,
 				A7C4EA1320EE2B050026FFC9 /* Sources */,
 			);
-			path = MobileFuseeLauncher;
+			path = NXBoot;
 			sourceTree = "<group>";
 		};
 		A7FDBE2D20EE2A1700E59587 /* Frameworks */ = {
@@ -207,7 +207,7 @@
 			dependencies = (
 			);
 			name = NXBoot;
-			productName = MobileFuseeLauncher;
+			productName = NXBoot;
 			productReference = A7FDBE1420EE27DD00E59587 /* NXBoot.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -230,7 +230,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A7FDBE0F20EE27DD00E59587 /* Build configuration list for PBXProject "MobileFuseeLauncher" */;
+			buildConfigurationList = A7FDBE0F20EE27DD00E59587 /* Build configuration list for PBXProject "NXBoot" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -443,11 +443,11 @@
 			baseConfigurationReference = CCB33A19B7CC97EB47546F4F /* Pods-NXBoot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MobileFuseeLauncher/NXBoot.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NXBoot/NXBoot.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N3S4C3QL65;
-				INFOPLIST_FILE = MobileFuseeLauncher/Info.plist;
+				INFOPLIST_FILE = NXBoot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -464,11 +464,11 @@
 			baseConfigurationReference = 4F766E22F690D25403AB12FC /* Pods-NXBoot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = MobileFuseeLauncher/NXBoot.entitlements;
+				CODE_SIGN_ENTITLEMENTS = NXBoot/NXBoot.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N3S4C3QL65;
-				INFOPLIST_FILE = MobileFuseeLauncher/Info.plist;
+				INFOPLIST_FILE = NXBoot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -483,7 +483,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A7FDBE0F20EE27DD00E59587 /* Build configuration list for PBXProject "MobileFuseeLauncher" */ = {
+		A7FDBE0F20EE27DD00E59587 /* Build configuration list for PBXProject "NXBoot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A7FDBE2820EE27DE00E59587 /* Debug */,

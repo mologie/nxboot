@@ -6,10 +6,10 @@
 #import <Foundation/Foundation.h>
 
 // inline source files for trivial, single-file compilation. sorry!
-#import "MobileFuseeLauncher/FLExec.m"
-#import "MobileFuseeLauncher/FLUSBDevice.m"
-#import "MobileFuseeLauncher/FLUSBDeviceEnumerator.m"
-#import "MobileFuseeLauncher/NSData+FLHexEncoding.m"
+#import "../NXBoot/FLExec.m"
+#import "../NXBoot/FLUSBDevice.m"
+#import "../NXBoot/FLUSBDeviceEnumerator.m"
+#import "../NXBoot/NSData+FLHexEncoding.m"
 
 @interface NXBoot : NSObject <FLUSBDeviceEnumeratorDelegate>
 @property (strong, nonatomic) NSData *relocator;

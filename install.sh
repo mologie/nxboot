@@ -2,9 +2,14 @@
 set -e
 set -o pipefail
 
-device=singetail
-version=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" MobileFuseeLauncher/Info.plist)
-buildno=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" MobileFuseeLauncher/Info.plist)
+if [ -z "$1" ]; then
+    echo "Usage: $0 <device>"
+    exit 1
+fi
+
+device=$1
+version=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" NXBoot/Info.plist)
+buildno=$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" NXBoot/Info.plist)
 archivedest=
 
 echo Cleaning...

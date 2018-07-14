@@ -25,9 +25,5 @@ xcuserdata
 # IntelliJ IDEA / AppCode
 /.idea
 
-# nxboot command line utility
-.nx*
-/nxboot
-
 # Build scripts output
 /dist
