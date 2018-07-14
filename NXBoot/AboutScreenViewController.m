@@ -3,13 +3,13 @@
  * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
  */
 
-#import "FLAboutScreenViewController.h"
+#import "AboutScreenViewController.h"
 
-@interface FLAboutScreenViewController ()
+@interface AboutScreenViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *versionLabel;
 @end
 
-@implementation FLAboutScreenViewController
+@implementation AboutScreenViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

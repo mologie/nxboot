@@ -3,26 +3,26 @@
  * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
  */
 
-#import "FLBootProfilesViewController.h"
-#import "FLBootProfileEditViewController.h"
-#import "FLBootProfile+CoreDataClass.h"
-#import "FLConfig.h"
+#import "BootProfilesViewController.h"
+#import "BootProfileEditViewController.h"
+#import "AppConfig.h"
 #import "AppDelegate.h"
+#import "FLBootProfile+CoreDataClass.h"
 
-@interface FLBootProfilesViewController ()
-@property (nonatomic, strong) FLConfig *config;
+@interface BootProfilesViewController ()
+@property (nonatomic, strong) AppConfig *config;
 @property (nonatomic, strong) NSMutableArray<FLBootProfile *> *profiles;
 @property (nonatomic, strong) FLBootProfile *nextProfileToEdit;
 @end
 
-@implementation FLBootProfilesViewController
+@implementation BootProfilesViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     self.view.backgroundColor = [UIColor colorWithWhite:0.16 alpha:1.0];
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.config = [FLConfig sharedConfig];
+    self.config = [AppConfig sharedConfig];
 
     NSFetchRequest *fetchRequest = [FLBootProfile fetchRequest];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
@@ -166,11 +166,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"AddBootProfile"]) {
-        FLBootProfileEditViewController *controller = segue.destinationViewController;
+        BootProfileEditViewController *controller = segue.destinationViewController;
         controller.managedObjectContext = self.managedObjectContext;
     }
     else if ([segue.identifier isEqualToString:@"EditBootProfile"]) {
-        FLBootProfileEditViewController *controller = segue.destinationViewController;
+        BootProfileEditViewController *controller = segue.destinationViewController;
         controller.profile = self.nextProfileToEdit;
         controller.managedObjectContext = self.managedObjectContext;
         self.nextProfileToEdit = nil;
@@ -178,7 +178,7 @@
 }
 
 - (IBAction)unwindFromBootProfileEditor:(UIStoryboardSegue *)segue {
-    FLBootProfileEditViewController *controller = segue.sourceViewController;
+    BootProfileEditViewController *controller = segue.sourceViewController;
 
     [controller save];
 

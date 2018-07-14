@@ -5,8 +5,7 @@
  * This class is a reimplementation of {re}switched's fusee-launcher.py for iOS/IOKit.
  */
 
-#import "FLExec.h"
-#import "NSData+FLHexEncoding.h"
+#import "NXExec.h"
 #import <Foundation/Foundation.h>
 #import <IOKit/IOKitLib.h>
 #import <IOKit/IOCFPlugIn.h>
@@ -27,7 +26,7 @@ static UInt8 DMADummyBuffer[kNXStackLowest - kNXCopyBuf1]; // 0x7000 / 28 KiB
 #define ERR(FMT, ...) FLSetError([NSString stringWithFormat:FMT, ##__VA_ARGS__], err)
 
 struct FLExecDesc {
-    FLUSBSubInterface **intf;
+    NXUSBSubInterface **intf;
     UInt8 readRef, writeRef;
 };
 
@@ -51,6 +50,16 @@ static void FLPadDataToMultiple(NSMutableData *data, NSUInteger base) {
     }
 }
 
+static NSString *FLHexEncodedData(NSData *data) {
+    UInt8 const *buf = data.bytes;
+    NSUInteger n = data.length;
+    NSMutableString *res = [[NSMutableString alloc] initWithCapacity:(n * 2)];
+    for (NSUInteger i = 0; i < n; i++) {
+        [res appendString:[NSString stringWithFormat:@"%02x", buf[i]]];
+    }
+    return res;
+}
+
 static void FLSetError(NSString *message, NSString **err) {
     if (err) {
         *err = message;
@@ -62,7 +71,7 @@ static NSData *FLExecReadDeviceID(struct FLExecDesc const *desc) {
     kern_return_t kr;
     UInt8 deviceID[16];
     UInt32 btransf = sizeof(deviceID);
-    kr = FLCOMCall(desc->intf, ReadPipeTO, desc->readRef, deviceID, &btransf, 1000, 1000);
+    kr = NXCOMCall(desc->intf, ReadPipeTO, desc->readRef, deviceID, &btransf, 1000, 1000);
     if (kr) {
         NSLog(@"ERR: Failed to read device ID via ReadPipeTO with code %08x", kr);
         return nil;
@@ -137,7 +146,7 @@ static NSData *FLExecMakeFuseePayload(NSData *relocator, BOOL relocatorThumbMode
     return payload;
 }
 
-static BOOL FLExecFuseeGelee(FLUSBDeviceInterface **device, struct FLExecDesc const *desc, NSData *payload, NSString **err) {
+static BOOL FLExecFuseeGelee(NXUSBDeviceInterface **device, struct FLExecDesc const *desc, NSData *payload, NSString **err) {
     kern_return_t kr;
 
     // read device ID, which is required for proceeding into RCM mode
@@ -147,7 +156,7 @@ static BOOL FLExecFuseeGelee(FLUSBDeviceInterface **device, struct FLExecDesc co
         ERR(@"Could not read device ID. Try restarting the Switch by holding the POWER button for 12 seconds.");
         return NO;
     }
-    NSLog(@"USB: Device ID: %@", deviceID.FL_hexLowerCaseString);
+    NSLog(@"USB: Device ID: %@", FLHexEncodedData(deviceID));
 
     // sanity check
     if (payload.length % kNXPacketMaxSize != 0) {
@@ -160,7 +169,7 @@ static BOOL FLExecFuseeGelee(FLUSBDeviceInterface **device, struct FLExecDesc co
     int currentBuffer = 0;
     for (UInt32 i = 0; i < payload.length; i += kNXPacketMaxSize) {
         NSLog(@"USB: Progress %lu/%lu", (unsigned long)i, (unsigned long)payload.length);
-        kr = FLCOMCall(desc->intf, WritePipeTO, desc->writeRef, (void *)(payload.bytes + i), kNXPacketMaxSize, 1000, 1000);
+        kr = NXCOMCall(desc->intf, WritePipeTO, desc->writeRef, (void *)(payload.bytes + i), kNXPacketMaxSize, 1000, 1000);
         if (kr) {
             ERR(@"Payload write failed at offset %lu with code %08x", (unsigned long)i, kr);
             return NO;
@@ -173,7 +182,7 @@ static BOOL FLExecFuseeGelee(FLUSBDeviceInterface **device, struct FLExecDesc co
         NSLog(@"USB: Switching to high buffer...");
         NSMutableData *zeroes = [[NSMutableData alloc] initWithCapacity:kNXPacketMaxSize];
         FLPadData(zeroes, kNXPacketMaxSize);
-        kr = FLCOMCall(desc->intf, WritePipeTO, desc->writeRef, (void *)zeroes.bytes, kNXPacketMaxSize, 1000, 1000);
+        kr = NXCOMCall(desc->intf, WritePipeTO, desc->writeRef, (void *)zeroes.bytes, kNXPacketMaxSize, 1000, 1000);
         if (kr) {
             ERR(@"DMA buffer switch packet write failed with code %08x", kr);
             return NO;
@@ -201,7 +210,7 @@ static BOOL FLExecFuseeGelee(FLUSBDeviceInterface **device, struct FLExecDesc co
         .noDataTimeout     = 100,
         .completionTimeout = 100
     };
-    kr = FLCOMCall(device, DeviceRequestTO, &controlRequest);
+    kr = NXCOMCall(device, DeviceRequestTO, &controlRequest);
     if (kr) {
         NSLog(@"USB: DeviceRequestTO failed - this is expected (code %08x)", kr);
     }
@@ -213,7 +222,7 @@ static BOOL FLExecFuseeGelee(FLUSBDeviceInterface **device, struct FLExecDesc co
     return YES;
 }
 
-BOOL FLExecCBFS(FLUSBDeviceInterface **device, struct FLExecDesc /*const*/ *desc, NSData *cbfsImage, NSString **err) {
+BOOL FLExecCBFS(NXUSBDeviceInterface **device, struct FLExecDesc /*const*/ *desc, NSData *cbfsImage, NSString **err) {
     kern_return_t kr;
     UInt32 btransf;
 
@@ -223,7 +232,7 @@ BOOL FLExecCBFS(FLUSBDeviceInterface **device, struct FLExecDesc /*const*/ *desc
     NSLog(@"USB: Waiting for CBFS header...");
     UInt8 cbfsHeaderBuf[128];
     btransf = sizeof(cbfsHeaderBuf);
-    kr = FLCOMCall(desc->intf, ReadPipeTO, desc->readRef, cbfsHeaderBuf, &btransf, 3000, 3000);
+    kr = NXCOMCall(desc->intf, ReadPipeTO, desc->readRef, cbfsHeaderBuf, &btransf, 3000, 3000);
     if (kr) {
         ERR(@"Failed to read CBFS header via ReadPipeTO with code %08x", kr);
         return NO;
@@ -253,7 +262,7 @@ BOOL FLExecCBFS(FLUSBDeviceInterface **device, struct FLExecDesc /*const*/ *desc
         } range;
         static_assert(sizeof(struct CbfsFileRange) == 8, "expected CbfsFileRange to have a size of 8 bytes");
         btransf = sizeof(range);
-        kr = FLCOMCall(desc->intf, ReadPipeTO, desc->readRef, &range, &btransf, 1000, 1000);
+        kr = NXCOMCall(desc->intf, ReadPipeTO, desc->readRef, &range, &btransf, 1000, 1000);
         if (kr) {
             ERR(@"Failed to read CBFS offset and size via ReadPipeTO with code %08x", kr);
             return NO;
@@ -276,7 +285,7 @@ BOOL FLExecCBFS(FLUSBDeviceInterface **device, struct FLExecDesc /*const*/ *desc
                 ERR(@"CBFS payload requested a range that is out of the CBFS image's bounds");
                 return NO;
             }
-            kr = FLCOMCall(desc->intf, WritePipeTO, desc->writeRef, (void *)(cbfsImage.bytes + i), n, 1000, 1000);
+            kr = NXCOMCall(desc->intf, WritePipeTO, desc->writeRef, (void *)(cbfsImage.bytes + i), n, 1000, 1000);
             if (kr) {
                 ERR(@"CBFS image write failed at offset %lu with code %08x", (unsigned long)i, kr);
                 return NO;
@@ -295,19 +304,19 @@ BOOL FLExecCBFS(FLUSBDeviceInterface **device, struct FLExecDesc /*const*/ *desc
     return YES;
 }
 
-static struct FLExecDesc FLExecAcquireDeviceInterface(FLUSBDeviceInterface **device, NSString **err) {
+static struct FLExecDesc FLExecAcquireDeviceInterface(NXUSBDeviceInterface **device, NSString **err) {
     kern_return_t kr;
     struct FLExecDesc desc = kFLExecDescInvalid;
     io_iterator_t subIntfIter = 0;
     io_service_t intfService = 0;
 
     // open and configure device
-    kr = FLCOMCall(device, USBDeviceOpenSeize);
+    kr = NXCOMCall(device, USBDeviceOpenSeize);
     if (kr) {
         ERR(@"USBDeviceOpenSeize failed with code %08x", kr);
         goto cleanup_error;
     }
-    kr = FLCOMCall(device, SetConfiguration, 1);
+    kr = NXCOMCall(device, SetConfiguration, 1);
     if (kr) {
         ERR(@"SetConfiguration failed with code %08x", kr);
         goto cleanup_error;
@@ -320,7 +329,7 @@ static struct FLExecDesc FLExecAcquireDeviceInterface(FLUSBDeviceInterface **dev
         .bInterfaceProtocol = kIOUSBFindInterfaceDontCare,
         .bAlternateSetting  = kIOUSBFindInterfaceDontCare
     };
-    kr = FLCOMCall(device, CreateInterfaceIterator, &subIntfReq, &subIntfIter);
+    kr = NXCOMCall(device, CreateInterfaceIterator, &subIntfReq, &subIntfIter);
     if (kr) {
         ERR(@"CreateInterfaceIterator failed with code %08x", kr);
         goto cleanup_error;
@@ -357,9 +366,9 @@ static struct FLExecDesc FLExecAcquireDeviceInterface(FLUSBDeviceInterface **dev
         goto cleanup_error;
     }
     kr = (*plugInInterface)->QueryInterface(plugInInterface,
-                                            CFUUIDGetUUIDBytes(kFLUSBSubInterfaceUUID),
+                                            CFUUIDGetUUIDBytes(kNXUSBSubInterfaceUUID),
                                             (void*)&desc.intf);
-    FLCOMCall(plugInInterface, Release);
+    NXCOMCall(plugInInterface, Release);
     plugInInterface = NULL;
     if (kr || !desc.intf) {
         ERR(@"QueryInterface for device interface failed wiht code %08x", kr);
@@ -367,13 +376,13 @@ static struct FLExecDesc FLExecAcquireDeviceInterface(FLUSBDeviceInterface **dev
     }
 
     // open and configure interface
-    kr = FLCOMCall(desc.intf, USBInterfaceOpenSeize);
+    kr = NXCOMCall(desc.intf, USBInterfaceOpenSeize);
     if (kr) {
         ERR(@"USBInterfaceOpenSeize failed with code %08x", kr);
         goto cleanup_error;
     }
     /*
-    kr = FLCOMCall(desc.intf, SetAlternateInterface, 0);
+    kr = NXCOMCall(desc.intf, SetAlternateInterface, 0);
     if (kr) {
         ERR(@"SetAlternateInterface failed with code %08x", kr);
         goto cleanup_error;
@@ -382,7 +391,7 @@ static struct FLExecDesc FLExecAcquireDeviceInterface(FLUSBDeviceInterface **dev
 
     // find endpoint references
     UInt8 nendpoints = 0;
-    kr = FLCOMCall(desc.intf, GetNumEndpoints, &nendpoints);
+    kr = NXCOMCall(desc.intf, GetNumEndpoints, &nendpoints);
     if (kr || nendpoints == 0) {
         ERR(@"GetNumEndpoints failed with code %08x", kr);
         goto cleanup_error;
@@ -390,7 +399,7 @@ static struct FLExecDesc FLExecAcquireDeviceInterface(FLUSBDeviceInterface **dev
     for (UInt8 pipeRef = 1; pipeRef <= nendpoints; pipeRef++) {
         UInt8 direction, number, transferType, interval;
         UInt16 maxPacketSize;
-        kr = FLCOMCall(desc.intf, GetPipeProperties, pipeRef, &direction, &number, &transferType, &maxPacketSize, &interval);
+        kr = NXCOMCall(desc.intf, GetPipeProperties, pipeRef, &direction, &number, &transferType, &maxPacketSize, &interval);
         if (kr) {
             ERR(@"GetPipeProperties failed for interface %u with code %08x", pipeRef, kr);
             goto cleanup_error;
@@ -418,17 +427,17 @@ cleanup_error:
         subIntfIter = 0;
     }
     if (desc.intf) {
-        FLCOMCall(desc.intf, USBInterfaceClose);
-        FLCOMCall(desc.intf, Release);
+        NXCOMCall(desc.intf, USBInterfaceClose);
+        NXCOMCall(desc.intf, Release);
     }
-    FLCOMCall(device, USBDeviceClose);
+    NXCOMCall(device, USBDeviceClose);
     return kFLExecDescInvalid;
 }
 
-static void FLExecReleaseDeviceInterface(FLUSBDeviceInterface **device, FLUSBSubInterface **intf) {
-    FLCOMCall(intf, USBInterfaceClose);
-    FLCOMCall(intf, Release);
-    FLCOMCall(device, USBDeviceClose);
+static void FLExecReleaseDeviceInterface(NXUSBDeviceInterface **device, NXUSBSubInterface **intf) {
+    NXCOMCall(intf, USBInterfaceClose);
+    NXCOMCall(intf, Release);
+    NXCOMCall(device, USBDeviceClose);
 }
 
 static BOOL FLExecRelocatorIsCBFS(NSData *relocator) {
@@ -437,7 +446,7 @@ static BOOL FLExecRelocatorIsCBFS(NSData *relocator) {
     return [relocator rangeOfData:tag options:0 range:NSMakeRange(0, relocator.length)].location != NSNotFound;
 }
 
-BOOL FLExec(FLUSBDeviceInterface **device, NSData *relocator, NSData *image, NSString **err) {
+BOOL NXExec(NXUSBDeviceInterface **device, NSData *relocator, NSData *image, NSString **err) {
     // There are two implementations for CVE-2018-6242: Fusée Gelée and ShofEL2.
     //
     // Fusée Gelée's payload is structured like so:

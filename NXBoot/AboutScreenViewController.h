@@ -5,5 +5,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FLAboutScreenViewController : UIViewController
+@interface AboutScreenViewController : UIViewController
 @end

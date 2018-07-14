@@ -3,10 +3,10 @@
  * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
  */
 
-#import "FLGettingStartedViewController.h"
+#import "GettingStartedViewController.h"
 #import <WebKit/WebKit.h>
 
-@interface FLGettingStartedViewController ()
+@interface GettingStartedViewController ()
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *browserBackButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *browserForwardButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *browserReloadButton;
@@ -17,7 +17,7 @@
 @property (strong, nonatomic) WKWebView *webView;
 @end
 
-@implementation FLGettingStartedViewController
+@implementation GettingStartedViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

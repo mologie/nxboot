@@ -5,5 +5,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FLBootProfilesViewController : UITableViewController
+@interface BootProfilesViewController : UITableViewController
 @end

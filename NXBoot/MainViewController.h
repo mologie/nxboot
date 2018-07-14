@@ -5,5 +5,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FLMainViewController : UITableViewController
+@interface MainViewController : UITableViewController
 @end

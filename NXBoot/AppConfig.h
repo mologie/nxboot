@@ -7,7 +7,7 @@
 
 extern NSNotificationName const FLConfigSelectedBootProfileIDChanged;
 
-@interface FLConfig : NSObject
+@interface AppConfig : NSObject
 @property (nonatomic) NSString *selectedBootProfileID;
 + (instancetype)sharedConfig;
 @end

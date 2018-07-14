@@ -5,5 +5,5 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FLGettingStartedViewController : UIViewController
+@interface GettingStartedViewController : UIViewController
 @end

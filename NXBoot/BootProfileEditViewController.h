@@ -6,7 +6,7 @@
 #import <UIKit/UIKit.h>
 #import "FLBootProfile+CoreDataClass.h"
 
-@interface FLBootProfileEditViewController : UITableViewController
+@interface BootProfileEditViewController : UITableViewController
 @property (nonatomic, strong) FLBootProfile *profile;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 @property (assign, nonatomic, readonly) BOOL isNewProfile;

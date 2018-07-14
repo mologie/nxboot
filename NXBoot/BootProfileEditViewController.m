@@ -3,7 +3,7 @@
  * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
  */
 
-#import "FLBootProfileEditViewController.h"
+#import "BootProfileEditViewController.h"
 
 enum {
     kSectionName = 0,
@@ -15,7 +15,7 @@ enum {
     kMaxRelocatorSize = 3648
 };
 
-@interface FLBootProfileEditViewController () <UIDocumentPickerDelegate>
+@interface BootProfileEditViewController () <UIDocumentPickerDelegate>
 @property (assign, nonatomic) BOOL isNewProfile;
 @property (strong, nonatomic) NSArray<NSString *> *builtInRelocators;
 @property (strong, nonatomic) NSArray<NSString *> *builtInPayloads;
@@ -25,7 +25,7 @@ enum {
 @property (strong, nonatomic) NSURL *payloadUrlToDeleteOnSave;
 @end
 
-@implementation FLBootProfileEditViewController
+@implementation BootProfileEditViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

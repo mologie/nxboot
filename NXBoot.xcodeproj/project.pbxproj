@@ -8,58 +8,71 @@
 
 /* Begin PBXBuildFile section */
 		A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A701175E20EE320F00B3D45B /* WebKit.framework */; };
-		A701176220EE35BC00B3D45B /* FLUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A701176120EE35BC00B3D45B /* FLUSBDevice.m */; };
 		A701176520EE677F00B3D45B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A701176320EE677F00B3D45B /* Main.storyboard */; };
-		A740E25020F038FB0003FD32 /* NSData+FLHexEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = A740E24F20F038FB0003FD32 /* NSData+FLHexEncoding.m */; };
-		A7458B4A20EF8286008F4899 /* FLGettingStartedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */; };
+		A73FDCF420FA9C72007EBF4F /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
+		A73FDCF520FA9C72007EBF4F /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
+		A73FDCF720FA9C72007EBF4F /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
+		A73FDCF820FA9D08007EBF4F /* libNXBootKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73FDCE320FA9C5C007EBF4F /* libNXBootKit.a */; };
+		A7458B4A20EF8286008F4899 /* GettingStartedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7458B4920EF8286008F4899 /* GettingStartedViewController.m */; };
 		A7458B4C20EF86C7008F4899 /* Payloads in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4B20EF86C7008F4899 /* Payloads */; };
 		A7458B4E20EF86D5008F4899 /* Tutorial in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4D20EF86D5008F4899 /* Tutorial */; };
-		A765643F20F4D265005EC7E6 /* FLConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A765643E20F4D265005EC7E6 /* FLConfig.m */; };
+		A765643F20F4D265005EC7E6 /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A765643E20F4D265005EC7E6 /* AppConfig.m */; };
 		A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78BBEC820EE30F4007C3514 /* IOKit.framework */; };
-		A78D523520F343EC0045FC4F /* FLAboutScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */; };
+		A78D523520F343EC0045FC4F /* AboutScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A78D523420F343EC0045FC4F /* AboutScreenViewController.m */; };
 		A7999ECA20F5761B00F659EB /* PackageIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A7999EC920F5761B00F659EB /* PackageIcon.png */; };
 		A7AD2A1120F63A3500D1A400 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A7AD2A1020F63A3500D1A400 /* libMobileGestalt.tbd */; };
-		A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */; };
-		A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */; };
-		A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */; };
-		A7F0A88C20F4837F001C9D07 /* FLBootProfileEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0A88B20F4837F001C9D07 /* FLBootProfileEditViewController.m */; };
+		A7B7E1FD20EE738300F39094 /* BootProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B7E1FC20EE738300F39094 /* BootProfilesViewController.m */; };
+		A7C4EA1620EE2D1B0026FFC9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1520EE2D1B0026FFC9 /* MainViewController.m */; };
+		A7F0A88C20F4837F001C9D07 /* BootProfileEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0A88B20F4837F001C9D07 /* BootProfileEditViewController.m */; };
 		A7F0A88F20F48492001C9D07 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */; };
 		A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE1820EE27DD00E59587 /* AppDelegate.m */; };
 		A7FDBE2120EE27DE00E59587 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7FDBE2020EE27DE00E59587 /* Assets.xcassets */; };
 		A7FDBE2420EE27DE00E59587 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7FDBE2220EE27DE00E59587 /* LaunchScreen.storyboard */; };
 		A7FDBE2720EE27DE00E59587 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE2620EE27DE00E59587 /* main.m */; };
-		A7FDBE3220EE2AB900E59587 /* FLExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE3120EE2AB900E59587 /* FLExec.m */; };
 		DC1D6A26516D93CA82A07B67 /* libPods-NXBoot.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC23C54F4535F403654E2FB8 /* libPods-NXBoot.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A73FDCE120FA9C5C007EBF4F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4F766E22F690D25403AB12FC /* Pods-NXBoot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NXBoot.release.xcconfig"; path = "Pods/Target Support Files/Pods-NXBoot/Pods-NXBoot.release.xcconfig"; sourceTree = "<group>"; };
 		A701175E20EE320F00B3D45B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		A701176020EE35BC00B3D45B /* FLUSBDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLUSBDevice.h; sourceTree = "<group>"; };
-		A701176120EE35BC00B3D45B /* FLUSBDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLUSBDevice.m; sourceTree = "<group>"; };
 		A701176420EE677F00B3D45B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A740E24E20F038FB0003FD32 /* NSData+FLHexEncoding.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+FLHexEncoding.h"; sourceTree = "<group>"; };
-		A740E24F20F038FB0003FD32 /* NSData+FLHexEncoding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+FLHexEncoding.m"; sourceTree = "<group>"; };
-		A7458B4820EF8286008F4899 /* FLGettingStartedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLGettingStartedViewController.h; sourceTree = "<group>"; };
-		A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLGettingStartedViewController.m; sourceTree = "<group>"; };
+		A73FDCE320FA9C5C007EBF4F /* libNXBootKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNXBootKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A73FDCEC20FA9C71007EBF4F /* NXExec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXExec.m; sourceTree = "<group>"; };
+		A73FDCED20FA9C71007EBF4F /* NXUSBDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXUSBDevice.h; sourceTree = "<group>"; };
+		A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXUSBDeviceEnumerator.m; sourceTree = "<group>"; };
+		A73FDCF120FA9C72007EBF4F /* NXExec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXExec.h; sourceTree = "<group>"; };
+		A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXUSBDevice.m; sourceTree = "<group>"; };
+		A73FDCF320FA9C72007EBF4F /* NXUSBDeviceEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXUSBDeviceEnumerator.h; sourceTree = "<group>"; };
+		A7458B4820EF8286008F4899 /* GettingStartedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GettingStartedViewController.h; sourceTree = "<group>"; };
+		A7458B4920EF8286008F4899 /* GettingStartedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GettingStartedViewController.m; sourceTree = "<group>"; };
 		A7458B4B20EF86C7008F4899 /* Payloads */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Payloads; sourceTree = "<group>"; };
 		A7458B4D20EF86D5008F4899 /* Tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Tutorial; sourceTree = "<group>"; };
 		A75A515A20F75C4F00FCEF84 /* NXBoot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBoot.entitlements; sourceTree = "<group>"; };
-		A765643D20F4D265005EC7E6 /* FLConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLConfig.h; sourceTree = "<group>"; };
-		A765643E20F4D265005EC7E6 /* FLConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLConfig.m; sourceTree = "<group>"; };
+		A765643D20F4D265005EC7E6 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
+		A765643E20F4D265005EC7E6 /* AppConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
 		A78BBEC820EE30F4007C3514 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
-		A78D523320F343EC0045FC4F /* FLAboutScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLAboutScreenViewController.h; sourceTree = "<group>"; };
-		A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLAboutScreenViewController.m; sourceTree = "<group>"; };
+		A78D523320F343EC0045FC4F /* AboutScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutScreenViewController.h; sourceTree = "<group>"; };
+		A78D523420F343EC0045FC4F /* AboutScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutScreenViewController.m; sourceTree = "<group>"; };
 		A7999EC920F5761B00F659EB /* PackageIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PackageIcon.png; sourceTree = "<group>"; };
 		A7AD2A1020F63A3500D1A400 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
-		A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLBootProfilesViewController.h; sourceTree = "<group>"; };
-		A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLBootProfilesViewController.m; sourceTree = "<group>"; };
-		A7C4EA1420EE2D1B0026FFC9 /* FLMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLMainViewController.h; sourceTree = "<group>"; };
-		A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLMainViewController.m; sourceTree = "<group>"; };
-		A7C4EA1720EE2D770026FFC9 /* FLUSBDeviceEnumerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLUSBDeviceEnumerator.h; sourceTree = "<group>"; };
-		A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLUSBDeviceEnumerator.m; sourceTree = "<group>"; };
-		A7F0A88A20F4837F001C9D07 /* FLBootProfileEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLBootProfileEditViewController.h; sourceTree = "<group>"; };
-		A7F0A88B20F4837F001C9D07 /* FLBootProfileEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLBootProfileEditViewController.m; sourceTree = "<group>"; };
+		A7B7E1FB20EE738300F39094 /* BootProfilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BootProfilesViewController.h; sourceTree = "<group>"; };
+		A7B7E1FC20EE738300F39094 /* BootProfilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BootProfilesViewController.m; sourceTree = "<group>"; };
+		A7C4EA1420EE2D1B0026FFC9 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		A7C4EA1520EE2D1B0026FFC9 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		A7F0A88A20F4837F001C9D07 /* BootProfileEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BootProfileEditViewController.h; sourceTree = "<group>"; };
+		A7F0A88B20F4837F001C9D07 /* BootProfileEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BootProfileEditViewController.m; sourceTree = "<group>"; };
 		A7F0A88E20F48492001C9D07 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		A7FDBE1420EE27DD00E59587 /* NXBoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7FDBE1720EE27DD00E59587 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -68,13 +81,18 @@
 		A7FDBE2320EE27DE00E59587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7FDBE2520EE27DE00E59587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A7FDBE2620EE27DE00E59587 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A7FDBE3020EE2AB900E59587 /* FLExec.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLExec.h; sourceTree = "<group>"; };
-		A7FDBE3120EE2AB900E59587 /* FLExec.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLExec.m; sourceTree = "<group>"; };
 		CCB33A19B7CC97EB47546F4F /* Pods-NXBoot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NXBoot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NXBoot/Pods-NXBoot.debug.xcconfig"; sourceTree = "<group>"; };
 		EC23C54F4535F403654E2FB8 /* libPods-NXBoot.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NXBoot.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		A73FDCE020FA9C5C007EBF4F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7FDBE1120EE27DD00E59587 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -82,6 +100,7 @@
 				A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */,
 				A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */,
 				A7AD2A1120F63A3500D1A400 /* libMobileGestalt.tbd in Frameworks */,
+				A73FDCF820FA9D08007EBF4F /* libNXBootKit.a in Frameworks */,
 				DC1D6A26516D93CA82A07B67 /* libPods-NXBoot.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -96,6 +115,19 @@
 				4F766E22F690D25403AB12FC /* Pods-NXBoot.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		A73FDCE420FA9C5C007EBF4F /* NXBootKit */ = {
+			isa = PBXGroup;
+			children = (
+				A73FDCF120FA9C72007EBF4F /* NXExec.h */,
+				A73FDCEC20FA9C71007EBF4F /* NXExec.m */,
+				A73FDCED20FA9C71007EBF4F /* NXUSBDevice.h */,
+				A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */,
+				A73FDCF320FA9C72007EBF4F /* NXUSBDeviceEnumerator.h */,
+				A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */,
+			);
+			path = NXBootKit;
 			sourceTree = "<group>";
 		};
 		A7C4EA1220EE2AFA0026FFC9 /* Misc */ = {
@@ -113,27 +145,19 @@
 			children = (
 				A7FDBE1720EE27DD00E59587 /* AppDelegate.h */,
 				A7FDBE1820EE27DD00E59587 /* AppDelegate.m */,
-				A78D523320F343EC0045FC4F /* FLAboutScreenViewController.h */,
-				A78D523420F343EC0045FC4F /* FLAboutScreenViewController.m */,
-				A7F0A88A20F4837F001C9D07 /* FLBootProfileEditViewController.h */,
-				A7F0A88B20F4837F001C9D07 /* FLBootProfileEditViewController.m */,
-				A7B7E1FB20EE738300F39094 /* FLBootProfilesViewController.h */,
-				A7B7E1FC20EE738300F39094 /* FLBootProfilesViewController.m */,
-				A765643D20F4D265005EC7E6 /* FLConfig.h */,
-				A765643E20F4D265005EC7E6 /* FLConfig.m */,
-				A7FDBE3020EE2AB900E59587 /* FLExec.h */,
-				A7FDBE3120EE2AB900E59587 /* FLExec.m */,
-				A7458B4820EF8286008F4899 /* FLGettingStartedViewController.h */,
-				A7458B4920EF8286008F4899 /* FLGettingStartedViewController.m */,
-				A7C4EA1420EE2D1B0026FFC9 /* FLMainViewController.h */,
-				A7C4EA1520EE2D1B0026FFC9 /* FLMainViewController.m */,
-				A701176020EE35BC00B3D45B /* FLUSBDevice.h */,
-				A701176120EE35BC00B3D45B /* FLUSBDevice.m */,
-				A7C4EA1720EE2D770026FFC9 /* FLUSBDeviceEnumerator.h */,
-				A7C4EA1820EE2D770026FFC9 /* FLUSBDeviceEnumerator.m */,
+				A78D523320F343EC0045FC4F /* AboutScreenViewController.h */,
+				A78D523420F343EC0045FC4F /* AboutScreenViewController.m */,
+				A7F0A88A20F4837F001C9D07 /* BootProfileEditViewController.h */,
+				A7F0A88B20F4837F001C9D07 /* BootProfileEditViewController.m */,
+				A7B7E1FB20EE738300F39094 /* BootProfilesViewController.h */,
+				A7B7E1FC20EE738300F39094 /* BootProfilesViewController.m */,
+				A765643D20F4D265005EC7E6 /* AppConfig.h */,
+				A765643E20F4D265005EC7E6 /* AppConfig.m */,
+				A7458B4820EF8286008F4899 /* GettingStartedViewController.h */,
+				A7458B4920EF8286008F4899 /* GettingStartedViewController.m */,
+				A7C4EA1420EE2D1B0026FFC9 /* MainViewController.h */,
+				A7C4EA1520EE2D1B0026FFC9 /* MainViewController.m */,
 				A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */,
-				A740E24E20F038FB0003FD32 /* NSData+FLHexEncoding.h */,
-				A740E24F20F038FB0003FD32 /* NSData+FLHexEncoding.m */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -142,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				A7FDBE1620EE27DD00E59587 /* NXBoot */,
+				A73FDCE420FA9C5C007EBF4F /* NXBootKit */,
 				A7FDBE1520EE27DD00E59587 /* Products */,
 				A7FDBE2D20EE2A1700E59587 /* Frameworks */,
 				422DE3698D5FA49548658B9F /* Pods */,
@@ -152,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				A7FDBE1420EE27DD00E59587 /* NXBoot.app */,
+				A73FDCE320FA9C5C007EBF4F /* libNXBootKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,6 +219,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		A73FDCE220FA9C5C007EBF4F /* NXBootKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A73FDCE920FA9C5C007EBF4F /* Build configuration list for PBXNativeTarget "NXBootKit" */;
+			buildPhases = (
+				A73FDCDF20FA9C5C007EBF4F /* Sources */,
+				A73FDCE020FA9C5C007EBF4F /* Frameworks */,
+				A73FDCE120FA9C5C007EBF4F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NXBootKit;
+			productName = NXBootKit;
+			productReference = A73FDCE320FA9C5C007EBF4F /* libNXBootKit.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		A7FDBE1320EE27DD00E59587 /* NXBoot */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "NXBoot" */;
@@ -220,6 +263,9 @@
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Oliver Kuckertz";
 				TargetAttributes = {
+					A73FDCE220FA9C5C007EBF4F = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
 					A7FDBE1320EE27DD00E59587 = {
 						CreatedOnToolsVersion = 9.4.1;
 						SystemCapabilities = {
@@ -244,6 +290,7 @@
 			projectRoot = "";
 			targets = (
 				A7FDBE1320EE27DD00E59587 /* NXBoot */,
+				A73FDCE220FA9C5C007EBF4F /* NXBootKit */,
 			);
 		};
 /* End PBXProject section */
@@ -286,22 +333,28 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		A73FDCDF20FA9C5C007EBF4F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A73FDCF720FA9C72007EBF4F /* NXUSBDevice.m in Sources */,
+				A73FDCF420FA9C72007EBF4F /* NXExec.m in Sources */,
+				A73FDCF520FA9C72007EBF4F /* NXUSBDeviceEnumerator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7FDBE1020EE27DD00E59587 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				A7FDBE2720EE27DE00E59587 /* main.m in Sources */,
-				A7C4EA1620EE2D1B0026FFC9 /* FLMainViewController.m in Sources */,
-				A765643F20F4D265005EC7E6 /* FLConfig.m in Sources */,
-				A7458B4A20EF8286008F4899 /* FLGettingStartedViewController.m in Sources */,
-				A701176220EE35BC00B3D45B /* FLUSBDevice.m in Sources */,
-				A740E25020F038FB0003FD32 /* NSData+FLHexEncoding.m in Sources */,
-				A7FDBE3220EE2AB900E59587 /* FLExec.m in Sources */,
-				A78D523520F343EC0045FC4F /* FLAboutScreenViewController.m in Sources */,
-				A7B7E1FD20EE738300F39094 /* FLBootProfilesViewController.m in Sources */,
+				A7C4EA1620EE2D1B0026FFC9 /* MainViewController.m in Sources */,
+				A765643F20F4D265005EC7E6 /* AppConfig.m in Sources */,
+				A7458B4A20EF8286008F4899 /* GettingStartedViewController.m in Sources */,
+				A78D523520F343EC0045FC4F /* AboutScreenViewController.m in Sources */,
+				A7B7E1FD20EE738300F39094 /* BootProfilesViewController.m in Sources */,
 				A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */,
-				A7F0A88C20F4837F001C9D07 /* FLBootProfileEditViewController.m in Sources */,
-				A7C4EA1920EE2D770026FFC9 /* FLUSBDeviceEnumerator.m in Sources */,
+				A7F0A88C20F4837F001C9D07 /* BootProfileEditViewController.m in Sources */,
 				A7F0A88F20F48492001C9D07 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,6 +381,30 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		A73FDCEA20FA9C5C007EBF4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A73FDCEB20FA9C5C007EBF4F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		A7FDBE2820EE27DE00E59587 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -447,6 +524,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N3S4C3QL65;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AppCenter\"",
+				);
 				INFOPLIST_FILE = NXBoot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -468,6 +550,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N3S4C3QL65;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AppCenter\"",
+				);
 				INFOPLIST_FILE = NXBoot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -483,6 +570,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		A73FDCE920FA9C5C007EBF4F /* Build configuration list for PBXNativeTarget "NXBootKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A73FDCEA20FA9C5C007EBF4F /* Debug */,
+				A73FDCEB20FA9C5C007EBF4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A7FDBE0F20EE27DD00E59587 /* Build configuration list for PBXProject "NXBoot" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

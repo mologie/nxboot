@@ -3,19 +3,19 @@
  * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
  */
 
-#import "FLMainViewController.h"
-#import "FLBootProfile+CoreDataClass.h"
-#import "FLConfig.h"
-#import "FLExec.h"
-#import "FLUSBDeviceEnumerator.h"
+#import "MainViewController.h"
+#import "AppConfig.h"
 #import "AppDelegate.h"
+#import "FLBootProfile+CoreDataClass.h"
+#import "NXUSBDeviceEnumerator.h"
+#import "NXExec.h"
 
 @import AppCenterAnalytics;
 
-@interface FLMainViewController () <FLUSBDeviceEnumeratorDelegate>
-@property (nonatomic, strong) FLConfig *config;
-@property (strong, nonatomic) FLUSBDeviceEnumerator *usbEnum;
-@property (strong, nonatomic) FLUSBDevice *device;
+@interface MainViewController () <FLUSBDeviceEnumeratorDelegate>
+@property (nonatomic, strong) AppConfig *config;
+@property (strong, nonatomic) NXUSBDeviceEnumerator *usbEnum;
+@property (strong, nonatomic) NXUSBDevice *device;
 @property (weak, nonatomic) IBOutlet UILabel *profileNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *profileDetailLabel;
 @property (strong, nonatomic) NSString *bootStatus;
@@ -25,7 +25,7 @@
 @property (assign, nonatomic) BOOL active;
 @end
 
-@implementation FLMainViewController
+@implementation MainViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -40,14 +40,14 @@
 
     self.view.backgroundColor = [UIColor colorWithWhite:0.16 alpha:1.0];
 
-    self.config = [FLConfig sharedConfig];
+    self.config = [AppConfig sharedConfig];
     [self createDemoProfile];
     [self bootProfileDidChange];
 
     self.bootNowText = self.bootButtonLabel.text;
     [self setIdleBootStatus];
 
-    self.usbEnum = [[FLUSBDeviceEnumerator alloc] init];
+    self.usbEnum = [[NXUSBDeviceEnumerator alloc] init];
     self.usbEnum.delegate = self;
     [self.usbEnum addFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
     [self.usbEnum start];
@@ -162,7 +162,7 @@
             [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"Boot Profile Invalid"}];
             return;
         }
-        if (FLExec(self.device->_intf, relocator, bootImage, &error)) {
+        if (NXExec(self.device->_intf, relocator, bootImage, &error)) {
             self.bootStatus = @"Success! 🎉";
 
             // analytics: log success events
@@ -280,7 +280,7 @@
 
 #pragma mark - FLUSBDeviceEnumeratorDelegate
 
-- (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceConnected:(FLUSBDevice *)device {
+- (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceConnected:(NXUSBDevice *)device {
     self.device = device;
     if (self.active) {
         [self bootExecSelected];
@@ -290,7 +290,7 @@
     }
 }
 
-- (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceDisconnected:(FLUSBDevice *)device {
+- (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceDisconnected:(NXUSBDevice *)device {
     self.device = nil;
     if (self.active) {
         self.bootStatus = @"Device disconnected. Waiting for next connection...";
@@ -300,7 +300,7 @@
     }
 }
 
-- (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceError:(NSString *)err {
+- (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceError:(NSString *)err {
     self.bootStatus = [NSString stringWithFormat:@"Connection error: %@", err];
 }
 

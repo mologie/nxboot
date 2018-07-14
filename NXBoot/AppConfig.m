@@ -3,25 +3,25 @@
  * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
  */
 
-#import "FLConfig.h"
+#import "AppConfig.h"
 
 NSNotificationName const FLConfigSelectedBootProfileIDChanged = @"FLConfigSelectedBootProfileIDChanged";
 
 static NSString *const kFLConfigSelectedBootProfile = @"FLSelectedBootProfile";
 
-@interface FLConfig ()
+@interface AppConfig ()
 @property (strong, nonatomic) NSUserDefaults *store;
 @property (strong, nonatomic) NSNotificationCenter *notificationCenter;
 @end
 
-@implementation FLConfig
+@implementation AppConfig
 
 + (instancetype)sharedConfig {
-    static FLConfig *instance = nil;
+    static AppConfig *instance = nil;
     if (!instance) {
         dispatch_once_t once = 0;
         dispatch_once(&once, ^{
-            instance = [[FLConfig alloc] init];
+            instance = [[AppConfig alloc] init];
         });
     }
     return instance;

@@ -3,9 +3,9 @@
  * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
  */
 
-#import "FLUSBDevice.h"
+#import "NXUSBDevice.h"
 
-@implementation FLUSBDevice
+@implementation NXUSBDevice
 
 - (void)dealloc {
     [self invalidate];

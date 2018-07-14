@@ -4,17 +4,17 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "FLExec.h"
+#import "NXExec.h"
 
-@class FLUSBDeviceEnumerator;
+@class NXUSBDeviceEnumerator;
 
-@interface FLUSBDevice : NSObject {
+@interface NXUSBDevice : NSObject {
 @public
-    FLUSBDeviceInterface **_intf;
+    NXUSBDeviceInterface **_intf;
     UInt32 _locationID;
     io_object_t _notification;
 }
-@property (weak, nonatomic) FLUSBDeviceEnumerator *parentEnum;
+@property (weak, nonatomic) NXUSBDeviceEnumerator *parentEnum;
 @property (strong, nonatomic) NSString *name;
 - (void)invalidate;
 @end

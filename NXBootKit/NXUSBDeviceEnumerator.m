@@ -6,7 +6,7 @@
  * adapted to Objective-C and the requirements of this application.
  */
 
-#import "FLUSBDeviceEnumerator.h"
+#import "NXUSBDeviceEnumerator.h"
 #import <IOKit/IOKitLib.h>
 #import <IOKit/IOCFPlugIn.h>
 #import <IOKit/IOMessage.h>
@@ -15,31 +15,31 @@
 
 #define ERR(FMT, ...) [self handleError:[NSString stringWithFormat:FMT, ##__VA_ARGS__]]
 
-@interface FLUSBDeviceEnumerator () {
+@interface NXUSBDeviceEnumerator () {
     io_iterator_t _deviceIter;
 }
 @property (assign, nonatomic) UInt16 VID;
 @property (assign, nonatomic) UInt16 PID;
 @property (assign, nonatomic) IONotificationPortRef notifyPort;
 - (void)handleDevicesAdded:(io_iterator_t)iterator;
-- (void)handleDeviceNotification:(FLUSBDevice *)device
+- (void)handleDeviceNotification:(NXUSBDevice *)device
                       forService:(io_service_t)service
                      messageType:(natural_t)messageType
                       messageArg:(void *)messageArg;
 @end
 
 static void bridgeDevicesAdded(void *u, io_iterator_t iterator) {
-    FLUSBDeviceEnumerator *deviceEnum = (__bridge FLUSBDeviceEnumerator *)u;
+    NXUSBDeviceEnumerator *deviceEnum = (__bridge NXUSBDeviceEnumerator *)u;
     [deviceEnum handleDevicesAdded:iterator];
 }
 
 static void bridgeDeviceNotification(void *u, io_service_t service, natural_t messageType, void *messageArg) {
-    FLUSBDevice *device = (__bridge FLUSBDevice *)u;
-    FLUSBDeviceEnumerator *deviceEnum = device.parentEnum;
+    NXUSBDevice *device = (__bridge NXUSBDevice *)u;
+    NXUSBDeviceEnumerator *deviceEnum = device.parentEnum;
     [deviceEnum handleDeviceNotification:device forService:service messageType:messageType messageArg:messageArg];
 }
 
-@implementation FLUSBDeviceEnumerator
+@implementation NXUSBDeviceEnumerator
 
 - (void)dealloc {
     [self stop];
@@ -116,7 +116,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
     NSLog(@"USB: Processing new devices");
 
     while ((service = IOIteratorNext(iterator))) {
-        FLUSBDevice *device = [[FLUSBDevice alloc] init];
+        NXUSBDevice *device = [[NXUSBDevice alloc] init];
         device.parentEnum = self;
 
         // retrieve service name as device name
@@ -141,9 +141,9 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
             goto cleanup;
         }
         kr = (*plugInInterface)->QueryInterface(plugInInterface,
-                                                CFUUIDGetUUIDBytes(kFLUSBDeviceInterfaceUUID),
+                                                CFUUIDGetUUIDBytes(kNXUSBDeviceInterfaceUUID),
                                                 (void*)&device->_intf);
-        FLCOMCall(plugInInterface, Release);
+        NXCOMCall(plugInInterface, Release);
         plugInInterface = NULL;
         if (kr || !device->_intf) {
             ERR(@"Could not get USB device interface (%08x)", kr);
@@ -151,7 +151,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
         }
 
         // fetch location ID
-        kr = FLCOMCall(device->_intf, GetLocationID, &device->_locationID);
+        kr = NXCOMCall(device->_intf, GetLocationID, &device->_locationID);
         if (kr != KERN_SUCCESS) {
             ERR(@"GetLocationID failed with code %08x, skipping device\n", kr);
             goto cleanup;
@@ -178,7 +178,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
     }
 }
 
-- (void)handleDeviceNotification:(FLUSBDevice *)device
+- (void)handleDeviceNotification:(NXUSBDevice *)device
                       forService:(io_service_t)service
                      messageType:(natural_t)messageType
                       messageArg:(void *)messageArgument
@@ -190,7 +190,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
             NSLog(@"USB: Device 0x%08x removed", service);
             [device invalidate];
             [self.delegate usbDeviceEnumerator:self deviceDisconnected:device];
-            device = (__bridge_transfer FLUSBDevice *)(__bridge void *)device;
+            device = (__bridge_transfer NXUSBDevice *)(__bridge void *)device;
             break;
         }
     }
