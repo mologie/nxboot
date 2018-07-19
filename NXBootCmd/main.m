@@ -32,19 +32,23 @@
     struct NXExecDesc desc = NXExecAcquireDeviceInterface(device->_intf, &err);
     if (desc.intf) {
         if (NXExecDesc(&desc, self.relocator, self.image, &err)) {
-            NXLog(@"CMD: NXExec succeeded");
             if (self.keepReading) {
+                fprintf(stderr, "success: payload was run, will continue to read data to stdout...\n");
                 UInt32 btransf;
                 char rdbuf[0x1000];
                 while (true) {
                     btransf = sizeof(rdbuf);
                     kr = NXCOMCall(desc.intf, ReadPipeTO, desc.readRef, rdbuf, &btransf, 1000, 1000);
                     if (kr) {
-                        fprintf(stderr, "error: failed to read after successful payload execution with code %08x\n", kr);
+                        fprintf(stderr, "Failed to read after successful payload execution with code %08x.\n", kr);
                         fprintf(stderr, "This is not an error if the RCM payload deliberately terminated the USB connection. Exiting.\n");
                         break;
                     }
+                    fwrite(rdbuf, btransf, 1, stdout);
                 }
+            }
+            else {
+                fprintf(stderr, "success: payload was run. fair winds!\n");
             }
         }
         else {
@@ -74,7 +78,8 @@ static void printHelp() {
     fprintf(stderr, "usage: nxboot [-v] [-d|-r] <relocator> <payload>\n");
     fprintf(stderr, "  -v: enable debug logging\n");
     fprintf(stderr, "  -d: daemon mode, don't stop after handling the first device\n");
-    fprintf(stderr, "  -r: read more data from payload (cannot be used with -d)\n");
+    fprintf(stderr, "  -r: read more data from payload (cannot be used with -d)\n\n");
+    fprintf(stderr, "for updates visit https://mologie.github.io/nxboot/\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -85,6 +90,8 @@ int main(int argc, char *argv[]) {
 
         NXBootKitDebugEnabled = NO;
 
+        fprintf(stderr, "nxboot %s build %d\n", NXBOOT_VERSION, NXBOOT_BUILDNO);
+
         for (int i = 1, pos = 0; i < argc; i++) {
             if (argv[i][0] == '-') {
                 if (strlen(argv[i]) != 2) {
@@ -93,6 +100,7 @@ int main(int argc, char *argv[]) {
                 }
                 switch (argv[i][1]) {
                     case 'h':
+                        fprintf(stderr, "Copyright 2018 Oliver Kuckertz <oliver.kuckertz@mologie.de>\n");
                         printHelp();
                         return 0;
                     case 'v':
