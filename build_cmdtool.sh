@@ -10,7 +10,7 @@ BINDIR=$PROJDIR/DerivedData/bin
 mkdir -p $BINDIR
 xcodebuild -workspace NXBoot.xcworkspace -scheme NXBootKit -configuration Release build | xcpretty
 xcodebuild -workspace NXBoot.xcworkspace -scheme NXBootKitMac -configuration Release build | xcpretty
-NXBOOT_CMD_CFLAGS="-DNXBOOT_VERSION=$version -DNXBOOT_BUILDNO=$buildno -I$PROJDIR/NXBootKit -std=gnu11 -fobjc-arc -fobjc-weak -fmodules -fvisibility=hidden -Wall -O2"
+NXBOOT_CMD_CFLAGS="-DNXBOOT_VERSION=\"$version\" -DNXBOOT_BUILDNO=$buildno -I$PROJDIR/NXBootKit -std=gnu11 -fobjc-arc -fobjc-weak -fmodules -fvisibility=hidden -Wall -O2"
 NXBOOT_CMD_FRAMEWORKS="-framework CoreFoundation -framework Foundation -framework IOKit"
 xcrun -sdk iphoneos clang NXBootCmd/main.m $NXBOOT_CMD_CFLAGS $NXBOOT_CMD_FRAMEWORKS "-L$RELEASEDIR_IOS" -lNXBootKit -arch armv7 -miphoneos-version-min=7.0 -o $BINDIR/nxboot.armv7
 xcrun -sdk iphoneos clang NXBootCmd/main.m $NXBOOT_CMD_CFLAGS $NXBOOT_CMD_FRAMEWORKS "-L$RELEASEDIR_IOS" -lNXBootKit -arch arm64 -miphoneos-version-min=7.0 -o $BINDIR/nxboot.arm64

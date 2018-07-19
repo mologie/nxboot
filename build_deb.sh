@@ -14,7 +14,7 @@ rm -rf $DPKGDIR
 mkdir -p $DPKGDIR/com.mologie.NXBoot/{DEBIAN,Applications}
 cat control | sed "s/Version: PLACEHOLDER/Version: $version-$buildno/" > $DPKGDIR/com.mologie.NXBoot/DEBIAN/control
 rsync -a $RELEASEDIR_IOS/NXBoot.app $DPKGDIR/com.mologie.NXBoot/Applications/
-mkdir $DPKGDIR/com.mologie.NXBoot/usr/bin
+mkdir -p $DPKGDIR/com.mologie.NXBoot/usr/bin
 cp $PROJDIR/DerivedData/bin/nxboot $DPKGDIR/com.mologie.NXBoot/usr/bin/nxboot
 
 cd $DPKGDIR

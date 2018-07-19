@@ -25,8 +25,8 @@ done
 lipo -create -output $binpath $binpath.armv7 $binpath.arm64
 rm $binpath.*
 
-echo "Creating iOS app archiv archive..."
-(cd $RELEASEDIR_IOS && gtar -czf $archivedest.tar.gz --owner=0 --group=80 NXBoot.app)
+#echo "Creating iOS app archiv archive..."
+#(cd $RELEASEDIR_IOS && gtar -czf $archivedest.tar.gz --owner=0 --group=80 NXBoot.app)
 
 echo "Creating iOS symbols archive..."
 (cd $RELEASEDIR_IOS && zip -ry9 $archivedest.dSYM.zip NXBoot.app.dSYM)
@@ -38,4 +38,4 @@ echo "Building DEB package..."
 echo "(This may prompt for your user password, which is required for prepading the Debian package where files are owned by root.)"
 sudo ./build_deb.sh $(id -u) $(id -g) $version $buildno
 
-echo "All done, the iOS app is available at: $archivedest.{deb,tar.gz,dSYM.zip}"
+echo "All done, the iOS app is available at: $archivedest.{deb,dSYM.zip}"
