@@ -17,4 +17,15 @@
 
 #define NXCOMCall(OBJECT, METHOD, ...) (*(OBJECT))->METHOD((OBJECT), ##__VA_ARGS__)
 
+struct NXExecDesc {
+    NXUSBDeviceInterface **device;
+    NXUSBSubInterface **intf;
+    UInt8 readRef, writeRef;
+};
+
+extern struct NXExecDesc kNXExecDescInvalid;
+
+struct NXExecDesc NXExecAcquireDeviceInterface(NXUSBDeviceInterface **device, NSString **err);
+void NXExecReleaseDeviceInterface(struct NXExecDesc const *desc);
+BOOL NXExecDesc(struct NXExecDesc const *desc, NSData *relocator, NSData *image, NSString **err);
 BOOL NXExec(NXUSBDeviceInterface **device, NSData *relocator, NSData *image, NSString **err);

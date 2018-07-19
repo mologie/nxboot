@@ -4,66 +4,151 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "NXBootKit.h"
+#import "NXExec.h"
+#import "NXUSBDevice.h"
+#import "NXUSBDeviceEnumerator.h"
 
-// inline source files for trivial, single-file compilation. sorry!
-#import "../NXBoot/FLExec.m"
-#import "../NXBoot/FLUSBDevice.m"
-#import "../NXBoot/FLUSBDeviceEnumerator.m"
-#import "../NXBoot/NSData+FLHexEncoding.m"
-
-@interface NXBoot : NSObject <FLUSBDeviceEnumeratorDelegate>
+@interface NXBoot : NSObject <NXUSBDeviceEnumeratorDelegate>
 @property (strong, nonatomic) NSData *relocator;
 @property (strong, nonatomic) NSData *image;
-@property (strong, nonatomic) FLUSBDeviceEnumerator *usbEnum;
+@property (strong, nonatomic) NXUSBDeviceEnumerator *usbEnum;
+@property (assign, nonatomic) BOOL daemon; // keep running after handling a device
+@property (assign, nonatomic) BOOL keepReading;
 @end
 
 @implementation NXBoot
 
 - (void)start {
-    self.usbEnum = [[FLUSBDeviceEnumerator alloc] init];
+    self.usbEnum = [[NXUSBDeviceEnumerator alloc] init];
     self.usbEnum.delegate = self;
     [self.usbEnum addFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
     [self.usbEnum start];
 }
 
-- (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceConnected:(FLUSBDevice *)device {
+- (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceConnected:(NXUSBDevice *)device {
+    kern_return_t kr;
     NSString *err = nil;
-    if (FLExec(device->_intf, self.relocator, self.image, &err)) {
-        NSLog(@"CMD: FLExec succeeded");
+    struct NXExecDesc desc = NXExecAcquireDeviceInterface(device->_intf, &err);
+    if (desc.intf) {
+        if (NXExecDesc(&desc, self.relocator, self.image, &err)) {
+            NXLog(@"CMD: NXExec succeeded");
+            if (self.keepReading) {
+                UInt32 btransf;
+                char rdbuf[0x1000];
+                while (true) {
+                    btransf = sizeof(rdbuf);
+                    kr = NXCOMCall(desc.intf, ReadPipeTO, desc.readRef, rdbuf, &btransf, 1000, 1000);
+                    if (kr) {
+                        fprintf(stderr, "error: failed to read after successful payload execution with code %08x\n", kr);
+                        fprintf(stderr, "This is not an error if the RCM payload deliberately terminated the USB connection. Exiting.\n");
+                        break;
+                    }
+                }
+            }
+        }
+        else {
+            fprintf(stderr, "error: NXExec failed: %s\n", err.UTF8String);
+        }
+        NXExecReleaseDeviceInterface(&desc);
     }
     else {
-        NSLog(@"CMD: FLExec failed: %@", err);
+        fprintf(stderr, "error: could not acquire USB device handle: %s\n", err.UTF8String);
+    }
+    if (self.keepReading || !self.daemon) {
+        CFRunLoopStop(CFRunLoopGetMain());
     }
 }
 
-- (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceDisconnected:(FLUSBDevice *)device {}
+- (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceDisconnected:(NXUSBDevice *)device {
+    // unused
+}
 
-- (void)usbDeviceEnumerator:(FLUSBDeviceEnumerator *)deviceEnum deviceError:(NSString *)err {}
+- (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceError:(NSString *)err {
+    // error was already printed by implementation
+}
 
 @end
 
+static void printHelp() {
+    fprintf(stderr, "usage: nxboot [-v] [-d|-r] <relocator> <payload>\n");
+    fprintf(stderr, "  -v: enable debug logging\n");
+    fprintf(stderr, "  -d: daemon mode, don't stop after handling the first device\n");
+    fprintf(stderr, "  -r: read more data from payload (cannot be used with -d)\n");
+}
+
 int main(int argc, char *argv[]) {
     @autoreleasepool {
-        NSString *relocatorPath = @"/jb/share/flexec/intermezzo.bin";
-        NSString *imagePath = @"/jb/share/flexec/fusee.bin";
+        NXBoot *cmdTool = [[NXBoot alloc] init];
+        NSString *relocatorPath = nil;
+        NSString *imagePath = nil;
 
-        if (argc == 3) {
-            relocatorPath = [NSString stringWithUTF8String:argv[1]];
-            imagePath = [NSString stringWithUTF8String:argv[2]];
+        NXBootKitDebugEnabled = NO;
+
+        for (int i = 1, pos = 0; i < argc; i++) {
+            if (argv[i][0] == '-') {
+                if (strlen(argv[i]) != 2) {
+                    fprintf(stderr, "error: unknown argument -%s\n", argv[i]);
+                    return 1;
+                }
+                switch (argv[i][1]) {
+                    case 'h':
+                        printHelp();
+                        return 0;
+                    case 'v':
+                        NXBootKitDebugEnabled = YES;
+                        break;
+                    case 'd':
+                        if (cmdTool.keepReading) {
+                            fprintf(stderr, "error: -d cannot be used with -r\n");
+                            return 1;
+                        }
+                        cmdTool.daemon = YES;
+                        break;
+                    case 'r':
+                        if (cmdTool.daemon) {
+                            fprintf(stderr, "error: -r cannot be used with -d\n");
+                            return 1;
+                        }
+                        cmdTool.keepReading = YES;
+                        break;
+                    default:
+                        fprintf(stderr, "error: unknown argument -%s\n", argv[i]);
+                        return 1;
+                }
+            }
+            else {
+                switch (pos) {
+                    case 0:
+                        relocatorPath = [NSString stringWithUTF8String:argv[i]];
+                        break;
+                    case 1:
+                        imagePath = [NSString stringWithUTF8String:argv[i]];
+                        break;
+                    default:
+                        fprintf(stderr, "error: too many positional arguments\n");
+                        return 1;
+                }
+                pos++;
+            }
         }
 
-        NSLog(@"CMD: Using relocator %@ and image %@", relocatorPath, imagePath);
-        NXBoot *cmdTool = [[NXBoot alloc] init];
+        if (!relocatorPath || !imagePath) {
+            printHelp();
+            return 1;
+        }
+
+        NXLog(@"CMD: Using relocator %@ and image %@", relocatorPath, imagePath);
 
         cmdTool.relocator = [NSData dataWithContentsOfFile:relocatorPath];
         if (cmdTool.relocator == nil) {
-            NSLog(@"ERR: Failed to load relocator");
+            fprintf(stderr, "error: failed to load relocator\n");
             return 1;
         }
 
         cmdTool.image = [NSData dataWithContentsOfFile:imagePath];
         if (cmdTool.image == nil) {
-            NSLog(@"ERR: Failed to load image");
+            fprintf(stderr, "error: failed to load payload\n");
             return 1;
         }
 

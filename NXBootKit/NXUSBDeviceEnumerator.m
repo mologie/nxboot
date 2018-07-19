@@ -7,6 +7,7 @@
  */
 
 #import "NXUSBDeviceEnumerator.h"
+#import "NXBootKit.h"
 #import <IOKit/IOKitLib.h>
 #import <IOKit/IOCFPlugIn.h>
 #import <IOKit/IOMessage.h>
@@ -89,11 +90,11 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
         return;
     }
 
-    NSLog(@"USB: OK, listening for devices matching VID:%04x PID:%04x", self.VID, self.PID);
+    NXLog(@"USB: OK, listening for devices matching VID:%04x PID:%04x", self.VID, self.PID);
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self handleDevicesAdded:self->_deviceIter];
-        NSLog(@"USB: Done processing initial device list");
+        NXLog(@"USB: Done processing initial device list");
     });
 }
 
@@ -113,7 +114,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
     kern_return_t kr;
     io_service_t service;
 
-    NSLog(@"USB: Processing new devices");
+    NXLog(@"USB: Processing new devices");
 
     while ((service = IOIteratorNext(iterator))) {
         NXUSBDevice *device = [[NXUSBDevice alloc] init];
@@ -126,7 +127,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
             ioDeviceName[0] = '\0';
         }
         device.name = [NSString stringWithCString:ioDeviceName encoding:NSASCIIStringEncoding];
-        NSLog(@"USB: Device added: 0x%08x `%@'", service, device.name);
+        NXLog(@"USB: Device added: 0x%08x `%@'", service, device.name);
 
         // load the device interface implementation bundle
         IOCFPlugInInterface **plugInInterface = NULL;
@@ -156,7 +157,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
             ERR(@"GetLocationID failed with code %08x, skipping device\n", kr);
             goto cleanup;
         }
-        NSLog(@"USB: Device location ID: 0x%lx\n", (unsigned long)device->_locationID);
+        NXLog(@"USB: Device location ID: 0x%lx\n", (unsigned long)device->_locationID);
 
         // register for device events
         kr = IOServiceAddInterestNotification(self.notifyPort,
@@ -183,11 +184,11 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
                      messageType:(natural_t)messageType
                       messageArg:(void *)messageArgument
 {
-    NSLog(@"USB: Device 0x%08x received message 0x%x", service, messageType);
+    NXLog(@"USB: Device 0x%08x received message 0x%x", service, messageType);
 
     switch (messageType) {
         case kIOMessageServiceIsTerminated: {
-            NSLog(@"USB: Device 0x%08x removed", service);
+            NXLog(@"USB: Device 0x%08x removed", service);
             [device invalidate];
             [self.delegate usbDeviceEnumerator:self deviceDisconnected:device];
             device = (__bridge_transfer NXUSBDevice *)(__bridge void *)device;
@@ -197,7 +198,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
 }
 
 - (void)handleError:(NSString *)err {
-    NSLog(@"ERR: %@", err);
+    NXLog(@"ERR: %@", err);
     [self.delegate usbDeviceEnumerator:self deviceError:err];
 }
 

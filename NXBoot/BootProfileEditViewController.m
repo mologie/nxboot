@@ -184,6 +184,7 @@ enum {
                     }
                 }]];
             }
+#ifndef NXBOOT_LEGACY
             [alert addAction:[UIAlertAction actionWithTitle:@"Import from Files" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 [self promptFileSelectionWithCompletion:^(NSURL *url) {
                     if (url) {
@@ -206,9 +207,12 @@ enum {
                     }
                 }];
             }]];
+#endif
             [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+#ifndef NXBOOT_LEGACY
             alert.popoverPresentationController.sourceView = self.tableView;
             alert.popoverPresentationController.sourceRect = [self.tableView rectForRowAtIndexPath:indexPath];
+#endif
             [self presentViewController:alert animated:YES completion:nil];
             break;
         }
@@ -254,6 +258,7 @@ enum {
                     }
                 }]];
             }
+#ifndef NXBOOT_LEGACY
             [alert addAction:[UIAlertAction actionWithTitle:@"Import from Files" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
                 [self promptFileSelectionWithCompletion:^(NSURL *url) {
                     if (url) {
@@ -273,9 +278,12 @@ enum {
                     }
                 }];
             }]];
+#endif
             [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+#ifndef NXBOOT_LEGACY
             alert.popoverPresentationController.sourceView = self.tableView;
             alert.popoverPresentationController.sourceRect = [self.tableView rectForRowAtIndexPath:indexPath];
+#endif
             [self presentViewController:alert animated:YES completion:nil];
             break;
         }
@@ -284,6 +292,7 @@ enum {
 
 #pragma mark - File Selection (iOS 10 and later)
 
+#ifndef NXBOOT_LEGACY
 - (void)promptFileSelectionWithCompletion:(void(^)(NSURL *))completionBlock {
     NSArray *docTypes = @[@"public.item", @"public.data"];
     UIDocumentPickerViewController *picker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:docTypes inMode:UIDocumentPickerModeImport];
@@ -305,6 +314,7 @@ enum {
         self.nextFilePromptCompletionHandler = nil;
     }
 }
+#endif
 
 #pragma mark - Imported Files
 

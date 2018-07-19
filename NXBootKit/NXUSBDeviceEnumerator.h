@@ -8,14 +8,14 @@
 
 @class NXUSBDeviceEnumerator;
 
-@protocol FLUSBDeviceEnumeratorDelegate
+@protocol NXUSBDeviceEnumeratorDelegate
 - (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceConnected:(NXUSBDevice *)device;
 - (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceDisconnected:(NXUSBDevice *)device;
 - (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceError:(NSString *)err;
 @end
 
 @interface NXUSBDeviceEnumerator : NSObject
-@property (weak, nonatomic) id<FLUSBDeviceEnumeratorDelegate> delegate;
+@property (weak, nonatomic) id<NXUSBDeviceEnumeratorDelegate> delegate;
 - (void)addFilterForVendorID:(UInt16)vendorID productID:(UInt16)productID;
 - (void)start;
 - (void)stop;

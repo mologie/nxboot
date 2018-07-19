@@ -6,6 +6,7 @@
  */
 
 #import "NXExec.h"
+#import "NXBootKit.h"
 #import <Foundation/Foundation.h>
 #import <IOKit/IOKitLib.h>
 #import <IOKit/IOCFPlugIn.h>
@@ -23,14 +24,10 @@ static UInt32 const kNXPacketMaxSize   = 0x1000;
 
 static UInt8 DMADummyBuffer[kNXStackLowest - kNXCopyBuf1]; // 0x7000 / 28 KiB
 
-#define ERR(FMT, ...) FLSetError([NSString stringWithFormat:FMT, ##__VA_ARGS__], err)
+#define ERR(FMT, ...) NXExecSetError([NSString stringWithFormat:FMT, ##__VA_ARGS__], err)
 
-struct FLExecDesc {
-    NXUSBSubInterface **intf;
-    UInt8 readRef, writeRef;
-};
-
-static struct FLExecDesc kFLExecDescInvalid = {
+struct NXExecDesc kNXExecDescInvalid = {
+    .device   = NULL,
     .intf     = NULL,
     .readRef  = 0,
     .writeRef = 0
@@ -60,30 +57,30 @@ static NSString *FLHexEncodedData(NSData *data) {
     return res;
 }
 
-static void FLSetError(NSString *message, NSString **err) {
+static void NXExecSetError(NSString *message, NSString **err) {
     if (err) {
         *err = message;
     }
-    NSLog(@"ERR: %@", message);
+    NXLog(@"ERR: %@", message);
 }
 
-static NSData *FLExecReadDeviceID(struct FLExecDesc const *desc) {
+static NSData *NXExecReadDeviceID(struct NXExecDesc const *desc) {
     kern_return_t kr;
     UInt8 deviceID[16];
     UInt32 btransf = sizeof(deviceID);
     kr = NXCOMCall(desc->intf, ReadPipeTO, desc->readRef, deviceID, &btransf, 1000, 1000);
     if (kr) {
-        NSLog(@"ERR: Failed to read device ID via ReadPipeTO with code %08x", kr);
+        NXLog(@"ERR: Failed to read device ID via ReadPipeTO with code %08x", kr);
         return nil;
     }
     if (btransf != sizeof(deviceID)) {
-        NSLog(@"ERR: Incomplete read for device ID");
+        NXLog(@"ERR: Incomplete read for device ID");
         return nil;
     }
     return [NSData dataWithBytes:deviceID length:sizeof(deviceID)];
 }
 
-static NSData *FLExecMakeShofEL2Payload(NSData *relocator, BOOL relocatorThumbMode, NSString **err) {
+static NSData *NXExecMakeShofEL2Payload(NSData *relocator, BOOL relocatorThumbMode, NSString **err) {
     if (relocator.length > 0x1000) {
         ERR(@"Relocator binary exceeds size limit");
         return nil;
@@ -96,11 +93,11 @@ static NSData *FLExecMakeShofEL2Payload(NSData *relocator, BOOL relocatorThumbMo
     [payload appendBytes:&entryPointLE length:4];
     [payload appendData:relocator];
     FLPadDataToMultiple(payload, kNXPacketMaxSize);
-    NSLog(@"USB: Constructed ShofEL2 payload with %lu (0x%lx) bytes", (unsigned long)payload.length, (unsigned long)payload.length);
+    NXLog(@"USB: Constructed ShofEL2 payload with %lu (0x%lx) bytes", (unsigned long)payload.length, (unsigned long)payload.length);
     return payload;
 }
 
-static NSData *FLExecMakeFuseePayload(NSData *relocator, BOOL relocatorThumbMode, NSData *iramImage, NSString **err) {
+static NSData *NXExecMakeFuseePayload(NSData *relocator, BOOL relocatorThumbMode, NSData *iramImage, NSString **err) {
     // sanity check
     if (relocator.length > kNXRelocatorAddr - kNXPayloadAddr) { // 3648 bytes
         ERR(@"Relocator binary exceeds size limit");
@@ -122,7 +119,7 @@ static NSData *FLExecMakeFuseePayload(NSData *relocator, BOOL relocatorThumbMode
         iramImage0 = iramImage ?: [[NSData alloc] init];
         iramImage1 = [[NSData alloc] init];
     }
-    NSLog(@"USB: IRAM image split into chunks: %lu and %lu bytes", (unsigned long)iramImage0.length, (unsigned long)iramImage1.length);
+    NXLog(@"USB: IRAM image split into chunks: %lu and %lu bytes", (unsigned long)iramImage0.length, (unsigned long)iramImage1.length);
 
     // construct the Fusée Gelée payload (logic exactly as in fusee-launcher.py)
     NSMutableData *payload = [[NSMutableData alloc] initWithCapacity:kNXCmdMaxSize];
@@ -142,21 +139,21 @@ static NSData *FLExecMakeFuseePayload(NSData *relocator, BOOL relocatorThumbMode
         ERR(@"Payload final size exceeds limit (this should never happen)");
         return nil;
     }
-    NSLog(@"USB: Constructed Fusée payload with %lu (0x%lx) bytes", (unsigned long)payload.length, (unsigned long)payload.length);
+    NXLog(@"USB: Constructed Fusée payload with %lu (0x%lx) bytes", (unsigned long)payload.length, (unsigned long)payload.length);
     return payload;
 }
 
-static BOOL FLExecFuseeGelee(NXUSBDeviceInterface **device, struct FLExecDesc const *desc, NSData *payload, NSString **err) {
+static BOOL NXExecFuseeGelee(struct NXExecDesc const *desc, NSData *payload, NSString **err) {
     kern_return_t kr;
 
     // read device ID, which is required for proceeding into RCM mode
-    NSLog(@"USB: Reading device ID...");
-    NSData *deviceID = FLExecReadDeviceID(desc);
+    NXLog(@"USB: Reading device ID...");
+    NSData *deviceID = NXExecReadDeviceID(desc);
     if (!deviceID) {
         ERR(@"Could not read device ID. Try restarting the Switch by holding the POWER button for 12 seconds.");
         return NO;
     }
-    NSLog(@"USB: Device ID: %@", FLHexEncodedData(deviceID));
+    NXLog(@"USB: Device ID: %@", FLHexEncodedData(deviceID));
 
     // sanity check
     if (payload.length % kNXPacketMaxSize != 0) {
@@ -165,10 +162,10 @@ static BOOL FLExecFuseeGelee(NXUSBDeviceInterface **device, struct FLExecDesc co
     }
 
     // write the payload and track which DMA buffer each packet ends up in
-    NSLog(@"USB: Transferring payload...");
+    NXLog(@"USB: Transferring payload...");
     int currentBuffer = 0;
     for (UInt32 i = 0; i < payload.length; i += kNXPacketMaxSize) {
-        NSLog(@"USB: Progress %lu/%lu", (unsigned long)i, (unsigned long)payload.length);
+        NXLog(@"USB: Progress %lu/%lu", (unsigned long)i, (unsigned long)payload.length);
         kr = NXCOMCall(desc->intf, WritePipeTO, desc->writeRef, (void *)(payload.bytes + i), kNXPacketMaxSize, 1000, 1000);
         if (kr) {
             ERR(@"Payload write failed at offset %lu with code %08x", (unsigned long)i, kr);
@@ -179,7 +176,7 @@ static BOOL FLExecFuseeGelee(NXUSBDeviceInterface **device, struct FLExecDesc co
 
     // the payload size is dynamic; ensure that we end up in the high buffer
     if (currentBuffer != 1) {
-        NSLog(@"USB: Switching to high buffer...");
+        NXLog(@"USB: Switching to high buffer...");
         NSMutableData *zeroes = [[NSMutableData alloc] initWithCapacity:kNXPacketMaxSize];
         FLPadData(zeroes, kNXPacketMaxSize);
         kr = NXCOMCall(desc->intf, WritePipeTO, desc->writeRef, (void *)zeroes.bytes, kNXPacketMaxSize, 1000, 1000);
@@ -190,7 +187,7 @@ static BOOL FLExecFuseeGelee(NXUSBDeviceInterface **device, struct FLExecDesc co
         currentBuffer = 1;
     }
     else {
-        NSLog(@"USB: Already in high buffer");
+        NXLog(@"USB: Already in high buffer");
     }
 
     // smash the stack
@@ -198,7 +195,7 @@ static BOOL FLExecFuseeGelee(NXUSBDeviceInterface **device, struct FLExecDesc co
     // panic(cpu 1 caller 0xfffffff018f34260): "complete() while dma active"
     // We issue the control request on the device itself with invalid bmRequestType (endpoint bit is set,) which has
     // the same effect as issuing a control request to an interface.
-    NSLog(@"USB: Executing...");
+    NXLog(@"USB: Executing...");
     IOUSBDevRequestTO controlRequest = {
         .bmRequestType     = 0x82, // 0x80 IN | 0x00 STANDARD | 0x02 ENDPOINT
         .bRequest          = kUSBRqGetStatus,
@@ -210,9 +207,9 @@ static BOOL FLExecFuseeGelee(NXUSBDeviceInterface **device, struct FLExecDesc co
         .noDataTimeout     = 100,
         .completionTimeout = 100
     };
-    kr = NXCOMCall(device, DeviceRequestTO, &controlRequest);
+    kr = NXCOMCall(desc->device, DeviceRequestTO, &controlRequest);
     if (kr) {
-        NSLog(@"USB: DeviceRequestTO failed - this is expected (code %08x)", kr);
+        NXLog(@"USB: DeviceRequestTO failed - this is expected (code %08x)", kr);
     }
     else {
         ERR(@"ControlRequestTO should have failed");
@@ -222,14 +219,14 @@ static BOOL FLExecFuseeGelee(NXUSBDeviceInterface **device, struct FLExecDesc co
     return YES;
 }
 
-BOOL FLExecCBFS(NXUSBDeviceInterface **device, struct FLExecDesc /*const*/ *desc, NSData *cbfsImage, NSString **err) {
+BOOL NXExecCBFS(struct NXExecDesc const *desc, NSData *cbfsImage, NSString **err) {
     kern_return_t kr;
     UInt32 btransf;
 
-    NSLog(@"USB: CBFS image size: %lu bytes", (unsigned long)cbfsImage.length);
+    NXLog(@"USB: CBFS image size: %lu bytes", (unsigned long)cbfsImage.length);
 
     // read the "CBFS\n" string
-    NSLog(@"USB: Waiting for CBFS header...");
+    NXLog(@"USB: Waiting for CBFS header...");
     UInt8 cbfsHeaderBuf[128];
     btransf = sizeof(cbfsHeaderBuf);
     kr = NXCOMCall(desc->intf, ReadPipeTO, desc->readRef, cbfsHeaderBuf, &btransf, 3000, 3000);
@@ -245,7 +242,7 @@ BOOL FLExecCBFS(NXUSBDeviceInterface **device, struct FLExecDesc /*const*/ *desc
     }
     cbfsHeaderBuf[sizeof(cbfsHeaderBuf) - 1] = 0;
     NSString *command = [NSString stringWithCString:(char *)cbfsHeaderBuf encoding:NSASCIIStringEncoding];
-    NSLog(@"USB: Received command: %@", command);
+    NXLog(@"USB: Received command: %@", command);
     if (![command isEqualToString:@"CBFS"]) {
         ERR(@"Unexpected command from bootloader. Expected 'CBFS' but got '%@'.", command);
         return NO;
@@ -255,7 +252,7 @@ BOOL FLExecCBFS(NXUSBDeviceInterface **device, struct FLExecDesc /*const*/ *desc
     NSUInteger const chunkLimit = 64; // to prevent inf. loops
     for (; chunkNum < chunkLimit; chunkNum++) {
         // read chunk offset and size
-        NSLog(@"USB: Reading CBFS parameters...");
+        NXLog(@"USB: Reading CBFS parameters...");
         struct CbfsFileRange {
             UInt32 offset;
             UInt32 length;
@@ -273,13 +270,13 @@ BOOL FLExecCBFS(NXUSBDeviceInterface **device, struct FLExecDesc /*const*/ *desc
             // this was the last chunk
             break;
         }
-        NSLog(@"USB: CBFS offset = %lu, length = %lu", (unsigned long)range.offset, (unsigned long)range.length);
+        NXLog(@"USB: CBFS offset = %lu, length = %lu", (unsigned long)range.offset, (unsigned long)range.length);
 
         // transfer chunk
-        NSLog(@"USB: Sending CBFS image...");
+        NXLog(@"USB: Sending CBFS image...");
         UInt32 remaining = range.length;
         for (UInt32 i = range.offset; i < range.offset + range.length;) {
-            NSLog(@"USB: Progress %lu/%lu", (unsigned long)(i - range.offset), (unsigned long)range.length);
+            NXLog(@"USB: Progress %lu/%lu", (unsigned long)(i - range.offset), (unsigned long)range.length);
             UInt32 n = MIN(kNXPacketMaxSize, remaining);
             if (i + n > cbfsImage.length) {
                 ERR(@"CBFS payload requested a range that is out of the CBFS image's bounds");
@@ -299,14 +296,14 @@ BOOL FLExecCBFS(NXUSBDeviceInterface **device, struct FLExecDesc /*const*/ *desc
         return NO;
     }
 
-    NSLog(@"USB: Done sending CBFS image");
+    NXLog(@"USB: Done sending CBFS image");
 
     return YES;
 }
 
-static struct FLExecDesc FLExecAcquireDeviceInterface(NXUSBDeviceInterface **device, NSString **err) {
+struct NXExecDesc NXExecAcquireDeviceInterface(NXUSBDeviceInterface **device, NSString **err) {
     kern_return_t kr;
-    struct FLExecDesc desc = kFLExecDescInvalid;
+    struct NXExecDesc desc = kNXExecDescInvalid;
     io_iterator_t subIntfIter = 0;
     io_service_t intfService = 0;
 
@@ -337,7 +334,7 @@ static struct FLExecDesc FLExecAcquireDeviceInterface(NXUSBDeviceInterface **dev
     while ((intfService = IOIteratorNext(subIntfIter))) {
         NSNumber *intfnum = (__bridge_transfer NSNumber *)IORegistryEntryCreateCFProperty(intfService, CFSTR("bInterfaceNumber"), kCFAllocatorDefault, 0);
         if (!intfnum) {
-            NSLog(@"WARN: Could not get bInterfaceNumber for an interface, skipping it");
+            NXLog(@"WARN: Could not get bInterfaceNumber for an interface, skipping it");
             continue;
         }
         if (intfnum.integerValue == 0) {
@@ -413,7 +410,9 @@ static struct FLExecDesc FLExecAcquireDeviceInterface(NXUSBDeviceInterface **dev
             continue;
         }
     }
-    NSLog(@"USB: Bulk read pipe ID %u, write pipe ID %u", desc.readRef, desc.writeRef);
+    NXLog(@"USB: Bulk read pipe ID %u, write pipe ID %u", desc.readRef, desc.writeRef);
+
+    desc.device = device;
 
     return desc;
 
@@ -431,22 +430,22 @@ cleanup_error:
         NXCOMCall(desc.intf, Release);
     }
     NXCOMCall(device, USBDeviceClose);
-    return kFLExecDescInvalid;
+    return kNXExecDescInvalid;
 }
 
-static void FLExecReleaseDeviceInterface(NXUSBDeviceInterface **device, NXUSBSubInterface **intf) {
-    NXCOMCall(intf, USBInterfaceClose);
-    NXCOMCall(intf, Release);
-    NXCOMCall(device, USBDeviceClose);
+void NXExecReleaseDeviceInterface(struct NXExecDesc const *desc) {
+    NXCOMCall(desc->intf, USBInterfaceClose);
+    NXCOMCall(desc->intf, Release);
+    NXCOMCall(desc->device, USBDeviceClose);
 }
 
-static BOOL FLExecRelocatorIsCBFS(NSData *relocator) {
+static BOOL NXExecRelocatorIsCBFS(NSData *relocator) {
     // dirty but sufficient: it's unlikely for a non-CBFS first stage to contain the string 'CBFS' and a new-line char
     NSData *tag = [@"CBFS\n" dataUsingEncoding:NSASCIIStringEncoding];
     return [relocator rangeOfData:tag options:0 range:NSMakeRange(0, relocator.length)].location != NSNotFound;
 }
 
-BOOL NXExec(NXUSBDeviceInterface **device, NSData *relocator, NSData *image, NSString **err) {
+BOOL NXExecDesc(struct NXExecDesc const *desc, NSData *relocator, NSData *image, NSString **err) {
     // There are two implementations for CVE-2018-6242: Fusée Gelée and ShofEL2.
     //
     // Fusée Gelée's payload is structured like so:
@@ -464,26 +463,31 @@ BOOL NXExec(NXUSBDeviceInterface **device, NSData *relocator, NSData *image, NSS
     // - Coreboot's CBFS fits Fusée's relocator size constraint and doesn't care about its initial base address
     // - CBFS can be detected by searching for "CBFS\n" in the relocator or checking for a large (> 200 KiB) payload
     //
+    if (NXExecRelocatorIsCBFS(relocator)) {
+        NXLog(@"USB: Treating the relocator as CBFS payload");
+        NSData *payload = NXExecMakeShofEL2Payload(relocator, YES, err);
+        if (payload && NXExecFuseeGelee(desc, payload, err)) {
+            return NXExecCBFS(desc, image, err);
+        }
+    }
+    else {
+        NSData *payload = NXExecMakeFuseePayload(relocator, NO, image, err);
+        if (payload) {
+            return NXExecFuseeGelee(desc, payload, err);
+        }
+    }
+    return NO;
+}
+
+BOOL NXExec(NXUSBDeviceInterface **device, NSData *relocator, NSData *image, NSString **err) {
     if (!device || !relocator) {
         return NO;
     }
-    struct FLExecDesc desc = FLExecAcquireDeviceInterface(device, err);
+    struct NXExecDesc desc = NXExecAcquireDeviceInterface(device, err);
     BOOL ok = NO;
     if (desc.intf) {
-        if (FLExecRelocatorIsCBFS(relocator)) {
-            NSLog(@"USB: Treating the relocator as CBFS payload");
-            NSData *payload = FLExecMakeShofEL2Payload(relocator, YES, err);
-            if (payload && FLExecFuseeGelee(device, &desc, payload, err)) {
-                ok = FLExecCBFS(device, &desc, image, err);
-            }
-        }
-        else {
-            NSData *payload = FLExecMakeFuseePayload(relocator, NO, image, err);
-            if (payload) {
-                ok = FLExecFuseeGelee(device, &desc, payload, err);
-            }
-        }
-        FLExecReleaseDeviceInterface(device, desc.intf);
+        ok = NXExecDesc(&desc, relocator, image, err);
+        NXExecReleaseDeviceInterface(&desc);
     }
     return ok;
 }
