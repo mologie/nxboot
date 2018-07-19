@@ -186,7 +186,7 @@
                                 <rect key="frame" x="15" y="253" width="570" height="163.5"/>
                                 <string key="text">NXBoot enables running custom boot code on compatible Nintendo Switch devices. Both Fusée and ShofEL2/CBFS payloads are supported. 
 
-CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) and failoverfl0w (failoverfl0w.com.)
+CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) and fail0verflow (fail0verflow.com.)
 
 {re}switched's Python Fusée Launcher served as reference for implementing this iOS application.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
