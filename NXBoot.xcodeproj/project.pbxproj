@@ -45,6 +45,9 @@
 		A78865E520FAAF6A00ECA2B2 /* AssetsLegacy.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A78865E420FAAF6A00ECA2B2 /* AssetsLegacy.xcassets */; };
 		A78BBEC920EE30F4007C3514 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78BBEC820EE30F4007C3514 /* IOKit.framework */; };
 		A78D523520F343EC0045FC4F /* AboutScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A78D523420F343EC0045FC4F /* AboutScreenViewController.m */; };
+		A795B6BC21015F970008820F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A718F2302100CD1C009BD181 /* main.m */; };
+		A795B6BD21015FD30008820F /* libNXBootKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A718F21C2100CBB7009BD181 /* libNXBootKit.a */; };
+		A795B6BE21015FD80008820F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A718F2332100CDC1009BD181 /* IOKit.framework */; };
 		A7999ECA20F5761B00F659EB /* PackageIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A7999EC920F5761B00F659EB /* PackageIcon.png */; };
 		A7AD2A1120F63A3500D1A400 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A7AD2A1020F63A3500D1A400 /* libMobileGestalt.tbd */; };
 		A7B7E1FD20EE738300F39094 /* BootProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B7E1FC20EE738300F39094 /* BootProfilesViewController.m */; };
@@ -67,6 +70,15 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A795B6B321015F880008820F /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -107,6 +119,7 @@
 		A78BBEC820EE30F4007C3514 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A78D523320F343EC0045FC4F /* AboutScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutScreenViewController.h; sourceTree = "<group>"; };
 		A78D523420F343EC0045FC4F /* AboutScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutScreenViewController.m; sourceTree = "<group>"; };
+		A795B6B521015F880008820F /* nxboot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nxboot; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7999EC920F5761B00F659EB /* PackageIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PackageIcon.png; sourceTree = "<group>"; };
 		A7AD2A1020F63A3500D1A400 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
 		A7B494EB20FAA4000006E028 /* NXBootLegacy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootLegacy.entitlements; sourceTree = "<group>"; };
@@ -151,6 +164,15 @@
 				A73FDD0620FA9F5A007EBF4F /* IOKit.framework in Frameworks */,
 				A73FDD0820FA9F5A007EBF4F /* libMobileGestalt.tbd in Frameworks */,
 				A73FDD0920FA9F5A007EBF4F /* libNXBootKit.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A795B6B221015F880008820F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A795B6BE21015FD80008820F /* IOKit.framework in Frameworks */,
+				A795B6BD21015FD30008820F /* libNXBootKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,10 +302,10 @@
 			isa = PBXGroup;
 			children = (
 				A7FDBE2D20EE2A1700E59587 /* Frameworks */,
-				A7FDBE1620EE27DD00E59587 /* NXBoot */,
-				A718F22F2100CD1C009BD181 /* NXBootCmd */,
 				A73FDCE420FA9C5C007EBF4F /* NXBootKit */,
+				A7FDBE1620EE27DD00E59587 /* NXBoot */,
 				A73FDD1720FA9FBC007EBF4F /* NXBootLegacy */,
+				A718F22F2100CD1C009BD181 /* NXBootCmd */,
 				422DE3698D5FA49548658B9F /* Pods */,
 				A7FDBE1520EE27DD00E59587 /* Products */,
 			);
@@ -296,6 +318,7 @@
 				A73FDCE320FA9C5C007EBF4F /* libNXBootKit.a */,
 				A73FDD1520FA9F5A007EBF4F /* NXBootLegacy.app */,
 				A718F21C2100CBB7009BD181 /* libNXBootKit.a */,
+				A795B6B521015F880008820F /* nxboot */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -399,6 +422,23 @@
 			productReference = A73FDD1520FA9F5A007EBF4F /* NXBootLegacy.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A795B6B421015F880008820F /* NXBootCmdMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A795B6BB21015F880008820F /* Build configuration list for PBXNativeTarget "NXBootCmdMac" */;
+			buildPhases = (
+				A795B6B121015F880008820F /* Sources */,
+				A795B6B221015F880008820F /* Frameworks */,
+				A795B6B321015F880008820F /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NXBootCmdMac;
+			productName = NXBootCmd;
+			productReference = A795B6B521015F880008820F /* nxboot */;
+			productType = "com.apple.product-type.tool";
+		};
 		A7FDBE1320EE27DD00E59587 /* NXBoot */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A7FDBE2A20EE27DE00E59587 /* Build configuration list for PBXNativeTarget "NXBoot" */;
@@ -439,6 +479,9 @@
 							};
 						};
 					};
+					A795B6B421015F880008820F = {
+						CreatedOnToolsVersion = 9.4.1;
+					};
 					A7FDBE1320EE27DD00E59587 = {
 						CreatedOnToolsVersion = 9.4.1;
 						SystemCapabilities = {
@@ -466,6 +509,7 @@
 				A73FDCF920FA9F5A007EBF4F /* NXBootLegacy */,
 				A73FDCE220FA9C5C007EBF4F /* NXBootKit */,
 				A718F21B2100CBB7009BD181 /* NXBootKitMac */,
+				A795B6B421015F880008820F /* NXBootCmdMac */,
 			);
 		};
 /* End PBXProject section */
@@ -559,6 +603,14 @@
 				A73FDD0220FA9F5A007EBF4F /* AppDelegate.m in Sources */,
 				A73FDD0320FA9F5A007EBF4F /* BootProfileEditViewController.m in Sources */,
 				A73FDD0420FA9F5A007EBF4F /* Model.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A795B6B121015F880008820F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A795B6BC21015F970008820F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -719,6 +771,42 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7";
+			};
+			name = Release;
+		};
+		A795B6B921015F880008820F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NXBOOT_VERSION=\\\"PLACEHOLDER\\\"",
+					"NXBOOT_BUILDNO=0",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = nxboot;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A795B6BA21015F880008820F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NXBOOT_VERSION=\\\"PLACEHOLDER\\\"",
+					"NXBOOT_BUILDNO=0",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_NAME = nxboot;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -912,6 +1000,15 @@
 			buildConfigurations = (
 				A73FDD1320FA9F5A007EBF4F /* Debug */,
 				A73FDD1420FA9F5A007EBF4F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A795B6BB21015F880008820F /* Build configuration list for PBXNativeTarget "NXBootCmdMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A795B6B921015F880008820F /* Debug */,
+				A795B6BA21015F880008820F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

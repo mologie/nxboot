@@ -4,10 +4,20 @@
  */
 
 #import <Foundation/Foundation.h>
+#import <mach-o/getsect.h>
+#import <mach-o/ldsyms.h>
+#import <signal.h>
 #import "NXBootKit.h"
 #import "NXExec.h"
 #import "NXUSBDevice.h"
 #import "NXUSBDeviceEnumerator.h"
+
+#define ESC_RED    "\033[1;31m"
+#define ESC_GREEN  "\033[1;32m"
+#define ESC        "\033[0m"
+#define ESC_LN     ESC "\n"
+
+static volatile sig_atomic_t gTerm = 0;
 
 @interface NXBoot : NSObject <NXUSBDeviceEnumeratorDelegate>
 @property (strong, nonatomic) NSData *relocator;
@@ -15,6 +25,7 @@
 @property (strong, nonatomic) NXUSBDeviceEnumerator *usbEnum;
 @property (assign, nonatomic) BOOL daemon; // keep running after handling a device
 @property (assign, nonatomic) BOOL keepReading;
+@property (assign, nonatomic) BOOL lastBootFailed;
 @end
 
 @implementation NXBoot
@@ -29,16 +40,24 @@
 - (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceConnected:(NXUSBDevice *)device {
     kern_return_t kr;
     NSString *err = nil;
+
     struct NXExecDesc desc = NXExecAcquireDeviceInterface(device->_intf, &err);
+
     if (desc.intf) {
         if (NXExecDesc(&desc, self.relocator, self.image, &err)) {
+            self.lastBootFailed = NO;
             if (self.keepReading) {
-                fprintf(stderr, "success: payload was run, will continue to read data to stdout...\n");
+                fprintf(stderr, ESC_GREEN "success: payload was run, will continue to read from EP1 to stdout..." ESC_LN);
                 UInt32 btransf;
                 char rdbuf[0x1000];
-                while (true) {
+                while (!gTerm) {
                     btransf = sizeof(rdbuf);
                     kr = NXCOMCall(desc.intf, ReadPipeTO, desc.readRef, rdbuf, &btransf, 1000, 1000);
+                    if (kr == 0xE0004051) {
+                        // bulk read error, expected
+                        fprintf(stderr, ESC_GREEN "success: USB EP1 bulk stream was terminated, exiting" ESC_LN);
+                        break;
+                    }
                     if (kr) {
                         fprintf(stderr, "Failed to read after successful payload execution with code %08x.\n", kr);
                         fprintf(stderr, "This is not an error if the RCM payload deliberately terminated the USB connection. Exiting.\n");
@@ -46,20 +65,32 @@
                     }
                     fwrite(rdbuf, btransf, 1, stdout);
                 }
+                if (gTerm) {
+                    fprintf(stderr, ESC_GREEN "error: USB EP1 read operation was interrupted" ESC_LN);
+                }
+            }
+            else if (self.daemon) {
+                fprintf(stderr, ESC_GREEN "success: payload was run" ESC_LN);
             }
             else {
-                fprintf(stderr, "success: payload was run. fair winds!\n");
+                fprintf(stderr, ESC_GREEN "success: payload was run. exiting, fair winds!" ESC_LN);
             }
         }
         else {
-            fprintf(stderr, "error: NXExec failed: %s\n", err.UTF8String);
+            self.lastBootFailed = YES;
+            fprintf(stderr, ESC_RED "error: NXExec failed: %s" ESC_LN, err.UTF8String);
         }
         NXExecReleaseDeviceInterface(&desc);
     }
     else {
-        fprintf(stderr, "error: could not acquire USB device handle: %s\n", err.UTF8String);
+        self.lastBootFailed = YES;
+        fprintf(stderr, ESC_RED "error: could not acquire USB device handle: %s" ESC_LN, err.UTF8String);
     }
-    if (self.keepReading || !self.daemon) {
+
+    if (self.daemon) {
+        fprintf(stderr, "waiting for next connection...\n");
+    }
+    else {
         CFRunLoopStop(CFRunLoopGetMain());
     }
 }
@@ -75,94 +106,150 @@
 @end
 
 static void printHelp() {
-    fprintf(stderr, "usage: nxboot [-v] [-d|-r] <relocator> <payload>\n");
-    fprintf(stderr, "  -v: enable debug logging\n");
-    fprintf(stderr, "  -d: daemon mode, don't stop after handling the first device\n");
-    fprintf(stderr, "  -r: read more data from payload (cannot be used with -d)\n\n");
-    fprintf(stderr, "for updates visit https://mologie.github.io/nxboot/\n");
+    fprintf(stderr,
+            "usage: nxboot [-v] [-d|-k] [-r <relocator>] <payload>\n"
+            "  -v: enable verbose debug output\n"
+            "  -d: daemon mode, don't stop after handling the first device\n"
+            "  -k: read data from USB EP1 to stdout after payload execution (conflicts with -d)\n"
+            "  -r: use a custom relocator (default: embedded Fusée/intermezzo)\n"
+            "\n"
+            "example for Coreboot/Linux: nxboot -r cbfs.bin coreboot.rom\n"
+            "for updates visit: https://mologie.github.io/nxboot/\n");
+}
+
+static void onSignal(int sig) {
+    gTerm = 1;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NXLog(@"CMD: Got signal %d, stopping main run loop", sig);
+        CFRunLoopStop(CFRunLoopGetMain());
+    });
 }
 
 int main(int argc, char *argv[]) {
     @autoreleasepool {
-        NXBoot *cmdTool = [[NXBoot alloc] init];
-        NSString *relocatorPath = nil;
-        NSString *imagePath = nil;
-
         NXBootKitDebugEnabled = NO;
+
+        NXBoot *cmdTool = [[NXBoot alloc] init];
 
         fprintf(stderr, "nxboot %s build %d\n", NXBOOT_VERSION, NXBOOT_BUILDNO);
 
         for (int i = 1, pos = 0; i < argc; i++) {
             if (argv[i][0] == '-') {
                 if (strlen(argv[i]) != 2) {
-                    fprintf(stderr, "error: unknown argument -%s\n", argv[i]);
+                    fprintf(stderr, ESC_RED "error: invalid argument %s" ESC_LN, argv[i]);
+                    printHelp();
                     return 1;
                 }
                 switch (argv[i][1]) {
-                    case 'h':
-                        fprintf(stderr, "Copyright 2018 Oliver Kuckertz <oliver.kuckertz@mologie.de>\n");
+                    case 'h': {
+                        fprintf(stderr, "\n");
+                        fprintf(stderr, "NXBoot is a Fusée/ShofEL2 implementation for macOS and iOS.\n");
+                        fprintf(stderr, "It supports any Fusée payload and Coreboot/CBFS.\n");
+                        fprintf(stderr, "Copyright 2018 Oliver Kuckertz <oliver.kuckertz@mologie.de>\n\n");
                         printHelp();
                         return 0;
-                    case 'v':
+                    }
+                    case 'v': {
                         NXBootKitDebugEnabled = YES;
                         break;
-                    case 'd':
+                    }
+                    case 'd': {
                         if (cmdTool.keepReading) {
-                            fprintf(stderr, "error: -d cannot be used with -r\n");
+                            fprintf(stderr, ESC_RED "error: -d cannot be used with -k" ESC_LN);
+                            printHelp();
                             return 1;
                         }
                         cmdTool.daemon = YES;
                         break;
-                    case 'r':
+                    }
+                    case 'k': {
                         if (cmdTool.daemon) {
-                            fprintf(stderr, "error: -r cannot be used with -d\n");
+                            fprintf(stderr, ESC_RED "error: -d cannot be used with -k" ESC_LN);
+                            printHelp();
                             return 1;
                         }
                         cmdTool.keepReading = YES;
                         break;
-                    default:
-                        fprintf(stderr, "error: unknown argument -%s\n", argv[i]);
+                    }
+                    case 'r': {
+                        i++;
+                        if (i < argc) {
+                            NSString *path = [NSString stringWithUTF8String:argv[i]];
+                            NXLog(@"CMD: Using relocator %@", path);
+                            cmdTool.relocator = [NSData dataWithContentsOfFile:path];
+                            if (cmdTool.relocator == nil) {
+                                fprintf(stderr, ESC_RED "error: failed to load relocator" ESC_LN);
+                                return 1;
+                            }
+                        }
+                        else {
+                            fprintf(stderr, ESC_RED "error: -r requires an argument" ESC_LN);
+                            printHelp();
+                            return 1;
+                        }
+                    }
+                    default: {
+                        fprintf(stderr, ESC_RED "error: unknown argument %s" ESC_LN, argv[i]);
+                        printHelp();
                         return 1;
+                    }
                 }
             }
             else {
                 switch (pos) {
-                    case 0:
-                        relocatorPath = [NSString stringWithUTF8String:argv[i]];
+                    case 0: {
+                        NSString *path = [NSString stringWithUTF8String:argv[i]];
+                        NXLog(@"CMD: Using payload %@", path);
+                        cmdTool.image = [NSData dataWithContentsOfFile:path];
+                        if (cmdTool.image == nil) {
+                            fprintf(stderr, ESC_RED "error: failed to load payload" ESC_LN);
+                            return 1;
+                        }
                         break;
-                    case 1:
-                        imagePath = [NSString stringWithUTF8String:argv[i]];
-                        break;
-                    default:
-                        fprintf(stderr, "error: too many positional arguments\n");
+                    }
+                    default: {
+                        fprintf(stderr, ESC_RED "error: too many positional arguments" ESC_LN);
+                        printHelp();
                         return 1;
+                    }
                 }
                 pos++;
             }
         }
 
-        if (!relocatorPath || !imagePath) {
+        if (!cmdTool.image) {
+            fprintf(stderr, ESC_RED "error: a payload path must be set" ESC_LN);
             printHelp();
             return 1;
         }
 
-        NXLog(@"CMD: Using relocator %@ and image %@", relocatorPath, imagePath);
-
-        cmdTool.relocator = [NSData dataWithContentsOfFile:relocatorPath];
-        if (cmdTool.relocator == nil) {
-            fprintf(stderr, "error: failed to load relocator\n");
-            return 1;
-        }
-
-        cmdTool.image = [NSData dataWithContentsOfFile:imagePath];
-        if (cmdTool.image == nil) {
-            fprintf(stderr, "error: failed to load payload\n");
-            return 1;
+        if (!cmdTool.relocator) {
+            size_t n;
+            void *p = getsectiondata(&_mh_execute_header, "__TEXT", "__intermezzo", &n);
+            if (!p) {
+                fprintf(stderr, ESC_RED "error: getsectiondata failed, which means that your nxboot build is broken" ESC_LN);
+            }
+            cmdTool.relocator = [NSData dataWithBytesNoCopy:p length:n freeWhenDone:NO];
+            NXLog(@"CMD: Using default relocator with size %lu bytes", (unsigned long)n);
         }
 
         [cmdTool start];
+        fprintf(stderr, "waiting for Nintendo Switch in RCM mode...\n");
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            struct sigaction sa = {
+                .sa_handler = onSignal,
+                .sa_flags   = 0
+            };
+            sigaction(SIGINT, &sa, 0);
+            sigaction(SIGTERM, &sa, 0);
+            NXLog(@"CMD: Signal handler installed");
+        });
+
         CFRunLoopRun();
 
-        return 0;
+        NXLog(@"CMD: Exiting normally, last boot %@", cmdTool.lastBootFailed ? @"failed" : @"OK");
+
+        return cmdTool.lastBootFailed ? 1 : 0;
     }
 }
