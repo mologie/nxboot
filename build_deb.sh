@@ -18,7 +18,8 @@ mkdir -p $DPKGDIR/com.mologie.NXBoot/usr/bin
 cp $PROJDIR/DerivedData/bin/nxboot $DPKGDIR/com.mologie.NXBoot/usr/bin/nxboot
 
 cd $DPKGDIR
-chown -R 0:80 .
+chown -R 0:0 .
+chown -R 0:80 com.mologie.NXBoot/Applications
 dpkg-deb -Zgzip -b com.mologie.NXBoot $PROJDIR/dist/com.mologie.NXBoot-$version-$buildno.deb
 chown $ORIG_UID:$ORIG_GID $PROJDIR/dist/com.mologie.NXBoot-$version-$buildno.deb
 chown -R $ORIG_UID:$ORIG_GID .
