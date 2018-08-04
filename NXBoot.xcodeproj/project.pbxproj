@@ -12,6 +12,12 @@
 		A718F2202100CBD1009BD181 /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
 		A718F2212100CBD3009BD181 /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
 		A718F2222100CBD5009BD181 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
+		A72B0F6B210BC84B00309F0A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B0F6A210BC84B00309F0A /* AppDelegate.m */; };
+		A72B0F6E210BC84B00309F0A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B0F6D210BC84B00309F0A /* ViewController.m */; };
+		A72B0F70210BC84D00309F0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A72B0F6F210BC84D00309F0A /* Assets.xcassets */; };
+		A72B0F73210BC84D00309F0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72B0F71210BC84D00309F0A /* Main.storyboard */; };
+		A72B0F76210BC84D00309F0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B0F75210BC84D00309F0A /* main.m */; };
+		A72B0F7B210BC8EC00309F0A /* libNXBootKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A718F21C2100CBB7009BD181 /* libNXBootKit.a */; };
 		A7388F752100F54A00A60C1B /* NXBootKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXBootKit.m */; };
 		A7388F762100F54A00A60C1B /* NXBootKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXBootKit.m */; };
 		A73FDCF420FA9C72007EBF4F /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
@@ -89,6 +95,16 @@
 		A718F2302100CD1C009BD181 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A718F2312100CD1C009BD181 /* NXBootCmd.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootCmd.entitlements; sourceTree = "<group>"; };
 		A718F2332100CDC1009BD181 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		A72B0F67210BC84B00309F0A /* NXBootMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBootMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A72B0F69210BC84B00309F0A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A72B0F6A210BC84B00309F0A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A72B0F6C210BC84B00309F0A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		A72B0F6D210BC84B00309F0A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A72B0F6F210BC84D00309F0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A72B0F72210BC84D00309F0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A72B0F74210BC84D00309F0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A72B0F75210BC84D00309F0A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A72B0F77210BC84D00309F0A /* NXBootMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootMac.entitlements; sourceTree = "<group>"; };
 		A7388F732100F4FB00A60C1B /* NXBootKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXBootKit.h; sourceTree = "<group>"; };
 		A7388F742100F54A00A60C1B /* NXBootKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NXBootKit.m; sourceTree = "<group>"; };
 		A73FDCE320FA9C5C007EBF4F /* libNXBootKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNXBootKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +166,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A72B0F64210BC84B00309F0A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A72B0F7B210BC8EC00309F0A /* libNXBootKit.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A73FDCE020FA9C5C007EBF4F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -207,6 +231,46 @@
 				A718F2312100CD1C009BD181 /* NXBootCmd.entitlements */,
 			);
 			path = NXBootCmd;
+			sourceTree = "<group>";
+		};
+		A72B0F68210BC84B00309F0A /* NXBootMac */ = {
+			isa = PBXGroup;
+			children = (
+				A72B0F7F210BCB6D00309F0A /* Misc */,
+				A72B0F7E210BCB5500309F0A /* Resources */,
+				A72B0F7C210BCB4800309F0A /* Sources */,
+			);
+			path = NXBootMac;
+			sourceTree = "<group>";
+		};
+		A72B0F7C210BCB4800309F0A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A72B0F69210BC84B00309F0A /* AppDelegate.h */,
+				A72B0F6A210BC84B00309F0A /* AppDelegate.m */,
+				A72B0F6C210BC84B00309F0A /* ViewController.h */,
+				A72B0F6D210BC84B00309F0A /* ViewController.m */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		A72B0F7E210BCB5500309F0A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A72B0F6F210BC84D00309F0A /* Assets.xcassets */,
+				A72B0F71210BC84D00309F0A /* Main.storyboard */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		A72B0F7F210BCB6D00309F0A /* Misc */ = {
+			isa = PBXGroup;
+			children = (
+				A72B0F74210BC84D00309F0A /* Info.plist */,
+				A72B0F75210BC84D00309F0A /* main.m */,
+				A72B0F77210BC84D00309F0A /* NXBootMac.entitlements */,
+			);
+			name = Misc;
 			sourceTree = "<group>";
 		};
 		A73FDCE420FA9C5C007EBF4F /* NXBootKit */ = {
@@ -302,10 +366,11 @@
 			isa = PBXGroup;
 			children = (
 				A7FDBE2D20EE2A1700E59587 /* Frameworks */,
-				A73FDCE420FA9C5C007EBF4F /* NXBootKit */,
 				A7FDBE1620EE27DD00E59587 /* NXBoot */,
 				A73FDD1720FA9FBC007EBF4F /* NXBootLegacy */,
+				A72B0F68210BC84B00309F0A /* NXBootMac */,
 				A718F22F2100CD1C009BD181 /* NXBootCmd */,
+				A73FDCE420FA9C5C007EBF4F /* NXBootKit */,
 				422DE3698D5FA49548658B9F /* Pods */,
 				A7FDBE1520EE27DD00E59587 /* Products */,
 			);
@@ -319,6 +384,7 @@
 				A73FDD1520FA9F5A007EBF4F /* NXBootLegacy.app */,
 				A718F21C2100CBB7009BD181 /* libNXBootKit.a */,
 				A795B6B521015F880008820F /* nxboot */,
+				A72B0F67210BC84B00309F0A /* NXBootMac.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -387,6 +453,23 @@
 			productName = NXBootKitMac;
 			productReference = A718F21C2100CBB7009BD181 /* libNXBootKit.a */;
 			productType = "com.apple.product-type.library.static";
+		};
+		A72B0F66210BC84B00309F0A /* NXBootMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A72B0F7A210BC84D00309F0A /* Build configuration list for PBXNativeTarget "NXBootMac" */;
+			buildPhases = (
+				A72B0F63210BC84B00309F0A /* Sources */,
+				A72B0F64210BC84B00309F0A /* Frameworks */,
+				A72B0F65210BC84B00309F0A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NXBootMac;
+			productName = NXBootMac;
+			productReference = A72B0F67210BC84B00309F0A /* NXBootMac.app */;
+			productType = "com.apple.product-type.application";
 		};
 		A73FDCE220FA9C5C007EBF4F /* NXBootKit */ = {
 			isa = PBXNativeTarget;
@@ -469,6 +552,14 @@
 					A718F21B2100CBB7009BD181 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
+					A72B0F66210BC84B00309F0A = {
+						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 0;
+							};
+						};
+					};
 					A73FDCE220FA9C5C007EBF4F = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -507,14 +598,24 @@
 			targets = (
 				A7FDBE1320EE27DD00E59587 /* NXBoot */,
 				A73FDCF920FA9F5A007EBF4F /* NXBootLegacy */,
+				A72B0F66210BC84B00309F0A /* NXBootMac */,
+				A795B6B421015F880008820F /* NXBootCmdMac */,
 				A73FDCE220FA9C5C007EBF4F /* NXBootKit */,
 				A718F21B2100CBB7009BD181 /* NXBootKitMac */,
-				A795B6B421015F880008820F /* NXBootCmdMac */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		A72B0F65210BC84B00309F0A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A72B0F70210BC84D00309F0A /* Assets.xcassets in Resources */,
+				A72B0F73210BC84D00309F0A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A73FDD0B20FA9F5A007EBF4F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -574,6 +675,16 @@
 				A718F2212100CBD3009BD181 /* NXUSBDevice.m in Sources */,
 				A718F2202100CBD1009BD181 /* NXExec.m in Sources */,
 				A718F2222100CBD5009BD181 /* NXUSBDeviceEnumerator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A72B0F63210BC84B00309F0A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A72B0F6E210BC84B00309F0A /* ViewController.m in Sources */,
+				A72B0F76210BC84D00309F0A /* main.m in Sources */,
+				A72B0F6B210BC84B00309F0A /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -641,6 +752,14 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
+		A72B0F71210BC84D00309F0A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A72B0F72210BC84D00309F0A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
 		A73FDD1920FAA082007EBF4F /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -691,6 +810,46 @@
 				PRODUCT_NAME = NXBootKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		A72B0F78210BC84D00309F0A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = N3S4C3QL65;
+				INFOPLIST_FILE = NXBootMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBootMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A72B0F79210BC84D00309F0A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = N3S4C3QL65;
+				INFOPLIST_FILE = NXBootMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBootMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -982,6 +1141,15 @@
 			buildConfigurations = (
 				A718F21E2100CBB7009BD181 /* Debug */,
 				A718F21F2100CBB7009BD181 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A72B0F7A210BC84D00309F0A /* Build configuration list for PBXNativeTarget "NXBootMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A72B0F78210BC84D00309F0A /* Debug */,
+				A72B0F79210BC84D00309F0A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
