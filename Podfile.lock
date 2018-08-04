@@ -1,13 +1,13 @@
 PODS:
-  - AppCenter (1.6.1):
-    - AppCenter/Analytics (= 1.6.1)
-    - AppCenter/Crashes (= 1.6.1)
-  - AppCenter/Analytics (1.6.1):
+  - AppCenter (1.8.0):
+    - AppCenter/Analytics (= 1.8.0)
+    - AppCenter/Crashes (= 1.8.0)
+  - AppCenter/Analytics (1.8.0):
     - AppCenter/Core
-  - AppCenter/Core (1.6.1)
-  - AppCenter/Crashes (1.6.1):
+  - AppCenter/Core (1.8.0)
+  - AppCenter/Crashes (1.8.0):
     - AppCenter/Core
-  - Sparkle (1.19.0)
+  - Sparkle (1.20.0)
 
 DEPENDENCIES:
   - AppCenter
@@ -19,9 +19,9 @@ SPEC REPOS:
     - Sparkle
 
 SPEC CHECKSUMS:
-  AppCenter: f9eb653a45cece34549232f295aec05260dfc24f
-  Sparkle: 8486d2493599665e466b5076e72b28849776e32f
+  AppCenter: 7e7b42e94b70294d1de3d747f164f0c1668a28e1
+  Sparkle: 48999e7ee032f05ca05e28451eadf4af8ede6b44
 
-PODFILE CHECKSUM: eac8d37d04b6b2adb759ffeea4bf1dbd97a6a8ee
+PODFILE CHECKSUM: 3e1fc2e186668e498e5927857e921e337874ab2e
 
 COCOAPODS: 1.5.3

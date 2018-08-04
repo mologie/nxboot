@@ -8,7 +8,8 @@ target 'NXBoot' do
 end
 
 target 'NXBootMac' do
-  platform :osx, '10.10'
+  platform :osx, '10.12'
   use_frameworks!
+  pod 'AppCenter'
   pod 'Sparkle'
 end

@@ -7,8 +7,8 @@
 #import "AppConfig.h"
 #import "AppDelegate.h"
 #import "FLBootProfile+CoreDataClass.h"
-#import "NXUSBDeviceEnumerator.h"
 #import "NXExec.h"
+#import "NXUSBDeviceEnumerator.h"
 
 #ifndef NXBOOT_LEGACY
 @import AppCenterAnalytics;
@@ -38,7 +38,7 @@
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(bootProfileDidChange)
-                                                 name:FLConfigSelectedBootProfileIDChanged object:nil];
+                                                 name:AppConfigSelectedBootProfileIDChanged object:nil];
 
     self.view.backgroundColor = [UIColor colorWithWhite:0.16 alpha:1.0];
 
@@ -119,7 +119,7 @@
     label.frame = newFrame;
 }
 
-#pragma mark - Tegra Device Interaction
+#pragma mark - Start/Stop States
 
 - (void)bootStart {
     [self.bootActivityIndicator startAnimating];

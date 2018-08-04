@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSNotificationName const FLConfigSelectedBootProfileIDChanged;
+extern NSNotificationName const AppConfigSelectedBootProfileIDChanged;
 
 @interface AppConfig : NSObject
 @property (nonatomic) NSString *selectedBootProfileID;

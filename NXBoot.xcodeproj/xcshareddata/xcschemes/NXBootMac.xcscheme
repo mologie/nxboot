@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A72B0F66210BC84B00309F0A"
-               BuildableName = "NXBootMac.app"
+               BuildableName = "NXBoot.app"
                BlueprintName = "NXBootMac"
                ReferencedContainer = "container:NXBoot.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A72B0F66210BC84B00309F0A"
-            BuildableName = "NXBootMac.app"
+            BuildableName = "NXBoot.app"
             BlueprintName = "NXBootMac"
             ReferencedContainer = "container:NXBoot.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A72B0F66210BC84B00309F0A"
-            BuildableName = "NXBootMac.app"
+            BuildableName = "NXBoot.app"
             BlueprintName = "NXBootMac"
             ReferencedContainer = "container:NXBoot.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "A72B0F66210BC84B00309F0A"
-            BuildableName = "NXBootMac.app"
+            BuildableName = "NXBoot.app"
             BlueprintName = "NXBootMac"
             ReferencedContainer = "container:NXBoot.xcodeproj">
          </BuildableReference>

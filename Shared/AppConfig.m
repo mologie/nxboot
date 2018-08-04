@@ -4,10 +4,10 @@
  */
 
 #import "AppConfig.h"
+#import "AppConfig+Private.h"
 
-NSNotificationName const FLConfigSelectedBootProfileIDChanged = @"FLConfigSelectedBootProfileIDChanged";
-
-static NSString *const kFLConfigSelectedBootProfile = @"FLSelectedBootProfile";
+NSNotificationName const AppConfigSelectedBootProfileIDChanged = @"NXBootAppConfigSelectedBootProfileIDChanged";
+static NSString *const kAppConfigSelectedBootProfile = @"NXBootAppConfigSelectedBootProfile";
 
 @interface AppConfig ()
 @property (strong, nonatomic) NSUserDefaults *store;
@@ -37,12 +37,12 @@ static NSString *const kFLConfigSelectedBootProfile = @"FLSelectedBootProfile";
 }
 
 - (NSString *)selectedBootProfileID {
-    return [self.store stringForKey:kFLConfigSelectedBootProfile];
+    return [self.store stringForKey:kAppConfigSelectedBootProfile];
 }
 
 - (void)setSelectedBootProfileID:(NSString *)selectedBootProfileID {
-    [self.store setObject:selectedBootProfileID forKey:kFLConfigSelectedBootProfile];
-    [self.notificationCenter postNotificationName:FLConfigSelectedBootProfileIDChanged object:self];
+    [self.store setObject:selectedBootProfileID forKey:kAppConfigSelectedBootProfile];
+    [self.notificationCenter postNotificationName:AppConfigSelectedBootProfileIDChanged object:self];
 }
 
 @end
