@@ -1,12 +1,14 @@
 # NXBoot Podfile
 
-platform :ios, '10.0'
 project 'NXBoot.xcodeproj'
 
 target 'NXBoot' do
-  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
-
-  # Pods for NXBoot
+  platform :ios, '10.0'
   pod 'AppCenter'
+end
+
+target 'NXBootMac' do
+  platform :osx, '10.10'
+  use_frameworks!
+  pod 'Sparkle'
 end

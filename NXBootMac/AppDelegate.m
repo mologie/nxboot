@@ -1,10 +1,7 @@
-//
-//  AppDelegate.m
-//  NXBootMac
-//
-//  Created by Oliver Kuckertz on 27.07.18.
-//  Copyright © 2018 Oliver Kuckertz. All rights reserved.
-//
+/**
+ * @file app delegate
+ * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
+ */
 
 #import "AppDelegate.h"
 
@@ -14,13 +11,9 @@
 
 @implementation AppDelegate
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
-}
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {}
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
-}
+- (void)applicationWillTerminate:(NSNotification *)aNotification {}
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
     return YES;

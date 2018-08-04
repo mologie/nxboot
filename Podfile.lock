@@ -7,17 +7,21 @@ PODS:
   - AppCenter/Core (1.6.1)
   - AppCenter/Crashes (1.6.1):
     - AppCenter/Core
+  - Sparkle (1.19.0)
 
 DEPENDENCIES:
   - AppCenter
+  - Sparkle
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AppCenter
+    - Sparkle
 
 SPEC CHECKSUMS:
   AppCenter: f9eb653a45cece34549232f295aec05260dfc24f
+  Sparkle: 8486d2493599665e466b5076e72b28849776e32f
 
-PODFILE CHECKSUM: 27b4c2ce2f73d97a2a2d5ab1d964d92e09f43f11
+PODFILE CHECKSUM: eac8d37d04b6b2adb759ffeea4bf1dbd97a6a8ee
 
 COCOAPODS: 1.5.3

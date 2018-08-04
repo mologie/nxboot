@@ -7,13 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5CEE49DD4783B11BC11CD807 /* Pods_NXBootMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B714C988E8454265B34B0A4 /* Pods_NXBootMac.framework */; };
 		A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A701175E20EE320F00B3D45B /* WebKit.framework */; };
 		A701176520EE677F00B3D45B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A701176320EE677F00B3D45B /* Main.storyboard */; };
+		A717F06B21160C25000B4705 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = A717F06A21160C25000B4705 /* Credits.rtf */; };
+		A717F06F21162289000B4705 /* CheckboxCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = A717F06E21162289000B4705 /* CheckboxCellView.m */; };
 		A718F2202100CBD1009BD181 /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
 		A718F2212100CBD3009BD181 /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
 		A718F2222100CBD5009BD181 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
 		A72B0F6B210BC84B00309F0A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B0F6A210BC84B00309F0A /* AppDelegate.m */; };
-		A72B0F6E210BC84B00309F0A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B0F6D210BC84B00309F0A /* ViewController.m */; };
+		A72B0F6E210BC84B00309F0A /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B0F6D210BC84B00309F0A /* MainViewController.m */; };
 		A72B0F70210BC84D00309F0A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A72B0F6F210BC84D00309F0A /* Assets.xcassets */; };
 		A72B0F73210BC84D00309F0A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A72B0F71210BC84D00309F0A /* Main.storyboard */; };
 		A72B0F76210BC84D00309F0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A72B0F75210BC84D00309F0A /* main.m */; };
@@ -68,6 +71,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		A717F06C21160CF5000B4705 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A73FDCE120FA9C5C007EBF4F /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,17 +101,23 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2B6AE413022444B03143DD80 /* Pods-NXBootMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NXBootMac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NXBootMac/Pods-NXBootMac.debug.xcconfig"; sourceTree = "<group>"; };
+		3BE916D220F1BE25EA35A720 /* Pods-NXBootMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NXBootMac.release.xcconfig"; path = "Pods/Target Support Files/Pods-NXBootMac/Pods-NXBootMac.release.xcconfig"; sourceTree = "<group>"; };
+		9B714C988E8454265B34B0A4 /* Pods_NXBootMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NXBootMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A701175E20EE320F00B3D45B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A701176420EE677F00B3D45B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A717F06A21160C25000B4705 /* Credits.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
+		A717F06D21162289000B4705 /* CheckboxCellView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CheckboxCellView.h; sourceTree = "<group>"; };
+		A717F06E21162289000B4705 /* CheckboxCellView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CheckboxCellView.m; sourceTree = "<group>"; };
 		A718F21C2100CBB7009BD181 /* libNXBootKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNXBootKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A718F2302100CD1C009BD181 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A718F2312100CD1C009BD181 /* NXBootCmd.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootCmd.entitlements; sourceTree = "<group>"; };
 		A718F2332100CDC1009BD181 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
-		A72B0F67210BC84B00309F0A /* NXBootMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBootMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A72B0F67210BC84B00309F0A /* NXBoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A72B0F69210BC84B00309F0A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		A72B0F6A210BC84B00309F0A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		A72B0F6C210BC84B00309F0A /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		A72B0F6D210BC84B00309F0A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		A72B0F6C210BC84B00309F0A /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		A72B0F6D210BC84B00309F0A /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		A72B0F6F210BC84D00309F0A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A72B0F72210BC84D00309F0A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A72B0F74210BC84D00309F0A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -171,6 +189,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A72B0F7B210BC8EC00309F0A /* libNXBootKit.a in Frameworks */,
+				5CEE49DD4783B11BC11CD807 /* Pods_NXBootMac.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +239,8 @@
 			children = (
 				FFBE8FD3D1E4D094DAAD4809 /* Pods-NXBoot.debug.xcconfig */,
 				E3D56110D9C94294F18FD0FA /* Pods-NXBoot.release.xcconfig */,
+				2B6AE413022444B03143DD80 /* Pods-NXBootMac.debug.xcconfig */,
+				3BE916D220F1BE25EA35A720 /* Pods-NXBootMac.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -248,8 +269,10 @@
 			children = (
 				A72B0F69210BC84B00309F0A /* AppDelegate.h */,
 				A72B0F6A210BC84B00309F0A /* AppDelegate.m */,
-				A72B0F6C210BC84B00309F0A /* ViewController.h */,
-				A72B0F6D210BC84B00309F0A /* ViewController.m */,
+				A717F06D21162289000B4705 /* CheckboxCellView.h */,
+				A717F06E21162289000B4705 /* CheckboxCellView.m */,
+				A72B0F6C210BC84B00309F0A /* MainViewController.h */,
+				A72B0F6D210BC84B00309F0A /* MainViewController.m */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -258,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				A72B0F6F210BC84D00309F0A /* Assets.xcassets */,
+				A717F06A21160C25000B4705 /* Credits.rtf */,
 				A72B0F71210BC84D00309F0A /* Main.storyboard */,
 			);
 			name = Resources;
@@ -384,7 +408,7 @@
 				A73FDD1520FA9F5A007EBF4F /* NXBootLegacy.app */,
 				A718F21C2100CBB7009BD181 /* libNXBootKit.a */,
 				A795B6B521015F880008820F /* nxboot */,
-				A72B0F67210BC84B00309F0A /* NXBootMac.app */,
+				A72B0F67210BC84B00309F0A /* NXBoot.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -407,6 +431,7 @@
 				A78BBEC820EE30F4007C3514 /* IOKit.framework */,
 				A701175E20EE320F00B3D45B /* WebKit.framework */,
 				EC23C54F4535F403654E2FB8 /* libPods-NXBoot.a */,
+				9B714C988E8454265B34B0A4 /* Pods_NXBootMac.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -458,9 +483,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A72B0F7A210BC84D00309F0A /* Build configuration list for PBXNativeTarget "NXBootMac" */;
 			buildPhases = (
+				AD256C831AF783E0AAE86ADA /* [CP] Check Pods Manifest.lock */,
 				A72B0F63210BC84B00309F0A /* Sources */,
 				A72B0F64210BC84B00309F0A /* Frameworks */,
 				A72B0F65210BC84B00309F0A /* Resources */,
+				3DFE44204E12A05BA295B97D /* [CP] Embed Pods Frameworks */,
+				A717F06C21160CF5000B4705 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -468,7 +496,7 @@
 			);
 			name = NXBootMac;
 			productName = NXBootMac;
-			productReference = A72B0F67210BC84B00309F0A /* NXBootMac.app */;
+			productReference = A72B0F67210BC84B00309F0A /* NXBoot.app */;
 			productType = "com.apple.product-type.application";
 		};
 		A73FDCE220FA9C5C007EBF4F /* NXBootKit */ = {
@@ -612,6 +640,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A72B0F70210BC84D00309F0A /* Assets.xcassets in Resources */,
+				A717F06B21160C25000B4705 /* Credits.rtf in Resources */,
 				A72B0F73210BC84D00309F0A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -664,6 +693,44 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3DFE44204E12A05BA295B97D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-NXBootMac/Pods-NXBootMac-frameworks.sh",
+				"${PODS_ROOT}/Sparkle/Sparkle.framework",
+				"${PODS_ROOT}/Sparkle/Sparkle.framework.dSYM",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sparkle.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Sparkle.framework.dSYM",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NXBootMac/Pods-NXBootMac-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AD256C831AF783E0AAE86ADA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NXBootMac-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -682,9 +749,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A72B0F6E210BC84B00309F0A /* ViewController.m in Sources */,
+				A72B0F6E210BC84B00309F0A /* MainViewController.m in Sources */,
 				A72B0F76210BC84D00309F0A /* main.m in Sources */,
 				A72B0F6B210BC84B00309F0A /* AppDelegate.m in Sources */,
+				A717F06F21162289000B4705 /* CheckboxCellView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -797,6 +865,7 @@
 				PRODUCT_NAME = NXBootKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -810,11 +879,13 @@
 				PRODUCT_NAME = NXBootKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
 		A72B0F78210BC84D00309F0A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2B6AE413022444B03143DD80 /* Pods-NXBootMac.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -826,15 +897,17 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBootMac;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NXBoot;
 				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
 		A72B0F79210BC84D00309F0A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3BE916D220F1BE25EA35A720 /* Pods-NXBootMac.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Mac Developer";
@@ -846,10 +919,11 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBootMac;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = NXBoot;
 				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
@@ -949,6 +1023,7 @@
 				PRODUCT_NAME = nxboot;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -966,6 +1041,7 @@
 				PRODUCT_NAME = nxboot;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};
