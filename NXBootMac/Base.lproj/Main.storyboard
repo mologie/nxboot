@@ -735,7 +735,7 @@
                                             <constraint firstAttribute="width" secondItem="mkj-d6-pUV" secondAttribute="height" multiplier="1:1" id="2QM-d9-dFX"/>
                                             <constraint firstAttribute="width" constant="90" id="yQP-I2-xBG"/>
                                         </constraints>
-                                        <shadow key="shadow" blurRadius="5">
+                                        <shadow key="shadow" blurRadius="4">
                                             <color key="color" white="0.5900288803317536" alpha="1" colorSpace="calibratedWhite"/>
                                         </shadow>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="PackageIcon" id="24d-rf-ygD"/>
