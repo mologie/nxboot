@@ -33,6 +33,14 @@ There is no ETA on those, it's just a bunch of ideas that I think are nice to ha
 
 For installation instructions please visit the [project homepage at mologie.github.io](https://mologie.github.io/nxboot/).
 
+## Components
+
+* NXBoot: The feature-complete iOS GUI for iOS 10+
+* NXBootLegacy: Experiments to make NXBoot work under iOS 7+, incomplete
+* NXBootMac: Experiments for a macOS GUI for NXBoot
+* NXBootCmd(Mac): iOS and macOS command line tool for injecting payloads
+* NXBootKit(Mac): The framework that powers the above tools
+
 ## License
 
 All included source code is licensed under the GPLv3. Pull requests must be made available under the same license.
