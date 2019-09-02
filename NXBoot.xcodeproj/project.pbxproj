@@ -51,9 +51,9 @@
 		A7458B4C20EF86C7008F4899 /* Payloads in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4B20EF86C7008F4899 /* Payloads */; };
 		A7458B4E20EF86D5008F4899 /* Tutorial in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4D20EF86D5008F4899 /* Tutorial */; };
 		A765643F20F4D265005EC7E6 /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A765643E20F4D265005EC7E6 /* AppConfig.m */; };
-		A76D303C231D92360073D9FD /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76D303B231D92360073D9FD /* IOKit.framework */; };
-		A76D303D231D92360073D9FD /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76D303B231D92360073D9FD /* IOKit.framework */; };
-		A76D303E231D92580073D9FD /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76D303B231D92360073D9FD /* IOKit.framework */; };
+		A76D3040231D94FB0073D9FD /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76D303F231D94FB0073D9FD /* IOKit.framework */; };
+		A76D3041231D94FB0073D9FD /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76D303F231D94FB0073D9FD /* IOKit.framework */; };
+		A76D3042231D94FB0073D9FD /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A76D303F231D94FB0073D9FD /* IOKit.framework */; };
 		A78865DC20FAA6E200ECA2B2 /* UIAlertControllerShim.m in Sources */ = {isa = PBXBuildFile; fileRef = A78865DB20FAA6E200ECA2B2 /* UIAlertControllerShim.m */; };
 		A78865DF20FAA74500ECA2B2 /* UIAlertActionShim.m in Sources */ = {isa = PBXBuildFile; fileRef = A78865DE20FAA74500ECA2B2 /* UIAlertActionShim.m */; };
 		A78865E320FAACBD00ECA2B2 /* GettingStartedLegacyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A78865E220FAACBD00ECA2B2 /* GettingStartedLegacyViewController.m */; };
@@ -151,7 +151,7 @@
 		A75A515A20F75C4F00FCEF84 /* NXBoot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBoot.entitlements; sourceTree = "<group>"; };
 		A765643D20F4D265005EC7E6 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
 		A765643E20F4D265005EC7E6 /* AppConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
-		A76D303B231D92360073D9FD /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Frameworks/IOKit.framework; sourceTree = "<group>"; };
+		A76D303F231D94FB0073D9FD /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Frameworks/IOKit.framework; sourceTree = "<group>"; };
 		A78865DA20FAA6E200ECA2B2 /* UIAlertControllerShim.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIAlertControllerShim.h; sourceTree = "<group>"; };
 		A78865DB20FAA6E200ECA2B2 /* UIAlertControllerShim.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UIAlertControllerShim.m; sourceTree = "<group>"; };
 		A78865DD20FAA74500ECA2B2 /* UIAlertActionShim.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIAlertActionShim.h; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A76D303E231D92580073D9FD /* IOKit.framework in Frameworks */,
+				A76D3042231D94FB0073D9FD /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +216,7 @@
 			files = (
 				A73FDD0820FA9F5A007EBF4F /* libMobileGestalt.tbd in Frameworks */,
 				A73FDD0920FA9F5A007EBF4F /* libNXBootKit.a in Frameworks */,
-				A76D303D231D92360073D9FD /* IOKit.framework in Frameworks */,
+				A76D3041231D94FB0073D9FD /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +236,7 @@
 				A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */,
 				A7AD2A1120F63A3500D1A400 /* libMobileGestalt.tbd in Frameworks */,
 				A73FDCF820FA9D08007EBF4F /* libNXBootKit.a in Frameworks */,
-				A76D303C231D92360073D9FD /* IOKit.framework in Frameworks */,
+				A76D3040231D94FB0073D9FD /* IOKit.framework in Frameworks */,
 				DC1D6A26516D93CA82A07B67 /* libPods-NXBoot.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -450,11 +450,11 @@
 			isa = PBXGroup;
 			children = (
 				A718F2332100CDC1009BD181 /* IOKit.framework */,
+				A76D303F231D94FB0073D9FD /* IOKit.framework */,
 				A7AD2A1020F63A3500D1A400 /* libMobileGestalt.tbd */,
-				A76D303B231D92360073D9FD /* IOKit.framework */,
-				A701175E20EE320F00B3D45B /* WebKit.framework */,
 				EC23C54F4535F403654E2FB8 /* libPods-NXBoot.a */,
 				9B714C988E8454265B34B0A4 /* Pods_NXBootMac.framework */,
+				A701175E20EE320F00B3D45B /* WebKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -954,7 +954,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -969,7 +969,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
