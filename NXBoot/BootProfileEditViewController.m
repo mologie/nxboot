@@ -292,7 +292,8 @@ enum {
     [self presentViewController:picker animated:YES completion:nil];
 }
 
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(nonnull NSArray<NSURL *> *)urls {
+    NSURL *url = urls.firstObject;
     if (self.nextFilePromptCompletionHandler) {
         self.nextFilePromptCompletionHandler(url);
         self.nextFilePromptCompletionHandler = nil;
