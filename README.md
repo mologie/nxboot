@@ -20,11 +20,11 @@ There is no ETA on those, it's just a bunch of ideas that I think are nice to ha
 * Managed payload profiles with auto-updates (always have the latest Hekate etc. available without any effort)
 * Optional Substrate tweak that disables the unsupported device message when a Switch is connected
 * macOS GUI (currently limited to command-line tool)
-* iOS 7+ support (currently requires iOS 10+)
+* Hekate settings integration
 
 ## Prerequisites
 
-* A jailbroken iOS device with firmware 10.0-12.4 (later iOS versions are most likely fine too)
+* A jailbroken iOS device with firmware 10.0-14.2 (later iOS versions are most likely fine too)
 * Proper sandbox patches installed by the jailbreak (unc0ver works as-is)
 * A USB 3 Type A to Type C cable
 * An OTG (Lightning to USB 2.0 or 3.0) adapter. Apple's costs $35 and cheaper third-party adapters may work.
@@ -36,10 +36,8 @@ For installation instructions please visit the [project homepage at mologie.gith
 ## Components
 
 * NXBoot: The feature-complete iOS GUI for iOS 10+
-* NXBootLegacy: Experiments to make NXBoot work under iOS 7+, incomplete
-* NXBootMac: Experiments for a macOS GUI for NXBoot
-* NXBootCmd(Mac): iOS and macOS command line tool for injecting payloads
-* NXBootKit(Mac): The framework that powers the above tools
+* NXBootCmd: iOS and macOS command line tool for injecting payloads
+* NXBootKit: The framework that powers the above tools
 
 ## License
 

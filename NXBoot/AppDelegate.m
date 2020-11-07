@@ -5,11 +5,9 @@
 
 #import "AppDelegate.h"
 
-#ifndef NXBOOT_LEGACY
 @import AppCenter;
 @import AppCenterAnalytics;
 @import AppCenterCrashes;
-#endif
 
 @interface AppDelegate ()
 @end
@@ -17,9 +15,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-#ifndef NXBOOT_LEGACY
     [MSAppCenter start:@"0665136b-48d8-4d13-98f9-1d21a3dbcd59" withServices:@[[MSAnalytics class], [MSCrashes class]]];
-#endif
     return YES;
 }
 

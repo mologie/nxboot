@@ -12,15 +12,14 @@ BINDIR=$PROJDIR/DerivedData/bin
 mkdir -p $PROJDIR/dist $BINDIR
 
 echo "Building iOS application..."
-xcodebuild -workspace NXBoot.xcworkspace -scheme NXBoot -configuration Release clean build | xcpretty
-xcodebuild -workspace NXBoot.xcworkspace -scheme NXBootLegacy -configuration Release build | xcpretty
+xcodebuild -scheme NXBoot -configuration Release clean build | bundle exec xcpretty
 
 echo "Signing iOS application..."
 rm -f $RELEASEDIR_IOS/NXBoot.app/embedded.mobileprovision
 binpath=$RELEASEDIR_IOS/NXBoot.app/NXBoot
-for arch in armv7 arm64; do
+for arch in armv7 arm64 arm64e; do
   lipo $binpath -thin $arch -output $binpath.$arch
-  jtool --sign --inplace --ident com.mologie.NXBoot --ent NXBoot/NXBootJailbreak.entitlements $RELEASEDIR_IOS/NXBoot.app/NXBoot.$arch
+  jtool2 --sign --inplace --ident com.mologie.NXBoot --ent NXBoot/NXBootJailbreak.entitlements $RELEASEDIR_IOS/NXBoot.app/NXBoot.$arch
 done
 lipo -create -output $binpath $binpath.armv7 $binpath.arm64
 rm $binpath.*

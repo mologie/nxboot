@@ -1,0 +1,47 @@
+{
+  "entries": {
+    "brew": {
+      "dpkg": {
+        "version": "1.20.5",
+        "bottle": {
+          "cellar": "/usr/local/Cellar",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/dpkg-1.20.5.catalina.bottle.tar.gz",
+              "sha256": "32ae6083fd4207f4cecd58087b68afc43a22d6020bd7a89184a0af20ecc9a2fb"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/dpkg-1.20.5.mojave.bottle.tar.gz",
+              "sha256": "ec0d8e85f436bc6394de1f261c1c0e791ed72797d7ae20e6fb8f1cda016a7b43"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/dpkg-1.20.5.high_sierra.bottle.tar.gz",
+              "sha256": "483c5e48a18dd401638399670aff9fd1a2800a243a37f208235777e9fc140986"
+            }
+          }
+        }
+      }
+    },
+    "cask": {
+      "jtool2": {
+        "version": "2020.02.10",
+        "options": {
+          "full_name": "jtool2"
+        }
+      }
+    }
+  },
+  "system": {
+    "macos": {
+      "catalina": {
+        "HOMEBREW_VERSION": "2.5.8",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "5f653cea908226297af7faab47e8a6f9490d5aca",
+        "CLT": "1103.0.32.29",
+        "Xcode": "12.1",
+        "macOS": "10.15.7"
+      }
+    }
+  }
+}

@@ -3,8 +3,12 @@
 # macOS specific
 .DS_Store
 
-# Managed by Cocoapods
-Pods/
+# Managed by bundler
+vendor/bundle/
+
+# AppCenter xcframework binaries
+# TODO: There is no automated download method for those yet, consider using Git LFS
+vendor/Frameworks/
 
 # Xcode user
 xcuserdata

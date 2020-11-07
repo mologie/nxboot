@@ -10,10 +10,6 @@
     <array>
         <string>N3S4C3QL65.com.mologie.NXBoot</string>
     </array>
-    <key>com.apple.developer.icloud-container-identifiers</key>
-    <array/>
-    <key>com.apple.developer.ubiquity-kvstore-identifier</key>
-    <string>N3S4C3QL65.com.mologie.NXBoot</string>
 
     <!-- Required for some jailbreaks to run without valid signature -->
     <key>platform-application</key>
