@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 #import "NXExec.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class NXUSBDeviceEnumerator;
 
 @interface NXUSBDevice : NSObject {
@@ -18,3 +20,5 @@
 @property (strong, nonatomic) NSString *name;
 - (void)invalidate;
 @end
+
+NS_ASSUME_NONNULL_END
