@@ -29,6 +29,12 @@
         "options": {
           "full_name": "jtool2"
         }
+      },
+      "jtool": {
+        "version": "latest",
+        "options": {
+          "full_name": "jtool"
+        }
       }
     }
   },
@@ -37,7 +43,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "2.5.8",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "5f653cea908226297af7faab47e8a6f9490d5aca",
+        "Homebrew/homebrew-core": "fb49720640a5f079473119ca66bdcc69169bc56e",
         "CLT": "1103.0.32.29",
         "Xcode": "12.1",
         "macOS": "10.15.7"
