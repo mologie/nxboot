@@ -37,6 +37,8 @@
 		A7CD57D62556F594006AA85B /* AppCenterCrashes.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57C12556F587006AA85B /* AppCenterCrashes.xcframework */; };
 		A7CD57D72556F594006AA85B /* AppCenterCrashes.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57C12556F587006AA85B /* AppCenterCrashes.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7CD57DF2556F5CB006AA85B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57DE2556F5CB006AA85B /* IOKit.framework */; };
+		A7CD57E82556FB8B006AA85B /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
+		A7CD57E92556FB8B006AA85B /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
 		A7F0A88C20F4837F001C9D07 /* BootProfileEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0A88B20F4837F001C9D07 /* BootProfileEditViewController.m */; };
 		A7F0A88F20F48492001C9D07 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */; };
 		A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE1820EE27DD00E59587 /* AppDelegate.m */; };
@@ -135,6 +137,8 @@
 		A7CD57C22556F587006AA85B /* AppCenter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AppCenter.xcframework; path = vendor/Frameworks/AppCenter.xcframework; sourceTree = "<group>"; };
 		A7CD57C32556F587006AA85B /* AppCenterAnalytics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AppCenterAnalytics.xcframework; path = vendor/Frameworks/AppCenterAnalytics.xcframework; sourceTree = "<group>"; };
 		A7CD57DE2556F5CB006AA85B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		A7CD57E62556FB8B006AA85B /* NXHekateCustomizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXHekateCustomizer.h; sourceTree = "<group>"; };
+		A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NXHekateCustomizer.m; sourceTree = "<group>"; };
 		A7F0A88A20F4837F001C9D07 /* BootProfileEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BootProfileEditViewController.h; sourceTree = "<group>"; };
 		A7F0A88B20F4837F001C9D07 /* BootProfileEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BootProfileEditViewController.m; sourceTree = "<group>"; };
 		A7F0A88E20F48492001C9D07 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
@@ -212,6 +216,8 @@
 				A7388F742100F54A00A60C1B /* NXBootKit.m */,
 				A73FDCF120FA9C72007EBF4F /* NXExec.h */,
 				A73FDCEC20FA9C71007EBF4F /* NXExec.m */,
+				A7CD57E62556FB8B006AA85B /* NXHekateCustomizer.h */,
+				A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */,
 				A73FDCED20FA9C71007EBF4F /* NXUSBDevice.h */,
 				A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */,
 				A73FDCF320FA9C72007EBF4F /* NXUSBDeviceEnumerator.h */,
@@ -452,6 +458,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7CD57E92556FB8B006AA85B /* NXHekateCustomizer.m in Sources */,
 				A70934DA2556DEA0006AA85B /* NXBootKit.m in Sources */,
 				A70934DB2556DEA0006AA85B /* NXUSBDevice.m in Sources */,
 				A70934DC2556DEA0006AA85B /* NXExec.m in Sources */,
@@ -463,6 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A7CD57E82556FB8B006AA85B /* NXHekateCustomizer.m in Sources */,
 				A7388F752100F54A00A60C1B /* NXBootKit.m in Sources */,
 				A73FDCF720FA9C72007EBF4F /* NXUSBDevice.m in Sources */,
 				A73FDCF420FA9C72007EBF4F /* NXExec.m in Sources */,
