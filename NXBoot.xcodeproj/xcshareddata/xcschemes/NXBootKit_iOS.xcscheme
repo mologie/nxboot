@@ -20,20 +20,6 @@
                ReferencedContainer = "container:NXBoot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A70934D82556DEA0006AA85B"
-               BuildableName = "libNXBootKit_macOS.a"
-               BlueprintName = "NXBootKit_macOS"
-               ReferencedContainer = "container:NXBoot.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

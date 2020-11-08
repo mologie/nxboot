@@ -60,11 +60,11 @@
         self.webView.scrollView.contentInset = UIEdgeInsetsMake(topMargin, 0, bottomMargin, 0);
 
         // adjust scrollbar position
-        UIEdgeInsets scrollIndicatorInsets = self.webView.scrollView.scrollIndicatorInsets;
+        UIEdgeInsets scrollIndicatorInsets = self.webView.scrollView.verticalScrollIndicatorInsets;
         CGFloat scrollPadding = scrollIndicatorInsets.right;
         scrollIndicatorInsets.top = topMargin + scrollPadding;
         scrollIndicatorInsets.bottom = bottomMargin + scrollPadding;
-        self.webView.scrollView.scrollIndicatorInsets = scrollIndicatorInsets;
+        self.webView.scrollView.verticalScrollIndicatorInsets = scrollIndicatorInsets;
 
         [self.webView layoutIfNeeded];
     }
@@ -89,8 +89,7 @@
         }
         else {
             [self.activityIndicatorView stopAnimating];
-            [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-            [UIView animateWithDuration:0.5 animations:^{
+            [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.progressView.alpha = 0.0;
             } completion:^(BOOL finished) {
                 if (finished) {

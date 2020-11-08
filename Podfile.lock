@@ -1,27 +1,23 @@
 PODS:
-  - AppCenter (2.3.0):
-    - AppCenter/Analytics (= 2.3.0)
-    - AppCenter/Crashes (= 2.3.0)
-  - AppCenter/Analytics (2.3.0):
+  - AppCenter (3.3.4):
+    - AppCenter/Analytics (= 3.3.4)
+    - AppCenter/Crashes (= 3.3.4)
+  - AppCenter/Analytics (3.3.4):
     - AppCenter/Core
-  - AppCenter/Core (2.3.0)
-  - AppCenter/Crashes (2.3.0):
+  - AppCenter/Core (3.3.4)
+  - AppCenter/Crashes (3.3.4):
     - AppCenter/Core
-  - Sparkle (1.21.3)
 
 DEPENDENCIES:
   - AppCenter
-  - Sparkle
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - AppCenter
-    - Sparkle
 
 SPEC CHECKSUMS:
-  AppCenter: 9784d2fc998c9bd0b8fbaf4fb9ed69526d12ce1a
-  Sparkle: 3f75576db8b0265adef36c43249d747f22d0b708
+  AppCenter: 0487be185c038ed2ecc5ed38219af1dcd280af23
 
-PODFILE CHECKSUM: 3e1fc2e186668e498e5927857e921e337874ab2e
+PODFILE CHECKSUM: 236a0393b9287b417d2313362b990b0b139bcbda
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.10.0

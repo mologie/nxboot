@@ -6,6 +6,8 @@
 #import <Foundation/Foundation.h>
 #import "NXUSBDevice.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class NXUSBDeviceEnumerator;
 
 @protocol NXUSBDeviceEnumeratorDelegate
@@ -20,3 +22,5 @@
 - (void)start;
 - (void)stop;
 @end
+
+NS_ASSUME_NONNULL_END
