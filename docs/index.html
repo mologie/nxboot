@@ -1,0 +1,155 @@
+---
+---
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    <meta name="og:title" content="NXBoot - Fusée Gelée / ShofEL2 for iOS"/>
+    <meta name="og:description" content="NXBoot enables starting custom boot code on the Nintendo Switch through the Fusée Gelée hardware exploit. Booting Coreboot/Linux is supported."/>
+    <meta name="og:url" content="https://mologie.github.io/nxboot/"/>
+    <meta name="og:image" content="https://mologie.github.io/nxboot/nxboot_icon.png"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:creator" content="@mologie"/>
+
+    <link rel="shortcut icon" href="nxboot_icon.png"/>
+
+    <title>NXBoot</title>
+
+    <style type="text/css">
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      margin: 0 auto;
+      background: white;
+      padding: 0 15px;
+    }
+    #header {
+      margin: 30px auto;
+      text-align: center;
+    }
+    #header h1, #header h2 {
+      margin: 7px 0;
+    }
+    #header h1 {
+      font-weight: 500;
+    }
+    #header h2 {
+      font-weight: 400;
+    }
+    #depiction {
+      max-width: 600px;
+      margin: auto;
+      border-top: 1px solid #c8c7cc;
+    }
+    pre {
+      border: 1px solid #c8c7cc;
+      background: #f0f0f0;
+      padding: 6px;
+    }
+    .text-mono {
+      font-family: monospace;
+    }
+    p {
+      line-height: 1.5;
+    }
+    p.compressed {
+      margin-top: -0.25em;
+      line-height: 1.25;
+    }
+    p small {
+      color: #707070;
+    }
+    hr {
+      height: 0;
+      border: 0;
+      border-top: 1px solid #c8c7cc;
+    }
+    </style>
+
+    {% include ga.html %}
+  </head>
+  <body>
+    <div id="header">
+      <img src="nxboot_icon.png" height="90" alt="NXBoot Icon"/><br/>
+      <h1>NXBoot</h1>
+      <h2 style="margin-top: 0;">Fusée Gelée / ShofEL2 for iOS &amp; macOS</h2>
+    </div>
+    <div id="depiction">
+      <p>NXBoot enables starting custom boot code on the Nintendo Switch through the Fusée Gelée hardware exploit. Booting Coreboot/Linux is supported.</p>
+      <p>A jailbreak is required. For jailbreaking info visit <a href="https://canijailbreak.com/">canijailbreak.com</a> and <a href="https://reddit.com/r/jailbreak">/r/jailbreak</a>. Please keep in mind that a jailbreak is detrimental to your mobile device's security and you should never jailbreak a device that stores sensitive data. Currently the minimum supported iOS version is iOS 10.0.</p>
+      <p><b>Install NXBoot on iOS by adding the following repository to Cydia:</b></p>
+      <p class="compressed">
+        <a href="cydia://url/https://cydia.saurik.com/api/share#?source=https://mologie.github.io/repo/">https://mologie.github.io/repo/</a><br/>
+        <small>Tap with Safari to open Cydia</small>
+      </p>
+      <p>
+        Updates are provided automatically via Cydia. A changelog is visible on this page and in the Cydia package description.
+      </p>
+      <p><b>A command-line tool is available for iOS and macOS:</b></p>
+      <p class="compressed">
+        <a href="https://github.com/mologie/nxboot/releases/download/v0.2.0/nxboot">Download Command-Line Tool</a>
+        (v0.2.0,
+        <a href="https://github.com/mologie/nxboot/releases/download/v0.2.0/nxboot.sig">signature</a>,
+        <a href="https://keybase.io/mologie/pgp_keys.asc">PGP key</a>,
+        <a href="https://github.com/mologie/nxboot/releases/latest">changelog</a>)<br/>
+        <small>The command-line version of NXBoot works on iOS 7.0+ and macOS 10.10+. It is also available at /usr/bin/nxboot when the Cydia package is installed. Run ./nxboot -h for usage info.</small>
+      </p>
+      <hr/>
+
+      <h2>Changelog</h2>
+      {% include changelog.html %}
+      <hr/>
+
+      <h2>FAQ</h2>
+      <p>
+        <b>I don't have a jailbreak. Can this work as self-signed IPA too?</b><br/>
+        No, it is impossible. A self-signed IPA does not grant any sandbox exceptions, which NXBoot requires for raw USB device access.
+      </p>
+      <p>
+        <b>What are the iOS hardware requirements?</b><br/>
+        An OTG adapter <u>on the Lightning end of the connection</u> is required. Setup example: An iPhone 6 with NXBoot, connected to an Apple Lightning USB 2 Camera Adapter, where a standard USB 3 Type A to Type C cable connects the adapter with the Nintendo Switch:<br/>
+        <a href="nxboot_setup_photo.jpg"><img src="nxboot_setup_photo.jpg" alt="NXBoot Setup Photo" style="height: 100px; border: 2px solid #333; margin-top: 8px;"/></a>
+      </p>
+      <p>
+        <b>Does it work without a Lightning OTG adapter?</b><br/>
+        Nope.
+      </p>
+      <p>
+        <b>Can you make it work without an Lightning OTG adapter?</b><br/>
+        Maybe, probably not. I'd be interested in technical details about the Lightning Camera adapter's internals and how iOS deals with USB host and device mode.
+      </p>
+      <p>
+        <b>Will cheap, non-Apple OTG adapters work?</b><br/>
+        Maybe. I've received reports from some people who had success with cheap $5 Lightning OTG adapters, but others did not get their third-party adapter to work at all or had USB communication errors.
+      </p>
+      <p>
+        <b>Why use your app at all if it requires a $30 adapter?</b><br/>
+        Because you've already got that adapter, or find it convenient, or found a cheap third-party adapter that works for you.
+      </p>
+      <p>
+        <b>iOS software requirements?</b><br/>
+        NXBoot was tested and found compatible with all jailbreaks for iOS 10 and later, up to unc0ver for iOS 12.4. It may break if Apple changes some of its private APIs or sandbox details in future iOS versions.
+      </p>
+      <p>
+        <b>Nintendo Switch requirements?</b><br/>
+        Any first generation Nintendo Switch with any firmware will work. There are reports about patched Nintendo Switch hardware on which the exploit no longer runs, but any switch purchased before 2018-07 should be safe.
+      </p>
+      <p>
+        <b>Is this app free?</b><br/>
+        Yes and there are no ads. It was created as a fun experiment.
+      </p>
+      <p>
+        <b>Is it open-source / free software?</b><br/>
+        Yes! The source code was released 2019-09-02 under the GPLv3. It is available at <a href="https://github.com/mologie/nxboot">GitHub</a>. Pull requests are welcome.
+      </p>
+      <p>
+        <b>What is the difference between your command-line tool and others?</b><br/>
+        The functionality is most likely equivalent, but nxboot has zero dependencies (it works directly with IOKit) and can launch both Fusée and ShofEL2 payloads out of the box.
+      </p>
+      <hr/>
+
+      <p><small>2018-2020 - Oliver Kuckertz</small></p>
+    </div>
+  </body>
+</html>
