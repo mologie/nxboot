@@ -7,7 +7,7 @@
 vendor/bundle/
 
 # AppCenter xcframework binaries
-# TODO: There is no automated download method for those yet, consider using Git LFS
+# TODO: There is no automated download method for those yet, consider using SPM
 vendor/Frameworks/
 
 # Xcode user
@@ -30,4 +30,5 @@ xcuserdata
 /.idea
 
 # Build scripts output
+/bin
 /dist

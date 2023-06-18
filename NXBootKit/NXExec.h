@@ -3,9 +3,12 @@
  * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
  */
 
+#pragma once
+
 #import <CoreFoundation/CoreFoundation.h>
 #import <IOKit/IOKitLib.h>
 #import <IOKit/usb/IOUSBLib.h>
+#import <objc/objc.h> // BOOL
 
 #define kTegraNintendoSwitchVendorID  0x0955
 #define kTegraNintendoSwitchProductID 0x7321

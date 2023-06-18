@@ -15,7 +15,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [MSAppCenter start:@"0665136b-48d8-4d13-98f9-1d21a3dbcd59" withServices:@[[MSAnalytics class], [MSCrashes class]]];
+    [MSACAppCenter start:@"0665136b-48d8-4d13-98f9-1d21a3dbcd59" withServices:@[[MSACAnalytics class], [MSACCrashes class]]];
     return YES;
 }
 

@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A73FDCE220FA9C5C007EBF4F"
-               BuildableName = "libNXBootKit_iOS.a"
+               BlueprintIdentifier = "50410F6826C87B2B00DF24B5"
+               BuildableName = "NXBootKit.framework"
                BlueprintName = "NXBootKit_iOS"
                ReferencedContainer = "container:NXBoot.xcodeproj">
             </BuildableReference>
@@ -28,9 +28,23 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A70934D82556DEA0006AA85B"
-               BuildableName = "libNXBootKit_macOS.a"
+               BlueprintIdentifier = "50410F3526C874B200DF24B5"
+               BuildableName = "NXBootKit.framework"
                BlueprintName = "NXBootKit_macOS"
+               ReferencedContainer = "container:NXBoot.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "50410F5326C87AF200DF24B5"
+               BuildableName = "NXBootKit_macOS_static.framework"
+               BlueprintName = "NXBootKit_macOS_static"
                ReferencedContainer = "container:NXBoot.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -64,8 +78,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "A73FDCE220FA9C5C007EBF4F"
-            BuildableName = "libNXBootKit_iOS.a"
+            BlueprintIdentifier = "50410F6826C87B2B00DF24B5"
+            BuildableName = "NXBootKit.framework"
             BlueprintName = "NXBootKit_iOS"
             ReferencedContainer = "container:NXBoot.xcodeproj">
          </BuildableReference>

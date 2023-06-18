@@ -138,41 +138,41 @@
 
     // analytics: log start event for timing
     // the end event and result will also be logged.
-    [MSAnalytics trackEvent:@"SwitchBootStart"];
+    [MSACAnalytics trackEvent:@"SwitchBootStart"];
 
     dispatch_async(dispatch_get_main_queue(), ^{
         NSString *error = nil;
         if (!self.device) {
-            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"Device Disappeared"}];
+            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"Device Disappeared"}];
             return;
         }
         if (!self.active) {
-            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"User Canceled"}];
+            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"User Canceled"}];
             return;
         }
         FLBootProfile *profile = self.bootProfile;
         if (!profile) {
             self.bootStatus = @"Error: No boot profile is selected.";
-            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"No Boot Profile Selected"}];
+            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"No Boot Profile Selected"}];
             return;
         }
         NSData *relocator = [self relocatorForProfile:profile];
         NSData *bootImage = [self bootImageForProfile:profile];
         if (!relocator || !bootImage) {
-            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"Boot Profile Invalid"}];
+            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"Boot Profile Invalid"}];
             return;
         }
         if (NXExec(self.device->_intf, relocator, bootImage, &error)) {
             self.bootStatus = @"Success! 🎉";
             // analytics: log success events
-            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Success"}];
-            [MSAnalytics trackEvent:@"SwitchBootSuccess"];
+            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Success"}];
+            [MSACAnalytics trackEvent:@"SwitchBootSuccess"];
         }
         else {
             self.bootStatus = [NSString stringWithFormat:@"Error: %@", error];
             // analytics: log error events and error messages (these contain technical info only)
-            [MSAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Error", @"Messaage": error}];
-            [MSAnalytics trackEvent:@"SwitchBootFailure" withProperties:@{@"Messaage": error}];
+            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Error", @"Messaage": error}];
+            [MSACAnalytics trackEvent:@"SwitchBootFailure" withProperties:@{@"Messaage": error}];
         }
     });
 }
@@ -273,7 +273,7 @@
     [self bootStop];
 
     // analytics: log navigation events from the main screen
-    [MSAnalytics trackEvent:@"Navigation" withProperties:@{@"ID": [NSString stringWithFormat:@"Main-%@", segue.identifier]}];
+    [MSACAnalytics trackEvent:@"Navigation" withProperties:@{@"ID": [NSString stringWithFormat:@"Main-%@", segue.identifier]}];
 }
 
 #pragma mark - NXUSBDeviceEnumeratorDelegate

@@ -1,10 +1,19 @@
 /**
- * @file NXBootKit globals
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de
+ * NXBootKit.framework
  */
 
-#import <CoreFoundation/CoreFoundation.h>
+#pragma once
 
-extern BOOL NXBootKitDebugEnabled;
+#import <Foundation/Foundation.h>
 
-#define NXLog(...) do { if (NXBootKitDebugEnabled) NSLog(__VA_ARGS__); } while (0)
+#import <NXBootKit/NXExec.h>
+#import <NXBootKit/NXHekateCustomizer.h>
+#import <NXBootKit/NXLog.h>
+#import <NXBootKit/NXUSBDevice.h>
+#import <NXBootKit/NXUSBDeviceEnumerator.h>
+
+//! Project version number for NXBootKit.
+FOUNDATION_EXPORT double NXBootKitVersionNumber;
+
+//! Project version string for NXBootKit.
+FOUNDATION_EXPORT const unsigned char NXBootKitVersionString[];

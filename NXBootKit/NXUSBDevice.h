@@ -3,8 +3,10 @@
  * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
  */
 
+#pragma once
+
 #import <Foundation/Foundation.h>
-#import "NXExec.h"
+#import <NXBootKit/NXExec.h>
 
 NS_ASSUME_NONNULL_BEGIN
 

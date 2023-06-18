@@ -7,18 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		50410F6A26C87B2B00DF24B5 /* NXLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 50410F4326C8753B00DF24B5 /* NXLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50410F6B26C87B2B00DF24B5 /* NXUSBDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = A73FDCED20FA9C71007EBF4F /* NXUSBDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50410F6C26C87B2B00DF24B5 /* NXBootKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 50410F3826C874B200DF24B5 /* NXBootKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50410F6D26C87B2B00DF24B5 /* NXUSBDeviceEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = A73FDCF320FA9C72007EBF4F /* NXUSBDeviceEnumerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50410F6E26C87B2B00DF24B5 /* NXHekateCustomizer.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CD57E62556FB8B006AA85B /* NXHekateCustomizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50410F6F26C87B2B00DF24B5 /* NXExec.h in Headers */ = {isa = PBXBuildFile; fileRef = A73FDCF120FA9C72007EBF4F /* NXExec.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50410F7126C87B2B00DF24B5 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
+		50410F7226C87B2B00DF24B5 /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
+		50410F7326C87B2B00DF24B5 /* NXLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXLog.m */; };
+		50410F7426C87B2B00DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
+		50410F7526C87B2B00DF24B5 /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
+		50F7417F26C883D100DF24B5 /* NXBootKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50410F7B26C87B2B00DF24B5 /* NXBootKit.framework */; };
+		50F7418026C883D100DF24B5 /* NXBootKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50410F7B26C87B2B00DF24B5 /* NXBootKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A701175E20EE320F00B3D45B /* WebKit.framework */; };
 		A701176520EE677F00B3D45B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A701176320EE677F00B3D45B /* Main.storyboard */; };
-		A70934DA2556DEA0006AA85B /* NXBootKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXBootKit.m */; };
-		A70934DB2556DEA0006AA85B /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
-		A70934DC2556DEA0006AA85B /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
-		A70934DD2556DEA0006AA85B /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
-		A70934E92556DEC3006AA85B /* libNXBootKit_macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A70934E42556DEA0006AA85B /* libNXBootKit_macOS.a */; };
-		A7388F752100F54A00A60C1B /* NXBootKit.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXBootKit.m */; };
-		A73FDCF420FA9C72007EBF4F /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
-		A73FDCF520FA9C72007EBF4F /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
-		A73FDCF720FA9C72007EBF4F /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
-		A73FDCF820FA9D08007EBF4F /* libNXBootKit_iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A73FDCE320FA9C5C007EBF4F /* libNXBootKit_iOS.a */; };
 		A7458B4A20EF8286008F4899 /* GettingStartedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7458B4920EF8286008F4899 /* GettingStartedViewController.m */; };
 		A7458B4C20EF86C7008F4899 /* Payloads in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4B20EF86C7008F4899 /* Payloads */; };
 		A7458B4E20EF86D5008F4899 /* Tutorial in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4D20EF86D5008F4899 /* Tutorial */; };
@@ -36,9 +39,6 @@
 		A7CD57D22556F593006AA85B /* AppCenterAnalytics.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57C32556F587006AA85B /* AppCenterAnalytics.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		A7CD57D62556F594006AA85B /* AppCenterCrashes.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57C12556F587006AA85B /* AppCenterCrashes.xcframework */; };
 		A7CD57D72556F594006AA85B /* AppCenterCrashes.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57C12556F587006AA85B /* AppCenterCrashes.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A7CD57DF2556F5CB006AA85B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57DE2556F5CB006AA85B /* IOKit.framework */; };
-		A7CD57E82556FB8B006AA85B /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
-		A7CD57E92556FB8B006AA85B /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
 		A7F0A88C20F4837F001C9D07 /* BootProfileEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0A88B20F4837F001C9D07 /* BootProfileEditViewController.m */; };
 		A7F0A88F20F48492001C9D07 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */; };
 		A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE1820EE27DD00E59587 /* AppDelegate.m */; };
@@ -48,32 +48,24 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A70934EA2556DEC3006AA85B /* PBXContainerItemProxy */ = {
+		50F7418126C883D100DF24B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A7FDBE0C20EE27DD00E59587 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A70934D82556DEA0006AA85B;
-			remoteInfo = NXBootKit_macOS;
+			remoteGlobalIDString = 50410F6826C87B2B00DF24B5;
+			remoteInfo = NXBootKit_iOS;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		A70934E02556DEA0006AA85B /* CopyFiles */ = {
+		50410F5226C87ACE00DF24B5 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
+			dstPath = "";
+			dstSubfolderSpec = 10;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A73FDCE120FA9C5C007EBF4F /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
-			dstSubfolderSpec = 16;
-			files = (
-			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		A795B6B321015F880008820F /* CopyFiles */ = {
@@ -92,6 +84,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				A7CD57D72556F594006AA85B /* AppCenterCrashes.xcframework in Embed Frameworks */,
+				50F7418026C883D100DF24B5 /* NXBootKit.framework in Embed Frameworks */,
 				A7CD57CC2556F591006AA85B /* AppCenter.xcframework in Embed Frameworks */,
 				A7CD57D22556F593006AA85B /* AppCenterAnalytics.xcframework in Embed Frameworks */,
 			);
@@ -101,16 +94,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		50410F3826C874B200DF24B5 /* NXBootKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXBootKit.h; sourceTree = "<group>"; };
+		50410F3926C874B200DF24B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50410F4326C8753B00DF24B5 /* NXLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXLog.h; sourceTree = "<group>"; };
+		50410F7B26C87B2B00DF24B5 /* NXBootKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NXBootKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A701175E20EE320F00B3D45B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A701176420EE677F00B3D45B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A70934E42556DEA0006AA85B /* libNXBootKit_macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNXBootKit_macOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A718F2302100CD1C009BD181 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A718F2312100CD1C009BD181 /* NXBootCmd.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootCmd.entitlements; sourceTree = "<group>"; };
 		A718F2332100CDC1009BD181 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		A7190D2D21164A1000544CAD /* AppConfig+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppConfig+Private.h"; sourceTree = "<group>"; };
-		A7388F732100F4FB00A60C1B /* NXBootKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXBootKit.h; sourceTree = "<group>"; };
-		A7388F742100F54A00A60C1B /* NXBootKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NXBootKit.m; sourceTree = "<group>"; };
-		A73FDCE320FA9C5C007EBF4F /* libNXBootKit_iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNXBootKit_iOS.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7388F742100F54A00A60C1B /* NXLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NXLog.m; sourceTree = "<group>"; };
 		A73FDCEC20FA9C71007EBF4F /* NXExec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXExec.m; sourceTree = "<group>"; };
 		A73FDCED20FA9C71007EBF4F /* NXUSBDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXUSBDevice.h; sourceTree = "<group>"; };
 		A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXUSBDeviceEnumerator.m; sourceTree = "<group>"; };
@@ -136,7 +130,6 @@
 		A7CD57C12556F587006AA85B /* AppCenterCrashes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AppCenterCrashes.xcframework; path = vendor/Frameworks/AppCenterCrashes.xcframework; sourceTree = "<group>"; };
 		A7CD57C22556F587006AA85B /* AppCenter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AppCenter.xcframework; path = vendor/Frameworks/AppCenter.xcframework; sourceTree = "<group>"; };
 		A7CD57C32556F587006AA85B /* AppCenterAnalytics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AppCenterAnalytics.xcframework; path = vendor/Frameworks/AppCenterAnalytics.xcframework; sourceTree = "<group>"; };
-		A7CD57DE2556F5CB006AA85B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
 		A7CD57E62556FB8B006AA85B /* NXHekateCustomizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXHekateCustomizer.h; sourceTree = "<group>"; };
 		A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NXHekateCustomizer.m; sourceTree = "<group>"; };
 		A7F0A88A20F4837F001C9D07 /* BootProfileEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BootProfileEditViewController.h; sourceTree = "<group>"; };
@@ -152,14 +145,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A70934DE2556DEA0006AA85B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A73FDCE020FA9C5C007EBF4F /* Frameworks */ = {
+		50410F7626C87B2B00DF24B5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -170,7 +156,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A70934E92556DEC3006AA85B /* libNXBootKit_macOS.a in Frameworks */,
 				A795B6BE21015FD80008820F /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,10 +167,9 @@
 				A7CD57D62556F594006AA85B /* AppCenterCrashes.xcframework in Frameworks */,
 				A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */,
 				A7AD2A1120F63A3500D1A400 /* libMobileGestalt.tbd in Frameworks */,
-				A73FDCF820FA9D08007EBF4F /* libNXBootKit_iOS.a in Frameworks */,
 				A7CD57CB2556F591006AA85B /* AppCenter.xcframework in Frameworks */,
-				A7CD57DF2556F5CB006AA85B /* IOKit.framework in Frameworks */,
 				A7CD57D12556F593006AA85B /* AppCenterAnalytics.xcframework in Frameworks */,
+				50F7417F26C883D100DF24B5 /* NXBootKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,12 +196,14 @@
 		A73FDCE420FA9C5C007EBF4F /* NXBootKit */ = {
 			isa = PBXGroup;
 			children = (
-				A7388F732100F4FB00A60C1B /* NXBootKit.h */,
-				A7388F742100F54A00A60C1B /* NXBootKit.m */,
+				50410F3926C874B200DF24B5 /* Info.plist */,
+				50410F3826C874B200DF24B5 /* NXBootKit.h */,
 				A73FDCF120FA9C72007EBF4F /* NXExec.h */,
 				A73FDCEC20FA9C71007EBF4F /* NXExec.m */,
 				A7CD57E62556FB8B006AA85B /* NXHekateCustomizer.h */,
 				A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */,
+				50410F4326C8753B00DF24B5 /* NXLog.h */,
+				A7388F742100F54A00A60C1B /* NXLog.m */,
 				A73FDCED20FA9C71007EBF4F /* NXUSBDevice.h */,
 				A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */,
 				A73FDCF320FA9C72007EBF4F /* NXUSBDeviceEnumerator.h */,
@@ -275,9 +261,8 @@
 			isa = PBXGroup;
 			children = (
 				A7FDBE1420EE27DD00E59587 /* NXBoot.app */,
-				A73FDCE320FA9C5C007EBF4F /* libNXBootKit_iOS.a */,
 				A795B6B521015F880008820F /* nxboot */,
-				A70934E42556DEA0006AA85B /* libNXBootKit_macOS.a */,
+				50410F7B26C87B2B00DF24B5 /* NXBootKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -295,7 +280,6 @@
 		A7FDBE2D20EE2A1700E59587 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A7CD57DE2556F5CB006AA85B /* IOKit.framework */,
 				A7CD57C22556F587006AA85B /* AppCenter.xcframework */,
 				A7CD57C32556F587006AA85B /* AppCenterAnalytics.xcframework */,
 				A7CD57C12556F587006AA85B /* AppCenterCrashes.xcframework */,
@@ -320,31 +304,31 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXNativeTarget section */
-		A70934D82556DEA0006AA85B /* NXBootKit_macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A70934E12556DEA0006AA85B /* Build configuration list for PBXNativeTarget "NXBootKit_macOS" */;
-			buildPhases = (
-				A70934D92556DEA0006AA85B /* Sources */,
-				A70934DE2556DEA0006AA85B /* Frameworks */,
-				A70934E02556DEA0006AA85B /* CopyFiles */,
+/* Begin PBXHeadersBuildPhase section */
+		50410F6926C87B2B00DF24B5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50410F6A26C87B2B00DF24B5 /* NXLog.h in Headers */,
+				50410F6B26C87B2B00DF24B5 /* NXUSBDevice.h in Headers */,
+				50410F6C26C87B2B00DF24B5 /* NXBootKit.h in Headers */,
+				50410F6D26C87B2B00DF24B5 /* NXUSBDeviceEnumerator.h in Headers */,
+				50410F6E26C87B2B00DF24B5 /* NXHekateCustomizer.h in Headers */,
+				50410F6F26C87B2B00DF24B5 /* NXExec.h in Headers */,
 			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = NXBootKit_macOS;
-			productName = NXBootKit;
-			productReference = A70934E42556DEA0006AA85B /* libNXBootKit_macOS.a */;
-			productType = "com.apple.product-type.library.static";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A73FDCE220FA9C5C007EBF4F /* NXBootKit_iOS */ = {
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		50410F6826C87B2B00DF24B5 /* NXBootKit_iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A73FDCE920FA9C5C007EBF4F /* Build configuration list for PBXNativeTarget "NXBootKit_iOS" */;
+			buildConfigurationList = 50410F7826C87B2B00DF24B5 /* Build configuration list for PBXNativeTarget "NXBootKit_iOS" */;
 			buildPhases = (
-				A73FDCDF20FA9C5C007EBF4F /* Sources */,
-				A73FDCE020FA9C5C007EBF4F /* Frameworks */,
-				A73FDCE120FA9C5C007EBF4F /* CopyFiles */,
+				50410F6926C87B2B00DF24B5 /* Headers */,
+				50410F7026C87B2B00DF24B5 /* Sources */,
+				50410F7626C87B2B00DF24B5 /* Frameworks */,
+				50410F7726C87B2B00DF24B5 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -352,8 +336,8 @@
 			);
 			name = NXBootKit_iOS;
 			productName = NXBootKit;
-			productReference = A73FDCE320FA9C5C007EBF4F /* libNXBootKit_iOS.a */;
-			productType = "com.apple.product-type.library.static";
+			productReference = 50410F7B26C87B2B00DF24B5 /* NXBootKit.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		A795B6B421015F880008820F /* NXBootCmd_macOS */ = {
 			isa = PBXNativeTarget;
@@ -362,11 +346,11 @@
 				A795B6B121015F880008820F /* Sources */,
 				A795B6B221015F880008820F /* Frameworks */,
 				A795B6B321015F880008820F /* CopyFiles */,
+				50410F5226C87ACE00DF24B5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A70934EB2556DEC3006AA85B /* PBXTargetDependency */,
 			);
 			name = NXBootCmd_macOS;
 			productName = NXBootCmd;
@@ -385,6 +369,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				50F7418226C883D100DF24B5 /* PBXTargetDependency */,
 			);
 			name = NXBoot;
 			productName = NXBoot;
@@ -397,12 +382,10 @@
 		A7FDBE0C20EE27DD00E59587 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1250;
 				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Oliver Kuckertz";
 				TargetAttributes = {
-					A73FDCE220FA9C5C007EBF4F = {
-						CreatedOnToolsVersion = 9.4.1;
-					};
 					A795B6B421015F880008820F = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -431,13 +414,19 @@
 			targets = (
 				A7FDBE1320EE27DD00E59587 /* NXBoot */,
 				A795B6B421015F880008820F /* NXBootCmd_macOS */,
-				A73FDCE220FA9C5C007EBF4F /* NXBootKit_iOS */,
-				A70934D82556DEA0006AA85B /* NXBootKit_macOS */,
+				50410F6826C87B2B00DF24B5 /* NXBootKit_iOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		50410F7726C87B2B00DF24B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7FDBE1220EE27DD00E59587 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -454,27 +443,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		A70934D92556DEA0006AA85B /* Sources */ = {
+		50410F7026C87B2B00DF24B5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7CD57E92556FB8B006AA85B /* NXHekateCustomizer.m in Sources */,
-				A70934DA2556DEA0006AA85B /* NXBootKit.m in Sources */,
-				A70934DB2556DEA0006AA85B /* NXUSBDevice.m in Sources */,
-				A70934DC2556DEA0006AA85B /* NXExec.m in Sources */,
-				A70934DD2556DEA0006AA85B /* NXUSBDeviceEnumerator.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A73FDCDF20FA9C5C007EBF4F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A7CD57E82556FB8B006AA85B /* NXHekateCustomizer.m in Sources */,
-				A7388F752100F54A00A60C1B /* NXBootKit.m in Sources */,
-				A73FDCF720FA9C72007EBF4F /* NXUSBDevice.m in Sources */,
-				A73FDCF420FA9C72007EBF4F /* NXExec.m in Sources */,
-				A73FDCF520FA9C72007EBF4F /* NXUSBDeviceEnumerator.m in Sources */,
+				50410F7126C87B2B00DF24B5 /* NXUSBDeviceEnumerator.m in Sources */,
+				50410F7226C87B2B00DF24B5 /* NXUSBDevice.m in Sources */,
+				50410F7326C87B2B00DF24B5 /* NXLog.m in Sources */,
+				50410F7426C87B2B00DF24B5 /* NXHekateCustomizer.m in Sources */,
+				50410F7526C87B2B00DF24B5 /* NXExec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,10 +482,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A70934EB2556DEC3006AA85B /* PBXTargetDependency */ = {
+		50F7418226C883D100DF24B5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A70934D82556DEA0006AA85B /* NXBootKit_macOS */;
-			targetProxy = A70934EA2556DEC3006AA85B /* PBXContainerItemProxy */;
+			target = 50410F6826C87B2B00DF24B5 /* NXBootKit_iOS */;
+			targetProxy = 50F7418126C883D100DF24B5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -532,73 +509,84 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		A70934E22556DEA0006AA85B /* Debug */ = {
+		50410F7926C87B2B00DF24B5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = N3S4C3QL65;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"__OPEN_SOURCE__=1",
 					"$(inherited)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				INFOPLIST_FILE = NXBootKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					IOKit,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBootKit;
+				PRODUCT_NAME = NXBootKit;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		A70934E32556DEA0006AA85B /* Release */ = {
+		50410F7A26C87B2B00DF24B5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = N3S4C3QL65;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"__OPEN_SOURCE__=1",
 					"$(inherited)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		A73FDCEA20FA9C5C007EBF4F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__OPEN_SOURCE__=1",
+				INFOPLIST_FILE = NXBootKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/System/Frameworks-$(PLATFORM_NAME)";
-				SYSTEM_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/System/Include";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		A73FDCEB20FA9C5C007EBF4F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__OPEN_SOURCE__=1",
-					"$(inherited)",
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					IOKit,
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBootKit;
+				PRODUCT_NAME = NXBootKit;
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/System/Frameworks-$(PLATFORM_NAME)";
-				SYSTEM_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/System/Include";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
@@ -692,11 +680,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/System/Frameworks-$(PLATFORM_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/System/include";
 			};
 			name = Debug;
 		};
@@ -746,10 +734,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/System/Frameworks-$(PLATFORM_NAME)";
+				SYSTEM_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/System/include";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -758,6 +747,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_ENTITLEMENTS = NXBoot/NXBoot.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -770,6 +760,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = NXBoot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -778,9 +769,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBoot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SUPPORTS_MACCATALYST = YES;
-				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/System/Frameworks-$(PLATFORM_NAME)";
-				SYSTEM_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/System/Include";
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -789,6 +778,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_ENTITLEMENTS = NXBoot/NXBoot.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -801,6 +791,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = NXBoot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -809,9 +800,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBoot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SUPPORTS_MACCATALYST = YES;
-				SYSTEM_FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/System/Frameworks-$(PLATFORM_NAME)";
-				SYSTEM_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/System/Include";
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -819,20 +808,11 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A70934E12556DEA0006AA85B /* Build configuration list for PBXNativeTarget "NXBootKit_macOS" */ = {
+		50410F7826C87B2B00DF24B5 /* Build configuration list for PBXNativeTarget "NXBootKit_iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A70934E22556DEA0006AA85B /* Debug */,
-				A70934E32556DEA0006AA85B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A73FDCE920FA9C5C007EBF4F /* Build configuration list for PBXNativeTarget "NXBootKit_iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A73FDCEA20FA9C5C007EBF4F /* Debug */,
-				A73FDCEB20FA9C5C007EBF4F /* Release */,
+				50410F7926C87B2B00DF24B5 /* Debug */,
+				50410F7A26C87B2B00DF24B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
