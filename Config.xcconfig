@@ -1,0 +1,8 @@
+// NXBoot does not require a code signature for deployment on jailbroken devices.
+// The build_ipa.sh script builds a fakesigned IPA for TrollStore and does NOT use these values.
+// A valid code signature however simplifies testing the app's UI on a real device.
+CODE_SIGN_STYLE = Manual
+DEVELOPMENT_TEAM =
+DEVELOPMENT_TEAM[sdk=iphoneos*] = 232HF5LRX3
+PROVISIONING_PROFILE_SPECIFIER =
+PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*] = OK Wildcard

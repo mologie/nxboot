@@ -1,7 +1,3 @@
-/**
- * @file entry point
- */
-
 #import <UIKit/UIKit.h>
 #import "AppDelegate.h"
 

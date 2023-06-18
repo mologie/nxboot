@@ -1,28 +1,27 @@
-/**
- * @file coordinates GUI and exploit implementation
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
- */
-
 #import "MainViewController.h"
-#import "AppConfig.h"
+#import "PayloadStorage.h"
 #import "AppDelegate.h"
 #import "FLBootProfile+CoreDataClass.h"
 #import "NXExec.h"
 #import "NXUSBDeviceEnumerator.h"
 
-@import AppCenterAnalytics;
+@interface MainViewController () <
+    NXUSBDeviceEnumeratorDelegate,
+    UIDocumentPickerDelegate
+>
 
-@interface MainViewController () <NXUSBDeviceEnumeratorDelegate>
-@property (nonatomic, strong) AppConfig *config;
-@property (strong, nonatomic) NXUSBDeviceEnumerator *usbEnum;
-@property (strong, nonatomic) NXUSBDevice *device;
-@property (weak, nonatomic) IBOutlet UILabel *profileNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *profileDetailLabel;
-@property (strong, nonatomic) NSString *bootStatus;
-@property (strong, nonatomic) NSString *bootNowText;
-@property (weak, nonatomic) IBOutlet UILabel *bootButtonLabel;
-@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *bootActivityIndicator;
-@property (assign, nonatomic) BOOL active;
+@property (nonatomic, strong) UIColor *textColorButton;
+@property (nonatomic, strong) UIColor *textColorInactive;
+@property (nonatomic, strong) NSDateFormatter *payloadDateFormatter;
+@property (nonatomic, strong) PayloadStorage *payloadStorage;
+@property (nonatomic, strong) NSMutableArray<Payload *> *payloads;
+
+@property (nonatomic, strong, nullable) Payload *selectedPayload;
+@property (nonatomic, strong) NXUSBDeviceEnumerator *usbEnum;
+@property (nonatomic, strong, nullable) NXUSBDevice *usbDevice;
+@property (nonatomic, strong, nullable) NSString *usbStatus;
+@property (nonatomic, strong, nullable) NSString *usbError;
+
 @end
 
 @implementation MainViewController
@@ -31,26 +30,30 @@
     [super viewDidLoad];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(applicationWillResignActive:)
-                                                 name:UIApplicationWillResignActiveNotification object:nil];
+                                             selector:@selector(refreshPayloadList)
+                                                 name:NXBootPayloadStorageChangedExternally
+                                               object:nil];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(bootProfileDidChange)
-                                                 name:AppConfigSelectedBootProfileIDChanged object:nil];
+    self.textColorButton = [UIColor colorWithRed:0.001 green:0.732 blue:0.883 alpha:1.0];
+    if (@available(iOS 13, *)) {
+        self.textColorInactive = [UIColor secondaryLabelColor];
+    } else {
+        self.textColorInactive = [UIColor colorWithRed:0.235 green:0.235 blue:0.263 alpha:0.6];
+    }
 
-    self.view.backgroundColor = [UIColor colorWithWhite:0.16 alpha:1.0];
+    self.payloadDateFormatter = [[NSDateFormatter alloc] init];
+    self.payloadDateFormatter.dateStyle = NSDateFormatterMediumStyle;
+    self.payloadDateFormatter.timeStyle = NSDateFormatterNoStyle;
 
-    self.config = [AppConfig sharedConfig];
-    [self createDemoProfile];
-    [self bootProfileDidChange];
-
-    self.bootNowText = self.bootButtonLabel.text;
-    [self setIdleBootStatus];
+    self.payloadStorage = [PayloadStorage sharedPayloadStorage];
+    self.payloads = [[self.payloadStorage loadPayloads] mutableCopy];
 
     self.usbEnum = [[NXUSBDeviceEnumerator alloc] init];
     self.usbEnum.delegate = self;
-    [self.usbEnum addFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
+    [self.usbEnum setFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
     [self.usbEnum start];
+
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)dealloc {
@@ -58,248 +61,433 @@
     [self.usbEnum stop];
 }
 
-- (void)applicationWillResignActive:(NSNotification *)notification {
-    // eek: this is triggered by the 'device not compatible' notifications, too
-    // [self bootStop];
-}
+- (void)bootPayload:(Payload *)payload {
+    NSData *relocator = [PayloadStorage relocator];
+    assert(relocator != nil);
 
-#pragma mark - Properties
+    NSData *payloadData = payload.data;
+    if (!payloadData) {
+        self.usbError = @"Failed to load payload data from disk. Please check file permissions.";
+        [self updateDeviceStatus:@"Error loading payload"];
+        return;
+    }
 
-- (void)setBootStatus:(NSString *)bootStatus {
-    _bootStatus = bootStatus;
-    [UIView setAnimationsEnabled:NO];
-    [self.tableView beginUpdates];
-    [self setTableSection:2 footerText:bootStatus];
-    [self.tableView endUpdates];
-    [UIView setAnimationsEnabled:YES];
-}
-
-- (void)setIdleBootStatus {
-    if (self.device) {
-        self.bootStatus = @"Device connected! Tap the Boot Now button to start.";
+    assert(self.usbDevice != nil);
+    NSString *error = nil;
+    if (NXExec(self.usbDevice->_intf, relocator, payloadData, &error)) {
+        self.usbError = nil;
+        [self updateDeviceStatus:@"Payload injected 🎉"];
     }
     else {
-        self.bootStatus = @"No Nintendo Switch in RCM mode was connected yet. "
-            "Connect a device using a Lightning OTG adapter and tap the above button.";
+        self.usbError = error;
+        [self updateDeviceStatus:@"Payload injection error"];
     }
 }
 
 #pragma mark - Table
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 2 && indexPath.row == 0) {
-        if (!self.active) {
-            [self bootStart];
+typedef NS_ENUM(NSInteger, TableSection) {
+    TableSectionLinks,
+    TableSectionDevice,
+    TableSectionPayloads,
+};
+
+- (void)refreshPayloadList {
+    [self.tableView beginUpdates];
+    [self.refreshControl endRefreshing];
+    [self setEditing:NO animated:YES];
+    self.payloads = [[self.payloadStorage loadPayloads] mutableCopy];
+    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:TableSectionPayloads]
+                  withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
+}
+
+- (IBAction)refreshPayloadList:(id)sender {
+    [self refreshPayloadList];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    BOOL wasEditing = self.isEditing;
+    UITableViewRowAnimation animation = animated ? UITableViewRowAnimationAutomatic : UITableViewRowAnimationNone;
+
+    [self.tableView beginUpdates];
+
+    if (editing && !wasEditing && self.selectedPayload) {
+        [self cellForPayload:self.selectedPayload].accessoryType = UITableViewCellAccessoryNone;
+        self.selectedPayload = nil;
+    }
+
+    [super setEditing:editing animated:animated];
+
+    NSInteger nlinks = [self tableView:self.tableView numberOfRowsInSection:TableSectionLinks];
+    for (NSInteger row = 0; row < nlinks; row++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:TableSectionLinks];
+        UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        [self configureLinkCell:cell];
+    }
+
+    NSIndexPath *newPayloadPath = [NSIndexPath indexPathForRow:self.payloads.count inSection:TableSectionPayloads];
+    if (self.payloads.count != 0) {
+        // will always show "add payload" row when there is no payload
+        if (editing && !wasEditing) {
+            // add new payload row
+            [self.tableView insertRowsAtIndexPaths:@[newPayloadPath] withRowAnimation:animation];
         }
-        else {
-            [self bootStop];
+        else if (!editing && wasEditing) {
+            // remove new payload row
+            [self.tableView deleteRowsAtIndexPaths:@[newPayloadPath] withRowAnimation:animation];
         }
     }
+
+    // update payload section footer for rename hint
+    [self.tableView footerViewForSection:TableSectionPayloads].textLabel.text = [self tableView:self.tableView titleForFooterInSection:TableSectionPayloads];
+
+    [self.tableView endUpdates];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 3;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    switch (section) {
+        case TableSectionLinks: return 2;
+        case TableSectionDevice: return 1;
+        case TableSectionPayloads: {
+            if (self.payloads.count == 0) {
+                return 1;
+            } else if (self.isEditing) {
+                return self.payloads.count + 1;
+            } else {
+                return self.payloads.count;
+            }
+        }
+    }
+    return 0;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    switch (section) {
+        case TableSectionDevice: return @"Device";
+        case TableSectionPayloads: return @"Payloads";
+    }
+    return [super tableView:tableView titleForHeaderInSection:section];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (section == 2) {
-        return self.bootStatus;
+    switch (section) {
+        case TableSectionDevice:
+            return [self footerForDeviceCell];
+        case TableSectionPayloads:
+            if (self.isEditing) {
+                return @"Tap a payload to change its name.";
+            } else {
+                return @"Activate a payload to boot it automatically. Use the Edit button to organize your payloads.";
+            }
     }
     return [super tableView:tableView titleForFooterInSection:section];
 }
 
-- (void)setTableSection:(NSInteger)section footerText:(NSString *)text {
-    UITableViewHeaderFooterView *sectionFooterView = [self.tableView footerViewForSection:section];
-    UILabel *label = sectionFooterView.textLabel;
-    label.text = text;
-    label.numberOfLines = 0;
-    CGSize newSize = [label sizeThatFits:label.frame.size];
-    CGRect newFrame = label.frame;
-    newFrame.size.height = newSize.height;
-    newFrame.size.width = self.tableView.frame.size.width - newFrame.origin.x * 2;
-    label.frame = newFrame;
-}
-
-#pragma mark - Start/Stop States
-
-- (void)bootStart {
-    [self.bootActivityIndicator startAnimating];
-    self.bootButtonLabel.text = @"Active - Tap to Stop";
-    self.active = YES;
-
-    if (self.device) {
-        [self bootExecSelected];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.section) {
+        case TableSectionLinks: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ButtonCell" forIndexPath:indexPath];
+            [self configureLinkCell:cell];
+            switch (indexPath.row) {
+                case 0:
+                    cell.textLabel.text = @"Getting Started";
+                    break;
+                case 1:
+                    cell.textLabel.text = @"About";
+                    break;
+            }
+            return cell;
+        }
+        case TableSectionDevice: {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DeviceCell" forIndexPath:indexPath];
+            [self configureDeviceCell:cell];
+            return cell;
+        }
+        case TableSectionPayloads: {
+            if (indexPath.row == self.payloads.count) {
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ButtonCell" forIndexPath:indexPath];
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.textLabel.text = @"Add Payload";
+                return cell;
+            } else {
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PayloadCell" forIndexPath:indexPath];
+                Payload *payload = self.payloads[indexPath.row];
+                [self configurePayloadCell:cell forPayload:payload];
+                cell.textLabel.text = payload.displayName;
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ (%llu KiB)",
+                                             [self.payloadDateFormatter stringFromDate:payload.fileDate],
+                                             payload.fileSize / 1024];
+                return cell;
+            }
+        }
     }
-    else {
-        self.bootStatus = @"Waiting for Nintendo Switch in RCM mode...";
+    return nil;
+}
+
+- (void)configureLinkCell:(UITableViewCell *)cell {
+    if (self.editing) {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.textLabel.textColor = self.textColorInactive;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.textColor = self.textColorButton;
     }
 }
 
-- (void)bootExecSelected {
-    assert(self.device != nil);
-    self.bootStatus = @"Device connected! Booting...";
-
-    // analytics: log start event for timing
-    // the end event and result will also be logged.
-    [MSACAnalytics trackEvent:@"SwitchBootStart"];
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSString *error = nil;
-        if (!self.device) {
-            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"Device Disappeared"}];
-            return;
-        }
-        if (!self.active) {
-            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"User Canceled"}];
-            return;
-        }
-        FLBootProfile *profile = self.bootProfile;
-        if (!profile) {
-            self.bootStatus = @"Error: No boot profile is selected.";
-            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"No Boot Profile Selected"}];
-            return;
-        }
-        NSData *relocator = [self relocatorForProfile:profile];
-        NSData *bootImage = [self bootImageForProfile:profile];
-        if (!relocator || !bootImage) {
-            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Canceled", @"Reason": @"Boot Profile Invalid"}];
-            return;
-        }
-        if (NXExec(self.device->_intf, relocator, bootImage, &error)) {
-            self.bootStatus = @"Success! 🎉";
-            // analytics: log success events
-            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Success"}];
-            [MSACAnalytics trackEvent:@"SwitchBootSuccess"];
-        }
-        else {
-            self.bootStatus = [NSString stringWithFormat:@"Error: %@", error];
-            // analytics: log error events and error messages (these contain technical info only)
-            [MSACAnalytics trackEvent:@"SwitchBootEnd" withProperties:@{@"Status": @"Error", @"Messaage": error}];
-            [MSACAnalytics trackEvent:@"SwitchBootFailure" withProperties:@{@"Messaage": error}];
-        }
-    });
+- (void)configureDeviceCell:(UITableViewCell *)cell {
+    cell.textLabel.text = self.usbDevice ? @"Nintendo Switch Connected" : @"No Connection";
+    cell.detailTextLabel.text = self.usbStatus ?: @"Ready for APX USB device...";
 }
 
-- (void)bootStop {
-    [self.bootActivityIndicator stopAnimating];
-    [self setIdleBootStatus];
-    self.bootButtonLabel.text = self.bootNowText;
-    self.active = NO;
+- (NSString *)footerForDeviceCell {
+    if (self.usbError) {
+        return self.usbError;
+    } else {
+        return @"Connect your Nintendo Switch in RCM mode via a Lighting OTG adapter. An unsupported \"APX\" device warning from iOS can safely be ignored.";
+    }
 }
 
-#pragma mark - Core Data
-
-- (NSManagedObjectContext *)managedObjectContext {
-    AppDelegate *delegate = (AppDelegate *)[UIApplication sharedApplication].delegate;
-    return delegate.persistentContainer.viewContext;
+- (void)updateDeviceStatus:(NSString *)status {
+    self.usbStatus = status;
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:TableSectionDevice];
+    [self.tableView beginUpdates];
+    [self configureDeviceCell:[self.tableView cellForRowAtIndexPath:indexPath]];
+    [self.tableView footerViewForSection:TableSectionDevice].textLabel.text = [self footerForDeviceCell];
+    [self.tableView endUpdates];
 }
 
-- (void)createDemoProfile {
-    NSFetchRequest *fetchRequest = [FLBootProfile fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"isDemoProfile = 1"];
+- (void)configurePayloadCell:(UITableViewCell *)cell forPayload:(Payload *)payload {
+    cell.accessoryType = payload == self.selectedPayload ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return indexPath.section == TableSectionPayloads;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+    return indexPath.section == TableSectionPayloads && indexPath.row != self.payloads.count;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath toProposedIndexPath:(NSIndexPath *)destIndexPath {
+    if (sourceIndexPath.section > destIndexPath.section) {
+        return [NSIndexPath indexPathForRow:0 inSection:sourceIndexPath.section];
+    } else if (sourceIndexPath.section < destIndexPath.section || destIndexPath.row >= self.payloads.count) {
+        return [NSIndexPath indexPathForRow:(self.payloads.count - 1) inSection:sourceIndexPath.section];
+    } else {
+        return destIndexPath;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    Payload *payload = self.payloads[sourceIndexPath.row];
+    [self.payloads removeObjectAtIndex:sourceIndexPath.row];
+    [self.payloads insertObject:payload atIndex:destinationIndexPath.row];
+    [self.payloadStorage storePayloadSortOrder:self.payloads];
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (!self.editing) {
+        // Disable swipe-to-delete, assuming the user seldomly wants to delete payloads.
+        return UITableViewCellEditingStyleNone;
+    }
+    if (indexPath.section != TableSectionPayloads) {
+        return UITableViewCellEditingStyleNone;
+    } else if (indexPath.row == self.payloads.count) {
+        return UITableViewCellEditingStyleInsert;
+    } else {
+        return UITableViewCellEditingStyleDelete;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    assert(indexPath.section == TableSectionPayloads);
+    if (editingStyle == UITableViewCellEditingStyleInsert) {
+        [self addPayloadFromFile];
+        return;
+    }
+
+    assert(editingStyle == UITableViewCellEditingStyleDelete);
+    Payload *payload = self.payloads[indexPath.row];
     NSError *error = nil;
-    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:nil];
-    if (fetchedObjects.count == 0) {
-        // on first run, create a demo profile with the Fusée Demo payload and make it the active profile
-        FLBootProfile *demoProfile = [[FLBootProfile alloc] initWithContext:self.managedObjectContext];
-        demoProfile.name = @"Fusée Demo";
-        demoProfile.relocatorName = @"intermezzo.bin";
-        demoProfile.payloadName = @"fusee.bin";
-        demoProfile.isDemoProfile = YES;
-        if (![self.managedObjectContext save:&error]) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Couldn't Initialize Database"
-                                                                           message:error.localizedDescription
+    if ([self.payloadStorage deletePayload:payload error:&error]) {
+        [self.payloads removeObjectAtIndex:indexPath.row];
+        [self.payloadStorage storePayloadSortOrder:self.payloads];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Deletion Failed"
+                                                                       message:error.localizedDescription
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (self.isEditing && indexPath.section != TableSectionPayloads) {
+        return nil; // nothing except payloads can be tapped in edit mode
+    } else if (indexPath.section == TableSectionDevice) {
+        return nil; // device can never be tapped
+    } else {
+        return indexPath;
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.section) {
+        case TableSectionLinks:
+            switch (indexPath.row) {
+                case 0:
+                    [self performSegueWithIdentifier:@"GettingStarted" sender:self];
+                    break;
+                case 1:
+                    [self performSegueWithIdentifier:@"About" sender:self];
+                    break;
+            }
+            break;
+        case TableSectionPayloads:
+            if (indexPath.row == self.payloads.count) {
+                [self addPayloadFromFile];
+            } else {
+                Payload *payload = self.payloads[indexPath.row];
+                if (self.isEditing) {
+                    [self renamePayload:payload];
+                } else if ([self.selectedPayload isEqual:payload]) {
+                    self.selectedPayload = nil;
+                    [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
+                } else {
+                    if (self.selectedPayload) {
+                        [self cellForPayload:self.selectedPayload].accessoryType = UITableViewCellAccessoryNone;
+                    }
+                    [self.tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+                    self.selectedPayload = payload;
+                    if (self.usbDevice) {
+                        [self updateDeviceStatus:@"Booting payload..."];
+                        [self bootPayload:payload];
+                    }
+                }
+            }
+            break;
+    }
+}
+
+- (nullable UITableViewCell *)cellForPayload:(Payload *)payload {
+    NSUInteger index = [self.payloads indexOfObject:payload];
+    if (index != NSNotFound) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:(NSInteger)index inSection:TableSectionPayloads];
+        return [self.tableView cellForRowAtIndexPath:indexPath];
+    } else {
+        return nil;
+    }
+}
+
+- (void)renamePayload:(Payload *)payload {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rename Payload"
+                                                                   message:@"Enter a new name for this payload."
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.text = payload.displayName;
+        textField.placeholder = @"payload name";
+        textField.clearButtonMode = UITextFieldViewModeAlways;
+    }];
+    [alert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        NSString *newName = alert.textFields[0].text;
+        if (newName.length == 0 || [newName containsString:@":"] || [newName containsString:@"/"]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rename Failed"
+                                                                           message:@"Please enter a valid file name without the characters ':' or '/'."
                                                                     preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"Quit" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-                exit(1);
-            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
             return;
         }
-        self.config.selectedBootProfileID = demoProfile.objectID.URIRepresentation.absoluteString;
+        NSError *error = nil;
+        if ([self.payloadStorage renamePayload:payload withNewName:newName error:&error]) {
+            [self cellForPayload:payload].textLabel.text = newName;
+        } else {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Rename Failed"
+                                                                           message:error.localizedDescription
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - Document Picker
+
+- (void)addPayloadFromFile {
+    NSArray *docTypes = @[@"public.item", @"public.data"];
+    @try {
+        UIDocumentPickerViewController *picker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:docTypes inMode:UIDocumentPickerModeImport];
+        picker.delegate = self;
+        [self presentViewController:picker animated:YES completion:nil];
     }
-    else if (!self.config.selectedBootProfileID) {
-        // the configuration file may have been deleted by the user. store the demo profile ID again.
-        FLBootProfile *demoProfile = fetchedObjects.firstObject;
-        self.config.selectedBootProfileID = demoProfile.objectID.URIRepresentation.absoluteString;
+    @catch (NSException *exception) {
+        NSString *message;
+        if ([exception.name isEqualToString:NSInternalInconsistencyException]) {
+            message = @"iOS 10 cannot show a file picker when NXBoot is installed from an IPA file. Please import using the iCloud Drive app or SSH. Alternatively reinstall from a classic DEB archive.";
+        } else {
+            message = exception.reason;
+        }
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:message preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
 }
 
-- (void)bootProfileDidChange {
-    FLBootProfile *profile = self.bootProfile;
-    self.profileNameLabel.text = profile.name;
-    self.profileDetailLabel.text = [NSString stringWithFormat:@"%@ loaded via %@", profile.payloadName, profile.relocatorName];
-}
-
-- (FLBootProfile *)bootProfile {
-    NSURL *url = [NSURL URLWithString:self.config.selectedBootProfileID];
-    NSManagedObjectID *objID = [self.managedObjectContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:url];
-    return [self.managedObjectContext existingObjectWithID:objID error:nil];
-}
-
-- (NSData *)relocatorForProfile:(FLBootProfile *)profile {
-    if (profile.relocatorBin.length > 0) {
-        return profile.relocatorBin;
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+    NSError *error = nil;
+    Payload *payload = [self.payloadStorage importPayload:url.path move:YES error:&error];
+    if (payload) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.payloads.count inSection:TableSectionPayloads];
+        [self.payloads addObject:payload];
+        [self.payloadStorage storePayloadSortOrder:self.payloads];
+        [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    } else {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Import Failed"
+                                                                       message:error.localizedDescription
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
     }
-    NSURL *url = [[NSBundle mainBundle] URLForResource:profile.relocatorName withExtension:nil subdirectory:@"Payloads"];
-    if (!url) {
-        self.bootStatus = [NSString stringWithFormat:@"Error: Could not locate relocator with name %@", profile.relocatorName];
-        return nil;
-    }
-    NSData *data = [NSData dataWithContentsOfURL:url options:0 error:nil];
-    if (!data) {
-        self.bootStatus = [NSString stringWithFormat:@"Error: Could not load relocator with name %@", profile.relocatorName];
-        return nil;
-    }
-    return data;
-}
-
-- (NSData *)bootImageForProfile:(FLBootProfile *)profile {
-    if (profile.payloadBin.length > 0) {
-        return profile.payloadBin;
-    }
-    NSURL *url = [[NSBundle mainBundle] URLForResource:profile.payloadName withExtension:nil subdirectory:@"Payloads"];
-    if (!url) {
-        self.bootStatus = [NSString stringWithFormat:@"Error: Could not locate payload with name %@", profile.payloadName];
-        return nil;
-    }
-    NSData *data = [NSData dataWithContentsOfURL:url options:0 error:nil];
-    if (!data) {
-        self.bootStatus = [NSString stringWithFormat:@"Error: Could not load payload with name %@", profile.payloadName];
-    }
-    return data;
 }
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [self bootStop];
-
-    // analytics: log navigation events from the main screen
-    [MSACAnalytics trackEvent:@"Navigation" withProperties:@{@"ID": [NSString stringWithFormat:@"Main-%@", segue.identifier]}];
+    if (self.selectedPayload) {
+        [self cellForPayload:self.selectedPayload].accessoryType = UITableViewCellAccessoryNone;
+        self.selectedPayload = nil;
+    }
 }
 
 #pragma mark - NXUSBDeviceEnumeratorDelegate
 
 - (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceConnected:(NXUSBDevice *)device {
-    self.device = device;
-    if (self.active) {
-        [self bootExecSelected];
-    }
-    else {
-        [self setIdleBootStatus];
+    self.usbDevice = device;
+    if (self.selectedPayload) {
+        [self updateDeviceStatus:@"Connected, booting payload..."];
+        [self bootPayload:self.selectedPayload];
+    } else {
+        [self updateDeviceStatus:@"No payload activated yet"];
     }
 }
 
 - (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceDisconnected:(NXUSBDevice *)device {
-    self.device = nil;
-    if (self.active) {
-        self.bootStatus = @"Device disconnected. Waiting for next connection...";
-    }
-    else {
-        [self setIdleBootStatus];
-    }
+    self.usbDevice = nil;
+    [self updateDeviceStatus:@"Disconnected"];
 }
 
 - (void)usbDeviceEnumerator:(NXUSBDeviceEnumerator *)deviceEnum deviceError:(NSString *)err {
-    self.bootStatus = [NSString stringWithFormat:@"Connection error: %@", err];
+    self.usbError = err;
+    [self updateDeviceStatus:@"USB device error"];
 }
 
 @end

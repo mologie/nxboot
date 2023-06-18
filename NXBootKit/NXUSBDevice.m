@@ -13,11 +13,9 @@
 }
 
 - (void)invalidate {
-    kern_return_t kr;
-
     if (_intf) {
         NXLog(@"USB: Discarding interface of device `%@'", self.name);
-        kr = (*self->_intf)->Release(self->_intf);
+        NXCOMCall(self->_intf, Release);
         _intf = NULL;
     }
 

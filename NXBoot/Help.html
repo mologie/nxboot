@@ -2,42 +2,46 @@
 <html>
   <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no"/>
     <title>NXBoot Tutorial</title>
     <style type="text/css">
+    :root {
+      color-scheme: light dark;
+    }
     body {
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: -apple-system;
       margin: 0;
       padding: 0 1rem;
       font-size: 1rem;
       line-height: 1.25rem;
-      color: white;
-      background: #292929;
-    }
-    h1 {
-      font-size: 1.5rem;
-      font-weight: 500;
-      padding-bottom: 5px;
-      border-bottom: 1px solid #999;
     }
     a {
-      color: white;
+      color: black;
+    }
+    h1 {
+      font: -apple-system-headline;
+      font-size: 1.5rem;
+      padding-bottom: 0.25rem;
+      border-bottom: 1px solid #666;
     }
     ul, ol {
       margin-left: 0;
       padding-left: 1.6rem;
     }
+    @media (prefers-color-scheme: dark) {
+      a { color: white; }
+    }
     </style>
   </head>
   <body>
-    <p>
-      <img src="../PackageIcon.png" height="60"/>
+    <p style="text-align: center;">
+      <img src="PackageIcon.png" height="60"/>
     </p>
     <p>
       NXBoot enables running custom boot code on Tegra X1 devices such as the Nintendo Switch.
     </p>
     <p>
-      Batteries are not included: This application contains relocators and {re}switched's demo binaries, but you will have to import custom payloads with actual functionality first.
+      Batteries are not included: This application does not contain any payloads, so you will have to download and import some first.
     </p>
 
     <h1>Overview</h1>
@@ -49,20 +53,17 @@
       <li><a href="#section-tips-and-tricks">Tips &amp; Tricks</a></li>
     </ol>
 
-    <h1><a name="section-disclaimer">Disclaimer</a></h1>
+    <h1 id="section-disclaimer">Disclaimer</h1>
     <p>
       It is recommended that you become familiar with the Nintendo Switch homebrew community prior to using this application.
       Early boot code has full access to the device it runs on and can damage it.
       Nintendo is known to ban modified devices from online services if such modification is detected.
     </p>
     <p>
-        Privacy: Aggregated statistics about the number of successful and failed boot attempts and common errors are collected per iOS version and country. The GDPR does not apply and no user/device-specific personal data is collected or retained.
-    </p>
-    <p>
       THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
     </p>
 
-    <h1><a name="section-hardware-requirements">Hardware Requirements</a></h1>
+    <h1 id="section-hardware-requirements">Hardware Requirements</h1>
     <p>
       An OTG adapter is required for connecting your iOS device to the Nintendo Switch. The following configuration is known work:
     </p>
@@ -76,39 +77,21 @@
       Third-party OTG adapters <i>may</i> work, but your mileage may vary.
     </p>
 
-    <h1><a name="section-importing-boot-code">Importing Boot Code</a></h1>
+    <h1 id="section-importing-boot-code">Importing Boot Code</h1>
     <p>
       There are multiple methods for importing payloads:
     </p>
     <ol>
-      <li>Store the payload in any container that is visible in your iOS Files app.</li>
-      <li>Transfer the file into the app using iTunes (may not work on all jailbroken firmwares.)</li>
-      <li>Copy the file into the app's Documents folder via SSH.</li>
+      <li>Copy the file into the app's Documents/Payloads folder via SSH.</li>
+      <li>Use the iOS files browser to import the payload from local or cloud storage.</li>
     </ol>
     <p>
-      Create Boot Profiles by opening the Boot Code List from the app's start page and selecting <i>Add Profile</i>.
-      Files transferred through iTunes/SSH appear in the file selection list along with built-in options.
-    </p>
-    <p>
-      A description and two files must be provided:
-    </p>
-    <p>
-      <b>The first file is the relocator binary.</b>
-      The relocator is responsible for cleaning up the boot session and preparing the payload for execution.
-      Most payloads want <i>intermezzo.bin</i>, which is shipped with this app. For loading Coreboot/Linux you must import a copy of <i>cbfs.bin</i>.
-    </p>
-    <p>
-      <b>The second file is the payload.</b>
-      For Coreboot/Linux this file is usually named coreboot.rom. Other well-known payloads are <i>fusee.bin</i> and the Hekate bootloader <i>hekate_ctcaer_X.Y.bin</i>.
-    </p>
-    <p>
-      The selected relocator and payload files are copied to this application's storage, so that they don't have to remain in iOS' Files or cloud storage.
+      Create Boot Profiles by tapping the <i>Edit</i> button and selecting <i>Add Payload</i>.
     </p>
 
-    <h1><a name="section-booting">Booting the Target Device</a></h1>
+    <h1 id="section-booting">Booting the Target Device</h1>
     <ol>
-      <li>Select your Boot Code on this application's start page after importing it.</li>
-      <li>Tap this app's <i>Boot Now</i> button.</li>
+      <li>Tap your payload after importing it once.</li>
       <li>Enter RCM mode on the Nintendo Switch.</li>
       <li>Connect the Nintendo Switch via USB.</li>
     </ol>
@@ -119,7 +102,7 @@
       Always power on the Nintendo Switch prior to connecting it. Otherwise iOS will disconnect the device for consuming too much power.
     </p>
 
-    <h1><a name="section-tips-and-tricks">Tips and Tricks</a></h1>
+    <h1 id="section-tips-and-tricks">Tips and Tricks</h1>
     <ul>
       <li>Enter RCM mode by 1. shorting the home pin to a ground pin on the right Joy-Con rail, 2. holding down Volume +, 3. tapping the POWER button once.</li>
       <li>In RCM the screen remains black, but the device is detected as 'APX' by PCs and will work with this app.</li>

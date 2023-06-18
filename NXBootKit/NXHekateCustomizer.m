@@ -58,15 +58,9 @@ static char const kNXHekateMagic[4] = {'I','C','T','C'};
     
     // Compare magic value
     b += sizeof(NXHekatePayloadConfig);
+    char major = b[4];
     if (memcmp(b, kNXHekateMagic, sizeof(kNXHekateMagic)) != 0) {
-        NXLog(@"Hekate: Magic value mismatch");
-        return NO;
-    }
-    
-    // Explicitly check for Hekate version 5. Major versions break compatiblity
-    // guarantees and I would not want to accidentally misconfigure Hekate.
-    if (b[4] != '5') {
-        NXLog(@"Hekate: Major version mismatch");
+        NXLog(@"Hekate: Version %d changed the magic header and is not supported", major);
         return NO;
     }
     

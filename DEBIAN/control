@@ -1,6 +1,6 @@
 Package: com.mologie.NXBoot
 Name: NXBoot
-Depends: firmware(>=10.0)
+Depends: firmware(>=9.0), shell-cmds
 Version: PLACEHOLDER
 Architecture: iphoneos-arm
 Maintainer: Oliver Kuckertz <oliver.kuckertz+nxboot@mologie.de>

@@ -1,28 +1,20 @@
-#!/bin/bash
-set -e
-set -o pipefail
+#!/bin/zsh
+# This script is called by build.sh
+set -euo pipefail
 
-ORIG_UID=$1
-ORIG_GID=$2
-version=$3
-buildno=$4
-DPKGDIR=DerivedData/dpkg
-PROJDIR=$PWD
-RELEASEDIR_IOS=$PROJDIR/DerivedData/NXBoot/Build/Products/Release-iphoneos
+dpkgdir=DerivedData/dpkg
+rm -rf $dpkgdir
+mkdir -p $dpkgdir/com.mologie.NXBoot/{DEBIAN,Applications}
+cat DEBIAN/control | sed "s/Version: PLACEHOLDER/Version: $version-$buildno/" > $dpkgdir/com.mologie.NXBoot/DEBIAN/control
+cp DEBIAN/postinst $dpkgdir/com.mologie.NXBoot/DEBIAN/
+rsync -a $releasedir/NXBoot.app $dpkgdir/com.mologie.NXBoot/Applications/
+mkdir -p $dpkgdir/com.mologie.NXBoot/usr/bin
+cp dist/iphoneos/nxboot $dpkgdir/com.mologie.NXBoot/usr/bin/nxboot
 
-rm -rf $DPKGDIR
-mkdir -p $DPKGDIR/com.mologie.NXBoot/{DEBIAN,Applications}
-cat control | sed "s/Version: PLACEHOLDER/Version: $version-$buildno/" > $DPKGDIR/com.mologie.NXBoot/DEBIAN/control
-rsync -a $RELEASEDIR_IOS/NXBoot.app $DPKGDIR/com.mologie.NXBoot/Applications/
-mkdir -p $DPKGDIR/com.mologie.NXBoot/usr/bin
-cp $PROJDIR/DerivedData/bin/nxboot $DPKGDIR/com.mologie.NXBoot/usr/bin/nxboot
-
-cd $DPKGDIR
+projdir=$(pwd)
+cd $dpkgdir
 chown -R 0:0 .
 chown -R 0:80 com.mologie.NXBoot/Applications
-dpkg-deb -Zgzip -b com.mologie.NXBoot $PROJDIR/dist/com.mologie.NXBoot-$version-$buildno.deb
-chown $ORIG_UID:$ORIG_GID $PROJDIR/dist/com.mologie.NXBoot-$version-$buildno.deb
-chown -R $ORIG_UID:$ORIG_GID .
-cd $PROJDIR
-
-echo Done building DEB.
+dpkg-deb -Zgzip -b com.mologie.NXBoot "$projdir/dist/iphoneos/com.mologie.NXBoot-$version-$buildno.deb"
+chown $uid:$gid "$projdir/dist/iphoneos/com.mologie.NXBoot-$version-$buildno.deb"
+chown -R $uid:$gid .

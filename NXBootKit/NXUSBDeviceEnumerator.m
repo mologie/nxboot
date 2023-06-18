@@ -14,6 +14,14 @@
 #import <IOKit/usb/IOUSBLib.h>
 #import <mach/mach.h>
 
+// kIOMasterPortDefault was renamed to kIOMainPortDefault, and marked as unavailable on iOS.
+// This is not true and the API is still available.
+// We keep using the deprecated name here for compatibility with iOS versions before 15.
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wavailability"
+extern const mach_port_t kIOMasterPortDefault __API_AVAILABLE(ios(1.0));
+#pragma clang diagnostic pop
+
 #define ERR(FMT, ...) [self handleError:[NSString stringWithFormat:FMT, ##__VA_ARGS__]]
 
 @interface NXUSBDeviceEnumerator () {
@@ -46,8 +54,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
     [self stop];
 }
 
-- (void)addFilterForVendorID:(UInt16)vendorID productID:(UInt16)productID {
-    // TODO maintain a list once/if we support multiple VIDs/PIDs
+- (void)setFilterForVendorID:(UInt16)vendorID productID:(UInt16)productID {
     self.VID = vendorID;
     self.PID = productID;
 }

@@ -1,8 +1,3 @@
-/**
- * @file about screen controller
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
- */
-
 #import "AboutScreenViewController.h"
 
 @interface AboutScreenViewController ()
@@ -20,7 +15,11 @@
 
 - (IBAction)homepageButtonTapped:(id)sender {
     NSURL *homepageURL = [NSURL URLWithString:@"https://mologie.github.io/nxboot/"];
-    [[UIApplication sharedApplication] openURL:homepageURL options:@{} completionHandler:nil];
+    if (@available(iOS 10, *)) {
+        [[UIApplication sharedApplication] openURL:homepageURL options:@{} completionHandler:nil];
+    } else {
+        [[UIApplication sharedApplication] openURL:homepageURL];
+    }
 }
 
 @end

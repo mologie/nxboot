@@ -18,7 +18,7 @@
 #define ESC       "\033[0m"
 #define ESC_LN    ESC "\n"
 
-#define COPYRIGHT_STR "Copyright 2018-2020 Oliver Kuckertz <o.kuckertz@mologie.de>"
+#define COPYRIGHT_STR "Copyright 2018-2023 Oliver Kuckertz <oliver.kuckertz@mologie.de>"
 #define LICENSE_STR   "Licensed under the GPLv3. https://github.com/mologie/nxboot#license"
 
 static volatile sig_atomic_t gTerm = 0;
@@ -39,7 +39,7 @@ static volatile sig_atomic_t gTerm = 0;
 - (void)start {
     self.usbEnum = [[NXUSBDeviceEnumerator alloc] init];
     self.usbEnum.delegate = self;
-    [self.usbEnum addFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
+    [self.usbEnum setFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
     [self.usbEnum start];
 }
 
@@ -111,7 +111,7 @@ static volatile sig_atomic_t gTerm = 0;
 
 @end
 
-static void printUsage() {
+static void printUsage(void) {
     fprintf(stderr,
             "usage: nxboot [-v] [-d|-k] [-r <relocator>] [--hekate <cmds>] <payload>\n"
             "  -v: enable verbose debug output\n"
@@ -126,17 +126,22 @@ static void printUsage() {
             "  --hekate ums sd|[emu-]boot0|[emu-]boot1|[emu-]gpp: start USB storage host\n"
             "  --hekate-log: display launch log\n"
             "\n"
-            "example for Hekate USB storage: nxboot --hekate ums sd hekate_ctcaer_5.3.4.bin\n"
-            "example for Coreboot/L4T: nxboot -r cbfs.bin coreboot.rom\n"
+            "examples:\n"
+            "  nxboot hekate_ctcaer_6.0.4.bin (boots Hekate)\n"
+            "  nxboot --hekate ums sd hekate_ctcaer_6.0.4.bin (boots Hekate into UMS SD mode)\n"
+            "\n"
             "for updates visit: https://mologie.github.io/nxboot/\n");
 }
 
-static void printHelp() {
+static void printHelp(void) {
     fprintf(stderr,
             "\n"
             "NXBoot is a Fusée/ShofEL2 implementation for macOS and iOS.\n"
-            "It supports any Fusée payload and Coreboot/CBFS.\n"
-            COPYRIGHT_STR "\n" LICENSE_STR "\n\n");
+            "It supports any Fusée and Coreboot/CBFS payload.\n"
+            "This application does not come with payloads, so please provide your own.\n"
+            "\n"
+            COPYRIGHT_STR "\n"
+            LICENSE_STR "\n\n");
     printUsage();
 }
 

@@ -1,12 +1,11 @@
-/**
- * @file application delegate
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
- */
-
 #import <UIKit/UIKit.h>
-#import <CoreData/CoreData.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
-@property (strong, nonatomic) UIWindow *window;
-@property (readonly, strong) NSPersistentContainer *persistentContainer;
+
+@property (nonatomic, strong) UIWindow *window;
+
 @end
+
+NS_ASSUME_NONNULL_END

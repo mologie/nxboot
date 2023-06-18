@@ -3,59 +3,38 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		50410F6A26C87B2B00DF24B5 /* NXLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 50410F4326C8753B00DF24B5 /* NXLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50410F6B26C87B2B00DF24B5 /* NXUSBDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = A73FDCED20FA9C71007EBF4F /* NXUSBDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50410F6C26C87B2B00DF24B5 /* NXBootKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 50410F3826C874B200DF24B5 /* NXBootKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50410F6D26C87B2B00DF24B5 /* NXUSBDeviceEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = A73FDCF320FA9C72007EBF4F /* NXUSBDeviceEnumerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50410F6E26C87B2B00DF24B5 /* NXHekateCustomizer.h in Headers */ = {isa = PBXBuildFile; fileRef = A7CD57E62556FB8B006AA85B /* NXHekateCustomizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50410F6F26C87B2B00DF24B5 /* NXExec.h in Headers */ = {isa = PBXBuildFile; fileRef = A73FDCF120FA9C72007EBF4F /* NXExec.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		50410F7126C87B2B00DF24B5 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
-		50410F7226C87B2B00DF24B5 /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
-		50410F7326C87B2B00DF24B5 /* NXLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXLog.m */; };
-		50410F7426C87B2B00DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
-		50410F7526C87B2B00DF24B5 /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
-		50F7417F26C883D100DF24B5 /* NXBootKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50410F7B26C87B2B00DF24B5 /* NXBootKit.framework */; };
-		50F7418026C883D100DF24B5 /* NXBootKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 50410F7B26C87B2B00DF24B5 /* NXBootKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		115E6FE02A224E1800DF24B5 /* Help.html in Resources */ = {isa = PBXBuildFile; fileRef = 115E6FDF2A224E1200DF24B5 /* Help.html */; };
+		1173BB8E2A20C38500DF24B5 /* intermezzo.bin in Resources */ = {isa = PBXBuildFile; fileRef = 1173BB8D2A20C38500DF24B5 /* intermezzo.bin */; };
+		11C8550C2A2582E300DF24B5 /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
+		11C8550D2A2582E300DF24B5 /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
+		11C8550E2A2582E300DF24B5 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
+		11C8550F2A2582E300DF24B5 /* NXLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXLog.m */; };
+		11C855102A2582E300DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
+		11C855112A2582E400DF24B5 /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
+		11C855122A2582E400DF24B5 /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
+		11C855132A2582E400DF24B5 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
+		11C855142A2582E400DF24B5 /* NXLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXLog.m */; };
+		11C855152A2582E400DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
 		A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A701175E20EE320F00B3D45B /* WebKit.framework */; };
 		A701176520EE677F00B3D45B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A701176320EE677F00B3D45B /* Main.storyboard */; };
 		A7458B4A20EF8286008F4899 /* GettingStartedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7458B4920EF8286008F4899 /* GettingStartedViewController.m */; };
-		A7458B4C20EF86C7008F4899 /* Payloads in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4B20EF86C7008F4899 /* Payloads */; };
-		A7458B4E20EF86D5008F4899 /* Tutorial in Resources */ = {isa = PBXBuildFile; fileRef = A7458B4D20EF86D5008F4899 /* Tutorial */; };
-		A765643F20F4D265005EC7E6 /* AppConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = A765643E20F4D265005EC7E6 /* AppConfig.m */; };
+		A765643F20F4D265005EC7E6 /* PayloadStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = A765643E20F4D265005EC7E6 /* PayloadStorage.m */; };
 		A78D523520F343EC0045FC4F /* AboutScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A78D523420F343EC0045FC4F /* AboutScreenViewController.m */; };
 		A795B6BC21015F970008820F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A718F2302100CD1C009BD181 /* main.m */; };
 		A795B6BE21015FD80008820F /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A718F2332100CDC1009BD181 /* IOKit.framework */; };
 		A7999ECA20F5761B00F659EB /* PackageIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A7999EC920F5761B00F659EB /* PackageIcon.png */; };
 		A7AD2A1120F63A3500D1A400 /* libMobileGestalt.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A7AD2A1020F63A3500D1A400 /* libMobileGestalt.tbd */; };
-		A7B7E1FD20EE738300F39094 /* BootProfilesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7B7E1FC20EE738300F39094 /* BootProfilesViewController.m */; };
 		A7C4EA1620EE2D1B0026FFC9 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7C4EA1520EE2D1B0026FFC9 /* MainViewController.m */; };
-		A7CD57CB2556F591006AA85B /* AppCenter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57C22556F587006AA85B /* AppCenter.xcframework */; };
-		A7CD57CC2556F591006AA85B /* AppCenter.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57C22556F587006AA85B /* AppCenter.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A7CD57D12556F593006AA85B /* AppCenterAnalytics.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57C32556F587006AA85B /* AppCenterAnalytics.xcframework */; };
-		A7CD57D22556F593006AA85B /* AppCenterAnalytics.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57C32556F587006AA85B /* AppCenterAnalytics.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A7CD57D62556F594006AA85B /* AppCenterCrashes.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57C12556F587006AA85B /* AppCenterCrashes.xcframework */; };
-		A7CD57D72556F594006AA85B /* AppCenterCrashes.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7CD57C12556F587006AA85B /* AppCenterCrashes.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		A7F0A88C20F4837F001C9D07 /* BootProfileEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7F0A88B20F4837F001C9D07 /* BootProfileEditViewController.m */; };
 		A7F0A88F20F48492001C9D07 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */; };
 		A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE1820EE27DD00E59587 /* AppDelegate.m */; };
 		A7FDBE2120EE27DE00E59587 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7FDBE2020EE27DE00E59587 /* Assets.xcassets */; };
 		A7FDBE2420EE27DE00E59587 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7FDBE2220EE27DE00E59587 /* LaunchScreen.storyboard */; };
 		A7FDBE2720EE27DE00E59587 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A7FDBE2620EE27DE00E59587 /* main.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		50F7418126C883D100DF24B5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A7FDBE0C20EE27DD00E59587 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 50410F6826C87B2B00DF24B5;
-			remoteInfo = NXBootKit_iOS;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		50410F5226C87ACE00DF24B5 /* Embed Frameworks */ = {
@@ -83,10 +62,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				A7CD57D72556F594006AA85B /* AppCenterCrashes.xcframework in Embed Frameworks */,
-				50F7418026C883D100DF24B5 /* NXBootKit.framework in Embed Frameworks */,
-				A7CD57CC2556F591006AA85B /* AppCenter.xcframework in Embed Frameworks */,
-				A7CD57D22556F593006AA85B /* AppCenterAnalytics.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,16 +69,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		115E6FDF2A224E1200DF24B5 /* Help.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Help.html; sourceTree = "<group>"; };
+		115E6FE82A2356FA00DF24B5 /* NXBootJailbreak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootJailbreak.entitlements; sourceTree = "<group>"; };
+		115E70012A251E9A00DF24B5 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		1173BB8D2A20C38500DF24B5 /* intermezzo.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = intermezzo.bin; sourceTree = "<group>"; };
 		50410F3826C874B200DF24B5 /* NXBootKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXBootKit.h; sourceTree = "<group>"; };
-		50410F3926C874B200DF24B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50410F4326C8753B00DF24B5 /* NXLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXLog.h; sourceTree = "<group>"; };
-		50410F7B26C87B2B00DF24B5 /* NXBootKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NXBootKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A701175E20EE320F00B3D45B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A701176420EE677F00B3D45B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A718F2302100CD1C009BD181 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		A718F2312100CD1C009BD181 /* NXBootCmd.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootCmd.entitlements; sourceTree = "<group>"; };
 		A718F2332100CDC1009BD181 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
-		A7190D2D21164A1000544CAD /* AppConfig+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AppConfig+Private.h"; sourceTree = "<group>"; };
 		A7388F742100F54A00A60C1B /* NXLog.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NXLog.m; sourceTree = "<group>"; };
 		A73FDCEC20FA9C71007EBF4F /* NXExec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NXExec.m; sourceTree = "<group>"; };
 		A73FDCED20FA9C71007EBF4F /* NXUSBDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXUSBDevice.h; sourceTree = "<group>"; };
@@ -113,27 +88,18 @@
 		A73FDCF320FA9C72007EBF4F /* NXUSBDeviceEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXUSBDeviceEnumerator.h; sourceTree = "<group>"; };
 		A7458B4820EF8286008F4899 /* GettingStartedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GettingStartedViewController.h; sourceTree = "<group>"; };
 		A7458B4920EF8286008F4899 /* GettingStartedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GettingStartedViewController.m; sourceTree = "<group>"; };
-		A7458B4B20EF86C7008F4899 /* Payloads */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Payloads; sourceTree = "<group>"; };
-		A7458B4D20EF86D5008F4899 /* Tutorial */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Tutorial; sourceTree = "<group>"; };
 		A75A515A20F75C4F00FCEF84 /* NXBoot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBoot.entitlements; sourceTree = "<group>"; };
-		A765643D20F4D265005EC7E6 /* AppConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConfig.h; sourceTree = "<group>"; };
-		A765643E20F4D265005EC7E6 /* AppConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppConfig.m; sourceTree = "<group>"; };
+		A765643D20F4D265005EC7E6 /* PayloadStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayloadStorage.h; sourceTree = "<group>"; };
+		A765643E20F4D265005EC7E6 /* PayloadStorage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayloadStorage.m; sourceTree = "<group>"; };
 		A78D523320F343EC0045FC4F /* AboutScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutScreenViewController.h; sourceTree = "<group>"; };
 		A78D523420F343EC0045FC4F /* AboutScreenViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutScreenViewController.m; sourceTree = "<group>"; };
 		A795B6B521015F880008820F /* nxboot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = nxboot; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7999EC920F5761B00F659EB /* PackageIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PackageIcon.png; sourceTree = "<group>"; };
 		A7AD2A1020F63A3500D1A400 /* libMobileGestalt.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libMobileGestalt.tbd; path = usr/lib/libMobileGestalt.tbd; sourceTree = SDKROOT; };
-		A7B7E1FB20EE738300F39094 /* BootProfilesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BootProfilesViewController.h; sourceTree = "<group>"; };
-		A7B7E1FC20EE738300F39094 /* BootProfilesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BootProfilesViewController.m; sourceTree = "<group>"; };
 		A7C4EA1420EE2D1B0026FFC9 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
 		A7C4EA1520EE2D1B0026FFC9 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
-		A7CD57C12556F587006AA85B /* AppCenterCrashes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AppCenterCrashes.xcframework; path = vendor/Frameworks/AppCenterCrashes.xcframework; sourceTree = "<group>"; };
-		A7CD57C22556F587006AA85B /* AppCenter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AppCenter.xcframework; path = vendor/Frameworks/AppCenter.xcframework; sourceTree = "<group>"; };
-		A7CD57C32556F587006AA85B /* AppCenterAnalytics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AppCenterAnalytics.xcframework; path = vendor/Frameworks/AppCenterAnalytics.xcframework; sourceTree = "<group>"; };
 		A7CD57E62556FB8B006AA85B /* NXHekateCustomizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXHekateCustomizer.h; sourceTree = "<group>"; };
 		A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NXHekateCustomizer.m; sourceTree = "<group>"; };
-		A7F0A88A20F4837F001C9D07 /* BootProfileEditViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BootProfileEditViewController.h; sourceTree = "<group>"; };
-		A7F0A88B20F4837F001C9D07 /* BootProfileEditViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BootProfileEditViewController.m; sourceTree = "<group>"; };
 		A7F0A88E20F48492001C9D07 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		A7FDBE1420EE27DD00E59587 /* NXBoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7FDBE1720EE27DD00E59587 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -145,13 +111,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		50410F7626C87B2B00DF24B5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A795B6B221015F880008820F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -164,12 +123,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A7CD57D62556F594006AA85B /* AppCenterCrashes.xcframework in Frameworks */,
 				A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */,
 				A7AD2A1120F63A3500D1A400 /* libMobileGestalt.tbd in Frameworks */,
-				A7CD57CB2556F591006AA85B /* AppCenter.xcframework in Frameworks */,
-				A7CD57D12556F593006AA85B /* AppCenterAnalytics.xcframework in Frameworks */,
-				50F7417F26C883D100DF24B5 /* NXBootKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -179,7 +134,7 @@
 		A717F07C211643ED000B4705 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				A7458B4B20EF86C7008F4899 /* Payloads */,
+				1173BB8D2A20C38500DF24B5 /* intermezzo.bin */,
 			);
 			path = Shared;
 			sourceTree = SOURCE_ROOT;
@@ -188,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				A718F2302100CD1C009BD181 /* main.m */,
-				A718F2312100CD1C009BD181 /* NXBootCmd.entitlements */,
 			);
 			path = NXBootCmd;
 			sourceTree = "<group>";
@@ -196,7 +150,6 @@
 		A73FDCE420FA9C5C007EBF4F /* NXBootKit */ = {
 			isa = PBXGroup;
 			children = (
-				50410F3926C874B200DF24B5 /* Info.plist */,
 				50410F3826C874B200DF24B5 /* NXBootKit.h */,
 				A73FDCF120FA9C72007EBF4F /* NXExec.h */,
 				A73FDCEC20FA9C71007EBF4F /* NXExec.m */,
@@ -218,6 +171,7 @@
 				A7FDBE2520EE27DE00E59587 /* Info.plist */,
 				A7FDBE2620EE27DE00E59587 /* main.m */,
 				A75A515A20F75C4F00FCEF84 /* NXBoot.entitlements */,
+				115E6FE82A2356FA00DF24B5 /* NXBootJailbreak.entitlements */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -227,20 +181,14 @@
 			children = (
 				A78D523320F343EC0045FC4F /* AboutScreenViewController.h */,
 				A78D523420F343EC0045FC4F /* AboutScreenViewController.m */,
-				A765643D20F4D265005EC7E6 /* AppConfig.h */,
-				A765643E20F4D265005EC7E6 /* AppConfig.m */,
-				A7190D2D21164A1000544CAD /* AppConfig+Private.h */,
 				A7FDBE1720EE27DD00E59587 /* AppDelegate.h */,
 				A7FDBE1820EE27DD00E59587 /* AppDelegate.m */,
-				A7F0A88A20F4837F001C9D07 /* BootProfileEditViewController.h */,
-				A7F0A88B20F4837F001C9D07 /* BootProfileEditViewController.m */,
-				A7B7E1FB20EE738300F39094 /* BootProfilesViewController.h */,
-				A7B7E1FC20EE738300F39094 /* BootProfilesViewController.m */,
 				A7458B4820EF8286008F4899 /* GettingStartedViewController.h */,
 				A7458B4920EF8286008F4899 /* GettingStartedViewController.m */,
 				A7C4EA1420EE2D1B0026FFC9 /* MainViewController.h */,
 				A7C4EA1520EE2D1B0026FFC9 /* MainViewController.m */,
-				A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */,
+				A765643D20F4D265005EC7E6 /* PayloadStorage.h */,
+				A765643E20F4D265005EC7E6 /* PayloadStorage.m */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -248,6 +196,7 @@
 		A7FDBE0B20EE27DD00E59587 = {
 			isa = PBXGroup;
 			children = (
+				115E70012A251E9A00DF24B5 /* Config.xcconfig */,
 				A7FDBE2D20EE2A1700E59587 /* Frameworks */,
 				A717F07C211643ED000B4705 /* Shared */,
 				A7FDBE1620EE27DD00E59587 /* NXBoot */,
@@ -262,7 +211,6 @@
 			children = (
 				A7FDBE1420EE27DD00E59587 /* NXBoot.app */,
 				A795B6B521015F880008820F /* nxboot */,
-				50410F7B26C87B2B00DF24B5 /* NXBootKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -280,9 +228,6 @@
 		A7FDBE2D20EE2A1700E59587 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				A7CD57C22556F587006AA85B /* AppCenter.xcframework */,
-				A7CD57C32556F587006AA85B /* AppCenterAnalytics.xcframework */,
-				A7CD57C12556F587006AA85B /* AppCenterCrashes.xcframework */,
 				A718F2332100CDC1009BD181 /* IOKit.framework */,
 				A7AD2A1020F63A3500D1A400 /* libMobileGestalt.tbd */,
 				A701175E20EE320F00B3D45B /* WebKit.framework */,
@@ -294,9 +239,10 @@
 			isa = PBXGroup;
 			children = (
 				A7FDBE2020EE27DE00E59587 /* Assets.xcassets */,
-				A7458B4D20EF86D5008F4899 /* Tutorial */,
+				115E6FDF2A224E1200DF24B5 /* Help.html */,
 				A7FDBE2220EE27DE00E59587 /* LaunchScreen.storyboard */,
 				A701176320EE677F00B3D45B /* Main.storyboard */,
+				A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */,
 				A7999EC920F5761B00F659EB /* PackageIcon.png */,
 			);
 			name = Resources;
@@ -304,44 +250,10 @@
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		50410F6926C87B2B00DF24B5 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				50410F6A26C87B2B00DF24B5 /* NXLog.h in Headers */,
-				50410F6B26C87B2B00DF24B5 /* NXUSBDevice.h in Headers */,
-				50410F6C26C87B2B00DF24B5 /* NXBootKit.h in Headers */,
-				50410F6D26C87B2B00DF24B5 /* NXUSBDeviceEnumerator.h in Headers */,
-				50410F6E26C87B2B00DF24B5 /* NXHekateCustomizer.h in Headers */,
-				50410F6F26C87B2B00DF24B5 /* NXExec.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		50410F6826C87B2B00DF24B5 /* NXBootKit_iOS */ = {
+		A795B6B421015F880008820F /* NXBootCmd */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 50410F7826C87B2B00DF24B5 /* Build configuration list for PBXNativeTarget "NXBootKit_iOS" */;
-			buildPhases = (
-				50410F6926C87B2B00DF24B5 /* Headers */,
-				50410F7026C87B2B00DF24B5 /* Sources */,
-				50410F7626C87B2B00DF24B5 /* Frameworks */,
-				50410F7726C87B2B00DF24B5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = NXBootKit_iOS;
-			productName = NXBootKit;
-			productReference = 50410F7B26C87B2B00DF24B5 /* NXBootKit.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		A795B6B421015F880008820F /* NXBootCmd_macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A795B6BB21015F880008820F /* Build configuration list for PBXNativeTarget "NXBootCmd_macOS" */;
+			buildConfigurationList = A795B6BB21015F880008820F /* Build configuration list for PBXNativeTarget "NXBootCmd" */;
 			buildPhases = (
 				A795B6B121015F880008820F /* Sources */,
 				A795B6B221015F880008820F /* Frameworks */,
@@ -352,7 +264,7 @@
 			);
 			dependencies = (
 			);
-			name = NXBootCmd_macOS;
+			name = NXBootCmd;
 			productName = NXBootCmd;
 			productReference = A795B6B521015F880008820F /* nxboot */;
 			productType = "com.apple.product-type.tool";
@@ -369,7 +281,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				50F7418226C883D100DF24B5 /* PBXTargetDependency */,
 			);
 			name = NXBoot;
 			productName = NXBoot;
@@ -382,8 +293,9 @@
 		A7FDBE0C20EE27DD00E59587 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Oliver Kuckertz";
 				TargetAttributes = {
 					A795B6B421015F880008820F = {
@@ -413,28 +325,20 @@
 			projectRoot = "";
 			targets = (
 				A7FDBE1320EE27DD00E59587 /* NXBoot */,
-				A795B6B421015F880008820F /* NXBootCmd_macOS */,
-				50410F6826C87B2B00DF24B5 /* NXBootKit_iOS */,
+				A795B6B421015F880008820F /* NXBootCmd */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		50410F7726C87B2B00DF24B5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A7FDBE1220EE27DD00E59587 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				A701176520EE677F00B3D45B /* Main.storyboard in Resources */,
 				A7999ECA20F5761B00F659EB /* PackageIcon.png in Resources */,
-				A7458B4C20EF86C7008F4899 /* Payloads in Resources */,
-				A7458B4E20EF86D5008F4899 /* Tutorial in Resources */,
+				1173BB8E2A20C38500DF24B5 /* intermezzo.bin in Resources */,
+				115E6FE02A224E1800DF24B5 /* Help.html in Resources */,
 				A7FDBE2420EE27DE00E59587 /* LaunchScreen.storyboard in Resources */,
 				A7FDBE2120EE27DE00E59587 /* Assets.xcassets in Resources */,
 			);
@@ -443,22 +347,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		50410F7026C87B2B00DF24B5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				50410F7126C87B2B00DF24B5 /* NXUSBDeviceEnumerator.m in Sources */,
-				50410F7226C87B2B00DF24B5 /* NXUSBDevice.m in Sources */,
-				50410F7326C87B2B00DF24B5 /* NXLog.m in Sources */,
-				50410F7426C87B2B00DF24B5 /* NXHekateCustomizer.m in Sources */,
-				50410F7526C87B2B00DF24B5 /* NXExec.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A795B6B121015F880008820F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11C8550F2A2582E300DF24B5 /* NXLog.m in Sources */,
+				11C8550E2A2582E300DF24B5 /* NXUSBDeviceEnumerator.m in Sources */,
+				11C8550C2A2582E300DF24B5 /* NXUSBDevice.m in Sources */,
+				11C8550D2A2582E300DF24B5 /* NXExec.m in Sources */,
+				11C855102A2582E300DF24B5 /* NXHekateCustomizer.m in Sources */,
 				A795B6BC21015F970008820F /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -468,26 +365,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7FDBE2720EE27DE00E59587 /* main.m in Sources */,
+				11C855112A2582E400DF24B5 /* NXUSBDevice.m in Sources */,
+				11C855132A2582E400DF24B5 /* NXUSBDeviceEnumerator.m in Sources */,
 				A7C4EA1620EE2D1B0026FFC9 /* MainViewController.m in Sources */,
-				A765643F20F4D265005EC7E6 /* AppConfig.m in Sources */,
+				A765643F20F4D265005EC7E6 /* PayloadStorage.m in Sources */,
+				11C855122A2582E400DF24B5 /* NXExec.m in Sources */,
+				11C855152A2582E400DF24B5 /* NXHekateCustomizer.m in Sources */,
+				11C855142A2582E400DF24B5 /* NXLog.m in Sources */,
 				A7458B4A20EF8286008F4899 /* GettingStartedViewController.m in Sources */,
 				A78D523520F343EC0045FC4F /* AboutScreenViewController.m in Sources */,
-				A7B7E1FD20EE738300F39094 /* BootProfilesViewController.m in Sources */,
 				A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */,
-				A7F0A88C20F4837F001C9D07 /* BootProfileEditViewController.m in Sources */,
 				A7F0A88F20F48492001C9D07 /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		50F7418226C883D100DF24B5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 50410F6826C87B2B00DF24B5 /* NXBootKit_iOS */;
-			targetProxy = 50F7418126C883D100DF24B5 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A701176320EE677F00B3D45B /* Main.storyboard */ = {
@@ -509,92 +401,12 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		50410F7926C87B2B00DF24B5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = N3S4C3QL65;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__OPEN_SOURCE__=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = NXBootKit/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = (
-					"-framework",
-					IOKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBootKit;
-				PRODUCT_NAME = NXBootKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		50410F7A26C87B2B00DF24B5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = N3S4C3QL65;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"__OPEN_SOURCE__=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = NXBootKit/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MTL_FAST_MATH = YES;
-				OTHER_LDFLAGS = (
-					"-framework",
-					IOKit,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBootKit;
-				PRODUCT_NAME = NXBootKit;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
 		A795B6B921015F880008820F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"NXBOOT_VERSION=\\\"PLACEHOLDER\\\"",
@@ -602,7 +414,8 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				"MACOSX_DEPLOYMENT_TARGET[arch=x86_64]" = 10.11;
 				PRODUCT_NAME = nxboot;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -615,12 +428,14 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Manual;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"NXBOOT_VERSION=\\\"PLACEHOLDER\\\"",
 					"NXBOOT_BUILDNO=0",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				"MACOSX_DEPLOYMENT_TARGET[arch=x86_64]" = 10.11;
 				PRODUCT_NAME = nxboot;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
@@ -661,7 +476,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -680,6 +494,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/NXBootKit",
+				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -721,7 +539,6 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -734,6 +551,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/NXBootKit",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -745,62 +566,66 @@
 		};
 		A7FDBE2B20EE27DE00E59587 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 115E70012A251E9A00DF24B5 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_SKIP_APP_STORE_DEPLOYMENT = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_ENTITLEMENTS = NXBoot/NXBoot.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = N3S4C3QL65;
+				CURRENT_PROJECT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"__OPEN_SOURCE__=1",
-					"COCOAPODS=1",
 					"$(inherited)",
 				);
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NXBoot/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 0.2.0;
+				INFOPLIST_KEY_CFBundleDisplayName = NXBoot;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBoot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		A7FDBE2C20EE27DE00E59587 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 115E70012A251E9A00DF24B5 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_SKIP_APP_STORE_DEPLOYMENT = YES;
 				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CODE_SIGN_ENTITLEMENTS = NXBoot/NXBoot.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = N3S4C3QL65;
+				CURRENT_PROJECT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"__OPEN_SOURCE__=1",
-					"COCOAPODS=1",
 					"$(inherited)",
 				);
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NXBoot/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.1;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 0.2.0;
+				INFOPLIST_KEY_CFBundleDisplayName = NXBoot;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBoot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -808,16 +633,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		50410F7826C87B2B00DF24B5 /* Build configuration list for PBXNativeTarget "NXBootKit_iOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				50410F7926C87B2B00DF24B5 /* Debug */,
-				50410F7A26C87B2B00DF24B5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A795B6BB21015F880008820F /* Build configuration list for PBXNativeTarget "NXBootCmd_macOS" */ = {
+		A795B6BB21015F880008820F /* Build configuration list for PBXNativeTarget "NXBootCmd" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A795B6B921015F880008820F /* Debug */,

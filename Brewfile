@@ -1,2 +1,4 @@
 brew "dpkg"
-cask "jtool"
+brew "ldid"
+brew "jq"
+brew "yj"

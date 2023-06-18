@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NXUSBDeviceEnumerator : NSObject
 @property (weak, nonatomic) id<NXUSBDeviceEnumeratorDelegate> delegate;
-- (void)addFilterForVendorID:(UInt16)vendorID productID:(UInt16)productID;
+- (void)setFilterForVendorID:(UInt16)vendorID productID:(UInt16)productID;
 - (void)start;
 - (void)stop;
 @end
