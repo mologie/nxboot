@@ -14,58 +14,9 @@
     <meta name="twitter:creator" content="@mologie"/>
 
     <link rel="shortcut icon" href="nxboot_icon.png"/>
+    <link rel="stylesheet" href="styles.css" type="text/css"/>
 
     <title>NXBoot</title>
-
-    <style type="text/css">
-    body {
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      margin: 0 auto;
-      background: white;
-      padding: 0 15px;
-    }
-    #header {
-      margin: 30px auto;
-      text-align: center;
-    }
-    #header h1, #header h2 {
-      margin: 7px 0;
-    }
-    #header h1 {
-      font-weight: 500;
-    }
-    #header h2 {
-      font-weight: 400;
-    }
-    #depiction {
-      max-width: 600px;
-      margin: auto;
-      border-top: 1px solid #c8c7cc;
-    }
-    pre {
-      border: 1px solid #c8c7cc;
-      background: #f0f0f0;
-      padding: 6px;
-    }
-    .text-mono {
-      font-family: monospace;
-    }
-    p {
-      line-height: 1.5;
-    }
-    p.compressed {
-      margin-top: -0.25em;
-      line-height: 1.25;
-    }
-    p small {
-      color: #707070;
-    }
-    hr {
-      height: 0;
-      border: 0;
-      border-top: 1px solid #c8c7cc;
-    }
-    </style>
   </head>
   <body>
     <div id="header">
@@ -74,15 +25,17 @@
       <h2 style="margin-top: 0;">Fusée Gelée / ShofEL2 for iOS &amp; macOS</h2>
     </div>
     <div id="depiction">
-      <p>NXBoot enables starting custom boot code on the Nintendo Switch through the Fusée Gelée hardware exploit. Booting Coreboot/Linux is supported.</p>
-      <p>A jailbreak is required. For jailbreaking info visit <a href="https://canijailbreak.com/">canijailbreak.com</a> and <a href="https://reddit.com/r/jailbreak">/r/jailbreak</a>. Please keep in mind that a jailbreak is detrimental to your mobile device's security and you should never jailbreak a device that stores sensitive data. Currently the minimum supported iOS version is iOS 10.0.</p>
-      <p><b>Install NXBoot on iOS by adding the following repository to Cydia:</b></p>
-      <p class="compressed">
-        <a href="cydia://url/https://cydia.saurik.com/api/share#?source=https://mologie.github.io/repo/">https://mologie.github.io/repo/</a><br/>
-        <small>Tap with Safari to open Cydia</small>
-      </p>
+      <p>NXBoot enables starting custom boot code on the Nintendo Switch through the Fusée Gelée hardware exploit.</p>
+      <p>A jailbreak is required. For jailbreaking info visit <a href="https://reddit.com/r/jailbreak">/r/jailbreak</a>. Please keep in mind that jailbreaking is detrimental to your phone's security. You should never jailbreak a phone that stores sensitive data. The minimum supported iOS version is iOS 10.0.</p>
+      <p><b>Add the following repository to your package manager to install NXBoot:</b></p>
+      <p><kbd>https://mologie.github.io/repo/</kbd></p>
+      <a href="cydia://url/https://cydia.saurik.com/api/share#?source=https://mologie.github.io/repo/&amp;package=com.mologie.NXBoot">Add to Cydia</a> /
+      <a href="sileo://source/https://mologie.github.io/repo/">Add to Sileo</a> /
+      <a href="zbra://sources/add/https://mologie.github.io/repo//">Add to Zebra</a>
       <p>
-        Updates are provided automatically via Cydia. A changelog is visible on this page and in the Cydia package description.
+        Updates are provided automatically via your package manager. A changelog is visible on this page and in the package's details page.
+      </p>
+
       </p>
       <p><b>A command-line tool is available for iOS and macOS:</b></p>
       <p class="compressed">
@@ -95,8 +48,10 @@
       </p>
       <hr/>
 
-      <h2>Changelog</h2>
-      {% include changelog.html %}
+      <h2 style="margin-bottom: 0;">Changelog</h2>
+      <div id="changelog">
+        {% include changelog.html %}
+      </div>
       <hr/>
 
       <h2>FAQ</h2>

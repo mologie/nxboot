@@ -1,0 +1,50 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+#header {
+  margin: 30px auto;
+  text-align: center;
+}
+#header h1, #header h2 {
+  margin: 7px 0;
+}
+#header h1 {
+  font-weight: 500;
+}
+#header h2 {
+  font-weight: 400;
+}
+#depiction {
+  max-width: 600px;
+  margin: auto;
+  border-top: 1px solid #c8c7cc;
+}
+#changelog ul {
+  line-height: 1.25;
+}
+#changelog ul {
+  margin-top: 0.5em;
+}
+pre {
+  border: 1px solid #c8c7cc;
+  background: #f0f0f0;
+  padding: 6px;
+}
+p {
+  line-height: 1.5;
+}
+p.compressed {
+  margin-top: -0.25em;
+  line-height: 1.25;
+}
+p small {
+  color: #707070;
+}
+hr {
+  margin: 32px 0;
+  height: 0;
+  border: 0;
+  border-top: 1px solid #c8c7cc;
+}

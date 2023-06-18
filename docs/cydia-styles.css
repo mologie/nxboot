@@ -1,0 +1,67 @@
+* {
+  border: 0;
+  border-radius: 0;
+  -webkit-border-radius: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  font-size: 100%;
+  font-style: inherit;
+  font-weight: inherit;
+  margin: 0;
+  outline: 0;
+  padding: 0;
+  text-decoration: none;
+  vertical-align: baseline;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  -webkit-text-size-adjust: none;
+  -webkit-user-select: none;
+}
+fieldset {
+  background-color: #ffffff;
+  border-top: 1px solid #c8c7cc;
+  border-bottom: 1px solid #c8c7cc;
+  font-size: 16px;
+  margin: 8px 0;
+}
+fieldset>* {
+  background: white;
+  border-bottom: 1px solid #c8c7cc;
+  padding: 8px 14px 10px 14px;
+  width: 100%;
+}
+fieldset>ul, fieldset>ol {
+  margin-left: 20px;
+}
+fieldset>p {
+  -webkit-user-select: auto;
+}
+fieldset>p.h {
+  padding-bottom: 0;
+  margin-bottom: -2px;
+  border-bottom: 0;
+  font-weight: bold;
+}
+fieldset>a {
+  color: #007AFF;
+}
+fieldset>:last-child {
+  border-bottom: 0;
+}
+fieldset>p:first-child {
+  margin-top: 0;
+}
+fieldset>p:last-child {
+  margin-bottom: 0;
+}
+fieldset>a {
+  display: block;
+}
+@media (-webkit-min-device-pixel-ratio: 2) {
+  fieldset, fieldset>* {
+    border-width: 0.5px;
+  }
+}
