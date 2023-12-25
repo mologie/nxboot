@@ -74,7 +74,7 @@ lipo -create -output "$distdir/macos/nxboot" "$tmpdir/macos/nxboot".*
 echo "macOS executable available at $distdir/macos/nxboot"
 
 echo "Building DEB package..."
-echo "(This may prompt for your user password, which is required for prepading the Debian package where files are owned by root.)"
+echo "(This may prompt for your user password, which is required for preparing the Debian package where files are owned by root.)"
 sudo env uid=$(id -u) gid=$(id -g) version=$version buildno=$buildno releasedir=$releasedir ./build_deb.sh
 
 echo "Building IPA..."

@@ -87,7 +87,7 @@
 		A73FDCF320FA9C72007EBF4F /* NXUSBDeviceEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXUSBDeviceEnumerator.h; sourceTree = "<group>"; };
 		A7458B4820EF8286008F4899 /* GettingStartedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GettingStartedViewController.h; sourceTree = "<group>"; };
 		A7458B4920EF8286008F4899 /* GettingStartedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GettingStartedViewController.m; sourceTree = "<group>"; };
-		A75A515A20F75C4F00FCEF84 /* NXBoot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBoot.entitlements; sourceTree = "<group>"; };
+		A75A515A20F75C4F00FCEF84 /* NXBootMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootMac.entitlements; sourceTree = "<group>"; };
 		A765643D20F4D265005EC7E6 /* PayloadStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayloadStorage.h; sourceTree = "<group>"; };
 		A765643E20F4D265005EC7E6 /* PayloadStorage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayloadStorage.m; sourceTree = "<group>"; };
 		A78D523320F343EC0045FC4F /* AboutScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutScreenViewController.h; sourceTree = "<group>"; };
@@ -167,8 +167,8 @@
 			children = (
 				A7FDBE2520EE27DE00E59587 /* Info.plist */,
 				A7FDBE2620EE27DE00E59587 /* main.m */,
-				A75A515A20F75C4F00FCEF84 /* NXBoot.entitlements */,
 				115E6FE82A2356FA00DF24B5 /* NXBootJailbreak.entitlements */,
+				A75A515A20F75C4F00FCEF84 /* NXBootMac.entitlements */,
 			);
 			name = Misc;
 			sourceTree = "<group>";
@@ -567,7 +567,7 @@
 			baseConfigurationReference = 115E70012A251E9A00DF24B5 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = NXBoot/NXBoot.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"__OPEN_SOURCE__=1",
@@ -598,8 +598,7 @@
 			baseConfigurationReference = 115E70012A251E9A00DF24B5 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
-				CODE_SIGN_ENTITLEMENTS = NXBoot/NXBoot.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"__OPEN_SOURCE__=1",
