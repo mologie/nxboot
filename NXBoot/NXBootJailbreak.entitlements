@@ -19,11 +19,7 @@
     <key>com.apple.private.security.container-required</key>
     <true/>
 
-    <!-- Permit USB device access and identification -->
-    <key>com.apple.private.MobileGestalt.AllowedProtectedKeys</key>
-    <array>
-        <string>UniqueDeviceID</string>
-    </array>
+    <!-- Permit USB device access -->
     <key>com.apple.security.exception.iokit-user-client-class</key>
     <array>
         <string>AppleUSBHostDeviceUserClient</string>
