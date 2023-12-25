@@ -5,7 +5,7 @@
 #import "FLBootProfile+CoreDataClass.h"
 
 NSNotificationName const NXBootPayloadStorageChangedExternally = @"NXBootPayloadStorageChangedExternally";
-static NSString *const kNXBootPayloadsExplicitOrder = @"NXBootPayloadsExplicitOrder";
+static NSString *const NXBootPayloadsExplicitOrder = @"NXBootPayloadsExplicitOrder";
 
 @implementation Payload
 
@@ -173,7 +173,7 @@ static NSString *const kNXBootPayloadsExplicitOrder = @"NXBootPayloadsExplicitOr
     NSMutableSet<Payload *> *payloadsSet = [[NSMutableSet alloc] init];
 
     // First add all known payloads in explicit order
-    NSArray<NSString *> *order = [self.userDefaults objectForKey:kNXBootPayloadsExplicitOrder];
+    NSArray<NSString *> *order = [self.userDefaults objectForKey:NXBootPayloadsExplicitOrder];
     for (NSString *fileName in order) {
         NSString *path = [self.payloadsDir stringByAppendingPathComponent:fileName];
         Payload *payload = [[Payload alloc] initWithPath:path];
@@ -214,7 +214,7 @@ static NSString *const kNXBootPayloadsExplicitOrder = @"NXBootPayloadsExplicitOr
     for (Payload *payload in payloads) {
         [order addObject:payload.path.lastPathComponent];
     }
-    [self.userDefaults setObject:order forKey:kNXBootPayloadsExplicitOrder];
+    [self.userDefaults setObject:order forKey:NXBootPayloadsExplicitOrder];
 }
 
 - (Payload *)importPayload:(NSString *)filePath move:(BOOL)moveFile error:(NSError **)error {

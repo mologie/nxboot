@@ -101,6 +101,7 @@
                     <connections>
                         <segue destination="nUe-DO-7bu" kind="show" identifier="GettingStarted" id="x5b-fd-OcJ"/>
                         <segue destination="yXt-UC-in5" kind="show" identifier="About" id="QLp-cf-cBZ"/>
+                        <segue destination="INA-V5-9lD" kind="presentation" identifier="Settings" id="1RY-ci-A5K"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3D6-nf-aP8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -240,6 +241,77 @@ CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) a
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hrC-oi-lAp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2342" y="98"/>
+        </scene>
+        <!--NXBoot Settings-->
+        <scene sceneID="lID-GU-gxU">
+            <objects>
+                <tableViewController id="ZdA-Pb-7OP" customClass="SettingsViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="Zod-Le-j1D">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SwitchTableViewCell" id="3p2-Jb-JWd" customClass="SwitchTableViewCell">
+                                <rect key="frame" x="16" y="55.5" width="343" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3p2-Jb-JWd" id="uZK-TH-fkG">
+                                    <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yI7-2k-dhl">
+                                            <rect key="frame" x="280" y="6" width="49" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <color key="onTintColor" red="0.001000000047" green="0.73199999329999998" blue="0.88300001620000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </switch>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uw1-Nj-ufh">
+                                            <rect key="frame" x="16" y="11" width="249" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="customLabel" destination="uw1-Nj-ufh" id="lSn-8g-9dQ"/>
+                                    <outlet property="customSwitch" destination="yI7-2k-dhl" id="GEw-ec-cHh"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ZdA-Pb-7OP" id="FL9-43-GU6"/>
+                            <outlet property="delegate" destination="ZdA-Pb-7OP" id="N8t-YX-y0G"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="NXBoot Settings" id="5ff-4o-zzj">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="GkL-xT-Xes">
+                            <connections>
+                                <segue destination="hV7-Ri-Wr8" kind="unwind" unwindAction="settingsUnwindAction:" id="qE5-w5-kIR"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J1c-eJ-D5a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="hV7-Ri-Wr8" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="4228" y="507.79610194902551"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ufU-2r-112">
+            <objects>
+                <navigationController id="INA-V5-9lD" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bnC-DN-1c4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.99800002570000002" green="0.3720000088" blue="0.32600000499999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ZdA-Pb-7OP" kind="relationship" relationship="rootViewController" id="4kS-cx-Zsa"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GLN-nf-Bm4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3308" y="508"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.001000000047" green="0.73199999329999998" blue="0.88300001620000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

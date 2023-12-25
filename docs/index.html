@@ -26,25 +26,29 @@
     </div>
     <div id="depiction">
       <p>NXBoot enables starting custom boot code on the Nintendo Switch through the Fusée Gelée hardware exploit.</p>
-      <p>A jailbreak is required. For jailbreaking info visit <a href="https://reddit.com/r/jailbreak">/r/jailbreak</a>. Please keep in mind that jailbreaking is detrimental to your phone's security. You should never jailbreak a phone that stores sensitive data. The minimum supported iOS version is iOS 10.0.</p>
-      <p><b>Add the following repository to your package manager to install NXBoot:</b></p>
-      <p><kbd>https://mologie.github.io/repo/</kbd></p>
-      <a href="cydia://url/https://cydia.saurik.com/api/share#?source=https://mologie.github.io/repo/&amp;package=com.mologie.NXBoot">Add to Cydia</a> /
-      <a href="sileo://source/https://mologie.github.io/repo/">Add to Sileo</a> /
-      <a href="zbra://sources/add/https://mologie.github.io/repo//">Add to Zebra</a>
+      <p>A jailbreak is required. For jailbreaking info visit <a href="https://reddit.com/r/jailbreak">/r/jailbreak</a>. Please keep in mind that jailbreaking is detrimental to your phone's security. You should never jailbreak a phone that stores sensitive data. The minimum supported iOS version is iOS 9.0.</p>
       <p>
-        Updates are provided automatically via your package manager. A changelog is visible on this page and in the package's details page.
+        <b>Add the following repository to your package manager to install NXBoot:</b>
+      </p>
+      <p>
+        <kbd>https://mologie.github.io/repo/</kbd><br/>
+        <a href="cydia://url/https://cydia.saurik.com/api/share#?source=https://mologie.github.io/repo/&amp;package=com.mologie.NXBoot">Add to Cydia</a> /
+        <a href="sileo://source/https://mologie.github.io/repo/">Add to Sileo</a> /
+        <a href="zbra://sources/add/https://mologie.github.io/repo//">Add to Zebra</a>
       </p>
 
+      <p><b>Users of TrollStore or AppSync Unified can install NXBoot as IPA:</b></p>
+      <p class="compressed">
+        <a href="https://github.com/mologie/nxboot/releases/download/v0.3.0/NXBoot-0.3.0-1.ipa">Download NXBoot for TrollStore</a>
+          (v0.3.0)<br/>
+        <small>TrollStore or AppSync Unified are <u>required</u>. Attempting to otherwise sideload NXBoot will render it non-functional. Please read the FAQ for more information.</small>
       </p>
+
       <p><b>A command-line tool is available for iOS and macOS:</b></p>
       <p class="compressed">
         <a href="https://github.com/mologie/nxboot/releases/download/v0.2.0/nxboot">Download Command-Line Tool</a>
-        (v0.2.0,
-        <a href="https://github.com/mologie/nxboot/releases/download/v0.2.0/nxboot.sig">signature</a>,
-        <a href="https://keybase.io/mologie/pgp_keys.asc">PGP key</a>,
-        <a href="https://github.com/mologie/nxboot/releases/latest">changelog</a>)<br/>
-        <small>The command-line version of NXBoot works on iOS 7.0+ and macOS 10.10+. It is also available at /usr/bin/nxboot when the Cydia package is installed. Run ./nxboot -h for usage info.</small>
+        (v0.3.0)<br/>
+        <small>The command-line version of NXBoot works on iOS 9.0+ and macOS 10.11+. It is also available at /usr/bin/nxboot when the Cydia package is installed. Run ./nxboot -h for usage info.</small>
       </p>
       <hr/>
 
@@ -57,7 +61,7 @@
       <h2>FAQ</h2>
       <p>
         <b>I don't have a jailbreak. Can this work as self-signed IPA too?</b><br/>
-        No, it is impossible. A self-signed IPA does not grant any sandbox exceptions, which NXBoot requires for raw USB device access.
+        Only if you have a device that is compatible with <a href="https://github.com/opa334/TrollStore">TrollStore</a>. Otherwise it is impossible, because a side-loaded IPA cannot get any sandbox exceptions, which NXBoot requires for raw USB device access.
       </p>
       <p>
         <b>What are the iOS hardware requirements?</b><br/>
@@ -82,7 +86,7 @@
       </p>
       <p>
         <b>iOS software requirements?</b><br/>
-        NXBoot was tested and found compatible with all jailbreaks for iOS 10 and later, up to unc0ver for iOS 12.4. It may break if Apple changes some of its private APIs or sandbox details in future iOS versions.
+        NXBoot was tested and found compatible with all jailbreaks for iOS 10 and later, up to iOS 17. It may break if Apple changes some of its private APIs or sandbox details in future iOS versions.
       </p>
       <p>
         <b>Nintendo Switch requirements?</b><br/>
@@ -98,11 +102,11 @@
       </p>
       <p>
         <b>What is the difference between your command-line tool and others?</b><br/>
-        The functionality is most likely equivalent, but nxboot has zero dependencies (it works directly with IOKit) and can launch both Fusée and ShofEL2 payloads out of the box.
+        The functionality is most likely equivalent, but nxboot has zero dependencies (it works directly with IOKit) and can any payload out of the box.
       </p>
       <hr/>
 
-      <p><small>2018-2020 - Oliver Kuckertz</small></p>
+      <p><small>2018-2023 - <a href="https://github.com/mologie/">Oliver Kuckertz</a></small></p>
     </div>
   </body>
 </html>

@@ -4,6 +4,9 @@
 #import "FLBootProfile+CoreDataClass.h"
 #import "NXExec.h"
 #import "NXUSBDeviceEnumerator.h"
+#import "Settings.h"
+
+@import Sentry;
 
 @interface MainViewController () <
     NXUSBDeviceEnumeratorDelegate,
@@ -53,6 +56,7 @@
     [self.usbEnum setFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
     [self.usbEnum start];
 
+    self.navigationItem.leftBarButtonItem = self.settingsButtonItem;
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
@@ -72,15 +76,23 @@
         return;
     }
 
+    SentryEvent *event = [[SentryEvent alloc] initWithLevel:kSentryLevelInfo];
+
     assert(self.usbDevice != nil);
     NSString *error = nil;
     if (NXExec(self.usbDevice->_intf, relocator, payloadData, &error)) {
         self.usbError = nil;
         [self updateDeviceStatus:@"Payload injected 🎉"];
+        event.message = [[SentryMessage alloc] initWithFormatted:@"Boot successful"];
     }
     else {
         self.usbError = error;
         [self updateDeviceStatus:@"Payload injection error"];
+        event.message = [[SentryMessage alloc] initWithFormatted:[NSString stringWithFormat:@"Boot failed: %@", error]];
+    }
+
+    if (Settings.enableUsagePings) {
+        [SentrySDK captureEvent:event];
     }
 }
 
@@ -460,6 +472,26 @@ typedef NS_ENUM(NSInteger, TableSection) {
 }
 
 #pragma mark - Navigation
+
+- (UIBarButtonItem *)settingsButtonItem {
+    if (@available(iOS 13, *)) {
+        return [[UIBarButtonItem alloc] initWithImage:[UIImage systemImageNamed:@"gearshape"]
+                                                style:UIBarButtonItemStylePlain
+                                               target:self
+                                               action:@selector(settingsButtonTapped:)];
+    } else {
+        return [[UIBarButtonItem alloc] initWithTitle:@"Settings"
+                                                style:UIBarButtonItemStylePlain
+                                               target:self
+                                               action:@selector(settingsButtonTapped:)];
+    }
+}
+
+- (void)settingsButtonTapped:(id)sender {
+    [self performSegueWithIdentifier:@"Settings" sender:self];
+}
+
+- (IBAction)settingsUnwindAction:(UIStoryboardSegue *)unwindSegue {}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if (self.selectedPayload) {

@@ -11,7 +11,10 @@
 		1158CFEB2B39BDF400DF24B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFEA2B39BDF400DF24B5 /* ContentView.swift */; };
 		1158CFED2B39BDF500DF24B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1158CFEC2B39BDF500DF24B5 /* Assets.xcassets */; };
 		1158CFF02B39BDF500DF24B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1158CFEF2B39BDF500DF24B5 /* Preview Assets.xcassets */; };
+		1158CFFD2B3AF52400DF24B5 /* SwitchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFFC2B3AF52400DF24B5 /* SwitchTableViewCell.m */; };
+		1158D0002B3AF5CE00DF24B5 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFFF2B3AF5CE00DF24B5 /* SettingsViewController.m */; };
 		115E6FE02A224E1800DF24B5 /* Help.html in Resources */ = {isa = PBXBuildFile; fileRef = 115E6FDF2A224E1200DF24B5 /* Help.html */; };
+		116765F92B42104000DF24B5 /* Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 116765F82B42104000DF24B5 /* Settings.m */; };
 		1173BB8E2A20C38500DF24B5 /* intermezzo.bin in Resources */ = {isa = PBXBuildFile; fileRef = 1173BB8D2A20C38500DF24B5 /* intermezzo.bin */; };
 		11C8550C2A2582E300DF24B5 /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
 		11C8550D2A2582E300DF24B5 /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
@@ -23,6 +26,13 @@
 		11C855132A2582E400DF24B5 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
 		11C855142A2582E400DF24B5 /* NXLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXLog.m */; };
 		11C855152A2582E400DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
+		11F0E3872B4308E900DF24B5 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 11F0E3862B4308E900DF24B5 /* Sentry */; };
+		11F0E3892B4349B000DF24B5 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 11F0E3882B4349B000DF24B5 /* Sentry */; };
+		11F0E38A2B4349BB00DF24B5 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
+		11F0E38B2B4349BE00DF24B5 /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
+		11F0E38C2B4349C100DF24B5 /* NXLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXLog.m */; };
+		11F0E38D2B4349C400DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
+		11F0E38E2B4349C600DF24B5 /* NXExec.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEC20FA9C71007EBF4F /* NXExec.m */; };
 		A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A701175E20EE320F00B3D45B /* WebKit.framework */; };
 		A701176520EE677F00B3D45B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A701176320EE677F00B3D45B /* Main.storyboard */; };
 		A7458B4A20EF8286008F4899 /* GettingStartedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7458B4920EF8286008F4899 /* GettingStartedViewController.m */; };
@@ -78,9 +88,15 @@
 		1158CFEC2B39BDF500DF24B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1158CFEF2B39BDF500DF24B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1158CFF12B39BDF500DF24B5 /* NXBootMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootMac.entitlements; sourceTree = "<group>"; };
+		1158CFFB2B3AF52400DF24B5 /* SwitchTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwitchTableViewCell.h; sourceTree = "<group>"; };
+		1158CFFC2B3AF52400DF24B5 /* SwitchTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwitchTableViewCell.m; sourceTree = "<group>"; };
+		1158CFFE2B3AF5CE00DF24B5 /* SettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		1158CFFF2B3AF5CE00DF24B5 /* SettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		115E6FDF2A224E1200DF24B5 /* Help.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Help.html; sourceTree = "<group>"; };
 		115E6FE82A2356FA00DF24B5 /* NXBootJailbreak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootJailbreak.entitlements; sourceTree = "<group>"; };
 		115E70012A251E9A00DF24B5 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		116765F72B42104000DF24B5 /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
+		116765F82B42104000DF24B5 /* Settings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		1173BB8D2A20C38500DF24B5 /* intermezzo.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = intermezzo.bin; sourceTree = "<group>"; };
 		50410F3826C874B200DF24B5 /* NXBootKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXBootKit.h; sourceTree = "<group>"; };
 		50410F4326C8753B00DF24B5 /* NXLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXLog.h; sourceTree = "<group>"; };
@@ -118,6 +134,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		1158CFE32B39BDF400DF24B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11F0E3892B4349B000DF24B5 /* Sentry in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A795B6B221015F880008820F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -131,6 +155,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */,
+				11F0E3872B4308E900DF24B5 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +238,12 @@
 				A7C4EA1520EE2D1B0026FFC9 /* MainViewController.m */,
 				A765643D20F4D265005EC7E6 /* PayloadStorage.h */,
 				A765643E20F4D265005EC7E6 /* PayloadStorage.m */,
+				116765F72B42104000DF24B5 /* Settings.h */,
+				116765F82B42104000DF24B5 /* Settings.m */,
+				1158CFFE2B3AF5CE00DF24B5 /* SettingsViewController.h */,
+				1158CFFF2B3AF5CE00DF24B5 /* SettingsViewController.m */,
+				1158CFFB2B3AF52400DF24B5 /* SwitchTableViewCell.h */,
+				1158CFFC2B3AF52400DF24B5 /* SwitchTableViewCell.m */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -290,6 +321,9 @@
 			dependencies = (
 			);
 			name = NXBootMac;
+			packageProductDependencies = (
+				11F0E3882B4349B000DF24B5 /* Sentry */,
+			);
 			productName = NXBootMac;
 			productReference = 1158CFE62B39BDF400DF24B5 /* NXBoot.app */;
 			productType = "com.apple.product-type.application";
@@ -326,6 +360,9 @@
 			dependencies = (
 			);
 			name = NXBoot;
+			packageProductDependencies = (
+				11F0E3862B4308E900DF24B5 /* Sentry */,
+			);
 			productName = NXBoot;
 			productReference = A7FDBE1420EE27DD00E59587 /* NXBoot.app */;
 			productType = "com.apple.product-type.application";
@@ -366,6 +403,9 @@
 				Base,
 			);
 			mainGroup = A7FDBE0B20EE27DD00E59587;
+			packageReferences = (
+				11F0E3852B4308E900DF24B5 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+			);
 			productRefGroup = A7FDBE1520EE27DD00E59587 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -407,8 +447,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11F0E38C2B4349C100DF24B5 /* NXLog.m in Sources */,
+				11F0E38B2B4349BE00DF24B5 /* NXUSBDevice.m in Sources */,
 				1158CFEB2B39BDF400DF24B5 /* ContentView.swift in Sources */,
 				1158CFE92B39BDF400DF24B5 /* NXBootMacApp.swift in Sources */,
+				11F0E38D2B4349C400DF24B5 /* NXHekateCustomizer.m in Sources */,
+				11F0E38E2B4349C600DF24B5 /* NXExec.m in Sources */,
+				11F0E38A2B4349BB00DF24B5 /* NXUSBDeviceEnumerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +475,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7FDBE2720EE27DE00E59587 /* main.m in Sources */,
+				1158CFFD2B3AF52400DF24B5 /* SwitchTableViewCell.m in Sources */,
+				116765F92B42104000DF24B5 /* Settings.m in Sources */,
 				11C855112A2582E400DF24B5 /* NXUSBDevice.m in Sources */,
 				11C855132A2582E400DF24B5 /* NXUSBDeviceEnumerator.m in Sources */,
 				A7C4EA1620EE2D1B0026FFC9 /* MainViewController.m in Sources */,
@@ -441,6 +488,7 @@
 				A78D523520F343EC0045FC4F /* AboutScreenViewController.m in Sources */,
 				A7FDBE1920EE27DD00E59587 /* AppDelegate.m in Sources */,
 				A7F0A88F20F48492001C9D07 /* Model.xcdatamodeld in Sources */,
+				1158D0002B3AF5CE00DF24B5 /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -804,6 +852,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		11F0E3852B4308E900DF24B5 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.17.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		11F0E3862B4308E900DF24B5 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11F0E3852B4308E900DF24B5 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+		11F0E3882B4349B000DF24B5 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11F0E3852B4308E900DF24B5 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */ = {

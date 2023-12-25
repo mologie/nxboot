@@ -1,9 +1,11 @@
 #import "AppDelegate.h"
 #import "PayloadStorage.h"
+#import "Settings.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [Settings applySentryOptions];
     return YES;
 }
 
