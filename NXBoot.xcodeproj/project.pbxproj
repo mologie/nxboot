@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1158CFE92B39BDF400DF24B5 /* NXBootMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFE82B39BDF400DF24B5 /* NXBootMacApp.swift */; };
+		1158CFEB2B39BDF400DF24B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFEA2B39BDF400DF24B5 /* ContentView.swift */; };
+		1158CFED2B39BDF500DF24B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1158CFEC2B39BDF500DF24B5 /* Assets.xcassets */; };
+		1158CFF02B39BDF500DF24B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1158CFEF2B39BDF500DF24B5 /* Preview Assets.xcassets */; };
 		115E6FE02A224E1800DF24B5 /* Help.html in Resources */ = {isa = PBXBuildFile; fileRef = 115E6FDF2A224E1200DF24B5 /* Help.html */; };
 		1173BB8E2A20C38500DF24B5 /* intermezzo.bin in Resources */ = {isa = PBXBuildFile; fileRef = 1173BB8D2A20C38500DF24B5 /* intermezzo.bin */; };
 		11C8550C2A2582E300DF24B5 /* NXUSBDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */; };
@@ -68,6 +72,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1158CFE62B39BDF400DF24B5 /* NXBoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1158CFE82B39BDF400DF24B5 /* NXBootMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXBootMacApp.swift; sourceTree = "<group>"; };
+		1158CFEA2B39BDF400DF24B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1158CFEC2B39BDF500DF24B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1158CFEF2B39BDF500DF24B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1158CFF12B39BDF500DF24B5 /* NXBootMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootMac.entitlements; sourceTree = "<group>"; };
 		115E6FDF2A224E1200DF24B5 /* Help.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = Help.html; sourceTree = "<group>"; };
 		115E6FE82A2356FA00DF24B5 /* NXBootJailbreak.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootJailbreak.entitlements; sourceTree = "<group>"; };
 		115E70012A251E9A00DF24B5 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -87,7 +97,6 @@
 		A73FDCF320FA9C72007EBF4F /* NXUSBDeviceEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NXUSBDeviceEnumerator.h; sourceTree = "<group>"; };
 		A7458B4820EF8286008F4899 /* GettingStartedViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GettingStartedViewController.h; sourceTree = "<group>"; };
 		A7458B4920EF8286008F4899 /* GettingStartedViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GettingStartedViewController.m; sourceTree = "<group>"; };
-		A75A515A20F75C4F00FCEF84 /* NXBootMac.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NXBootMac.entitlements; sourceTree = "<group>"; };
 		A765643D20F4D265005EC7E6 /* PayloadStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PayloadStorage.h; sourceTree = "<group>"; };
 		A765643E20F4D265005EC7E6 /* PayloadStorage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PayloadStorage.m; sourceTree = "<group>"; };
 		A78D523320F343EC0045FC4F /* AboutScreenViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutScreenViewController.h; sourceTree = "<group>"; };
@@ -128,6 +137,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1158CFE72B39BDF400DF24B5 /* NXBootMac */ = {
+			isa = PBXGroup;
+			children = (
+				1158CFEE2B39BDF500DF24B5 /* Preview Content */,
+				1158CFF52B39BE7300DF24B5 /* Resources */,
+				1158CFEA2B39BDF400DF24B5 /* ContentView.swift */,
+				1158CFE82B39BDF400DF24B5 /* NXBootMacApp.swift */,
+			);
+			path = NXBootMac;
+			sourceTree = "<group>";
+		};
+		1158CFEE2B39BDF500DF24B5 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				1158CFEF2B39BDF500DF24B5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1158CFF52B39BE7300DF24B5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1158CFEC2B39BDF500DF24B5 /* Assets.xcassets */,
+				1158CFF12B39BDF500DF24B5 /* NXBootMac.entitlements */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		A717F07C211643ED000B4705 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,17 +199,6 @@
 			path = NXBootKit;
 			sourceTree = "<group>";
 		};
-		A7C4EA1220EE2AFA0026FFC9 /* Misc */ = {
-			isa = PBXGroup;
-			children = (
-				A7FDBE2520EE27DE00E59587 /* Info.plist */,
-				A7FDBE2620EE27DE00E59587 /* main.m */,
-				115E6FE82A2356FA00DF24B5 /* NXBootJailbreak.entitlements */,
-				A75A515A20F75C4F00FCEF84 /* NXBootMac.entitlements */,
-			);
-			name = Misc;
-			sourceTree = "<group>";
-		};
 		A7C4EA1320EE2B050026FFC9 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +208,7 @@
 				A7FDBE1820EE27DD00E59587 /* AppDelegate.m */,
 				A7458B4820EF8286008F4899 /* GettingStartedViewController.h */,
 				A7458B4920EF8286008F4899 /* GettingStartedViewController.m */,
+				A7FDBE2620EE27DE00E59587 /* main.m */,
 				A7C4EA1420EE2D1B0026FFC9 /* MainViewController.h */,
 				A7C4EA1520EE2D1B0026FFC9 /* MainViewController.m */,
 				A765643D20F4D265005EC7E6 /* PayloadStorage.h */,
@@ -199,6 +226,7 @@
 				A7FDBE1620EE27DD00E59587 /* NXBoot */,
 				A718F22F2100CD1C009BD181 /* NXBootCmd */,
 				A73FDCE420FA9C5C007EBF4F /* NXBootKit */,
+				1158CFE72B39BDF400DF24B5 /* NXBootMac */,
 				A7FDBE1520EE27DD00E59587 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -208,6 +236,7 @@
 			children = (
 				A7FDBE1420EE27DD00E59587 /* NXBoot.app */,
 				A795B6B521015F880008820F /* nxboot */,
+				1158CFE62B39BDF400DF24B5 /* NXBoot.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -215,7 +244,6 @@
 		A7FDBE1620EE27DD00E59587 /* NXBoot */ = {
 			isa = PBXGroup;
 			children = (
-				A7C4EA1220EE2AFA0026FFC9 /* Misc */,
 				A7FDBE3320EE2AC600E59587 /* Resources */,
 				A7C4EA1320EE2B050026FFC9 /* Sources */,
 			);
@@ -236,9 +264,11 @@
 			children = (
 				A7FDBE2020EE27DE00E59587 /* Assets.xcassets */,
 				115E6FDF2A224E1200DF24B5 /* Help.html */,
+				A7FDBE2520EE27DE00E59587 /* Info.plist */,
 				A7FDBE2220EE27DE00E59587 /* LaunchScreen.storyboard */,
 				A701176320EE677F00B3D45B /* Main.storyboard */,
 				A7F0A88D20F48492001C9D07 /* Model.xcdatamodeld */,
+				115E6FE82A2356FA00DF24B5 /* NXBootJailbreak.entitlements */,
 				A7999EC920F5761B00F659EB /* PackageIcon.png */,
 			);
 			name = Resources;
@@ -247,6 +277,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		1158CFE52B39BDF400DF24B5 /* NXBootMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1158CFF42B39BDF500DF24B5 /* Build configuration list for PBXNativeTarget "NXBootMac" */;
+			buildPhases = (
+				1158CFE22B39BDF400DF24B5 /* Sources */,
+				1158CFE32B39BDF400DF24B5 /* Frameworks */,
+				1158CFE42B39BDF400DF24B5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NXBootMac;
+			productName = NXBootMac;
+			productReference = 1158CFE62B39BDF400DF24B5 /* NXBoot.app */;
+			productType = "com.apple.product-type.application";
+		};
 		A795B6B421015F880008820F /* NXBootCmd */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A795B6BB21015F880008820F /* Build configuration list for PBXNativeTarget "NXBootCmd" */;
@@ -290,10 +337,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1510;
 				LastUpgradeCheck = 1510;
 				ORGANIZATIONNAME = "Oliver Kuckertz";
 				TargetAttributes = {
+					1158CFE52B39BDF400DF24B5 = {
+						CreatedOnToolsVersion = 15.1;
+					};
 					A795B6B421015F880008820F = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -322,11 +372,21 @@
 			targets = (
 				A7FDBE1320EE27DD00E59587 /* NXBoot */,
 				A795B6B421015F880008820F /* NXBootCmd */,
+				1158CFE52B39BDF400DF24B5 /* NXBootMac */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		1158CFE42B39BDF400DF24B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1158CFF02B39BDF500DF24B5 /* Preview Assets.xcassets in Resources */,
+				1158CFED2B39BDF500DF24B5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A7FDBE1220EE27DD00E59587 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,6 +403,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1158CFE22B39BDF400DF24B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1158CFEB2B39BDF400DF24B5 /* ContentView.swift in Sources */,
+				1158CFE92B39BDF400DF24B5 /* NXBootMacApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		A795B6B121015F880008820F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -397,6 +466,77 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1158CFF22B39BDF500DF24B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = NXBootMac/NXBootMac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NXBootMac/Preview Content\"";
+				DEVELOPMENT_TEAM = N3S4C3QL65;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Oliver Kuckertz. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBoot;
+				PRODUCT_NAME = NXBoot;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		1158CFF32B39BDF500DF24B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = NXBootMac/NXBootMac.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NXBootMac/Preview Content\"";
+				DEVELOPMENT_TEAM = N3S4C3QL65;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Oliver Kuckertz. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.2;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBoot;
+				PRODUCT_NAME = NXBoot;
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		A795B6B921015F880008820F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -627,6 +767,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1158CFF42B39BDF500DF24B5 /* Build configuration list for PBXNativeTarget "NXBootMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1158CFF22B39BDF500DF24B5 /* Debug */,
+				1158CFF32B39BDF500DF24B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		A795B6BB21015F880008820F /* Build configuration list for PBXNativeTarget "NXBootCmd" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
