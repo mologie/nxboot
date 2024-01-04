@@ -72,57 +72,32 @@ struct PayloadSelectionArrow: View {
 
 struct PayloadView: View {
     @Binding var payload: Payload
-    @Binding var selectedPayload: Payload?
+    @Binding var selectPayload: Payload?
+    @Binding var renamePayload: Payload?
     var deletePayload: (Payload) -> Void
 
-    @State private var renaming = false
     @State private var hoveringRow = false
     @State private var hoveringDragHandle: Bool = false
-    @FocusState private var nameFocused: Bool
-    @State private var newName = ""
 
     var body: some View {
         HStack() {
-            if renaming {
-                PayloadSelectionArrow(selected: selectedPayload == payload)
-                TextField("New Name", text: $newName)
-                    .focused($nameFocused)
-                    .onSubmit {
-                        if newName == payload.name {
-                            renaming = false
-                            return
-                        }
-                        let wasSelected = (selectedPayload == payload)
-                        if newName.count > 0 {
-                            payload.name = newName
-                        }
-                        if wasSelected {
-                            selectedPayload = payload
-                        }
-                    }
-            } else {
-                Button(action: {
-                    selectedPayload = payload
-                }) {
-                    PayloadSelectionArrow(selected: selectedPayload == payload)
-                    VStack(alignment: .leading) {
-                        Text(payload.name)
-                        Text("Detail text goes here")
-                            .font(.footnote)
-                            .foregroundStyle(.secondary)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .contentShape(Rectangle())
+            Button(action: {
+                selectPayload = payload
+            }) {
+                PayloadSelectionArrow(selected: selectPayload == payload)
+                VStack(alignment: .leading) {
+                    Text(payload.name)
+                    Text("Detail text goes here")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
-                .buttonStyle(.plain)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
             }
+            .buttonStyle(.plain)
 
             PayloadActionButton(hoveringRow: hoveringRow, imageName: "rectangle.and.pencil.and.ellipsis") {
-                renaming.toggle()
-                if renaming {
-                    newName = payload.name
-                    nameFocused = true
-                }
+                renamePayload = payload
             }
 
             PayloadActionButton(hoveringRow: hoveringRow, imageName: "trash") {
@@ -139,15 +114,18 @@ struct PayloadView: View {
 
 struct ContentView: View {
     @Binding public var payloads: [Payload]
-    @Binding public var selectedPayload: Payload?
+    @Binding public var selectPayload: Payload?
     @Binding public var autoBoot: Bool
+
+    @State private var renamePayload: Payload?
 
     var body: some View {
         VStack(spacing: 0) {
             List($payloads, id: \.self, editActions: [.move, .delete]) { payload in
                 PayloadView(
                     payload: payload,
-                    selectedPayload: $selectedPayload,
+                    selectPayload: $selectPayload,
+                    renamePayload: $renamePayload,
                     deletePayload: { payload in
                         payloads.removeAll { payloadToRemove in
                             return payloadToRemove == payload
@@ -173,13 +151,13 @@ struct ContentView: View {
                 }
                 Spacer()
                 Button("Boot Payload", action: bootNow)
-                    .disabled(selectedPayload == nil)
+                    .disabled(selectPayload == nil)
             }
             .padding()
             .background(TranslucentBackgroundView())
         }
         .navigationTitle("NXBoot")
-        .navigationSubtitle(selectedPayload != nil ? "using \(selectedPayload!.name)" : "no payload selected")
+        .navigationSubtitle(selectPayload != nil ? "using \(selectPayload!.name)" : "no payload selected")
         .toolbar {
             ToolbarItemGroup(placement: .automatic) {
                 SettingsLink {
@@ -203,6 +181,9 @@ struct ContentView: View {
                 .padding([.leading])
             })
         }
+        .sheet(item: $renamePayload) { payload in
+            // TODO: rename sheet with focused text field
+        }
     }
 
     private func bootNow() {
@@ -216,13 +197,13 @@ struct ContentViewPreview: View {
         Payload(path: "bar.bin"),
         Payload(path: "baz.bin"),
     ]
-    @State var selectedPayload: Payload? = Payload(path: "baz.bin")
+    @State var selectPayload: Payload? = Payload(path: "baz.bin")
     @State var autoBoot: Bool = false
 
     var body: some View {
         ContentView(
             payloads: $payloads,
-            selectedPayload: $selectedPayload,
+            selectPayload: $selectPayload,
             autoBoot: $autoBoot
         )
     }
