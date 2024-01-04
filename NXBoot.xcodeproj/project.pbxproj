@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1158CFE92B39BDF400DF24B5 /* NXBootMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFE82B39BDF400DF24B5 /* NXBootMacApp.swift */; };
+		1158CFE92B39BDF400DF24B5 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFE82B39BDF400DF24B5 /* Main.swift */; };
 		1158CFEB2B39BDF400DF24B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFEA2B39BDF400DF24B5 /* ContentView.swift */; };
 		1158CFED2B39BDF500DF24B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1158CFEC2B39BDF500DF24B5 /* Assets.xcassets */; };
 		1158CFF02B39BDF500DF24B5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1158CFEF2B39BDF500DF24B5 /* Preview Assets.xcassets */; };
@@ -26,6 +26,8 @@
 		11C855132A2582E400DF24B5 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
 		11C855142A2582E400DF24B5 /* NXLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXLog.m */; };
 		11C855152A2582E400DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
+		11E7F5462B44295B00DF24B5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E7F5452B44295B00DF24B5 /* AboutView.swift */; };
+		11E7F5482B442DA800DF24B5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E7F5472B442DA800DF24B5 /* SettingsView.swift */; };
 		11F0E3872B4308E900DF24B5 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 11F0E3862B4308E900DF24B5 /* Sentry */; };
 		11F0E3892B4349B000DF24B5 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 11F0E3882B4349B000DF24B5 /* Sentry */; };
 		11F0E38A2B4349BB00DF24B5 /* NXUSBDeviceEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */; };
@@ -83,7 +85,7 @@
 
 /* Begin PBXFileReference section */
 		1158CFE62B39BDF400DF24B5 /* NXBoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1158CFE82B39BDF400DF24B5 /* NXBootMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXBootMacApp.swift; sourceTree = "<group>"; };
+		1158CFE82B39BDF400DF24B5 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		1158CFEA2B39BDF400DF24B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1158CFEC2B39BDF500DF24B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1158CFEF2B39BDF500DF24B5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -98,6 +100,8 @@
 		116765F72B42104000DF24B5 /* Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Settings.h; sourceTree = "<group>"; };
 		116765F82B42104000DF24B5 /* Settings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Settings.m; sourceTree = "<group>"; };
 		1173BB8D2A20C38500DF24B5 /* intermezzo.bin */ = {isa = PBXFileReference; lastKnownFileType = archive.macbinary; path = intermezzo.bin; sourceTree = "<group>"; };
+		11E7F5452B44295B00DF24B5 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		11E7F5472B442DA800DF24B5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		50410F3826C874B200DF24B5 /* NXBootKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXBootKit.h; sourceTree = "<group>"; };
 		50410F4326C8753B00DF24B5 /* NXLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXLog.h; sourceTree = "<group>"; };
 		A701175E20EE320F00B3D45B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -167,8 +171,10 @@
 			children = (
 				1158CFEE2B39BDF500DF24B5 /* Preview Content */,
 				1158CFF52B39BE7300DF24B5 /* Resources */,
+				11E7F5452B44295B00DF24B5 /* AboutView.swift */,
 				1158CFEA2B39BDF400DF24B5 /* ContentView.swift */,
-				1158CFE82B39BDF400DF24B5 /* NXBootMacApp.swift */,
+				1158CFE82B39BDF400DF24B5 /* Main.swift */,
+				11E7F5472B442DA800DF24B5 /* SettingsView.swift */,
 			);
 			path = NXBootMac;
 			sourceTree = "<group>";
@@ -450,7 +456,9 @@
 				11F0E38C2B4349C100DF24B5 /* NXLog.m in Sources */,
 				11F0E38B2B4349BE00DF24B5 /* NXUSBDevice.m in Sources */,
 				1158CFEB2B39BDF400DF24B5 /* ContentView.swift in Sources */,
-				1158CFE92B39BDF400DF24B5 /* NXBootMacApp.swift in Sources */,
+				11E7F5482B442DA800DF24B5 /* SettingsView.swift in Sources */,
+				11E7F5462B44295B00DF24B5 /* AboutView.swift in Sources */,
+				1158CFE92B39BDF400DF24B5 /* Main.swift in Sources */,
 				11F0E38D2B4349C400DF24B5 /* NXHekateCustomizer.m in Sources */,
 				11F0E38E2B4349C600DF24B5 /* NXExec.m in Sources */,
 				11F0E38A2B4349BB00DF24B5 /* NXUSBDeviceEnumerator.m in Sources */,
@@ -531,14 +539,15 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Oliver Kuckertz. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.2;
-				MARKETING_VERSION = 1.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.3.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBoot;
@@ -568,14 +577,15 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Oliver Kuckertz. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 14.2;
-				MARKETING_VERSION = 1.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 0.3.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mologie.NXBoot;
 				PRODUCT_NAME = NXBoot;

@@ -32,7 +32,7 @@ There is no ETA on those, it's just a bunch of ideas that I think are nice to ha
 
 ## Installation
 
-For installation instructions please visit the [project homepage at mologie.github.io](https://mologie.github.io/nxboot/). The app and command line tools can be built from source via `build_app.sh` and `build_cmd.sh` after running `quickstart.sh` once.
+For installation instructions please visit the [project homepage at mologie.github.io](https://mologie.github.io/nxboot/). The apps and command line tool can be built from source via `build.sh` after running `quickstart.sh` once. You will need to edit `Config.xcconfig` for code signing settings.
 
 ## Components
 

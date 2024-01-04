@@ -13,14 +13,18 @@
 #import <IOKit/IOMessage.h>
 #import <IOKit/usb/IOUSBLib.h>
 #import <mach/mach.h>
+#import <TargetConditionals.h>
 
 // kIOMasterPortDefault was renamed to kIOMainPortDefault, and marked as unavailable on iOS.
 // This is not true and the API is still available.
-// We keep using the deprecated name here for compatibility with iOS versions before 15.
+// Keep using the deprecated name here for ABI compatibility with iOS prior to version 15.
+#if TARGET_OS_IPHONE
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wavailability"
 extern const mach_port_t kIOMasterPortDefault __API_AVAILABLE(ios(1.0));
 #pragma clang diagnostic pop
+#define kIOMainPortDefault kIOMasterPortDefault
+#endif
 
 #define ERR(FMT, ...) [self handleError:[NSString stringWithFormat:FMT, ##__VA_ARGS__]]
 
@@ -76,7 +80,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
     [matchingDict setValue:@(self.VID) forKey:@(kUSBVendorID)];
     [matchingDict setValue:@(self.PID) forKey:@(kUSBProductID)];
 
-    self.notifyPort = IONotificationPortCreate(kIOMasterPortDefault);
+    self.notifyPort = IONotificationPortCreate(kIOMainPortDefault);
     if (!self.notifyPort) {
         ERR(@"Could not create notification port");
         return;
