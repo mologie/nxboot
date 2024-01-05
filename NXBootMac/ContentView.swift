@@ -57,19 +57,6 @@ struct PayloadActionButton: View {
     }
 }
 
-struct PayloadSelectionArrow: View {
-    var selected: Bool
-    var body: some View {
-        Image(systemName: "arrow.forward")
-            .resizable()
-            .renderingMode(.template)
-            .foregroundColor(.nxBootBlue)
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 24)
-            .opacity(selected ? 1.0 : 0.0)
-    }
-}
-
 struct PayloadView: View {
     @Binding var payload: Payload
     @Binding var selectPayload: Payload?
@@ -84,7 +71,13 @@ struct PayloadView: View {
             Button(action: {
                 selectPayload = payload
             }) {
-                PayloadSelectionArrow(selected: selectPayload == payload)
+                Image(systemName: "arrow.forward")
+                    .resizable()
+                    .renderingMode(.template)
+                    .foregroundColor(.nxBootBlue)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 24)
+                    .opacity(selectPayload == payload ? 1.0 : 0.0)
                 VStack(alignment: .leading) {
                     Text(payload.name)
                     Text("Detail text goes here")
@@ -118,6 +111,8 @@ struct ContentView: View {
     @Binding public var autoBoot: Bool
 
     @State private var renamePayload: Payload?
+    @State private var renameTo: String = ""
+    @FocusState private var renameFocused
 
     var body: some View {
         VStack(spacing: 0) {
@@ -150,7 +145,7 @@ struct ContentView: View {
                     }
                 }
                 Spacer()
-                Button("Boot Payload", action: bootNow)
+                Button("Boot Payload", action: doBoot)
                     .disabled(selectPayload == nil)
             }
             .padding()
@@ -182,12 +177,51 @@ struct ContentView: View {
             })
         }
         .sheet(item: $renamePayload) { payload in
-            // TODO: rename sheet with focused text field
+            VStack(spacing: 10) {
+                Image(systemName: "pencil")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 36)
+                    .padding(5)
+                Text("Rename Payload").fontWeight(.bold)
+                Text("Please enter a new name for \(payload.name):")
+                TextField("New Name", text: $renameTo)
+                    .focused($renameFocused)
+                    .defaultFocus($renameFocused, true)
+                    .padding([.top, .bottom], 5)
+                    .onSubmit(doRename)
+                HStack {
+                    Button(action: { renamePayload = nil }, label: {
+                        Text("Cancel")
+                            .frame(height: 26)
+                            .frame(maxWidth: .infinity)
+                    })
+                    Button(action: doRename, label: {
+                        Text("Rename")
+                            .frame(height: 26)
+                            .frame(maxWidth: .infinity)
+                    }).buttonStyle(.borderedProminent)
+                }
+            }
+            .padding()
+            .frame(width: 260)
+            .onDisappear { renameTo = "" }
         }
     }
 
-    private func bootNow() {
-        // TODO
+    private func doBoot() {
+        // TODO: boot
+    }
+
+    private func doRename() {
+        let selected = (selectPayload == renamePayload)
+        if let index = payloads.firstIndex(where: { $0 == renamePayload }) {
+            payloads[index].name = renameTo
+            if selected {
+                selectPayload = payloads[index]
+            }
+        }
+        renamePayload = nil
     }
 }
 

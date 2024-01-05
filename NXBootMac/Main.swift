@@ -4,14 +4,14 @@ import SwiftUI
 struct Main: App {
     @Environment(\.openWindow) var openWindow
     @State var payloads: [Payload] = []
-    @State var selectedPayload: Payload?
+    @State var selectPayload: Payload?
     @State var autoBoot = false
 
     var body: some Scene {
         Window("NXBoot", id: "main") {
             ContentView(
                 payloads: $payloads,
-                selectedPayload: $selectedPayload,
+                selectPayload: $selectPayload,
                 autoBoot: $autoBoot)
             .frame(minWidth: 540, minHeight: 240)
             .frame(idealWidth: 640, idealHeight: 322)
