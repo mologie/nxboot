@@ -2,10 +2,11 @@ import SwiftUI
 
 @main
 struct Main: App {
-    @Environment(\.openWindow) var openWindow
     @State var payloads: [Payload] = []
     @State var selectPayload: Payload?
     @State var autoBoot = false
+
+    @State private var aboutWindowController = AboutWindowController.controller()
 
     var body: some Scene {
         Window("NXBoot", id: "main") {
@@ -21,9 +22,7 @@ struct Main: App {
         .windowToolbarStyle(.unified)
         .commands {
             CommandGroup(replacing: CommandGroupPlacement.appInfo) {
-                Button("About NXBoot") {
-                    openWindow(id: "about")
-                }
+                Button("About NXBoot") { aboutWindowController.showWindowCentered() }
             }
             CommandGroup(replacing: CommandGroupPlacement.newItem) {
                 Button("Add Payload File...") {
@@ -39,19 +38,12 @@ struct Main: App {
                 }
             }
             CommandGroup(replacing: CommandGroupPlacement.help) {
-                Link("NXBoot Homepage", destination: URL(string: "https://mologie.github.io/nxboot/")!)
+                Link("NXBoot Homepage", destination: Links.homepage)
                 Divider()
-                Link("Source Code", destination: URL(string: "https://github.com/mologie/nxboot/")!)
-                Link("Issue Tracker and Known Issues", destination: URL(string: "https://github.com/mologie/nxboot/issues")!)
+                Link("Source Code", destination: Links.repo)
+                Link("Issue Tracker and Known Issues", destination: Links.issues)
             }
         }
-
-        Window("About NXBoot", id: "about") {
-            AboutView().fixedSize()
-        }
-        .windowResizability(.contentSize)
-        .windowStyle(.hiddenTitleBar)
-        .defaultPosition(.center)
 
         Settings {
             SettingsView()
