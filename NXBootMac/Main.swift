@@ -46,10 +46,6 @@ struct Main: App {
                 Link("Issue Tracker and Known Issues", destination: Links.issues)
             }
         }
-
-        Settings {
-            SettingsView()
-        }
     }
 
     init() {

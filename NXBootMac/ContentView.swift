@@ -176,11 +176,6 @@ struct ContentView: View {
         .navigationSubtitle(selectPayload != nil ? "using \(selectPayload!.name)" : "no payload selected")
         .toolbar {
             ToolbarItemGroup(placement: .automatic) {
-                SettingsLink {
-                    Image(systemName: "gearshape")
-                }
-            }
-            ToolbarItemGroup(placement: .automatic) {
                 Button(action: onSelectPayload) {
                     Image(systemName: "square.and.arrow.down")
                 }
