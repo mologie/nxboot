@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		113DEF842B485B8500DF24B5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DEF832B485B8500DF24B5 /* Utils.swift */; };
+		113DEF862B48935400DF24B5 /* PayloadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DEF852B48935400DF24B5 /* PayloadViewModel.swift */; };
 		1158CFE92B39BDF400DF24B5 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFE82B39BDF400DF24B5 /* Main.swift */; };
 		1158CFEB2B39BDF400DF24B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFEA2B39BDF400DF24B5 /* ContentView.swift */; };
 		1158CFED2B39BDF500DF24B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1158CFEC2B39BDF500DF24B5 /* Assets.xcassets */; };
@@ -86,6 +87,7 @@
 
 /* Begin PBXFileReference section */
 		113DEF832B485B8500DF24B5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		113DEF852B48935400DF24B5 /* PayloadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadViewModel.swift; sourceTree = "<group>"; };
 		1158CFE62B39BDF400DF24B5 /* NXBoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1158CFE82B39BDF400DF24B5 /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		1158CFEA2B39BDF400DF24B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				11E7F5452B44295B00DF24B5 /* AboutView.swift */,
 				1158CFEA2B39BDF400DF24B5 /* ContentView.swift */,
 				1158CFE82B39BDF400DF24B5 /* Main.swift */,
+				113DEF852B48935400DF24B5 /* PayloadViewModel.swift */,
 				11E7F5472B442DA800DF24B5 /* SettingsView.swift */,
 				113DEF832B485B8500DF24B5 /* Utils.swift */,
 			);
@@ -462,6 +465,7 @@
 				11E7F5482B442DA800DF24B5 /* SettingsView.swift in Sources */,
 				11E7F5462B44295B00DF24B5 /* AboutView.swift in Sources */,
 				113DEF842B485B8500DF24B5 /* Utils.swift in Sources */,
+				113DEF862B48935400DF24B5 /* PayloadViewModel.swift in Sources */,
 				1158CFE92B39BDF400DF24B5 /* Main.swift in Sources */,
 				11F0E38D2B4349C400DF24B5 /* NXHekateCustomizer.m in Sources */,
 				11F0E38E2B4349C600DF24B5 /* NXExec.m in Sources */,

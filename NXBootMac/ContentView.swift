@@ -1,32 +1,6 @@
 import SwiftUI
 import Combine
 
-extension View {
-    func border(_ alignment: Alignment) -> some View {
-        return self.border(alignment, color: Color.black.opacity(0.15))
-    }
-
-    func border(_ alignment: Alignment, color: Color) -> some View {
-        return self.overlay(Rectangle().frame(width: nil, height: 1, alignment: alignment).foregroundColor(color), alignment: alignment)
-    }
-}
-
-struct Payload: Hashable, Identifiable, Equatable {
-    var id: String { path }
-    var path: String
-    var name: String {
-        get {
-            let fileName = (path as NSString).lastPathComponent
-            return (fileName as NSString).deletingPathExtension
-        }
-        set {
-            let dir = (path as NSString).deletingLastPathComponent
-            let ext = (path as NSString).pathExtension
-            path = "\(dir)/\(newValue.replacing(/[\/:]/, with: " ")).\(ext)"
-        }
-    }
-}
-
 struct PayloadActionImage: View {
     var imageName: String
     var hoveringRow: Bool
@@ -57,6 +31,28 @@ struct PayloadActionButton: View {
     }
 }
 
+enum PayloadError: LocalizedError {
+    case importFailed(Error)
+    case renameFailed(Error)
+    case deleteFailed(Error)
+
+    var errorDescription: String? {
+        switch self {
+        case .importFailed(_): return "Error Importing Payload"
+        case .renameFailed(_): return "Error Renaming Payload"
+        case .deleteFailed(_): return "Error Deleting Payload"
+        }
+    }
+
+    var failureReason: String? {
+        switch self {
+        case .importFailed(let error): return error.localizedDescription
+        case .renameFailed(let error): return error.localizedDescription
+        case .deleteFailed(let error): return error.localizedDescription
+        }
+    }
+}
+
 struct PayloadView: View {
     @Binding var payload: Payload
     @Binding var selectPayload: Payload?
@@ -65,6 +61,23 @@ struct PayloadView: View {
 
     @State private var hoveringRow = false
     @State private var hoveringDragHandle: Bool = false
+
+    private var payloadDate: String {
+        guard let fileDate = payload.fileModificationDate else {
+            return "[no date]"
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .none
+        return dateFormatter.string(from: fileDate)
+    }
+
+    private var payloadSize: String {
+        guard let fileSize = payload.fileSize else {
+            return "[no size]"
+        }
+        return "\(fileSize / 1024) KiB"
+    }
 
     var body: some View {
         HStack() {
@@ -80,7 +93,7 @@ struct PayloadView: View {
                     .opacity(selectPayload == payload ? 1.0 : 0.0)
                 VStack(alignment: .leading) {
                     Text(payload.name)
-                    Text("Detail text goes here")
+                    Text("From \(payloadDate) (\(payloadSize))")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -109,27 +122,35 @@ struct ContentView: View {
     @Binding public var payloads: [Payload]
     @Binding public var selectPayload: Payload?
     @Binding public var autoBoot: Bool
+    public var onSelectPayload: () -> Void
+    public var onImportPayload: (URL) throws -> Payload
+    public var onRenamePayload: (Payload, String) throws -> Void
+    public var onDeletePayload: (Payload) throws -> Void
 
     @State private var renamePayload: Payload?
     @State private var renameTo: String = ""
     @FocusState private var renameFocused
 
+    @State private var showError = false
+    @State private var lastError: PayloadError?
+
     var body: some View {
         VStack(spacing: 0) {
-            List($payloads, id: \.self, editActions: [.move, .delete]) { payload in
-                PayloadView(
-                    payload: payload,
-                    selectPayload: $selectPayload,
-                    renamePayload: $renamePayload,
-                    deletePayload: { payload in
-                        payloads.removeAll { payloadToRemove in
-                            return payloadToRemove == payload
-                        }
-                    }
-                )
+            List {
+                ForEach($payloads, id: \.self) { payload in
+                    PayloadView(
+                        payload: payload,
+                        selectPayload: $selectPayload,
+                        renamePayload: $renamePayload,
+                        deletePayload: doDelete
+                    )
+                }
+                .onMove(perform: doMove)
+                .onDelete(perform: doDelete)
             }
             .listStyle(.inset(alternatesRowBackgrounds: true))
             .environment(\.defaultMinListRowHeight, 40)
+            .onDrop(of: [.fileURL], isTargeted: nil, perform: doDrop)
             .border(.bottom)
 
             HStack {
@@ -160,10 +181,7 @@ struct ContentView: View {
                 }
             }
             ToolbarItemGroup(placement: .automatic) {
-                Button(action: {
-                    let unixTime = NSDate().timeIntervalSince1970
-                    payloads.append(Payload(path: "payload\(unixTime).bin"))
-                }) {
+                Button(action: onSelectPayload) {
                     Image(systemName: "square.and.arrow.down")
                 }
             }
@@ -207,39 +225,114 @@ struct ContentView: View {
             .frame(width: 260)
             .onDisappear { renameTo = "" }
         }
+        .alert(isPresented: $showError, error: lastError) { _ in
+            Button("OK") { showError = false }
+        } message: { error in
+            Text(error.failureReason ?? "Failure reason could not be determined.")
+        }
+    }
+
+    private func doDrop(providers: [NSItemProvider]) -> Bool {
+        for provider in providers {
+            if provider.canLoadObject(ofClass: URL.self) {
+                _ = provider.loadObject(ofClass: URL.self) { url, error in
+                    guard let url = url else { return }
+                    DispatchQueue.main.async {
+                        do {
+                            try doImport(url)
+                        } catch {
+                            lastError = PayloadError.importFailed(error)
+                            showError = true
+                        }
+                    }
+                }
+            }
+        }
+        return true
     }
 
     private func doBoot() {
         // TODO: boot
     }
 
+    private func doImport(_ url: URL) throws {
+        let payload = try onImportPayload(url)
+        if !autoBoot {
+            selectPayload = payload
+        }
+    }
+
+    private func doMove(from source: IndexSet, to destination: Int) {
+        payloads.move(fromOffsets: source, toOffset: destination)
+        // didSet property observer in view model stores new explicit order
+    }
+
     private func doRename() {
-        let selected = (selectPayload == renamePayload)
-        if let index = payloads.firstIndex(where: { $0 == renamePayload }) {
-            payloads[index].name = renameTo
-            if selected {
-                selectPayload = payloads[index]
+        guard let payload = renamePayload else { return }
+        do {
+            try onRenamePayload(payload, renameTo)
+            renamePayload = nil
+        } catch {
+            lastError = PayloadError.renameFailed(error)
+            showError = true
+        }
+    }
+
+    private func doDelete(_ payload: Payload) {
+        doDelete(at: IndexSet(integer: payloads.firstIndex(of: payload)!))
+    }
+
+    private func doDelete(at offsets: IndexSet) {
+        let payloads = payloads
+        for index in offsets {
+            do {
+                try onDeletePayload(payloads[index])
+            } catch {
+                lastError = PayloadError.deleteFailed(error)
+                showError = true
+                break
             }
         }
-        renamePayload = nil
     }
 }
 
 struct ContentViewPreview: View {
     @State var payloads: [Payload] = [
-        Payload(path: "foo.bin"),
-        Payload(path: "bar.bin"),
-        Payload(path: "baz.bin"),
+        Payload(URL(fileURLWithPath: "/tmp/foo.bin")),
+        Payload(URL(fileURLWithPath: "/tmp/bar.bin")),
+        Payload(URL(fileURLWithPath: "/tmp/baz.bin")),
     ]
-    @State var selectPayload: Payload? = Payload(path: "baz.bin")
+    @State var selectPayload: Payload? = nil
     @State var autoBoot: Bool = false
 
     var body: some View {
         ContentView(
             payloads: $payloads,
             selectPayload: $selectPayload,
-            autoBoot: $autoBoot
-        )
+            autoBoot: $autoBoot,
+            onSelectPayload: {
+                let unixTime = NSDate().timeIntervalSince1970
+                let payload = Payload(URL(fileURLWithPath: "/tmp/payload\(unixTime).bin"))
+                payloads.append(payload)
+                if !autoBoot {
+                    selectPayload = payload
+                }
+            },
+            onImportPayload: {
+                let payload = Payload($0)
+                payloads.append(payload)
+                if !autoBoot {
+                    selectPayload = payload
+                }
+                return payload
+            },
+            onRenamePayload: { payload, name in
+                guard let index = payloads.firstIndex(of: payload) else { return }
+                payloads[index].name = name
+            },
+            onDeletePayload: { payload in
+                payloads.removeAll(where: { $0 == payload })
+            })
     }
 }
 
