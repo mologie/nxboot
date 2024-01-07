@@ -13,6 +13,7 @@
 		115550312B4AF2A300DF24B5 /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550302B4AF2A300DF24B5 /* DeviceView.swift */; };
 		115550332B4AF3F400DF24B5 /* PayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550322B4AF3F400DF24B5 /* PayloadView.swift */; };
 		115550352B4AFC1D00DF24B5 /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550342B4AFC1D00DF24B5 /* Payload.swift */; };
+		115550372B4B18D000DF24B5 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550362B4B18D000DF24B5 /* Device.swift */; };
 		1158CFE92B39BDF400DF24B5 /* NXBootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFE82B39BDF400DF24B5 /* NXBootApp.swift */; };
 		1158CFEB2B39BDF400DF24B5 /* NXBootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFEA2B39BDF400DF24B5 /* NXBootView.swift */; };
 		1158CFED2B39BDF500DF24B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1158CFEC2B39BDF500DF24B5 /* Assets.xcassets */; };
@@ -124,6 +125,7 @@
 		115550302B4AF2A300DF24B5 /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
 		115550322B4AF3F400DF24B5 /* PayloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadView.swift; sourceTree = "<group>"; };
 		115550342B4AFC1D00DF24B5 /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
+		115550362B4B18D000DF24B5 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		1158CFE62B39BDF400DF24B5 /* NXBoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1158CFE82B39BDF400DF24B5 /* NXBootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXBootApp.swift; sourceTree = "<group>"; };
 		1158CFEA2B39BDF400DF24B5 /* NXBootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXBootView.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 				1158CFEE2B39BDF500DF24B5 /* Preview Content */,
 				1158CFF52B39BE7300DF24B5 /* Resources */,
 				11E7F5452B44295B00DF24B5 /* AboutView.swift */,
+				115550362B4B18D000DF24B5 /* Device.swift */,
 				115550302B4AF2A300DF24B5 /* DeviceView.swift */,
 				119EEF932B49C93600DF24B5 /* DeviceWatcher.swift */,
 				1158CFE82B39BDF400DF24B5 /* NXBootApp.swift */,
@@ -571,6 +574,7 @@
 				115550312B4AF2A300DF24B5 /* DeviceView.swift in Sources */,
 				1158CFEB2B39BDF400DF24B5 /* NXBootView.swift in Sources */,
 				115550352B4AFC1D00DF24B5 /* Payload.swift in Sources */,
+				115550372B4B18D000DF24B5 /* Device.swift in Sources */,
 				11E7F5462B44295B00DF24B5 /* AboutView.swift in Sources */,
 				113DEF842B485B8500DF24B5 /* Utils.swift in Sources */,
 				113DEF862B48935400DF24B5 /* PayloadStorage.swift in Sources */,

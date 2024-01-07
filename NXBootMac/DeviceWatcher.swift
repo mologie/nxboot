@@ -5,7 +5,7 @@ class DeviceWatcher: NXUSBDeviceEnumeratorDelegate {
     enum Connection: Equatable {
         case idle
         case error(String)
-        case device(NXUSBDevice)
+        case device(Device)
     }
 
     var connection = Connection.idle
@@ -22,11 +22,11 @@ class DeviceWatcher: NXUSBDeviceEnumeratorDelegate {
         usbEnumerator.stop()
     }
 
-    func usbDeviceEnumerator(_ deviceEnum: NXUSBDeviceEnumerator, deviceConnected device: NXUSBDevice) {
+    func usbDeviceEnumerator(_ deviceEnum: NXUSBDeviceEnumerator, deviceConnected device: Device) {
         connection = .device(device)
     }
 
-    func usbDeviceEnumerator(_ deviceEnum: NXUSBDeviceEnumerator, deviceDisconnected device: NXUSBDevice) {
+    func usbDeviceEnumerator(_ deviceEnum: NXUSBDeviceEnumerator, deviceDisconnected device: Device) {
         if case let .device(oldDevice) = connection, oldDevice == device {
             connection = .idle
         }
@@ -36,25 +36,4 @@ class DeviceWatcher: NXUSBDeviceEnumeratorDelegate {
     func usbDeviceEnumerator(_ deviceEnum: NXUSBDeviceEnumerator, deviceError err: String) {
         connection = .error(err)
     }
-}
-
-struct BootError: LocalizedError {
-    let error: String
-    var errorDescription: String? { "Error launching payload. \(error)" }
-}
-
-extension NXUSBDevice: @unchecked Sendable {
-    func boot(_ payload: Data, intermezzo: Data) throws {
-        var error: NSString?
-        if !NXExec(self, intermezzo, payload, &error) {
-            throw BootError(error: error! as String)
-        }
-    }
-}
-
-enum LastBootState {
-    case notAttempted
-    case inProgress
-    case succeeded
-    case failed(Error)
 }

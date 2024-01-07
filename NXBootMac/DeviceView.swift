@@ -1,12 +1,11 @@
 import SwiftUI
-import NXBootKit
 
 struct DeviceView: View {
     var selectPayload: Payload?
     var connection: DeviceWatcher.Connection
-    var lastBoot: LastBootState
+    var lastBoot: NXBootApp.LastBootState
     var autoBoot: Bool
-    var onBootPayload: @MainActor (Payload, NXUSBDevice) async -> Void
+    var onBootPayload: @MainActor (Payload, Device) async -> Void
 
     private var title: String {
         switch connection {

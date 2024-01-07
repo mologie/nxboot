@@ -1,5 +1,3 @@
-import Combine
-import NXBootKit
 import SwiftUI
 
 @main
@@ -11,6 +9,12 @@ struct NXBootApp: App {
     private var intermezzo: Data = { NSDataAsset(name: "Intermezzo")!.data }()
 
     // device stuff
+    enum LastBootState {
+        case notAttempted
+        case inProgress
+        case succeeded
+        case failed(Error)
+    }
     @State private var deviceWatcher: DeviceWatcher
     @State private var lastBoot: LastBootState = .notAttempted
 
@@ -115,7 +119,7 @@ struct NXBootApp: App {
         aboutWindowController = AboutWindowController.controller()
     }
 
-    private func bootPayload(_ payload: Payload, on device: NXUSBDevice) async {
+    private func bootPayload(_ payload: Payload, on device: Device) async {
         guard case .notAttempted = lastBoot else { return }
         do {
             lastBoot = .inProgress

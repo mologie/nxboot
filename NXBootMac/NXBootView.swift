@@ -1,5 +1,3 @@
-import Combine
-import NXBootKit
 import SwiftUI
 
 @MainActor
@@ -7,9 +5,9 @@ struct NXBootView<PayloadStorageModel: PayloadStorage>: View {
     @Environment(\.undoManager) var undoManager
     @Bindable var storage: PayloadStorageModel
     @Binding var connection: DeviceWatcher.Connection
-    @Binding var lastBoot: LastBootState
+    @Binding var lastBoot: NXBootApp.LastBootState
     @Binding var autoBoot: Bool
-    var onBootPayload: @MainActor (Payload, NXUSBDevice) async -> Void
+    var onBootPayload: @MainActor (Payload, Device) async -> Void
     var onSelectPayload: @MainActor () async -> Payload?
 
     @State private var renamePayload: Payload?
