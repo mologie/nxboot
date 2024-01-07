@@ -1,5 +1,6 @@
-import SwiftUI
 import Combine
+import NXBootKit
+import SwiftUI
 
 struct PayloadActionImage: View {
     var imageName: String
@@ -9,7 +10,7 @@ struct PayloadActionImage: View {
     var body: some View {
         Image(systemName: imageName)
             .renderingMode(.template)
-            .foregroundColor(hoveringButton ? .nxBootBlue : .primary)
+            .foregroundColor(hoveringButton ? .accentColor : .primary)
             .opacity(hoveringRow ? 1.0 : 0.3)
             .padding([.trailing], 5)
     }
@@ -80,14 +81,14 @@ struct PayloadView: View {
     }
 
     var body: some View {
-        HStack() {
+        HStack {
             Button(action: {
                 selectPayload = payload
             }) {
                 Image(systemName: "arrow.forward")
                     .resizable()
                     .renderingMode(.template)
-                    .foregroundColor(.nxBootBlue)
+                    .foregroundColor(.accentColor)
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 24)
                     .opacity(selectPayload == payload ? 1.0 : 0.0)
@@ -118,14 +119,25 @@ struct PayloadView: View {
     }
 }
 
+enum LastBootState {
+    case notAttempted
+    case inProgress
+    case succeeded
+    case failed(Error)
+}
+
+@MainActor
 struct ContentView: View {
     @Binding public var payloads: [Payload]
     @Binding public var selectPayload: Payload?
+    @Binding public var device: DeviceState
+    @Binding public var lastBoot: LastBootState
     @Binding public var autoBoot: Bool
-    public var onSelectPayload: () -> Void
-    public var onImportPayload: (URL) throws -> Payload
-    public var onRenamePayload: (Payload, String) throws -> Void
-    public var onDeletePayload: (Payload) throws -> Void
+    public var onBootPayload: @MainActor (Payload, NXUSBDevice) async -> Void
+    public var onSelectPayload: @MainActor () -> Void
+    public var onImportPayload: @MainActor (URL) throws -> Payload
+    public var onRenamePayload: @MainActor (Payload, String) throws -> Void
+    public var onDeletePayload: @MainActor (Payload) throws -> Void
 
     @State private var renamePayload: Payload?
     @State private var renameTo: String = ""
@@ -133,6 +145,67 @@ struct ContentView: View {
 
     @State private var showError = false
     @State private var lastError: PayloadError?
+
+    var deviceTitle: String {
+        switch device {
+        case .idle:
+            return "Waiting for device..."
+        case .error(_):
+            return "USB error"
+        case .connected(_):
+            return "Device connected in RCM mode"
+        }
+    }
+
+    var deviceFootnote: String {
+        switch device {
+        case .idle:
+            let message: String
+            if autoBoot {
+                if selectPayload != nil {
+                    message = "Selected payload will be booted on connection"
+                } else {
+                    message = "Select a payload to boot it on connection"
+                }
+            } else {
+                message = "Connect your Tegra X1 device in RCM mode"
+            }
+            switch lastBoot {
+            case .succeeded:
+                return "\(message). Last boot succeeded."
+            case .failed(let bootError):
+                return "\(message). Last boot: \(bootError.localizedDescription)"
+            default:
+                return message
+            }
+        case .error(let errorDescription):
+            return errorDescription
+        case .connected(_):
+            switch lastBoot {
+            case .notAttempted:
+                return "Ready to boot"
+            case .inProgress:
+                return "Booting..."
+            case .succeeded:
+                return "Payload started 🎉"
+            case .failed(let bootError):
+                return bootError.localizedDescription
+            }
+        }
+    }
+
+    var deviceStatusColor: Color {
+        switch device {
+        case .idle, .error(_):
+            return .red
+        case .connected(_):
+            switch lastBoot {
+            case .notAttempted, .succeeded: return .green
+            case .inProgress: return .yellow
+            case .failed(_): return .red
+            }
+        }
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -142,32 +215,50 @@ struct ContentView: View {
                         payload: payload,
                         selectPayload: $selectPayload,
                         renamePayload: $renamePayload,
-                        deletePayload: doDelete
+                        deletePayload: { deletePayload($0) }
                     )
                 }
-                .onMove(perform: doMove)
-                .onDelete(perform: doDelete)
+                .onMove(perform: { movePayload(from: $0, to: $1) })
+                .onDelete(perform: { deletePayload(at: $0) })
             }
             .listStyle(.inset(alternatesRowBackgrounds: true))
             .environment(\.defaultMinListRowHeight, 40)
-            .onDrop(of: [.fileURL], isTargeted: nil, perform: doDrop)
+            .onDrop(of: [.fileURL], isTargeted: nil, perform: { doDrop(providers: $0) })
             .border(.bottom)
 
             HStack {
-                HStack {
+                HStack(spacing: 10) {
                     Circle()
-                        .foregroundColor(.red)
+                        .foregroundColor(deviceStatusColor)
                         .frame(width: 16, height: 16)
                     VStack(alignment: .leading) {
-                        Text("Waiting for device...")
-                        Text("Connect your Nintendo Switch in RCM mode")
+                        Text(deviceTitle)
+                        Text(deviceFootnote)
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
                 }
                 Spacer()
-                Button("Boot Payload", action: doBoot)
-                    .disabled(selectPayload == nil)
+                if !autoBoot {
+                    Button(action: {
+                        guard let payload = selectPayload else { return }
+                        guard case let .connected(device) = device else { return }
+                        Task { @MainActor in
+                            await onBootPayload(payload, device)
+                        }
+                    }, label: {
+                        Text("Boot Payload")
+                            .frame(height: 26)
+                            .padding([.leading, .trailing], 10)
+                    })
+                    .buttonStyle(.borderedProminent)
+                    .disabled({
+                        if selectPayload == nil { return true }
+                        guard case .connected(_) = device else { return true }
+                        guard case .notAttempted = lastBoot else { return true }
+                        return false
+                    }())
+                }
             }
             .padding()
             .background(TranslucentBackgroundView())
@@ -176,18 +267,23 @@ struct ContentView: View {
         .navigationSubtitle(selectPayload != nil ? "using \(selectPayload!.name)" : "no payload selected")
         .toolbar {
             ToolbarItemGroup(placement: .automatic) {
-                Button(action: onSelectPayload) {
+                Button(action: { onSelectPayload() }) {
                     Image(systemName: "square.and.arrow.down")
                 }
             }
-            ToolbarItemGroup(placement: .automatic, content: {
-                Picker(selection: $autoBoot, content: {
-                    Text("auto-boot").tag(true)
-                    Text("manual").tag(false)
-                }, label: {})
-                .pickerStyle(InlinePickerStyle())
-                .padding([.leading])
-            })
+            ToolbarItemGroup(
+                placement: .automatic,
+                content: {
+                    Picker(
+                        selection: $autoBoot,
+                        content: {
+                            Text("auto-boot").tag(true)
+                            Text("manual").tag(false)
+                        }, label: {}
+                    )
+                    .pickerStyle(InlinePickerStyle())
+                    .padding([.leading])
+                })
         }
         .sheet(item: $renamePayload) { payload in
             VStack(spacing: 10) {
@@ -202,18 +298,23 @@ struct ContentView: View {
                     .focused($renameFocused)
                     .defaultFocus($renameFocused, true)
                     .padding([.top, .bottom], 5)
-                    .onSubmit(doRename)
+                    .onSubmit { renamePayloadCommit() }
                 HStack {
-                    Button(action: { renamePayload = nil }, label: {
-                        Text("Cancel")
-                            .frame(height: 26)
-                            .frame(maxWidth: .infinity)
-                    })
-                    Button(action: doRename, label: {
-                        Text("Rename")
-                            .frame(height: 26)
-                            .frame(maxWidth: .infinity)
-                    }).buttonStyle(.borderedProminent)
+                    Button(
+                        action: { renamePayload = nil },
+                        label: {
+                            Text("Cancel")
+                                .frame(height: 26)
+                                .frame(maxWidth: .infinity)
+                        })
+                    Button(
+                        action: { renamePayloadCommit() },
+                        label: {
+                            Text("Rename")
+                                .frame(height: 26)
+                                .frame(maxWidth: .infinity)
+                        }
+                    ).buttonStyle(.borderedProminent)
                 }
             }
             .padding()
@@ -232,9 +333,9 @@ struct ContentView: View {
             if provider.canLoadObject(ofClass: URL.self) {
                 _ = provider.loadObject(ofClass: URL.self) { url, error in
                     guard let url = url else { return }
-                    DispatchQueue.main.async {
+                    Task { @MainActor in
                         do {
-                            try doImport(url)
+                            try importPayload(url)
                         } catch {
                             lastError = PayloadError.importFailed(error)
                             showError = true
@@ -246,23 +347,19 @@ struct ContentView: View {
         return true
     }
 
-    private func doBoot() {
-        // TODO: boot
-    }
-
-    private func doImport(_ url: URL) throws {
+    private func importPayload(_ url: URL) throws {
         let payload = try onImportPayload(url)
         if !autoBoot {
             selectPayload = payload
         }
     }
 
-    private func doMove(from source: IndexSet, to destination: Int) {
+    private func movePayload(from source: IndexSet, to destination: Int) {
         payloads.move(fromOffsets: source, toOffset: destination)
         // didSet property observer in view model stores new explicit order
     }
 
-    private func doRename() {
+    private func renamePayloadCommit() {
         guard let payload = renamePayload else { return }
         do {
             try onRenamePayload(payload, renameTo)
@@ -273,11 +370,11 @@ struct ContentView: View {
         }
     }
 
-    private func doDelete(_ payload: Payload) {
-        doDelete(at: IndexSet(integer: payloads.firstIndex(of: payload)!))
+    private func deletePayload(_ payload: Payload) {
+        deletePayload(at: IndexSet(integer: payloads.firstIndex(of: payload)!))
     }
 
-    private func doDelete(at offsets: IndexSet) {
+    private func deletePayload(at offsets: IndexSet) {
         let payloads = payloads
         for index in offsets {
             do {
@@ -304,7 +401,10 @@ struct ContentViewPreview: View {
         ContentView(
             payloads: $payloads,
             selectPayload: $selectPayload,
+            device: .constant(.idle),
+            lastBoot: .constant(.notAttempted),
             autoBoot: $autoBoot,
+            onBootPayload: { payload, device in },
             onSelectPayload: {
                 let unixTime = NSDate().timeIntervalSince1970
                 let payload = Payload(URL(fileURLWithPath: "/tmp/payload\(unixTime).bin"))

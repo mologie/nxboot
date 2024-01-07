@@ -73,8 +73,7 @@
             [self.progressView setProgress:0 animated:NO];
             self.progressView.hidden = NO;
             self.progressView.alpha = 1.0;
-        }
-        else {
+        } else {
             [self.activityIndicatorView stopAnimating];
             [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
                 self.progressView.alpha = 0.0;
@@ -84,11 +83,9 @@
                 }
             }];
         }
-    }
-    else if (object == self.webView && [keyPath isEqualToString:@"estimatedProgress"]) {
+    } else if (object == self.webView && [keyPath isEqualToString:@"estimatedProgress"]) {
         [self.progressView setProgress:self.webView.estimatedProgress animated:YES];
-    }
-    else {
+    } else {
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
     }
 }
@@ -106,8 +103,7 @@
 - (IBAction)browserReloadButtonTapped:(id)sender {
     if (self.webView.URL) {
         [self.webView reload];
-    }
-    else {
+    } else {
         [self.webView loadRequest:[NSURLRequest requestWithURL:self.startURL]];
     }
 }

@@ -36,20 +36,29 @@ static NSString *const NXBootSettingsKeyEnableUsagePings = @"NXBootEnableUsagePi
 }
 
 + (void)applySentryOptions {
-    [SentrySDK close];
-    if (!Settings.enableCrashReports && !Settings.enableUsagePings) {
-        return;
-    }
-    [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
-        options.dsn = @"https://6f191f8afd06257e9b2c2cdd7977cd1e@o4506496566231040.ingest.sentry.io/4506496570032128";
-        options.enableAppHangTracking = false;
-        options.enableAutoSessionTracking = Settings.enableUsagePings;
-        options.enableCrashHandler = Settings.enableCrashReports;
-        options.enableWatchdogTerminationTracking = false;
+    // Sentry is only supported on iOS 11 and later, but built by default for iOS 12 and later.
+    // Won't touch it on older platforms to avoid crashes.
+    static bool initialized = false;
+    if (@available(iOS 12, *)) {
+        if (initialized) {
+            [SentrySDK close];
+            initialized = false;
+        }
+        if (!Settings.enableCrashReports && !Settings.enableUsagePings) {
+            return;
+        }
+        [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
+            options.dsn = @"https://6f191f8afd06257e9b2c2cdd7977cd1e@o4506496566231040.ingest.sentry.io/4506496570032128";
+            options.enableAppHangTracking = false;
+            options.enableAutoSessionTracking = Settings.enableUsagePings;
+            options.enableCrashHandler = Settings.enableCrashReports;
+            options.enableWatchdogTerminationTracking = false;
 #ifdef DEBUG
-        options.debug = true;
+            options.debug = true;
 #endif
-    }];
+        }];
+        initialized = true;
+    }
 }
 
 @end

@@ -1,10 +1,3 @@
-/**
- * @file uses Hekate's payload storage for customizing boot behavior
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
- */
-
-#pragma once
-
 #import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN

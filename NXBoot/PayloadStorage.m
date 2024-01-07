@@ -1,8 +1,8 @@
 #import "PayloadStorage.h"
 
 // for data migration from v0.1
-#import <CoreData/CoreData.h>
 #import "FLBootProfile+CoreDataClass.h"
+#import <CoreData/CoreData.h>
 
 NSNotificationName const NXBootPayloadStorageChangedExternally = @"NXBootPayloadStorageChangedExternally";
 static NSString *const NXBootPayloadsExplicitOrder = @"NXBootPayloadsExplicitOrder";

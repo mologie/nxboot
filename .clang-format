@@ -1,0 +1,45 @@
+BasedOnStyle: LLVM
+Standard: c++17
+
+# indentation
+AccessModifierOffset: -4
+ColumnLimit: 0
+ContinuationIndentWidth: 8
+IndentCaseLabels: true
+IndentPPDirectives: None
+IndentWidth: 4
+ObjCBlockIndentWidth: 4
+
+# alignment
+AlignConsecutiveMacros: Consecutive
+AlignOperands: DontAlign
+AlignEscapedNewlines: DontAlign
+PackConstructorInitializers: NextLine
+
+# strict braces and newlines
+AlwaysBreakTemplateDeclarations: Yes
+BreakBeforeBraces: Custom
+BraceWrapping:
+  SplitEmptyFunction: false
+BreakBeforeInheritanceComma: true
+BreakConstructorInitializers: BeforeComma
+EmptyLineBeforeAccessModifier: Always
+InsertBraces: true
+InsertNewlineAtEOF: true
+KeepEmptyLinesAtEOF: false
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 1
+ObjCBreakBeforeNestedBlockParam: false
+ObjCSpaceAfterProperty: true
+ObjCSpaceBeforeProtocolList: true
+SpacesInContainerLiterals: false
+
+# cosmetic sorting of include blocks (insert two new lines to create blocks)
+SortIncludes: CaseSensitive
+SortUsingDeclarations: Lexicographic
+
+# clang-format integration
+WhitespaceSensitiveMacros:
+  - NS_ERROR_ENUM
+  - NS_SWIFT_NAME
+  - CF_SWIFT_NAME

@@ -1,18 +1,21 @@
 import AppKit
-import Foundation
 import Combine
+import Foundation
 
-class Payload: Identifiable, Equatable, Hashable, ObservableObject {
-    @Published var url: URL
-    @Published var fileSize: Int?
-    @Published var fileModificationDate: Date?
+@Observable
+final class Payload: Identifiable, Equatable, Hashable {
+    var url: URL
+    var fileSize: Int?
+    var fileModificationDate: Date?
 
     var fileName: String { url.lastPathComponent }
     var name: String {
         get { url.deletingPathExtension().lastPathComponent }
-        set { url = url.deletingLastPathComponent()
+        set {
+            url = url.deletingLastPathComponent()
                 .appending(component: newValue.replacing(/[\/:]/, with: " "))
-                .appendingPathExtension(url.pathExtension) }
+                .appendingPathExtension(url.pathExtension)
+        }
     }
 
     init(_ from: URL) {
@@ -29,16 +32,22 @@ class Payload: Identifiable, Equatable, Hashable, ObservableObject {
     static func == (lhs: Payload, rhs: Payload) -> Bool { return lhs.id == rhs.id }
 }
 
-class PayloadViewModel: ObservableObject {
-    @Published var payloads: [Payload] {
+enum PayloadModelError: Error {
+    case observingFolder
+}
+
+@Observable
+@MainActor
+class PayloadModel {
+    var payloads: [Payload] {
         didSet {
             UserDefaults.standard.set(payloads.map { $0.fileName }, forKey: "NXBootPayloadsExplicitOrder")
             if let bootPayload, payloads.firstIndex(of: bootPayload) == nil {
-                self.bootPayload = nil // because the boot payload is no longer available
+                self.bootPayload = nil  // because the boot payload is no longer available
             }
         }
     }
-    @Published var bootPayload: Payload? {
+    var bootPayload: Payload? {
         didSet {
             UserDefaults.standard.set(bootPayload?.fileName, forKey: "NXBootSelectedPayload")
         }
@@ -46,43 +55,42 @@ class PayloadViewModel: ObservableObject {
 
     public let payloadsFolder: URL
 
-    private var refreshDebounceItem: DispatchWorkItem?
-    private lazy var refreshWatcher: DispatchSourceFileSystemObject = {
-        let fileDescriptor = open(payloadsFolder.path, O_EVTONLY)
-        guard fileDescriptor >= 0 else { fatalError("failed to open payload folder for events") }
-        let watcher = DispatchSource.makeFileSystemObjectSource(
-            fileDescriptor: fileDescriptor,
-            eventMask: [.write, .delete],
-            queue: DispatchQueue.global(qos: .default)
-        )
-        watcher.setEventHandler { [weak self] in
-            // debounce in case of a flood of update events
-            guard let self = self else { return }
-            let workItem = DispatchWorkItem { [weak self] in self?.refreshPayloads() }
-            self.refreshDebounceItem?.cancel()
-            self.refreshDebounceItem = workItem
-            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: workItem)
-        }
-        watcher.setCancelHandler {
-            close(fileDescriptor)
-        }
-        return watcher
-    }()
+    private var refreshTask: Task<Void, Error>?
+    private var refreshWatcher: DispatchSourceFileSystemObject
 
     init(payloadsFolder url: URL) throws {
         payloadsFolder = url
-        try FileManager.default.createDirectory(at: payloadsFolder, withIntermediateDirectories: true)
+        payloads = []
 
-        payloads = try PayloadViewModel.loadPayloads(payloadsFolder: payloadsFolder)
+        try FileManager.default.createDirectory(at: payloadsFolder, withIntermediateDirectories: true)
+        let fd = open(payloadsFolder.path, O_EVTONLY)
+        guard fd >= 0 else { throw PayloadModelError.observingFolder }
+        refreshWatcher = DispatchSource.makeFileSystemObjectSource(
+            fileDescriptor: fd,
+            eventMask: [.write, .delete],
+            queue: DispatchQueue.global(qos: .default)
+        )
+        refreshWatcher.setCancelHandler {
+            close(fd)
+        }
+        refreshWatcher.setEventHandler { [weak self] in
+            // debounce in case of a flood of update events
+            guard let self = self else { return }
+            self.refreshTask = Task { [weak self] in
+                try await Task.sleep(for: .milliseconds(100))
+                self?.refreshPayloads()
+            }
+        }
+        refreshWatcher.resume()
+
+        payloads = try loadPayloads()
         if let bootFileName = UserDefaults.standard.string(forKey: "NXBootSelectedPayload") {
             bootPayload = payloads.first(where: { $0.fileName == bootFileName })
         }
-
-        refreshWatcher.resume()
     }
 
     deinit {
-        refreshWatcher.cancel()
+        // TODO: refreshWatcher.cancel()
     }
 
     func refreshPayloads() {
@@ -93,20 +101,17 @@ class PayloadViewModel: ObservableObject {
             self.payloads.append(contentsOf: availablePayloads.filter { !currentPaths.contains($0.url) })
             self.payloads.removeAll(where: { !availablePaths.contains($0.url) })
         } catch {
-            fatalError("failed to refresh payload list: \(error)")
+            print("DirWatcher: Failed to refresh payload list: \(error.localizedDescription)")
         }
     }
 
     private func loadPayloads() throws -> [Payload] {
-        return try PayloadViewModel.loadPayloads(payloadsFolder: payloadsFolder)
-    }
-
-    static private func loadPayloads(payloadsFolder: URL) throws -> [Payload] {
         var unorderedPayloads = try FileManager.default.contentsOfDirectory(
             at: payloadsFolder,
-            includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey, .isRegularFileKey])
-            .filter { $0.path.hasSuffix(".bin") && (try! $0.resourceValues(forKeys: [.isRegularFileKey])).isRegularFile! }
-            .map { Payload($0) }
+            includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey, .isRegularFileKey]
+        )
+        .filter { $0.path.hasSuffix(".bin") && (try! $0.resourceValues(forKeys: [.isRegularFileKey])).isRegularFile! }
+        .map { Payload($0) }
         var result: [Payload] = []
         let explicitOrder = UserDefaults.standard.stringArray(forKey: "NXBootPayloadsExplicitOrder")
         if let explicitOrder {

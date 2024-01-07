@@ -1,11 +1,3 @@
-/**
- * @file listens for USB device connections matching a PID and VID
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
- *
- * The control flow of this class is from Apple's "Another USB Notification Example", though most of it has been
- * adapted to Objective-C and the requirements of this application.
- */
-
 #import "NXUSBDeviceEnumerator.h"
 #import "NXBootKit.h"
 #import <IOKit/IOKitLib.h>
@@ -154,7 +146,7 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
         }
         kr = (*plugInInterface)->QueryInterface(plugInInterface,
                                                 CFUUIDGetUUIDBytes(kNXUSBDeviceInterfaceUUID),
-                                                (void*)&device->_intf);
+                                                (void *)&device->_intf);
         NXCOMCall(plugInInterface, Release);
         plugInInterface = NULL;
         if (kr || !device->_intf) {
@@ -187,6 +179,10 @@ static void bridgeDeviceNotification(void *u, io_service_t service, natural_t me
 
     cleanup:
         kr = IOObjectRelease(service);
+        if (kr != KERN_SUCCESS) {
+            ERR(@"IOObjectRelease for device failed with code 0x%08x", kr);
+            goto cleanup;
+        }
     }
 }
 

@@ -1,17 +1,16 @@
 #import "MainViewController.h"
-#import "PayloadStorage.h"
 #import "AppDelegate.h"
 #import "FLBootProfile+CoreDataClass.h"
 #import "NXExec.h"
 #import "NXUSBDeviceEnumerator.h"
+#import "PayloadStorage.h"
 #import "Settings.h"
 
 @import Sentry;
 
 @interface MainViewController () <
-    NXUSBDeviceEnumeratorDelegate,
-    UIDocumentPickerDelegate
->
+        NXUSBDeviceEnumeratorDelegate,
+        UIDocumentPickerDelegate>
 
 @property (nonatomic, strong) UIColor *textColorButton;
 @property (nonatomic, strong) UIColor *textColorInactive;
@@ -53,7 +52,7 @@
 
     self.usbEnum = [[NXUSBDeviceEnumerator alloc] init];
     self.usbEnum.delegate = self;
-    [self.usbEnum setFilterForVendorID:kTegraNintendoSwitchVendorID productID:kTegraNintendoSwitchProductID];
+    [self.usbEnum setFilterForVendorID:kTegraX1VendorID productID:kTegraX1ProductID];
     [self.usbEnum start];
 
     self.navigationItem.leftBarButtonItem = self.settingsButtonItem;
@@ -80,12 +79,11 @@
 
     assert(self.usbDevice != nil);
     NSString *error = nil;
-    if (NXExec(self.usbDevice->_intf, relocator, payloadData, &error)) {
+    if (NXExec(self.usbDevice, relocator, payloadData, &error)) {
         self.usbError = nil;
         [self updateDeviceStatus:@"Payload injected 🎉"];
         event.message = [[SentryMessage alloc] initWithFormatted:@"Boot successful"];
-    }
-    else {
+    } else {
         self.usbError = error;
         [self updateDeviceStatus:@"Payload injection error"];
         event.message = [[SentryMessage alloc] initWithFormatted:[NSString stringWithFormat:@"Boot failed: %@", error]];
@@ -144,8 +142,7 @@ typedef NS_ENUM(NSInteger, TableSection) {
         if (editing && !wasEditing) {
             // add new payload row
             [self.tableView insertRowsAtIndexPaths:@[newPayloadPath] withRowAnimation:animation];
-        }
-        else if (!editing && wasEditing) {
+        } else if (!editing && wasEditing) {
             // remove new payload row
             [self.tableView deleteRowsAtIndexPaths:@[newPayloadPath] withRowAnimation:animation];
         }

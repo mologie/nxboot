@@ -1,10 +1,3 @@
-/**
- * @file listens for USB device connections matching a PID and VID
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
- */
-
-#pragma once
-
 #import <Foundation/Foundation.h>
 #import <NXBootKit/NXUSBDevice.h>
 

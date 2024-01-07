@@ -1,0 +1,13 @@
+{
+  "data" : [
+    {
+      "filename" : "intermezzo.bin",
+      "idiom" : "universal",
+      "universal-type-identifier" : "com.apple.macbinary-archive"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

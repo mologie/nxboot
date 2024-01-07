@@ -6,10 +6,6 @@
 # Managed by bundler
 vendor/bundle/
 
-# AppCenter xcframework binaries
-# TODO: There is no automated download method for those yet, consider using SPM
-vendor/Frameworks/
-
 # Xcode user
 xcuserdata
 *.xcuserstate
@@ -26,10 +22,10 @@ xcuserdata
 *.dSYM.zip
 *.dSYM
 
-# IntelliJ IDEA / AppCode
-/.idea
-
 # Build scripts output
 /bin
 /dist
 .ldid.*
+
+# Sentry
+.sentryclirc

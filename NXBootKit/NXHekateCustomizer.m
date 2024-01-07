@@ -1,8 +1,3 @@
-/**
- * @file uses Hekate's payload storage for customizing boot behavior
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
- */
-
 #import "NXHekateCustomizer.h"
 #import "NXBootKit.h"
 

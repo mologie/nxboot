@@ -1,8 +1,3 @@
-/**
- * @file represents one USB device
- * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
- */
-
 #import "NXUSBDevice.h"
 #import "NXBootKit.h"
 

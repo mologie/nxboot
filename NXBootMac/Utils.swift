@@ -31,7 +31,8 @@ struct WindowAccessor: NSViewRepresentable {
 
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
-        DispatchQueue.main.async {
+        Task { @MainActor in
+            assert(view.window != nil)
             self.window = view.window
         }
         return view

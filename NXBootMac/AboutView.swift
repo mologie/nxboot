@@ -1,22 +1,22 @@
 import SwiftUI
 
 struct Links {
-    static var homepage = URL(string: "https://mologie.github.io/nxboot/")!
-    static var repo = URL(string: "https://github.com/mologie/nxboot/")!
-    static var issues = URL(string: "https://github.com/mologie/nxboot/issues")!
+    static let homepage = URL(string: "https://mologie.github.io/nxboot/")!
+    static let repo = URL(string: "https://github.com/mologie/nxboot/")!
+    static let issues = URL(string: "https://github.com/mologie/nxboot/issues")!
 }
 
-fileprivate var aboutText = """
-NXBoot starts custom boot code on compatible Tegra X1 chips, including Nintendo Switch consoles released during or before 2019.
+private let aboutText = """
+    NXBoot starts custom boot code on compatible Tegra X1 chips, including Nintendo Switch consoles released during or before 2019.
 
-CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) and fail0verflow.com.
+    CVE-2018-6242 has been discovered and implemented by Kate Temkin (ktemkin.com) and fail0verflow.com.
 
-{re}switched's Python Fusée Launcher served as reference for implementing this application.
+    {re}switched's Python Fusée Launcher served as reference for implementing this application.
 
-This application is provided to you under the terms of the GNU General Public License v3 and comes \
-with absolutely no warranty. Improper use of custom boot code can damage your hardware or result \
-in exclusion from online services.
-"""
+    This application is provided to you under the terms of the GNU General Public License v3 and comes \
+    with absolutely no warranty. Improper use of custom boot code can damage your hardware or result \
+    in exclusion from online services.
+    """
 
 class AboutWindowController: NSWindowController {
     // using an AppKit controller instead of SwiftUI Window here for multiple perks:

@@ -1,5 +1,6 @@
 /**
- * @file exploits a Tegra X1 CPU's bootloader using Fusée Gelée
+ * @file NXExec.h
+ * @brief exploits a Tegra X1 CPU's bootloader using Fusée Gelée
  * @author Oliver Kuckertz <oliver.kuckertz@mologie.de>
  *
  * This class is a reimplementation of {re}switched's fusee-launcher.py for iOS/IOKit.
@@ -150,14 +151,14 @@ static BOOL NXExecFuseeGelee(struct NXExecDesc const *desc, NSData *payload, NSS
     NXLog(@"USB: Reading device ID...");
     NSData *deviceID = NXExecReadDeviceID(desc);
     if (!deviceID) {
-        ERR(@"Could not read device ID. Try restarting the Switch by holding the POWER button for 12 seconds.");
+        ERR(@"Could not read device ID. Was a payload launched already? If not, try restarting the Switch by holding the POWER button for 12 seconds.");
         return NO;
     }
     NXLog(@"USB: Device ID: %@", FLHexEncodedData(deviceID));
 
     // sanity check
     if (payload.length % kNXPacketMaxSize != 0) {
-        ERR(@"Payload must be a multiple of packet size");
+        ERR(@"Payload size must be a multiple of packet size");
         return NO;
     }
 
@@ -185,6 +186,7 @@ static BOOL NXExecFuseeGelee(struct NXExecDesc const *desc, NSData *payload, NSS
             return NO;
         }
         currentBuffer = 1;
+        (void)currentBuffer; // for analyzer
     }
     else {
         NXLog(@"USB: Already in high buffer");
@@ -212,7 +214,7 @@ static BOOL NXExecFuseeGelee(struct NXExecDesc const *desc, NSData *payload, NSS
         NXLog(@"USB: DeviceRequestTO failed - this is expected (code %08x)", kr);
     }
     else {
-        ERR(@"ControlRequestTO should have failed");
+        ERR(@"ControlRequestTO should have failed. Your device is likely patched.");
         return NO;
     }
 
@@ -333,7 +335,7 @@ struct NXExecDesc NXExecAcquireDeviceInterface(NXUSBDeviceInterface **device, NS
     }
     while ((intfService = IOIteratorNext(subIntfIter))) {
         NSNumber *intfnum = (__bridge_transfer NSNumber *)IORegistryEntryCreateCFProperty(intfService, CFSTR("bInterfaceNumber"), kCFAllocatorDefault, 0);
-        if (!intfnum) {
+        if (intfnum == nil) {
             NXLog(@"WARN: Could not get bInterfaceNumber for an interface, skipping it");
             continue;
         }
@@ -342,6 +344,7 @@ struct NXExecDesc NXExecAcquireDeviceInterface(NXUSBDeviceInterface **device, NS
         }
         IOObjectRelease(intfService);
         intfService = 0;
+        (void)intfService; // for analyzer
     }
     IOObjectRelease(subIntfIter);
     subIntfIter = 0;
@@ -420,10 +423,12 @@ cleanup_error:
     if (intfService) {
         IOObjectRetain(intfService);
         intfService = 0;
+        (void)intfService; // for analyzer
     }
     if (subIntfIter) {
         IOObjectRelease(subIntfIter);
         subIntfIter = 0;
+        (void)subIntfIter; // for analyzer
     }
     if (desc.intf) {
         NXCOMCall(desc.intf, USBInterfaceClose);
@@ -479,11 +484,11 @@ BOOL NXExecDesc(struct NXExecDesc const *desc, NSData *relocator, NSData *image,
     return NO;
 }
 
-BOOL NXExec(NXUSBDeviceInterface **device, NSData *relocator, NSData *image, NSString **err) {
-    if (!device || !relocator) {
+BOOL NXExec(NXUSBDevice *device, NSData *relocator, NSData *image, NSString **err) {
+    if (!device->_intf || !relocator) {
         return NO;
     }
-    struct NXExecDesc desc = NXExecAcquireDeviceInterface(device, err);
+    struct NXExecDesc desc = NXExecAcquireDeviceInterface(device->_intf, err);
     BOOL ok = NO;
     if (desc.intf) {
         ok = NXExecDesc(&desc, relocator, image, err);

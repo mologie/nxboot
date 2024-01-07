@@ -19,7 +19,7 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {}
 
-- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(nonnull NSDictionary<UIApplicationOpenURLOptionsKey, id> *)options {
     NSURL *documentsDir = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
     NSURL *inboxDir = [documentsDir URLByAppendingPathComponent:@"Inbox" isDirectory:YES].URLByResolvingSymlinksInPath;
     BOOL isInInbox = [url.URLByDeletingLastPathComponent.URLByResolvingSymlinksInPath isEqual:inboxDir];
