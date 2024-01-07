@@ -20,12 +20,14 @@ struct NXBootView<TPayloadService: PayloadService>: View {
         case importFailed(Error)
         case renameFailed(Error)
         case deleteFailed(Error)
+        case restoreFailed(Error)
 
         var errorDescription: String? {
             switch self {
             case .importFailed(_): return "Error Importing Payload"
             case .renameFailed(_): return "Error Renaming Payload"
             case .deleteFailed(_): return "Error Deleting Payload"
+            case .restoreFailed(_): return "Error Restoring Payload"
             }
         }
 
@@ -34,6 +36,7 @@ struct NXBootView<TPayloadService: PayloadService>: View {
             case .importFailed(let error): return error.localizedDescription
             case .renameFailed(let error): return error.localizedDescription
             case .deleteFailed(let error): return error.localizedDescription
+            case .restoreFailed(let error): return error.localizedDescription
             }
         }
     }
@@ -164,7 +167,7 @@ struct NXBootView<TPayloadService: PayloadService>: View {
     }
 
     private func importPayload(_ url: URL) async throws {
-        let payload = try await payloadService.importPayload(url, at: nil)
+        let payload = try await payloadService.importPayload(url, at: nil, withName: nil, move: false)
         if !autoBoot {
             payloadService.bootPayload = payload
         }
@@ -194,14 +197,29 @@ struct NXBootView<TPayloadService: PayloadService>: View {
         let payloads = payloadService.payloads
         for index in offsets {
             do {
-                let trashURL = try payloadService.deletePayload(payloads[index])
+                let payload = payloads[index]
+                let name = payload.name
+                let trashURL = try payloadService.deletePayload(payload)
+                let wasSelected = (payloadService.bootPayload == payload)
                 guard let undoFromURL = trashURL else { return }
                 undoManager?.registerUndo(withTarget: payloadService, handler: { service in
                     Task { @MainActor in
-                        _ = try await service.importPayload(undoFromURL, at: index)
+                        do {
+                            let payload = try await service.importPayload(
+                                undoFromURL,
+                                at: index,
+                                withName: name,
+                                move: true
+                            )
+                            if wasSelected {
+                                payloadService.bootPayload = payload
+                            }
+                        } catch {
+                            lastError = ActionError.restoreFailed(error)
+                            showError = true
+                        }
                     }
                 })
-                // TODO: track all other index-affecting ops, otherwise undo might crash
             } catch {
                 lastError = ActionError.deleteFailed(error)
                 showError = true
@@ -226,7 +244,7 @@ struct NXBootView_Preview: View {
             onSelectPayload: {
                 let unixTime = NSDate().timeIntervalSince1970
                 let url = URL(fileURLWithPath: "/tmp/payload\(unixTime).bin")
-                return try? await payloadService.importPayload(url, at: nil)
+                return try? await payloadService.importPayload(url, at: nil, withName: nil, move: false)
             })
     }
 }

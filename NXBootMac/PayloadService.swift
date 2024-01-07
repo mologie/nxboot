@@ -6,9 +6,9 @@ import NXBootKit
 protocol PayloadService: Observable, AnyObject {
     var payloads: [Payload] { get set }
     var bootPayload: Payload? { get set }
-    
+
     @discardableResult
-    func importPayload(_ fromURL: URL, at index: Int?) async throws -> Payload
+    func importPayload(_ fromURL: URL, at index: Int?, withName name: String?, move: Bool) async throws -> Payload
 
     func renamePayload(_ payload: Payload, name: String) throws
 
@@ -106,10 +106,10 @@ class PayloadServiceFolder: PayloadService {
     }
 
     @discardableResult
-    func importPayload(_ fromURL: URL, at index: Int?) async throws -> Payload {
-        let name = fromURL.deletingPathExtension().lastPathComponent
+    func importPayload(_ fromURL: URL, at index: Int?, withName name: String?, move: Bool) async throws -> Payload {
+        let name = name ?? fromURL.deletingPathExtension().lastPathComponent
         let newURL = rootPath.appending(component: "\(name).bin")
-        let copyTask = Task.detached(priority: .userInitiated) {
+        let fileOp = Task.detached(priority: .userInitiated) {
             // async because this might come from a network source, so copying will take time
             let rv = try fromURL.resourceValues(forKeys: [.fileSizeKey])
             guard let fileSize = rv.fileSize else {
@@ -118,11 +118,15 @@ class PayloadServiceFolder: PayloadService {
             if fileSize > NXMaxFuseePayloadSize {
                 throw ModelError.fileSizeExceeded(fromURL)
             }
-            try FileManager.default.copyItem(at: fromURL, to: newURL)
+            if move {
+                try FileManager.default.moveItem(at: fromURL, to: newURL)
+            } else {
+                try FileManager.default.copyItem(at: fromURL, to: newURL)
+            }
         }
-        try await copyTask.value
+        try await fileOp.value
         let payload = Payload(newURL)
-        if let index {
+        if let index, index <= payloads.count {
             payloads.insert(payload, at: index)
         } else {
             payloads.append(payload)
@@ -171,7 +175,7 @@ class PayloadServiceDummy: PayloadService {
 
     var bootPayload: Payload? = nil
 
-    func importPayload(_ fromURL: URL, at index: Int?) async throws -> Payload {
+    func importPayload(_ fromURL: URL, at index: Int?, withName name: String?, move: Bool) async throws -> Payload {
         let payload = Payload(fromURL)
         payloads.append(payload)
         return payload

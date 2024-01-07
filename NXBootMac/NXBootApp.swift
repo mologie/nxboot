@@ -49,7 +49,7 @@ struct NXBootApp: App {
                 }).keyboardShortcut("o", modifiers: [.command])
                 Toggle("Auto-boot Selected Payload", isOn: $autoBoot)
                 Divider()
-                Button("Open Payload Folder") {
+                Button("Open Payloads Folder") {
                     NSWorkspace.shared.open(payloadService.rootPath)
                 }
                 Button("Reload Payload List") { payloadService.refreshPayloads() }
@@ -157,7 +157,7 @@ struct NXBootApp: App {
     @discardableResult
     private func importPayload(from url: URL) async -> Payload? {
         do {
-            let payload = try await payloadService.importPayload(url, at: nil)
+            let payload = try await payloadService.importPayload(url, at: nil, withName: nil, move: false)
             if !autoBoot {
                 payloadService.bootPayload = payload
             }
