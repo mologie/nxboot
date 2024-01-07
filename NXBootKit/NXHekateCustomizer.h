@@ -1,4 +1,5 @@
 #import <Foundation/Foundation.h>
+#import <NXBootKit/NXVisibility.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +20,7 @@ typedef NS_ENUM(NSInteger, NXHekateStorageTarget) {
     NXHekateStorageTargetEmuGPP
 };
 
+NXBOOTKIT_PUBLIC
 @interface NXHekateCustomizer : NSObject
 
 - (instancetype)initWithPayload:(NSData *)payload;

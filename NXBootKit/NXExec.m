@@ -23,6 +23,11 @@ static UInt32 const kNXCmdHeaderSize   = 680;
 static UInt32 const kNXCmdMaxSize      = 0x30298; // approx. 192 KiB
 static UInt32 const kNXPacketMaxSize   = 0x1000;
 
+size_t const NXMaxFuseePayloadSize = kNXCmdMaxSize -
+    (kNXStackSprayEnd - kNXStackSprayStart) -
+    (kNXRelocatorAddr - kNXPayloadAddr) -
+    kNXCmdHeaderSize;
+
 static UInt8 DMADummyBuffer[kNXStackLowest - kNXCopyBuf1]; // 0x7000 / 28 KiB
 
 #define ERR(FMT, ...) NXExecSetError([NSString stringWithFormat:FMT, ##__VA_ARGS__], err)
@@ -104,7 +109,7 @@ static NSData *NXExecMakeFuseePayload(NSData *relocator, BOOL relocatorThumbMode
         ERR(@"Relocator binary exceeds size limit");
         return nil;
     }
-    if (iramImage.length > kNXCmdMaxSize - (kNXStackSprayEnd - kNXStackSprayStart) - (kNXRelocatorAddr - kNXPayloadAddr) - kNXCmdHeaderSize) {
+    if (iramImage.length > NXMaxFuseePayloadSize) {
         ERR(@"Boot image binary exceeds size limit");
         return nil;
     }

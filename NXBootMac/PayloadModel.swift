@@ -1,6 +1,7 @@
 import AppKit
 import Combine
 import Foundation
+import NXBootKit // for max payload size
 
 @Observable
 final class Payload: Identifiable, Equatable, Hashable {
@@ -32,8 +33,24 @@ final class Payload: Identifiable, Equatable, Hashable {
     static func == (lhs: Payload, rhs: Payload) -> Bool { return lhs.id == rhs.id }
 }
 
-enum PayloadModelError: Error {
-    case observingFolder
+enum PayloadModelError: LocalizedError {
+    case fileResourceUnavailable(URLResourceKey)
+    case fileSizeExceeded(URL)
+    case fileSizeInvalid(URL)
+    case observingFolderFailed
+
+    var errorDescription: String? {
+        switch self {
+        case .fileResourceUnavailable(let key):
+            return "Could not fetch payload file attribute \(key)."
+        case .fileSizeExceeded(let url):
+            return "\"\(url.lastPathComponent)\" does not appear to be a valid payload. Payloads must be at most \(NXMaxFuseePayloadSize / 1024) KiB large to fit into IRAM."
+        case .fileSizeInvalid(let url):
+            return "\"\(url.lastPathComponent)\" does not appear to be a valid payload. Its size must be a multiple of 4 KiB."
+        case .observingFolderFailed:
+            return "Internal error: Failed to begin observing changes in the Payloads storage folder."
+        }
+    }
 }
 
 @Observable
@@ -64,7 +81,7 @@ class PayloadModel {
 
         try FileManager.default.createDirectory(at: payloadsFolder, withIntermediateDirectories: true)
         let fd = open(payloadsFolder.path, O_EVTONLY)
-        guard fd >= 0 else { throw PayloadModelError.observingFolder }
+        guard fd >= 0 else { throw PayloadModelError.observingFolderFailed }
         refreshWatcher = DispatchSource.makeFileSystemObjectSource(
             fileDescriptor: fd,
             eventMask: [.write, .delete],
@@ -126,10 +143,24 @@ class PayloadModel {
         return result
     }
 
-    func importPayload(_ fromURL: URL) throws -> Payload {
+    func importPayload(_ fromURL: URL) async throws -> Payload {
         let name = fromURL.deletingPathExtension().lastPathComponent
         let newURL = payloadsFolder.appending(component: "\(name).bin")
-        try FileManager.default.copyItem(at: fromURL, to: newURL)
+        let copyTask = Task.detached(priority: .userInitiated) {
+            // async because this might come from a network source, so copying will take time
+            let rv = try fromURL.resourceValues(forKeys: [.fileSizeKey])
+            guard let fileSize = rv.fileSize else {
+                throw PayloadModelError.fileResourceUnavailable(.fileSizeKey)
+            }
+            if fileSize > NXMaxFuseePayloadSize {
+                throw PayloadModelError.fileSizeExceeded(fromURL)
+            }
+            if fileSize % 0x1000 != 0 {
+                throw PayloadModelError.fileSizeInvalid(fromURL)
+            }
+            try FileManager.default.copyItem(at: fromURL, to: newURL)
+        }
+        try await copyTask.value
         let payload = Payload(newURL)
         payloads.append(payload)
         return payload

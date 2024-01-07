@@ -33,6 +33,10 @@ struct Main: App {
             .background(WindowAccessor(window: $mainWindow))
             .frame(minWidth: 540, minHeight: 240)
             .frame(idealWidth: 640, idealHeight: 322)
+            .onOpenURL(perform: { url in
+                // something was dragged onto the application icon
+                Task { @MainActor in await importPayload(from: url) }
+            })
         }
         .windowResizability(.contentSize)
         .windowStyle(.automatic)
@@ -42,8 +46,9 @@ struct Main: App {
                 Button("About NXBoot") { aboutWindowController.showWindowCentered() }
             }
             CommandGroup(replacing: CommandGroupPlacement.newItem) {
-                Button("Add Payload File...", action: { selectPayload() })
-                    .keyboardShortcut("o", modifiers: [.command])
+                Button("Add Payload File...", action: {
+                    Task { @MainActor in await selectPayload() }
+                }).keyboardShortcut("o", modifiers: [.command])
                 Toggle("Auto-boot Selected Payload", isOn: $autoBoot)
                 Divider()
                 Button("Open Payload Folder") {
@@ -131,7 +136,7 @@ struct Main: App {
         }
     }
 
-    private func selectPayload() {
+    private func selectPayload() async {
         // Meh, no SwiftUI variant exists for this one. Worse yet, it needs a hack to retrieve the
         // SwiftUI window's NSWindow, so that the open and error dialogs can be attached properly.
         let openPanel = NSOpenPanel()
@@ -139,33 +144,35 @@ struct Main: App {
         openPanel.canChooseDirectories = false
         openPanel.allowsMultipleSelection = false
         openPanel.allowedContentTypes = [.data]
-        let completionHandler: (NSApplication.ModalResponse) -> Void = { response in
-            if response == .OK, let url = openPanel.urls.first {
-                Task {
-                    do {
-                        let payload = try payloadModel.importPayload(url)
-                        if !autoBoot {
-                            payloadModel.bootPayload = payload
-                        }
-                    } catch {
-                        let alert = NSAlert()
-                        alert.messageText = "Error Importing Payload"
-                        alert.informativeText = error.localizedDescription
-                        alert.alertStyle = .warning
-                        alert.addButton(withTitle: "OK")
-                        if let mainWindow {
-                            alert.beginSheetModal(for: mainWindow)
-                        } else {
-                            alert.runModal()
-                        }
-                    }
-                }
-            }
-        }
+
+        let response: NSApplication.ModalResponse
         if let mainWindow {
-            openPanel.beginSheetModal(for: mainWindow, completionHandler: completionHandler)
+            response = await openPanel.beginSheetModal(for: mainWindow)
         } else {
-            openPanel.begin(completionHandler: completionHandler)
+            response = await openPanel.begin()
+        }
+
+        guard response == .OK, let url = openPanel.urls.first else { return }
+        await importPayload(from: url)
+    }
+
+    private func importPayload(from url: URL) async {
+        do {
+            let payload = try await payloadModel.importPayload(url)
+            if !autoBoot {
+                payloadModel.bootPayload = payload
+            }
+        } catch {
+            let alert = NSAlert()
+            alert.messageText = "Error Importing Payload"
+            alert.informativeText = error.localizedDescription
+            alert.alertStyle = .warning
+            alert.addButton(withTitle: "OK")
+            if let mainWindow {
+                await alert.beginSheetModal(for: mainWindow)
+            } else {
+                alert.runModal()
+            }
         }
     }
 }

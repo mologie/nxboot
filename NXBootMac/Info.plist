@@ -7,8 +7,10 @@
 		<dict>
 			<key>CFBundleTypeName</key>
 			<string>NXBoot Payload</string>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
 			<key>LSHandlerRank</key>
-			<string>Alternate</string>
+			<string>None</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.data</string>
@@ -16,7 +18,5 @@
 			</array>
 		</dict>
 	</array>
-	<key>UIFileSharingEnabled</key>
-	<true/>
 </dict>
 </plist>

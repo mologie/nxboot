@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1104E3272B4AE3DC00DF24B5 /* NXVisibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 1104E3262B4AE3DC00DF24B5 /* NXVisibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		113DEF842B485B8500DF24B5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DEF832B485B8500DF24B5 /* Utils.swift */; };
 		113DEF862B48935400DF24B5 /* PayloadModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DEF852B48935400DF24B5 /* PayloadModel.swift */; };
 		1158CFE92B39BDF400DF24B5 /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFE82B39BDF400DF24B5 /* Main.swift */; };
@@ -115,6 +116,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1104E3262B4AE3DC00DF24B5 /* NXVisibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXVisibility.h; sourceTree = "<group>"; };
 		113DEF832B485B8500DF24B5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		113DEF852B48935400DF24B5 /* PayloadModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadModel.swift; sourceTree = "<group>"; };
 		1158CFE62B39BDF400DF24B5 /* NXBoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +138,7 @@
 		119EEF7D2B499DF000DF24B5 /* NXBootKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NXBootKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		119EEF7F2B499DF100DF24B5 /* NXBootKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXBootKit.h; sourceTree = "<group>"; };
 		119EEF932B49C93600DF24B5 /* DeviceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceModel.swift; sourceTree = "<group>"; };
+		11DB49F12B4AD9DF00DF24B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		11E7F5452B44295B00DF24B5 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		50410F3826C874B200DF24B5 /* NXBootKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXBootKit.h; sourceTree = "<group>"; };
 		50410F4326C8753B00DF24B5 /* NXLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXLog.h; sourceTree = "<group>"; };
@@ -236,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				1158CFEC2B39BDF500DF24B5 /* Assets.xcassets */,
+				11DB49F12B4AD9DF00DF24B5 /* Info.plist */,
 				1158CFF12B39BDF500DF24B5 /* NXBootMac.entitlements */,
 			);
 			name = Resources;
@@ -279,6 +283,7 @@
 				A73FDCF220FA9C72007EBF4F /* NXUSBDevice.m */,
 				A73FDCF320FA9C72007EBF4F /* NXUSBDeviceEnumerator.h */,
 				A73FDCEE20FA9C71007EBF4F /* NXUSBDeviceEnumerator.m */,
+				1104E3262B4AE3DC00DF24B5 /* NXVisibility.h */,
 			);
 			path = NXBootKit;
 			sourceTree = "<group>";
@@ -376,6 +381,7 @@
 				119EEF8F2B499F2A00DF24B5 /* NXHekateCustomizer.h in Headers */,
 				119EEF902B499F2E00DF24B5 /* NXLog.h in Headers */,
 				119EEF802B499DF100DF24B5 /* NXBootKit.h in Headers */,
+				1104E3272B4AE3DC00DF24B5 /* NXVisibility.h in Headers */,
 				119EEF8E2B499F2600DF24B5 /* NXExec.h in Headers */,
 				119EEF912B499F3300DF24B5 /* NXUSBDevice.h in Headers */,
 				119EEF922B499F3600DF24B5 /* NXUSBDeviceEnumerator.h in Headers */,
@@ -658,8 +664,9 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NXBootMac/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Oliver Kuckertz. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2018-2024 Oliver Kuckertz. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -697,8 +704,9 @@
 				ENABLE_PREVIEWS = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NXBootMac/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Oliver Kuckertz. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2018-2024 Oliver Kuckertz. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -730,9 +738,15 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_TESTABILITY = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NXBOOTKIT_BUILDING=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Oliver Kuckertz. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2018-2024 Oliver Kuckertz. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -771,9 +785,15 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_TESTABILITY = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"NXBOOTKIT_BUILDING=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Oliver Kuckertz. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2018-2024 Oliver Kuckertz. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

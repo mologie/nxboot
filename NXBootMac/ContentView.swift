@@ -134,8 +134,8 @@ struct ContentView: View {
     @Binding public var lastBoot: LastBootState
     @Binding public var autoBoot: Bool
     public var onBootPayload: @MainActor (Payload, NXUSBDevice) async -> Void
-    public var onSelectPayload: @MainActor () -> Void
-    public var onImportPayload: @MainActor (URL) throws -> Payload
+    public var onSelectPayload: @MainActor () async -> Void
+    public var onImportPayload: @MainActor (URL) async throws -> Payload
     public var onRenamePayload: @MainActor (Payload, String) throws -> Void
     public var onDeletePayload: @MainActor (Payload) throws -> Void
 
@@ -267,7 +267,11 @@ struct ContentView: View {
         .navigationSubtitle(selectPayload != nil ? "using \(selectPayload!.name)" : "no payload selected")
         .toolbar {
             ToolbarItemGroup(placement: .automatic) {
-                Button(action: { onSelectPayload() }) {
+                Button(action: {
+                    Task { @MainActor in
+                        await onSelectPayload()
+                    }
+                }) {
                     Image(systemName: "square.and.arrow.down")
                 }
             }
@@ -335,7 +339,7 @@ struct ContentView: View {
                     guard let url = url else { return }
                     Task { @MainActor in
                         do {
-                            try importPayload(url)
+                            try await importPayload(url)
                         } catch {
                             lastError = PayloadError.importFailed(error)
                             showError = true
@@ -347,8 +351,8 @@ struct ContentView: View {
         return true
     }
 
-    private func importPayload(_ url: URL) throws {
-        let payload = try onImportPayload(url)
+    private func importPayload(_ url: URL) async throws {
+        let payload = try await onImportPayload(url)
         if !autoBoot {
             selectPayload = payload
         }
