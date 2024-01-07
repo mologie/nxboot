@@ -36,7 +36,6 @@ final class Payload: Identifiable, Equatable, Hashable {
 enum PayloadModelError: LocalizedError {
     case fileResourceUnavailable(URLResourceKey)
     case fileSizeExceeded(URL)
-    case fileSizeInvalid(URL)
     case observingFolderFailed
 
     var errorDescription: String? {
@@ -45,8 +44,6 @@ enum PayloadModelError: LocalizedError {
             return "Could not fetch payload file attribute \(key)."
         case .fileSizeExceeded(let url):
             return "\"\(url.lastPathComponent)\" does not appear to be a valid payload. Payloads must be at most \(NXMaxFuseePayloadSize / 1024) KiB large to fit into IRAM."
-        case .fileSizeInvalid(let url):
-            return "\"\(url.lastPathComponent)\" does not appear to be a valid payload. Its size must be a multiple of 4 KiB."
         case .observingFolderFailed:
             return "Internal error: Failed to begin observing changes in the Payloads storage folder."
         }
@@ -143,6 +140,7 @@ class PayloadModel {
         return result
     }
 
+    @discardableResult
     func importPayload(_ fromURL: URL) async throws -> Payload {
         let name = fromURL.deletingPathExtension().lastPathComponent
         let newURL = payloadsFolder.appending(component: "\(name).bin")
@@ -154,9 +152,6 @@ class PayloadModel {
             }
             if fileSize > NXMaxFuseePayloadSize {
                 throw PayloadModelError.fileSizeExceeded(fromURL)
-            }
-            if fileSize % 0x1000 != 0 {
-                throw PayloadModelError.fileSizeInvalid(fromURL)
             }
             try FileManager.default.copyItem(at: fromURL, to: newURL)
         }
@@ -172,7 +167,10 @@ class PayloadModel {
         payload.url = newURL
     }
 
-    func deletePayload(_ payload: Payload) throws {
-        try FileManager.default.trashItem(at: payload.url, resultingItemURL: nil)
+    @discardableResult
+    func deletePayload(_ payload: Payload) throws -> URL {
+        var trashURL: NSURL?
+        try FileManager.default.trashItem(at: payload.url, resultingItemURL: &trashURL)
+        return trashURL! as URL
     }
 }

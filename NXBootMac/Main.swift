@@ -18,7 +18,7 @@ struct Main: App {
 
     var body: some Scene {
         Window("NXBoot", id: "main") {
-            ContentView(
+            MainView(
                 payloads: $payloadModel.payloads,
                 selectPayload: $payloadModel.bootPayload,
                 device: $deviceModel.device,

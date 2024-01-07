@@ -127,7 +127,8 @@ enum LastBootState {
 }
 
 @MainActor
-struct ContentView: View {
+struct MainView: View {
+    @Environment(\.undoManager) var undoManager
     @Binding public var payloads: [Payload]
     @Binding public var selectPayload: Payload?
     @Binding public var device: DeviceState
@@ -137,7 +138,7 @@ struct ContentView: View {
     public var onSelectPayload: @MainActor () async -> Void
     public var onImportPayload: @MainActor (URL) async throws -> Payload
     public var onRenamePayload: @MainActor (Payload, String) throws -> Void
-    public var onDeletePayload: @MainActor (Payload) throws -> Void
+    public var onDeletePayload: @MainActor (Payload) throws -> URL
 
     @State private var renamePayload: Payload?
     @State private var renameTo: String = ""
@@ -382,7 +383,12 @@ struct ContentView: View {
         let payloads = payloads
         for index in offsets {
             do {
-                try onDeletePayload(payloads[index])
+                let trashURL = try onDeletePayload(payloads[index])
+                /*
+                undoManager?.registerUndo(withTarget: model, handler: { model in
+                    // TODO: redo
+                })
+                */
             } catch {
                 lastError = PayloadError.deleteFailed(error)
                 showError = true
@@ -392,7 +398,7 @@ struct ContentView: View {
     }
 }
 
-struct ContentViewPreview: View {
+struct MainPreviewView: View {
     @State var payloads: [Payload] = [
         Payload(URL(fileURLWithPath: "/tmp/foo.bin")),
         Payload(URL(fileURLWithPath: "/tmp/bar.bin")),
@@ -402,7 +408,7 @@ struct ContentViewPreview: View {
     @State var autoBoot: Bool = false
 
     var body: some View {
-        ContentView(
+        MainView(
             payloads: $payloads,
             selectPayload: $selectPayload,
             device: .constant(.idle),
@@ -431,10 +437,11 @@ struct ContentViewPreview: View {
             },
             onDeletePayload: { payload in
                 payloads.removeAll(where: { $0 == payload })
+                return payload.url
             })
     }
 }
 
 #Preview {
-    ContentViewPreview()
+    MainPreviewView()
 }
