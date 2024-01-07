@@ -1,58 +1,23 @@
-import AppKit
 import Combine
 import Foundation
-import NXBootKit // for max payload size
+import NXBootKit
 
-@Observable
-final class Payload: Identifiable, Equatable, Hashable {
-    var url: URL
-    var fileSize: Int?
-    var fileModificationDate: Date?
-
-    var fileName: String { url.lastPathComponent }
-    var name: String {
-        get { url.deletingPathExtension().lastPathComponent }
-        set {
-            url = url.deletingLastPathComponent()
-                .appending(component: newValue.replacing(/[\/:]/, with: " "))
-                .appendingPathExtension(url.pathExtension)
-        }
-    }
-
-    init(_ from: URL) {
-        url = from
-        let rv = try? url.resourceValues(forKeys: [.fileSizeKey, .contentModificationDateKey])
-        fileSize = rv?.fileSize
-        fileModificationDate = rv?.contentModificationDate
-    }
-
-    // The single view model guarantees that IDs and paths have a 1:1 relationship. However, since
-    // the path is mutated while the object is in dicts, it cannot be used as identity property.
-    let id = UUID()
-    func hash(into hasher: inout Hasher) { hasher.combine(id) }
-    static func == (lhs: Payload, rhs: Payload) -> Bool { return lhs.id == rhs.id }
-}
-
-enum PayloadModelError: LocalizedError {
-    case fileResourceUnavailable(URLResourceKey)
-    case fileSizeExceeded(URL)
-    case observingFolderFailed
-
-    var errorDescription: String? {
-        switch self {
-        case .fileResourceUnavailable(let key):
-            return "Could not fetch payload file attribute \(key)."
-        case .fileSizeExceeded(let url):
-            return "\"\(url.lastPathComponent)\" does not appear to be a valid payload. Payloads must be at most \(NXMaxFuseePayloadSize / 1024) KiB large to fit into IRAM."
-        case .observingFolderFailed:
-            return "Internal error: Failed to begin observing changes in the Payloads storage folder."
-        }
-    }
-}
-
-@Observable
 @MainActor
-class PayloadModel {
+protocol PayloadService: Observable, AnyObject {
+    var payloads: [Payload] { get set }
+    var bootPayload: Payload? { get set }
+    
+    @discardableResult
+    func importPayload(_ fromURL: URL, at index: Int?) async throws -> Payload
+
+    func renamePayload(_ payload: Payload, name: String) throws
+
+    @discardableResult
+    func deletePayload(_ payload: Payload) throws -> URL?
+}
+
+@Observable
+class PayloadServiceFolder: PayloadService {
     var payloads: [Payload] {
         didSet {
             UserDefaults.standard.set(payloads.map { $0.fileName }, forKey: "NXBootPayloadsExplicitOrder")
@@ -67,18 +32,18 @@ class PayloadModel {
         }
     }
 
-    public let payloadsFolder: URL
+    public let rootPath: URL
 
     private var refreshTask: Task<Void, Error>?
     private var refreshWatcher: DispatchSourceFileSystemObject
 
-    init(payloadsFolder url: URL) throws {
-        payloadsFolder = url
+    init(rootPath url: URL) throws {
+        rootPath = url
         payloads = []
 
-        try FileManager.default.createDirectory(at: payloadsFolder, withIntermediateDirectories: true)
-        let fd = open(payloadsFolder.path, O_EVTONLY)
-        guard fd >= 0 else { throw PayloadModelError.observingFolderFailed }
+        try FileManager.default.createDirectory(at: rootPath, withIntermediateDirectories: true)
+        let fd = open(rootPath.path, O_EVTONLY)
+        guard fd >= 0 else { throw ModelError.observingFolderFailed }
         refreshWatcher = DispatchSource.makeFileSystemObjectSource(
             fileDescriptor: fd,
             eventMask: [.write, .delete],
@@ -121,7 +86,7 @@ class PayloadModel {
 
     private func loadPayloads() throws -> [Payload] {
         var unorderedPayloads = try FileManager.default.contentsOfDirectory(
-            at: payloadsFolder,
+            at: rootPath,
             includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey, .isRegularFileKey]
         )
         .filter { $0.path.hasSuffix(".bin") && (try! $0.resourceValues(forKeys: [.isRegularFileKey])).isRegularFile! }
@@ -141,36 +106,84 @@ class PayloadModel {
     }
 
     @discardableResult
-    func importPayload(_ fromURL: URL) async throws -> Payload {
+    func importPayload(_ fromURL: URL, at index: Int?) async throws -> Payload {
         let name = fromURL.deletingPathExtension().lastPathComponent
-        let newURL = payloadsFolder.appending(component: "\(name).bin")
+        let newURL = rootPath.appending(component: "\(name).bin")
         let copyTask = Task.detached(priority: .userInitiated) {
             // async because this might come from a network source, so copying will take time
             let rv = try fromURL.resourceValues(forKeys: [.fileSizeKey])
             guard let fileSize = rv.fileSize else {
-                throw PayloadModelError.fileResourceUnavailable(.fileSizeKey)
+                throw ModelError.fileResourceUnavailable(.fileSizeKey)
             }
             if fileSize > NXMaxFuseePayloadSize {
-                throw PayloadModelError.fileSizeExceeded(fromURL)
+                throw ModelError.fileSizeExceeded(fromURL)
             }
             try FileManager.default.copyItem(at: fromURL, to: newURL)
         }
         try await copyTask.value
         let payload = Payload(newURL)
-        payloads.append(payload)
+        if let index {
+            payloads.insert(payload, at: index)
+        } else {
+            payloads.append(payload)
+        }
         return payload
     }
 
     func renamePayload(_ payload: Payload, name: String) throws {
-        let newURL = payloadsFolder.appending(component: "\(name).bin")
+        let newURL = rootPath.appending(component: "\(name).bin")
         try FileManager.default.moveItem(at: payload.url, to: newURL)
         payload.url = newURL
     }
 
     @discardableResult
-    func deletePayload(_ payload: Payload) throws -> URL {
+    func deletePayload(_ payload: Payload) throws -> URL? {
         var trashURL: NSURL?
         try FileManager.default.trashItem(at: payload.url, resultingItemURL: &trashURL)
-        return trashURL! as URL
+        return trashURL as URL?
+    }
+
+    enum ModelError: LocalizedError {
+        case fileResourceUnavailable(URLResourceKey)
+        case fileSizeExceeded(URL)
+        case observingFolderFailed
+
+        var errorDescription: String? {
+            switch self {
+            case .fileResourceUnavailable(let key):
+                return "Could not fetch payload file attribute \(key)."
+            case .fileSizeExceeded(let url):
+                return "\"\(url.lastPathComponent)\" does not appear to be a valid payload. Payloads must be at most \(NXMaxFuseePayloadSize / 1024) KiB large to fit into IRAM."
+            case .observingFolderFailed:
+                return "Internal error: Failed to begin observing changes in the Payloads storage folder."
+            }
+        }
+    }
+}
+
+@Observable
+class PayloadServiceDummy: PayloadService {
+    var payloads: [Payload] = [
+        Payload(URL(fileURLWithPath: "/tmp/foo.bin")),
+        Payload(URL(fileURLWithPath: "/tmp/bar.bin")),
+        Payload(URL(fileURLWithPath: "/tmp/baz.bin")),
+    ]
+
+    var bootPayload: Payload? = nil
+
+    func importPayload(_ fromURL: URL, at index: Int?) async throws -> Payload {
+        let payload = Payload(fromURL)
+        payloads.append(payload)
+        return payload
+    }
+
+    func renamePayload(_ payload: Payload, name: String) throws {
+        guard let index = payloads.firstIndex(of: payload) else { return }
+        payloads[index].name = name
+    }
+
+    func deletePayload(_ payload: Payload) throws -> URL? {
+        payloads.removeAll(where: { $0 == payload })
+        return payload.url
     }
 }

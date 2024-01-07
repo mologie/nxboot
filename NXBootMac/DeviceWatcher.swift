@@ -1,14 +1,15 @@
 import NXBootKit
 
-enum DeviceState: Equatable {
-    case idle
-    case error(String)
-    case connected(NXUSBDevice)
-}
-
 @Observable
-class DeviceModel: NXUSBDeviceEnumeratorDelegate {
-    var device = DeviceState.idle
+class DeviceWatcher: NXUSBDeviceEnumeratorDelegate {
+    enum Connection: Equatable {
+        case idle
+        case error(String)
+        case device(NXUSBDevice)
+    }
+
+    var connection = Connection.idle
+
     private var usbEnumerator = NXUSBDeviceEnumerator()
 
     init() {
@@ -22,15 +23,18 @@ class DeviceModel: NXUSBDeviceEnumeratorDelegate {
     }
 
     func usbDeviceEnumerator(_ deviceEnum: NXUSBDeviceEnumerator, deviceConnected device: NXUSBDevice) {
-        self.device = DeviceState.connected(device)
+        connection = .device(device)
     }
 
     func usbDeviceEnumerator(_ deviceEnum: NXUSBDeviceEnumerator, deviceDisconnected device: NXUSBDevice) {
-        self.device = DeviceState.idle
+        if case let .device(oldDevice) = connection, oldDevice == device {
+            connection = .idle
+        }
+        // otherwise, the user had multiple devices connected, and disconnected an older one
     }
 
     func usbDeviceEnumerator(_ deviceEnum: NXUSBDeviceEnumerator, deviceError err: String) {
-        self.device = DeviceState.error(err)
+        connection = .error(err)
     }
 }
 
@@ -46,4 +50,11 @@ extension NXUSBDevice: @unchecked Sendable {
             throw BootError(error: error! as String)
         }
     }
+}
+
+enum LastBootState {
+    case notAttempted
+    case inProgress
+    case succeeded
+    case failed(Error)
 }

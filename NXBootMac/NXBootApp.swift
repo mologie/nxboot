@@ -4,38 +4,36 @@ import SwiftUI
 
 @main
 @MainActor
-struct Main: App {
-    @State private var payloadModel: PayloadModel
+struct NXBootApp: App {
+    // payload stuff
+    @State private var payloadService: PayloadServiceFolder
     @AppStorage("NXBootAutomaticMode") private var autoBoot = false
     private var intermezzo: Data = { NSDataAsset(name: "Intermezzo")!.data }()
 
-    @State private var deviceModel: DeviceModel
+    // device stuff
+    @State private var deviceWatcher: DeviceWatcher
     @State private var lastBoot: LastBootState = .notAttempted
-    private var deviceSubscription: AnyCancellable?
 
+    // Cocoa integration stuff
     @State private var mainWindow: NSWindow?
     private let aboutWindowController: AboutWindowController
 
     var body: some Scene {
         Window("NXBoot", id: "main") {
-            MainView(
-                payloads: $payloadModel.payloads,
-                selectPayload: $payloadModel.bootPayload,
-                device: $deviceModel.device,
+            NXBootView(
+                payloadService: payloadService,
+                connection: $deviceWatcher.connection,
                 lastBoot: $lastBoot,
                 autoBoot: $autoBoot,
                 onBootPayload: bootPayload,
-                onSelectPayload: selectPayload,
-                onImportPayload: payloadModel.importPayload,
-                onRenamePayload: payloadModel.renamePayload,
-                onDeletePayload: payloadModel.deletePayload
+                onSelectPayload: selectPayload
             )
             .background(WindowAccessor(window: $mainWindow))
             .frame(minWidth: 540, minHeight: 240)
             .frame(idealWidth: 640, idealHeight: 322)
             .onOpenURL(perform: { url in
                 // something was dragged onto the application icon
-                Task { @MainActor in await importPayload(from: url) }
+                Task { @MainActor in _ = await importPayload(from: url) }
             })
         }
         .windowResizability(.contentSize)
@@ -47,14 +45,14 @@ struct Main: App {
             }
             CommandGroup(replacing: CommandGroupPlacement.newItem) {
                 Button("Add Payload File...", action: {
-                    Task { @MainActor in await selectPayload() }
+                    Task { @MainActor in _ = await selectPayload() }
                 }).keyboardShortcut("o", modifiers: [.command])
                 Toggle("Auto-boot Selected Payload", isOn: $autoBoot)
                 Divider()
                 Button("Open Payload Folder") {
-                    NSWorkspace.shared.open(payloadModel.payloadsFolder)
+                    NSWorkspace.shared.open(payloadService.rootPath)
                 }
-                Button("Reload Payload List") { payloadModel.refreshPayloads() }
+                Button("Reload Payload List") { payloadService.refreshPayloads() }
                     .keyboardShortcut("r", modifiers: [.command])
             }
             CommandGroup(replacing: CommandGroupPlacement.help) {
@@ -68,25 +66,25 @@ struct Main: App {
             // trigger auto-boot when toggle is enabled
             if !autoBoot { return }
             Task { @MainActor in
-                guard let payload = payloadModel.bootPayload else { return }
-                guard case let .connected(device) = deviceModel.device else { return }
+                guard let payload = payloadService.bootPayload else { return }
+                guard case let .device(device) = deviceWatcher.connection else { return }
                 guard case .notAttempted = lastBoot else { return }
                 print("App: Auto-booting existing device")
                 await bootPayload(payload, on: device)
             }
         }
-        .onChange(of: deviceModel.device) { oldDevice, newDevice in
+        .onChange(of: deviceWatcher.connection) { oldConn, newConn in
             // reset boot state and trigger auto-boot when a device is connected
             Task { @MainActor in
-                guard let payload = payloadModel.bootPayload else { return }
+                guard let payload = payloadService.bootPayload else { return }
                 if case .inProgress = lastBoot {
-                    print("App: Device transition during boot: \(oldDevice) => \(newDevice)")
+                    print("App: Device transition during boot: \(oldConn) => \(newConn)")
                     return
                     // the boot task will eventually fail if the device was indeed disconnected
                 } else {
-                    print("App: Device transition: \(oldDevice) => \(newDevice)")
+                    print("App: Device transition: \(oldConn) => \(newConn)")
                 }
-                if case let .connected(device) = newDevice {
+                if case let .device(device) = newConn {
                     print("App: Device connected")
                     lastBoot = .notAttempted
                     if autoBoot {
@@ -103,8 +101,8 @@ struct Main: App {
             .appendingPathComponent("NXBoot")
             .appendingPathComponent("Payloads")
         do {
-            payloadModel = try PayloadModel(payloadsFolder: payloadsFolder)
-            deviceModel = DeviceModel()
+            payloadService = try PayloadServiceFolder(rootPath: payloadsFolder)
+            deviceWatcher = DeviceWatcher()
         } catch {
             let alert = NSAlert()
             alert.messageText = "Initialization Error"
@@ -136,7 +134,7 @@ struct Main: App {
         }
     }
 
-    private func selectPayload() async {
+    private func selectPayload() async -> Payload? {
         // Meh, no SwiftUI variant exists for this one. Worse yet, it needs a hack to retrieve the
         // SwiftUI window's NSWindow, so that the open and error dialogs can be attached properly.
         let openPanel = NSOpenPanel()
@@ -152,16 +150,18 @@ struct Main: App {
             response = await openPanel.begin()
         }
 
-        guard response == .OK, let url = openPanel.urls.first else { return }
-        await importPayload(from: url)
+        guard response == .OK, let url = openPanel.urls.first else { return nil }
+        return await importPayload(from: url)
     }
 
-    private func importPayload(from url: URL) async {
+    @discardableResult
+    private func importPayload(from url: URL) async -> Payload? {
         do {
-            let payload = try await payloadModel.importPayload(url)
+            let payload = try await payloadService.importPayload(url, at: nil)
             if !autoBoot {
-                payloadModel.bootPayload = payload
+                payloadService.bootPayload = payload
             }
+            return payload
         } catch {
             let alert = NSAlert()
             alert.messageText = "Error Importing Payload"
@@ -173,6 +173,7 @@ struct Main: App {
             } else {
                 alert.runModal()
             }
+            return nil
         }
     }
 }
