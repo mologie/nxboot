@@ -16,7 +16,7 @@ struct NXBootView<PayloadStorageModel: PayloadStorage>: View {
     @State private var renameTo: String = ""
     @FocusState private var renameFocused
 
-    enum ActionError: LocalizedError {
+    private enum ActionError: LocalizedError {
         case importFailed(Error)
         case renameFailed(Error)
         case deleteFailed(Error)
@@ -43,7 +43,7 @@ struct NXBootView<PayloadStorageModel: PayloadStorage>: View {
     @State private var showError = false
     @State private var lastError: ActionError?
 
-    var navigationText: String {
+    private var navigationText: String {
         guard let payload = storage.bootPayload else { return "no payload selected "}
         return "using \(payload.name)"
     }

@@ -36,6 +36,15 @@ class PayloadStorageFolder: PayloadStorage {
 
     private var refreshTask: Task<Void, Error>?
     private var refreshWatcher: DispatchSourceFileSystemObject
+    private class RefreshWatcherReleaser {
+        // The model's deinit method cannot access refreshWatcher under @MainActor, because it is
+        // not guaranteed to be invoked on the main thread. However, this does not actually matter
+        // for cleanup. Hence use a separat deinit method here to release kernel resources.
+        private var target: DispatchSourceFileSystemObject
+        init(target watcher: DispatchSourceFileSystemObject) { target = watcher }
+        deinit { target.cancel() }
+    }
+    private var refreshWatcherReleaser: RefreshWatcherReleaser?
 
     init(rootPath url: URL) throws {
         rootPath = url
@@ -50,6 +59,7 @@ class PayloadStorageFolder: PayloadStorage {
             queue: DispatchQueue.global(qos: .default)
         )
         refreshWatcher.setCancelHandler {
+            // NB: only invoked upon explicit cancelation
             close(fd)
         }
         refreshWatcher.setEventHandler { [weak self] in
@@ -61,15 +71,12 @@ class PayloadStorageFolder: PayloadStorage {
             }
         }
         refreshWatcher.resume()
+        refreshWatcherReleaser = RefreshWatcherReleaser(target: refreshWatcher)
 
         payloads = try loadPayloads()
         if let bootFileName = UserDefaults.standard.string(forKey: "NXBootSelectedPayload") {
             bootPayload = payloads.first(where: { $0.fileName == bootFileName })
         }
-    }
-
-    deinit {
-        // TODO: refreshWatcher.cancel()
     }
 
     func refreshPayloads() {
