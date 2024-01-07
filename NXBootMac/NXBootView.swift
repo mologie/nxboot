@@ -3,9 +3,9 @@ import NXBootKit
 import SwiftUI
 
 @MainActor
-struct NXBootView<TPayloadService: PayloadService>: View {
+struct NXBootView<PayloadStorageModel: PayloadStorage>: View {
     @Environment(\.undoManager) var undoManager
-    @Bindable var payloadService: TPayloadService
+    @Bindable var storage: PayloadStorageModel
     @Binding var connection: DeviceWatcher.Connection
     @Binding var lastBoot: LastBootState
     @Binding var autoBoot: Bool
@@ -44,17 +44,17 @@ struct NXBootView<TPayloadService: PayloadService>: View {
     @State private var lastError: ActionError?
 
     var navigationText: String {
-        guard let payload = payloadService.bootPayload else { return "no payload selected "}
+        guard let payload = storage.bootPayload else { return "no payload selected "}
         return "using \(payload.name)"
     }
 
     var body: some View {
         VStack(spacing: 0) {
             List {
-                ForEach($payloadService.payloads, id: \.self) { payload in
+                ForEach($storage.payloads, id: \.self) { payload in
                     PayloadView(
                         payload: payload,
-                        selectPayload: $payloadService.bootPayload,
+                        selectPayload: $storage.bootPayload,
                         renamePayload: $renamePayload,
                         deletePayload: deletePayload
                     )
@@ -83,7 +83,7 @@ struct NXBootView<TPayloadService: PayloadService>: View {
                 Button(action: {
                     Task { @MainActor in
                         if let payload = await onSelectPayload(), !autoBoot {
-                            payloadService.bootPayload = payload
+                            storage.bootPayload = payload
                         }
                     }
                 }) {
@@ -167,21 +167,21 @@ struct NXBootView<TPayloadService: PayloadService>: View {
     }
 
     private func importPayload(_ url: URL) async throws {
-        let payload = try await payloadService.importPayload(url, at: nil, withName: nil, move: false)
+        let payload = try await storage.importPayload(url, at: nil, withName: nil, move: false)
         if !autoBoot {
-            payloadService.bootPayload = payload
+            storage.bootPayload = payload
         }
     }
 
     private func movePayload(from source: IndexSet, to destination: Int) {
-        payloadService.payloads.move(fromOffsets: source, toOffset: destination)
+        storage.payloads.move(fromOffsets: source, toOffset: destination)
         // didSet property observer in view model stores new explicit order
     }
 
     private func renamePayloadCommit() {
         guard let payload = renamePayload else { return }
         do {
-            try payloadService.renamePayload(payload, name: renameTo)
+            try storage.renamePayload(payload, name: renameTo)
             renamePayload = nil
         } catch {
             lastError = ActionError.renameFailed(error)
@@ -190,19 +190,19 @@ struct NXBootView<TPayloadService: PayloadService>: View {
     }
 
     private func deletePayload(_ payload: Payload) {
-        deletePayload(at: IndexSet(integer: payloadService.payloads.firstIndex(of: payload)!))
+        deletePayload(at: IndexSet(integer: storage.payloads.firstIndex(of: payload)!))
     }
 
     private func deletePayload(at offsets: IndexSet) {
-        let payloads = payloadService.payloads
+        let payloads = storage.payloads
         for index in offsets {
             do {
                 let payload = payloads[index]
                 let name = payload.name
-                let trashURL = try payloadService.deletePayload(payload)
-                let wasSelected = (payloadService.bootPayload == payload)
+                let trashURL = try storage.deletePayload(payload)
+                let wasSelected = (storage.bootPayload == payload)
                 guard let undoFromURL = trashURL else { return }
-                undoManager?.registerUndo(withTarget: payloadService, handler: { service in
+                undoManager?.registerUndo(withTarget: storage, handler: { service in
                     Task { @MainActor in
                         do {
                             let payload = try await service.importPayload(
@@ -212,7 +212,7 @@ struct NXBootView<TPayloadService: PayloadService>: View {
                                 move: true
                             )
                             if wasSelected {
-                                payloadService.bootPayload = payload
+                                storage.bootPayload = payload
                             }
                         } catch {
                             lastError = ActionError.restoreFailed(error)
@@ -231,12 +231,12 @@ struct NXBootView<TPayloadService: PayloadService>: View {
 
 @MainActor
 struct NXBootView_Preview: View {
-    @State private var payloadService = PayloadServiceDummy()
+    @State private var storage = PayloadStorageDummy()
     @State private var autoBoot: Bool = false
 
     var body: some View {
         NXBootView(
-            payloadService: payloadService,
+            storage: storage,
             connection: .constant(.idle),
             lastBoot: .constant(.notAttempted),
             autoBoot: $autoBoot,
@@ -244,7 +244,7 @@ struct NXBootView_Preview: View {
             onSelectPayload: {
                 let unixTime = NSDate().timeIntervalSince1970
                 let url = URL(fileURLWithPath: "/tmp/payload\(unixTime).bin")
-                return try? await payloadService.importPayload(url, at: nil, withName: nil, move: false)
+                return try? await storage.importPayload(url, at: nil, withName: nil, move: false)
             })
     }
 }

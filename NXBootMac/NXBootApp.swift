@@ -6,7 +6,7 @@ import SwiftUI
 @MainActor
 struct NXBootApp: App {
     // payload stuff
-    @State private var payloadService: PayloadServiceFolder
+    @State private var storage: PayloadStorageFolder
     @AppStorage("NXBootAutomaticMode") private var autoBoot = false
     private var intermezzo: Data = { NSDataAsset(name: "Intermezzo")!.data }()
 
@@ -21,7 +21,7 @@ struct NXBootApp: App {
     var body: some Scene {
         Window("NXBoot", id: "main") {
             NXBootView(
-                payloadService: payloadService,
+                storage: storage,
                 connection: $deviceWatcher.connection,
                 lastBoot: $lastBoot,
                 autoBoot: $autoBoot,
@@ -50,9 +50,9 @@ struct NXBootApp: App {
                 Toggle("Auto-boot Selected Payload", isOn: $autoBoot)
                 Divider()
                 Button("Open Payloads Folder") {
-                    NSWorkspace.shared.open(payloadService.rootPath)
+                    NSWorkspace.shared.open(storage.rootPath)
                 }
-                Button("Reload Payload List") { payloadService.refreshPayloads() }
+                Button("Reload Payload List") { storage.refreshPayloads() }
                     .keyboardShortcut("r", modifiers: [.command])
             }
             CommandGroup(replacing: CommandGroupPlacement.help) {
@@ -66,7 +66,7 @@ struct NXBootApp: App {
             // trigger auto-boot when toggle is enabled
             if !autoBoot { return }
             Task { @MainActor in
-                guard let payload = payloadService.bootPayload else { return }
+                guard let payload = storage.bootPayload else { return }
                 guard case let .device(device) = deviceWatcher.connection else { return }
                 guard case .notAttempted = lastBoot else { return }
                 print("App: Auto-booting existing device")
@@ -76,7 +76,7 @@ struct NXBootApp: App {
         .onChange(of: deviceWatcher.connection) { oldConn, newConn in
             // reset boot state and trigger auto-boot when a device is connected
             Task { @MainActor in
-                guard let payload = payloadService.bootPayload else { return }
+                guard let payload = storage.bootPayload else { return }
                 if case .inProgress = lastBoot {
                     print("App: Device transition during boot: \(oldConn) => \(newConn)")
                     return
@@ -101,7 +101,7 @@ struct NXBootApp: App {
             .appendingPathComponent("NXBoot")
             .appendingPathComponent("Payloads")
         do {
-            payloadService = try PayloadServiceFolder(rootPath: payloadsFolder)
+            storage = try PayloadStorageFolder(rootPath: payloadsFolder)
             deviceWatcher = DeviceWatcher()
         } catch {
             let alert = NSAlert()
@@ -157,9 +157,9 @@ struct NXBootApp: App {
     @discardableResult
     private func importPayload(from url: URL) async -> Payload? {
         do {
-            let payload = try await payloadService.importPayload(url, at: nil, withName: nil, move: false)
+            let payload = try await storage.importPayload(url, at: nil, withName: nil, move: false)
             if !autoBoot {
-                payloadService.bootPayload = payload
+                storage.bootPayload = payload
             }
             return payload
         } catch {

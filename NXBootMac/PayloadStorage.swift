@@ -3,7 +3,7 @@ import Foundation
 import NXBootKit
 
 @MainActor
-protocol PayloadService: Observable, AnyObject {
+protocol PayloadStorage: Observable, AnyObject {
     var payloads: [Payload] { get set }
     var bootPayload: Payload? { get set }
 
@@ -17,7 +17,7 @@ protocol PayloadService: Observable, AnyObject {
 }
 
 @Observable
-class PayloadServiceFolder: PayloadService {
+class PayloadStorageFolder: PayloadStorage {
     var payloads: [Payload] {
         didSet {
             UserDefaults.standard.set(payloads.map { $0.fileName }, forKey: "NXBootPayloadsExplicitOrder")
@@ -166,7 +166,7 @@ class PayloadServiceFolder: PayloadService {
 }
 
 @Observable
-class PayloadServiceDummy: PayloadService {
+class PayloadStorageDummy: PayloadStorage {
     var payloads: [Payload] = [
         Payload(URL(fileURLWithPath: "/tmp/foo.bin")),
         Payload(URL(fileURLWithPath: "/tmp/bar.bin")),

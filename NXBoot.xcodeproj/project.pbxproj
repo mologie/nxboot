@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		1104E3272B4AE3DC00DF24B5 /* NXVisibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 1104E3262B4AE3DC00DF24B5 /* NXVisibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		113DEF842B485B8500DF24B5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DEF832B485B8500DF24B5 /* Utils.swift */; };
-		113DEF862B48935400DF24B5 /* PayloadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DEF852B48935400DF24B5 /* PayloadService.swift */; };
+		113DEF862B48935400DF24B5 /* PayloadStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DEF852B48935400DF24B5 /* PayloadStorage.swift */; };
 		115550312B4AF2A300DF24B5 /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550302B4AF2A300DF24B5 /* DeviceView.swift */; };
 		115550332B4AF3F400DF24B5 /* PayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550322B4AF3F400DF24B5 /* PayloadView.swift */; };
 		115550352B4AFC1D00DF24B5 /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550342B4AFC1D00DF24B5 /* Payload.swift */; };
@@ -120,7 +120,7 @@
 /* Begin PBXFileReference section */
 		1104E3262B4AE3DC00DF24B5 /* NXVisibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXVisibility.h; sourceTree = "<group>"; };
 		113DEF832B485B8500DF24B5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
-		113DEF852B48935400DF24B5 /* PayloadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadService.swift; sourceTree = "<group>"; };
+		113DEF852B48935400DF24B5 /* PayloadStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadStorage.swift; sourceTree = "<group>"; };
 		115550302B4AF2A300DF24B5 /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
 		115550322B4AF3F400DF24B5 /* PayloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadView.swift; sourceTree = "<group>"; };
 		115550342B4AFC1D00DF24B5 /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
@@ -227,7 +227,7 @@
 				1158CFE82B39BDF400DF24B5 /* NXBootApp.swift */,
 				1158CFEA2B39BDF400DF24B5 /* NXBootView.swift */,
 				115550342B4AFC1D00DF24B5 /* Payload.swift */,
-				113DEF852B48935400DF24B5 /* PayloadService.swift */,
+				113DEF852B48935400DF24B5 /* PayloadStorage.swift */,
 				115550322B4AF3F400DF24B5 /* PayloadView.swift */,
 				113DEF832B485B8500DF24B5 /* Utils.swift */,
 			);
@@ -573,7 +573,7 @@
 				115550352B4AFC1D00DF24B5 /* Payload.swift in Sources */,
 				11E7F5462B44295B00DF24B5 /* AboutView.swift in Sources */,
 				113DEF842B485B8500DF24B5 /* Utils.swift in Sources */,
-				113DEF862B48935400DF24B5 /* PayloadService.swift in Sources */,
+				113DEF862B48935400DF24B5 /* PayloadStorage.swift in Sources */,
 				1158CFE92B39BDF400DF24B5 /* NXBootApp.swift in Sources */,
 				119EEF942B49C93600DF24B5 /* DeviceWatcher.swift in Sources */,
 			);
