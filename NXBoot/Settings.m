@@ -3,8 +3,8 @@
 
 @import Sentry;
 
-static NSString *const NXBootSettingsKeyEnableUsageCrashReports = @"NXBootEnableCrashReports";
-static NSString *const NXBootSettingsKeyEnableUsagePings = @"NXBootEnableUsagePings";
+static NSString *const NXBootSettingsKeyAllowUsageCrashReports = @"NXBootAllowCrashReports";
+static NSString *const NXBootSettingsKeyAllowUsagePings = @"NXBootAllowUsagePings";
 
 @implementation Settings
 
@@ -17,21 +17,21 @@ static NSString *const NXBootSettingsKeyEnableUsagePings = @"NXBootEnableUsagePi
     [[NSUserDefaults standardUserDefaults] setObject:@(value) forKey:key];
 }
 
-+ (BOOL)enableCrashReports {
-    return [self _getBool:NXBootSettingsKeyEnableUsageCrashReports defaultValue:YES];
++ (BOOL)allowCrashReports {
+    return [self _getBool:NXBootSettingsKeyAllowUsageCrashReports defaultValue:YES];
 }
 
-+ (void)setEnableCrashReports:(BOOL)enableCrashReports {
-    [self _setBool:NXBootSettingsKeyEnableUsageCrashReports value:enableCrashReports];
++ (void)setAllowCrashReports:(BOOL)enableCrashReports {
+    [self _setBool:NXBootSettingsKeyAllowUsageCrashReports value:enableCrashReports];
     [self applySentryOptions];
 }
 
-+ (BOOL)enableUsagePings {
-    return [self _getBool:NXBootSettingsKeyEnableUsagePings defaultValue:YES];
++ (BOOL)allowUsagePings {
+    return [self _getBool:NXBootSettingsKeyAllowUsagePings defaultValue:YES];
 }
 
-+ (void)setEnableUsagePings:(BOOL)enableUsagePings {
-    [self _setBool:NXBootSettingsKeyEnableUsagePings value:enableUsagePings];
++ (void)setAllowUsagePings:(BOOL)enableUsagePings {
+    [self _setBool:NXBootSettingsKeyAllowUsagePings value:enableUsagePings];
     [self applySentryOptions];
 }
 
@@ -44,14 +44,14 @@ static NSString *const NXBootSettingsKeyEnableUsagePings = @"NXBootEnableUsagePi
             [SentrySDK close];
             initialized = false;
         }
-        if (!Settings.enableCrashReports && !Settings.enableUsagePings) {
+        if (!Settings.allowCrashReports && !Settings.allowUsagePings) {
             return;
         }
         [SentrySDK startWithConfigureOptions:^(SentryOptions *options) {
             options.dsn = @"https://6f191f8afd06257e9b2c2cdd7977cd1e@o4506496566231040.ingest.sentry.io/4506496570032128";
             options.enableAppHangTracking = false;
-            options.enableAutoSessionTracking = Settings.enableUsagePings;
-            options.enableCrashHandler = Settings.enableCrashReports;
+            options.enableAutoSessionTracking = Settings.allowUsagePings;
+            options.enableCrashHandler = Settings.allowCrashReports;
             options.enableWatchdogTerminationTracking = false;
 #ifdef DEBUG
             options.debug = true;

@@ -17,7 +17,7 @@ protocol PayloadStorage: Observable, AnyObject {
 
 @Observable
 class PayloadStorageFolder: PayloadStorage {
-    var payloads: [Payload] {
+    var payloads: [Payload] = [] {
         didSet {
             UserDefaults.standard.set(payloads.map { $0.fileName }, forKey: "NXBootPayloadsExplicitOrder")
             if let bootPayload, payloads.firstIndex(of: bootPayload) == nil {
@@ -31,72 +31,84 @@ class PayloadStorageFolder: PayloadStorage {
         }
     }
 
-    public let rootPath: URL
+    // TODO: would prefer to initialize with a single container, not track cloud stuff here
+    private let localContainer: URL
+    private var localWatcher: FolderWatcher?
+    private var cloudContainer: URL?
+    private var cloudWatcher: FolderWatcher?
 
-    private var refreshTask: Task<Void, Error>?
-    private var refreshWatcher: DispatchSourceFileSystemObject
-    private class RefreshWatcherReleaser {
-        // The model's deinit method cannot access refreshWatcher under @MainActor, because it is
-        // not guaranteed to be invoked on the main thread. However, this does not actually matter
-        // for cleanup. Hence use a separat deinit method here to release kernel resources.
-        private var target: DispatchSourceFileSystemObject
-        init(target watcher: DispatchSourceFileSystemObject) { target = watcher }
-        deinit { target.cancel() }
-    }
-    private var refreshWatcherReleaser: RefreshWatcherReleaser?
-
-    init(rootPath url: URL) throws {
-        rootPath = url
-        payloads = []
-
-        try FileManager.default.createDirectory(at: rootPath, withIntermediateDirectories: true)
-        let fd = open(rootPath.path, O_EVTONLY)
-        guard fd >= 0 else { throw ModelError.observingFolderFailed }
-        refreshWatcher = DispatchSource.makeFileSystemObjectSource(
-            fileDescriptor: fd,
-            eventMask: [.write, .delete],
-            queue: DispatchQueue.global(qos: .default)
-        )
-        refreshWatcher.setCancelHandler {
-            // NB: only invoked upon explicit cancelation
-            close(fd)
+    public var cloudSync: Bool = false {
+        didSet {
+            Task { @MainActor in await refreshPayloads() }
         }
-        refreshWatcher.setEventHandler { [weak self] in
-            // debounce in case of a flood of update events
-            guard let self = self else { return }
-            self.refreshTask = Task { [weak self] in
-                try await Task.sleep(for: .milliseconds(100))
-                self?.refreshPayloads()
+    }
+
+    public var effectiveContainer: URL {
+        if let cloudContainer, cloudSync {
+            return cloudContainer
+        } else {
+            return localContainer
+        }
+    }
+
+    init(localContainer url: URL) throws {
+        try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true)
+        localContainer = url
+        localWatcher = try FolderWatcher(url) {
+            [weak self] in await self?.refreshPayloads()
+        }
+        Task { @MainActor in
+            // TODO: busy/loading indicator
+            try await refreshCloudContainer()
+            await refreshPayloads()
+            if let bootFileName = UserDefaults.standard.string(forKey: "NXBootSelectedPayload") {
+                bootPayload = payloads.first(where: { $0.fileName == bootFileName })
             }
         }
-        refreshWatcher.resume()
-        refreshWatcherReleaser = RefreshWatcherReleaser(target: refreshWatcher)
-
-        payloads = try loadPayloads()
-        if let bootFileName = UserDefaults.standard.string(forKey: "NXBootSelectedPayload") {
-            bootPayload = payloads.first(where: { $0.fileName == bootFileName })
-        }
     }
 
-    func refreshPayloads() {
+    func refreshCloudContainer() async throws {
+        let setupTask = Task.detached(priority: .utility) {
+            FileManager.default.url(forUbiquityContainerIdentifier: nil)?
+                .appending(path: "Documents", directoryHint: .isDirectory)
+        }
+        cloudContainer = await setupTask.value
+        if let cloudContainer {
+            cloudWatcher = try FolderWatcher(cloudContainer) {
+                [weak self] in await self?.refreshPayloads()
+            }
+        } else {
+            cloudWatcher = nil
+        }
+        await refreshPayloads()
+    }
+
+    func refreshPayloads() async {
         do {
-            let currentPaths = Set(self.payloads.map { $0.url })
-            let availablePayloads = try loadPayloads()
-            let availablePaths = Set(availablePayloads.map { $0.url })
-            self.payloads.append(contentsOf: availablePayloads.filter { !currentPaths.contains($0.url) })
-            self.payloads.removeAll(where: { !availablePaths.contains($0.url) })
+            let currentSet = Set(self.payloads.map { $0.name })
+            let availablePayloads = try await loadPayloads(effectiveContainer)
+            let availableDict = Dictionary(grouping: availablePayloads, by: { $0.name }).mapValues { $0.first! }
+            let availableSet = Set(availablePayloads.map { $0.name })
+            self.payloads.removeAll(where: { !availableSet.contains($0.name) })
+            self.payloads.forEach { payload in
+                // payload might have moved to/from cloud, so refresh its URL
+                payload.url = availableDict[payload.name]!.url
+            }
+            self.payloads.append(contentsOf: availablePayloads.filter { !currentSet.contains($0.name) })
         } catch {
             print("DirWatcher: Failed to refresh payload list: \(error.localizedDescription)")
         }
     }
 
-    private func loadPayloads() throws -> [Payload] {
-        var unorderedPayloads = try FileManager.default.contentsOfDirectory(
-            at: rootPath,
-            includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey, .isRegularFileKey]
-        )
-        .filter { $0.path.hasSuffix(".bin") && (try! $0.resourceValues(forKeys: [.isRegularFileKey])).isRegularFile! }
-        .map { Payload($0) }
+    private func loadPayloads(_ url: URL) async throws -> [Payload] {
+        let dirListTask = Task.detached(priority: .utility) {
+            try FileManager.default.contentsOfDirectory(
+                at: url,
+                includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey, .isRegularFileKey]
+            )
+            .filter { $0.path.hasSuffix(".bin") && (try! $0.resourceValues(forKeys: [.isRegularFileKey])).isRegularFile! }
+        }
+        var unorderedPayloads = try await dirListTask.value.map { Payload($0) }
         var result: [Payload] = []
         let explicitOrder = UserDefaults.standard.stringArray(forKey: "NXBootPayloadsExplicitOrder")
         if let explicitOrder {
@@ -107,14 +119,16 @@ class PayloadStorageFolder: PayloadStorage {
                 }
             }
         }
-        result.append(contentsOf: unorderedPayloads.sorted(by: { $0.fileName < $1.fileName }))
+        result.append(contentsOf: unorderedPayloads.sorted(by: {
+            $0.fileName.lowercased() < $1.fileName.lowercased()
+        }))
         return result
     }
 
     @discardableResult
     func importPayload(_ fromURL: URL, at index: Int?, withName name: String?, move: Bool) async throws -> Payload {
         let name = name ?? fromURL.deletingPathExtension().lastPathComponent
-        let newURL = rootPath.appending(component: "\(name).bin")
+        let newURL = effectiveContainer.appending(component: "\(name).bin")
         let fileOp = Task.detached(priority: .userInitiated) {
             // async because this might come from a network source, so copying will take time
             let rv = try fromURL.resourceValues(forKeys: [.fileSizeKey])
@@ -141,7 +155,7 @@ class PayloadStorageFolder: PayloadStorage {
     }
 
     func renamePayload(_ payload: Payload, name: String) throws {
-        let newURL = rootPath.appending(component: "\(name).bin")
+        let newURL = effectiveContainer.appending(component: "\(name).bin")
         try FileManager.default.moveItem(at: payload.url, to: newURL)
         payload.url = newURL
     }
@@ -156,7 +170,6 @@ class PayloadStorageFolder: PayloadStorage {
     enum ModelError: LocalizedError {
         case fileResourceUnavailable(URLResourceKey)
         case fileSizeExceeded(URL)
-        case observingFolderFailed
 
         var errorDescription: String? {
             switch self {
@@ -164,8 +177,6 @@ class PayloadStorageFolder: PayloadStorage {
                 return "Could not fetch payload file attribute \(key)."
             case .fileSizeExceeded(let url):
                 return "\"\(url.lastPathComponent)\" does not appear to be a valid payload. Payloads must be at most \(NXMaxFuseePayloadSize / 1024) KiB large to fit into IRAM."
-            case .observingFolderFailed:
-                return "Internal error: Failed to begin observing changes in the Payloads storage folder."
             }
         }
     }

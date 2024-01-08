@@ -14,6 +14,10 @@
 		115550332B4AF3F400DF24B5 /* PayloadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550322B4AF3F400DF24B5 /* PayloadView.swift */; };
 		115550352B4AFC1D00DF24B5 /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550342B4AFC1D00DF24B5 /* Payload.swift */; };
 		115550372B4B18D000DF24B5 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550362B4B18D000DF24B5 /* Device.swift */; };
+		115550392B4B35C900DF24B5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550382B4B35C900DF24B5 /* SettingsView.swift */; };
+		1155503B2B4B3EA600DF24B5 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 1155503A2B4B3EA600DF24B5 /* Sentry */; };
+		1155503D2B4B4FF200DF24B5 /* Ubiquity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1155503C2B4B4FF200DF24B5 /* Ubiquity.swift */; };
+		1155503F2B4B523B00DF24B5 /* FolderWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1155503E2B4B523B00DF24B5 /* FolderWatcher.swift */; };
 		1158CFE92B39BDF400DF24B5 /* NXBootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFE82B39BDF400DF24B5 /* NXBootApp.swift */; };
 		1158CFEB2B39BDF400DF24B5 /* NXBootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFEA2B39BDF400DF24B5 /* NXBootView.swift */; };
 		1158CFED2B39BDF500DF24B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1158CFEC2B39BDF500DF24B5 /* Assets.xcassets */; };
@@ -126,6 +130,9 @@
 		115550322B4AF3F400DF24B5 /* PayloadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadView.swift; sourceTree = "<group>"; };
 		115550342B4AFC1D00DF24B5 /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
 		115550362B4B18D000DF24B5 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		115550382B4B35C900DF24B5 /* SettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		1155503C2B4B4FF200DF24B5 /* Ubiquity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ubiquity.swift; sourceTree = "<group>"; };
+		1155503E2B4B523B00DF24B5 /* FolderWatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderWatcher.swift; sourceTree = "<group>"; };
 		1158CFE62B39BDF400DF24B5 /* NXBoot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NXBoot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1158CFE82B39BDF400DF24B5 /* NXBootApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXBootApp.swift; sourceTree = "<group>"; };
 		1158CFEA2B39BDF400DF24B5 /* NXBootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NXBootView.swift; sourceTree = "<group>"; };
@@ -188,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				119EEF832B499DF100DF24B5 /* NXBootKit.framework in Frameworks */,
+				1155503B2B4B3EA600DF24B5 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -227,11 +235,14 @@
 				115550362B4B18D000DF24B5 /* Device.swift */,
 				115550302B4AF2A300DF24B5 /* DeviceView.swift */,
 				119EEF932B49C93600DF24B5 /* DeviceWatcher.swift */,
+				1155503E2B4B523B00DF24B5 /* FolderWatcher.swift */,
 				1158CFE82B39BDF400DF24B5 /* NXBootApp.swift */,
 				1158CFEA2B39BDF400DF24B5 /* NXBootView.swift */,
 				115550342B4AFC1D00DF24B5 /* Payload.swift */,
 				113DEF852B48935400DF24B5 /* PayloadStorage.swift */,
 				115550322B4AF3F400DF24B5 /* PayloadView.swift */,
+				115550382B4B35C900DF24B5 /* SettingsView.swift */,
+				1155503C2B4B4FF200DF24B5 /* Ubiquity.swift */,
 				113DEF832B485B8500DF24B5 /* Utils.swift */,
 			);
 			path = NXBootMac;
@@ -417,6 +428,7 @@
 			);
 			name = NXBootMac;
 			packageProductDependencies = (
+				1155503A2B4B3EA600DF24B5 /* Sentry */,
 			);
 			productName = NXBootMac;
 			productReference = 1158CFE62B39BDF400DF24B5 /* NXBoot.app */;
@@ -571,6 +583,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				115550332B4AF3F400DF24B5 /* PayloadView.swift in Sources */,
+				1155503D2B4B4FF200DF24B5 /* Ubiquity.swift in Sources */,
 				115550312B4AF2A300DF24B5 /* DeviceView.swift in Sources */,
 				1158CFEB2B39BDF400DF24B5 /* NXBootView.swift in Sources */,
 				115550352B4AFC1D00DF24B5 /* Payload.swift in Sources */,
@@ -579,7 +592,9 @@
 				113DEF842B485B8500DF24B5 /* Utils.swift in Sources */,
 				113DEF862B48935400DF24B5 /* PayloadStorage.swift in Sources */,
 				1158CFE92B39BDF400DF24B5 /* NXBootApp.swift in Sources */,
+				1155503F2B4B523B00DF24B5 /* FolderWatcher.swift in Sources */,
 				119EEF942B49C93600DF24B5 /* DeviceWatcher.swift in Sources */,
+				115550392B4B35C900DF24B5 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1119,6 +1134,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1155503A2B4B3EA600DF24B5 /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11F0E3852B4308E900DF24B5 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
+		};
 		11F0E3862B4308E900DF24B5 /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 11F0E3852B4308E900DF24B5 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;

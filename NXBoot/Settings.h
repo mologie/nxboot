@@ -4,8 +4,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface Settings : NSObject
 
-@property (nonatomic, class, assign) BOOL enableCrashReports;
-@property (nonatomic, class, assign) BOOL enableUsagePings;
+@property (nonatomic, class, assign) BOOL allowCrashReports;
+@property (nonatomic, class, assign) BOOL allowUsagePings;
 
 + (void)applySentryOptions;
 

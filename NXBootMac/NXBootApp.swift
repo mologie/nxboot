@@ -5,7 +5,6 @@ import SwiftUI
 struct NXBootApp: App {
     // payload stuff
     @State private var storage: PayloadStorageFolder
-    @AppStorage("NXBootAutomaticMode") private var autoBoot = false
     private var intermezzo: Data = { NSDataAsset(name: "Intermezzo")!.data }()
 
     // device stuff
@@ -18,9 +17,16 @@ struct NXBootApp: App {
     @State private var deviceWatcher: DeviceWatcher
     @State private var lastBoot: LastBootState = .notAttempted
 
-    // Cocoa integration stuff
+    // Cocoa integration
     @State private var mainWindow: NSWindow?
-    private let aboutWindowController: AboutWindowController
+    @State private var ubiquityTokenObserver = UbiquityIdentityObserver()
+    private let aboutWindowController = AboutWindowController.controller()
+
+    // settings
+    @AppStorage("NXBootAllowCrashReports") private var allowCrashReports = true
+    @AppStorage("NXBootAllowUsagePings") private var allowUsagePings = true
+    @AppStorage("NXBootAutomaticMode") private var autoBoot = false
+    @AppStorage("NXBootCloudSync") private var cloudSync = false
 
     var body: some Scene {
         Window("NXBoot", id: "main") {
@@ -48,16 +54,16 @@ struct NXBootApp: App {
                 Button("About NXBoot") { aboutWindowController.showWindowCentered() }
             }
             CommandGroup(replacing: CommandGroupPlacement.newItem) {
-                Button("Add Payload File...", action: {
+                Button("Add Payload File...") {
                     Task { @MainActor in _ = await selectPayload() }
-                }).keyboardShortcut("o", modifiers: [.command])
-                Toggle("Auto-boot Selected Payload", isOn: $autoBoot)
+                }.keyboardShortcut("o", modifiers: [.command])
                 Divider()
                 Button("Open Payloads Folder") {
-                    NSWorkspace.shared.open(storage.rootPath)
+                    NSWorkspace.shared.open(storage.effectiveContainer)
                 }
-                Button("Reload Payload List") { storage.refreshPayloads() }
-                    .keyboardShortcut("r", modifiers: [.command])
+                Button("Reload Payload List") {
+                    Task { @MainActor in await storage.refreshPayloads() }
+                }.keyboardShortcut("r", modifiers: [.command])
             }
             CommandGroup(replacing: CommandGroupPlacement.help) {
                 Link("NXBoot Homepage", destination: Links.homepage)
@@ -98,6 +104,23 @@ struct NXBootApp: App {
                 }
             }
         }
+        .onChange(of: ubiquityTokenObserver.token) {
+            Task { @MainActor in try? await storage.refreshCloudContainer() }
+        }
+        .onChange(of: cloudSync, initial: true) {
+            storage.cloudSync = cloudSync
+        }
+
+        Settings {
+            SettingsView(
+                cloudSync: $cloudSync,
+                cloudIdentityToken: $ubiquityTokenObserver.token,
+                autoBoot: $autoBoot,
+                allowCrashReports: $allowCrashReports,
+                allowUsagePings: $allowUsagePings
+            )
+            .fixedSize()
+        }
     }
 
     init() {
@@ -105,7 +128,7 @@ struct NXBootApp: App {
             .appendingPathComponent("NXBoot")
             .appendingPathComponent("Payloads")
         do {
-            storage = try PayloadStorageFolder(rootPath: payloadsFolder)
+            storage = try PayloadStorageFolder(localContainer: payloadsFolder)
             deviceWatcher = DeviceWatcher()
         } catch {
             let alert = NSAlert()
@@ -116,7 +139,6 @@ struct NXBootApp: App {
             alert.runModal()
             exit(1)
         }
-        aboutWindowController = AboutWindowController.controller()
     }
 
     private func bootPayload(_ payload: Payload, on device: Device) async {

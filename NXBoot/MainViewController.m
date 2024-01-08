@@ -89,7 +89,7 @@
         event.message = [[SentryMessage alloc] initWithFormatted:[NSString stringWithFormat:@"Boot failed: %@", error]];
     }
 
-    if (Settings.enableUsagePings) {
+    if (Settings.allowUsagePings) {
         [SentrySDK captureEvent:event];
     }
 }

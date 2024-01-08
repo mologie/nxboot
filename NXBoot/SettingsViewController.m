@@ -46,16 +46,16 @@
         */
         case 0:
             cell.customLabel.text = @"Allow crash reports";
-            cell.customSwitch.on = Settings.enableCrashReports;
+            cell.customSwitch.on = Settings.allowCrashReports;
             [cell.customSwitch addTarget:self
-                                  action:@selector(setEnableCrashReports:)
+                                  action:@selector(setAllowCrashReports:)
                         forControlEvents:UIControlEventTouchUpInside];
             break;
         case 1:
             cell.customLabel.text = @"Allow usage pings";
-            cell.customSwitch.on = Settings.enableUsagePings;
+            cell.customSwitch.on = Settings.allowUsagePings;
             [cell.customSwitch addTarget:self
-                                  action:@selector(setEnableUsagePings:)
+                                  action:@selector(setAllowUsagePings:)
                         forControlEvents:UIControlEventTouchUpInside];
             break;
     }
@@ -71,11 +71,11 @@
 */
 
 - (void)setEnableCrashReports:(UISwitch *)sender {
-    Settings.enableCrashReports = sender.on;
+    Settings.allowCrashReports = sender.on;
 }
 
 - (void)setEnableUsagePings:(UISwitch *)sender {
-    Settings.enableUsagePings = sender.on;
+    Settings.allowUsagePings = sender.on;
 }
 
 @end
