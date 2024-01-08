@@ -53,6 +53,7 @@
 		11C855152A2582E400DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
 		11E7F5462B44295B00DF24B5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E7F5452B44295B00DF24B5 /* AboutView.swift */; };
 		11F0E3872B4308E900DF24B5 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 11F0E3862B4308E900DF24B5 /* Sentry */; };
+		7345FC7C2B4C5A060049C678 /* Sentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7345FC7B2B4C5A060049C678 /* Sentry.swift */; };
 		A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A701175E20EE320F00B3D45B /* WebKit.framework */; };
 		A701176520EE677F00B3D45B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A701176320EE677F00B3D45B /* Main.storyboard */; };
 		A7458B4A20EF8286008F4899 /* GettingStartedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7458B4920EF8286008F4899 /* GettingStartedViewController.m */; };
@@ -156,6 +157,7 @@
 		11E7F5452B44295B00DF24B5 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		50410F3826C874B200DF24B5 /* NXBootKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXBootKit.h; sourceTree = "<group>"; };
 		50410F4326C8753B00DF24B5 /* NXLog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXLog.h; sourceTree = "<group>"; };
+		7345FC7B2B4C5A060049C678 /* Sentry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sentry.swift; sourceTree = "<group>"; };
 		A701175E20EE320F00B3D45B /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		A701176420EE677F00B3D45B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A718F2302100CD1C009BD181 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				115550342B4AFC1D00DF24B5 /* Payload.swift */,
 				113DEF852B48935400DF24B5 /* PayloadStorage.swift */,
 				115550322B4AF3F400DF24B5 /* PayloadView.swift */,
+				7345FC7B2B4C5A060049C678 /* Sentry.swift */,
 				115550382B4B35C900DF24B5 /* SettingsView.swift */,
 				1155503C2B4B4FF200DF24B5 /* Ubiquity.swift */,
 				113DEF832B485B8500DF24B5 /* Utils.swift */,
@@ -590,6 +593,7 @@
 				115550372B4B18D000DF24B5 /* Device.swift in Sources */,
 				11E7F5462B44295B00DF24B5 /* AboutView.swift in Sources */,
 				113DEF842B485B8500DF24B5 /* Utils.swift in Sources */,
+				7345FC7C2B4C5A060049C678 /* Sentry.swift in Sources */,
 				113DEF862B48935400DF24B5 /* PayloadStorage.swift in Sources */,
 				1158CFE92B39BDF400DF24B5 /* NXBootApp.swift in Sources */,
 				1155503F2B4B523B00DF24B5 /* FolderWatcher.swift in Sources */,

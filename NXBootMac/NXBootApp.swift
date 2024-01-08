@@ -5,6 +5,7 @@ import SwiftUI
 struct NXBootApp: App {
     // payload stuff
     @State private var storage: PayloadStorageFolder
+    @State private var ubiquityTokenObserver = UbiquityIdentityObserver()
     private var intermezzo: Data = { NSDataAsset(name: "Intermezzo")!.data }()
 
     // device stuff
@@ -17,16 +18,16 @@ struct NXBootApp: App {
     @State private var deviceWatcher: DeviceWatcher
     @State private var lastBoot: LastBootState = .notAttempted
 
-    // Cocoa integration
+    // integration
     @State private var mainWindow: NSWindow?
-    @State private var ubiquityTokenObserver = UbiquityIdentityObserver()
     private let aboutWindowController = AboutWindowController.controller()
+    private let sentry: Sentry
 
     // settings
-    @AppStorage("NXBootAllowCrashReports") private var allowCrashReports = true
-    @AppStorage("NXBootAllowUsagePings") private var allowUsagePings = true
-    @AppStorage("NXBootAutomaticMode") private var autoBoot = false
-    @AppStorage("NXBootCloudSync") private var cloudSync = false
+    @AppStorage("NXBootUseCloud") private var useCloud = { FileManager.default.ubiquityIdentityToken != nil }()
+    @AppStorage("NXBootAutoBoot") private var autoBoot = false
+    @AppStorage("NXBootAllowCrashReports") private var allowCrashReports = Sentry.enableByDefault
+    @AppStorage("NXBootAllowUsagePings") private var allowUsagePings = Sentry.enableByDefault
 
     var body: some Scene {
         Window("NXBoot", id: "main") {
@@ -72,6 +73,10 @@ struct NXBootApp: App {
                 Link("Issue Tracker and Known Issues", destination: Links.issues)
             }
         }
+        .onChange(of: ubiquityTokenObserver.token) {
+            Task { @MainActor in try? await storage.refreshCloudContainer() }
+        }
+        .onChange(of: useCloud, initial: true) { storage.cloudSync = useCloud }
         .onChange(of: autoBoot) { _, autoBoot in
             // trigger auto-boot when toggle is enabled
             if !autoBoot { return }
@@ -104,16 +109,12 @@ struct NXBootApp: App {
                 }
             }
         }
-        .onChange(of: ubiquityTokenObserver.token) {
-            Task { @MainActor in try? await storage.refreshCloudContainer() }
-        }
-        .onChange(of: cloudSync, initial: true) {
-            storage.cloudSync = cloudSync
-        }
+        .onChange(of: allowCrashReports) { sentry.allowCrashReports = allowCrashReports }
+        .onChange(of: allowUsagePings) { sentry.allowUsagePings = allowUsagePings }
 
         Settings {
             SettingsView(
-                cloudSync: $cloudSync,
+                cloudSync: $useCloud,
                 cloudIdentityToken: $ubiquityTokenObserver.token,
                 autoBoot: $autoBoot,
                 allowCrashReports: $allowCrashReports,
@@ -124,6 +125,7 @@ struct NXBootApp: App {
     }
 
     init() {
+        sentry = Sentry()
         let payloadsFolder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
             .appendingPathComponent("NXBoot")
             .appendingPathComponent("Payloads")
@@ -153,10 +155,12 @@ struct NXBootApp: App {
                 try await device.boot(payloadData, intermezzo: intermezzo)
             }
             try await task.value
+            print("App: Boot successful")
             lastBoot = .succeeded
-            print("App: Boot succeeded")
+            sentry.usagePing(error: nil)
         } catch {
             lastBoot = .failed(error)
+            sentry.usagePing(error: error)
         }
     }
 
