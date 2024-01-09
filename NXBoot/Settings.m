@@ -1,13 +1,16 @@
 #import "Settings.h"
 #import "PayloadStorage.h"
 
+#ifdef HAVE_SENTRY
 @import Sentry;
 
 static NSString *const NXBootSettingsKeyAllowUsageCrashReports = @"NXBootAllowCrashReports";
 static NSString *const NXBootSettingsKeyAllowUsagePings = @"NXBootAllowUsagePings";
+#endif
 
 @implementation Settings
 
+#ifdef HAVE_SENTRY
 + (BOOL)_getBool:(NSString *)key defaultValue:(BOOL)defaultValue {
     NSNumber *value = [[NSUserDefaults standardUserDefaults] objectForKey:key];
     return value ? [value boolValue] : defaultValue;
@@ -60,5 +63,6 @@ static NSString *const NXBootSettingsKeyAllowUsagePings = @"NXBootAllowUsagePing
         initialized = true;
     }
 }
+#endif
 
 @end

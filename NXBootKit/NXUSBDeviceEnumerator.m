@@ -7,10 +7,8 @@
 #import <mach/mach.h>
 #import <TargetConditionals.h>
 
-// kIOMasterPortDefault was renamed to kIOMainPortDefault, and marked as unavailable on iOS.
-// This is not true and the API is still available.
-// Keep using the deprecated name here for ABI compatibility with iOS prior to version 15.
-#if TARGET_OS_IPHONE
+#ifndef NXBOOTMAC_BUILDING
+// use kIOMasterPortDefault for NXBoot iOS and command line builds for compatibility
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wavailability"
 extern const mach_port_t kIOMasterPortDefault __API_AVAILABLE(ios(1.0));

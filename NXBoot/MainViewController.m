@@ -6,7 +6,9 @@
 #import "PayloadStorage.h"
 #import "Settings.h"
 
+#ifdef HAVE_SENTRY
 @import Sentry;
+#endif
 
 @interface MainViewController () <
         NXUSBDeviceEnumeratorDelegate,
@@ -55,7 +57,11 @@
     [self.usbEnum setFilterForVendorID:kTegraX1VendorID productID:kTegraX1ProductID];
     [self.usbEnum start];
 
+#ifdef HAVE_SENTRY
+    // Settings are for Sentry only for now, so hide those on unsupported 32-bit platforms.
     self.navigationItem.leftBarButtonItem = self.settingsButtonItem;
+#endif
+
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
@@ -75,23 +81,28 @@
         return;
     }
 
-    SentryEvent *event = [[SentryEvent alloc] initWithLevel:kSentryLevelInfo];
 
     assert(self.usbDevice != nil);
     NSString *error = nil;
     if (NXExec(self.usbDevice, relocator, payloadData, &error)) {
         self.usbError = nil;
         [self updateDeviceStatus:@"Payload injected 🎉"];
-        event.message = [[SentryMessage alloc] initWithFormatted:@"Boot successful"];
     } else {
         self.usbError = error;
         [self updateDeviceStatus:@"Payload injection error"];
-        event.message = [[SentryMessage alloc] initWithFormatted:[NSString stringWithFormat:@"Boot failed: %@", error]];
     }
 
+#ifdef HAVE_SENTRY
     if (Settings.allowUsagePings) {
+        SentryEvent *event = [[SentryEvent alloc] initWithLevel:kSentryLevelInfo];
+        if (error) {
+            event.message = [[SentryMessage alloc] initWithFormatted:[NSString stringWithFormat:@"Boot failed: %@", error]];
+        } else {
+            event.message = [[SentryMessage alloc] initWithFormatted:@"Boot successful"];
+        }
         [SentrySDK captureEvent:event];
     }
+#endif
 }
 
 #pragma mark - Table

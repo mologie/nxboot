@@ -16,7 +16,11 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+#ifdef HAVE_SENTRY
     return 2;
+#else
+    return 0;
+#endif
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -26,8 +30,8 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
         //case 0: return @"Enable to keep payloads in sync between your iOS and macOS devices.";
-        case 0: return @"Crash reports help me to find issues on various jailbreaks that NXBoot is used with. Reports are anonymous and do not contain any user data.";
-        case 1: return @"Usage data tells me how often NXBoot is being used to boot payloads. This gives me a fuzzy feeling and lets me know which iOS versions and devices it already works on.";
+        case 0: return @"Anonymously send back crash information with minimal system data to Sentry. No data is sent until a crash happens.";
+        case 1: return @"Let NXBoot count how often it is used, and anonymously report successful or failed boot events to Sentry.";
     }
     return nil;
 }
@@ -44,6 +48,7 @@
                         forControlEvents:UIControlEventTouchUpInside];
             break;
         */
+#ifdef HAVE_SENTRY
         case 0:
             cell.customLabel.text = @"Allow crash reports";
             cell.customSwitch.on = Settings.allowCrashReports;
@@ -58,6 +63,7 @@
                                   action:@selector(setAllowUsagePings:)
                         forControlEvents:UIControlEventTouchUpInside];
             break;
+#endif
     }
     return cell;
 }
@@ -71,11 +77,15 @@
 */
 
 - (void)setEnableCrashReports:(UISwitch *)sender {
+#ifdef HAVE_SENTRY
     Settings.allowCrashReports = sender.on;
+#endif
 }
 
 - (void)setEnableUsagePings:(UISwitch *)sender {
+#ifdef HAVE_SENTRY
     Settings.allowUsagePings = sender.on;
+#endif
 }
 
 @end

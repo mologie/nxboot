@@ -19,7 +19,7 @@
 #define ESC       "\033[0m"
 #define ESC_LN    ESC "\n"
 
-#define COPYRIGHT_STR "Copyright 2018-2023 Oliver Kuckertz <oliver.kuckertz@mologie.de>"
+#define COPYRIGHT_STR "Copyright 2018-2024 Oliver Kuckertz <oliver.kuckertz@mologie.de>"
 #define LICENSE_STR   "Licensed under the GPLv3. https://github.com/mologie/nxboot#license"
 
 static volatile sig_atomic_t gTerm = 0;

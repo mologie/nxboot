@@ -5,7 +5,9 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+#ifdef HAVE_SENTRY
     [Settings applySentryOptions];
+#endif
     return YES;
 }
 
