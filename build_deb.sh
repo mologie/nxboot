@@ -36,7 +36,7 @@ for arch in iphoneos-arm iphoneos-arm64; do
     lipo dist/iphoneos/nxboot -thin arm64 -output "$datadir/usr/bin/nxboot"
   fi
 
-  deb=${pkgid}_${version}_${buildno}_${arch}.deb
+  deb=${pkgid}_${version}-${buildno}_${arch}.deb
   pushd "$archdir"
   chown -R 0:0 .
   chown -R 0:80 "${pkgid}${distdir}/Applications"

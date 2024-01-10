@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1104E3272B4AE3DC00DF24B5 /* NXVisibility.h in Headers */ = {isa = PBXBuildFile; fileRef = 1104E3262B4AE3DC00DF24B5 /* NXVisibility.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1108AB1A2B4E158100DF24B5 /* AppCenterCrashes.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1108AB142B4E158100DF24B5 /* AppCenterCrashes.xcframework */; };
+		1108AB1B2B4E158100DF24B5 /* AppCenterAnalytics.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1108AB152B4E158100DF24B5 /* AppCenterAnalytics.xcframework */; };
+		1108AB1F2B4E158100DF24B5 /* AppCenter.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1108AB192B4E158100DF24B5 /* AppCenter.xcframework */; };
+		1108AB222B4E162800DF24B5 /* AppCenterAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1108AB212B4E162800DF24B5 /* AppCenterAnalytics */; };
+		1108AB242B4E162800DF24B5 /* AppCenterCrashes in Frameworks */ = {isa = PBXBuildFile; productRef = 1108AB232B4E162800DF24B5 /* AppCenterCrashes */; };
 		113DEF842B485B8500DF24B5 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DEF832B485B8500DF24B5 /* Utils.swift */; };
 		113DEF862B48935400DF24B5 /* PayloadStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 113DEF852B48935400DF24B5 /* PayloadStorage.swift */; };
 		115550312B4AF2A300DF24B5 /* DeviceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550302B4AF2A300DF24B5 /* DeviceView.swift */; };
@@ -15,7 +20,6 @@
 		115550352B4AFC1D00DF24B5 /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550342B4AFC1D00DF24B5 /* Payload.swift */; };
 		115550372B4B18D000DF24B5 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550362B4B18D000DF24B5 /* Device.swift */; };
 		115550392B4B35C900DF24B5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115550382B4B35C900DF24B5 /* SettingsView.swift */; };
-		1155503B2B4B3EA600DF24B5 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 1155503A2B4B3EA600DF24B5 /* Sentry */; };
 		1155503D2B4B4FF200DF24B5 /* Ubiquity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1155503C2B4B4FF200DF24B5 /* Ubiquity.swift */; };
 		1155503F2B4B523B00DF24B5 /* FolderWatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1155503E2B4B523B00DF24B5 /* FolderWatcher.swift */; };
 		1158CFE92B39BDF400DF24B5 /* NXBootApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1158CFE82B39BDF400DF24B5 /* NXBootApp.swift */; };
@@ -52,7 +56,6 @@
 		11C855142A2582E400DF24B5 /* NXLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXLog.m */; };
 		11C855152A2582E400DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
 		11E7F5462B44295B00DF24B5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E7F5452B44295B00DF24B5 /* AboutView.swift */; };
-		11F0E3872B4308E900DF24B5 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 11F0E3862B4308E900DF24B5 /* Sentry */; };
 		7345FC7C2B4C5A060049C678 /* Sentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7345FC7B2B4C5A060049C678 /* Sentry.swift */; };
 		A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A701175E20EE320F00B3D45B /* WebKit.framework */; };
 		A701176520EE677F00B3D45B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A701176320EE677F00B3D45B /* Main.storyboard */; };
@@ -125,6 +128,9 @@
 
 /* Begin PBXFileReference section */
 		1104E3262B4AE3DC00DF24B5 /* NXVisibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NXVisibility.h; sourceTree = "<group>"; };
+		1108AB142B4E158100DF24B5 /* AppCenterCrashes.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AppCenterCrashes.xcframework; sourceTree = "<group>"; };
+		1108AB152B4E158100DF24B5 /* AppCenterAnalytics.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AppCenterAnalytics.xcframework; sourceTree = "<group>"; };
+		1108AB192B4E158100DF24B5 /* AppCenter.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = AppCenter.xcframework; sourceTree = "<group>"; };
 		113DEF832B485B8500DF24B5 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		113DEF852B48935400DF24B5 /* PayloadStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayloadStorage.swift; sourceTree = "<group>"; };
 		115550302B4AF2A300DF24B5 /* DeviceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceView.swift; sourceTree = "<group>"; };
@@ -196,8 +202,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1108AB222B4E162800DF24B5 /* AppCenterAnalytics in Frameworks */,
+				1108AB242B4E162800DF24B5 /* AppCenterCrashes in Frameworks */,
 				119EEF832B499DF100DF24B5 /* NXBootKit.framework in Frameworks */,
-				1155503B2B4B3EA600DF24B5 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,14 +227,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1108AB1A2B4E158100DF24B5 /* AppCenterCrashes.xcframework in Frameworks */,
 				A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */,
-				11F0E3872B4308E900DF24B5 /* Sentry in Frameworks */,
+				1108AB1B2B4E158100DF24B5 /* AppCenterAnalytics.xcframework in Frameworks */,
+				1108AB1F2B4E158100DF24B5 /* AppCenter.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1108AB132B4E158100DF24B5 /* AppCenter-SDK-Apple-4.4.3 */ = {
+			isa = PBXGroup;
+			children = (
+				1108AB192B4E158100DF24B5 /* AppCenter.xcframework */,
+				1108AB152B4E158100DF24B5 /* AppCenterAnalytics.xcframework */,
+				1108AB142B4E158100DF24B5 /* AppCenterCrashes.xcframework */,
+			);
+			name = "AppCenter-SDK-Apple-4.4.3";
+			path = "vendor/AppCenter-SDK-Apple-4.4.3";
+			sourceTree = SOURCE_ROOT;
+		};
 		1158CFE72B39BDF400DF24B5 /* NXBootMac */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,6 +385,7 @@
 		A7FDBE1620EE27DD00E59587 /* NXBoot */ = {
 			isa = PBXGroup;
 			children = (
+				1108AB132B4E158100DF24B5 /* AppCenter-SDK-Apple-4.4.3 */,
 				A7FDBE3320EE2AC600E59587 /* Resources */,
 				A7C4EA1320EE2B050026FFC9 /* Sources */,
 			);
@@ -431,7 +452,8 @@
 			);
 			name = NXBootMac;
 			packageProductDependencies = (
-				1155503A2B4B3EA600DF24B5 /* Sentry */,
+				1108AB212B4E162800DF24B5 /* AppCenterAnalytics */,
+				1108AB232B4E162800DF24B5 /* AppCenterCrashes */,
 			);
 			productName = NXBootMac;
 			productReference = 1158CFE62B39BDF400DF24B5 /* NXBoot.app */;
@@ -488,7 +510,6 @@
 			);
 			name = NXBoot;
 			packageProductDependencies = (
-				11F0E3862B4308E900DF24B5 /* Sentry */,
 			);
 			productName = NXBoot;
 			productReference = A7FDBE1420EE27DD00E59587 /* NXBoot.app */;
@@ -534,7 +555,7 @@
 			);
 			mainGroup = A7FDBE0B20EE27DD00E59587;
 			packageReferences = (
-				11F0E3852B4308E900DF24B5 /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				1108AB202B4E162800DF24B5 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */,
 			);
 			productRefGroup = A7FDBE1520EE27DD00E59587 /* Products */;
 			projectDirPath = "";
@@ -1134,26 +1155,26 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		11F0E3852B4308E900DF24B5 /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+		1108AB202B4E162800DF24B5 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/getsentry/sentry-cocoa.git";
+			repositoryURL = "https://github.com/microsoft/appcenter-sdk-apple";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 8.17.2;
+				minimumVersion = 5.0.4;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		1155503A2B4B3EA600DF24B5 /* Sentry */ = {
+		1108AB212B4E162800DF24B5 /* AppCenterAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 11F0E3852B4308E900DF24B5 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = Sentry;
+			package = 1108AB202B4E162800DF24B5 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */;
+			productName = AppCenterAnalytics;
 		};
-		11F0E3862B4308E900DF24B5 /* Sentry */ = {
+		1108AB232B4E162800DF24B5 /* AppCenterCrashes */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 11F0E3852B4308E900DF24B5 /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
-			productName = Sentry;
+			package = 1108AB202B4E162800DF24B5 /* XCRemoteSwiftPackageReference "appcenter-sdk-apple" */;
+			productName = AppCenterCrashes;
 		};
 /* End XCSwiftPackageProductDependency section */
 

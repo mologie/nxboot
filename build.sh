@@ -49,6 +49,10 @@ CoreDataGenerated=DerivedData/NXBoot/Build/Intermediates.noindex/NXBoot.build/Re
   -INXBootKit \
   -I$CoreDataGenerated \
   -D__OPEN_SOURCE__=1 \
+  -F$releasedir \
+  -framework AppCenter \
+  -framework AppCenterAnalytics \
+  -framework AppCenterCrashes \
   -framework WebKit \
   -O2 \
   -Wall \
