@@ -56,7 +56,6 @@
 		11C855142A2582E400DF24B5 /* NXLog.m in Sources */ = {isa = PBXBuildFile; fileRef = A7388F742100F54A00A60C1B /* NXLog.m */; };
 		11C855152A2582E400DF24B5 /* NXHekateCustomizer.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CD57E72556FB8B006AA85B /* NXHekateCustomizer.m */; };
 		11E7F5462B44295B00DF24B5 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11E7F5452B44295B00DF24B5 /* AboutView.swift */; };
-		7345FC7C2B4C5A060049C678 /* Sentry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7345FC7B2B4C5A060049C678 /* Sentry.swift */; };
 		A701175F20EE320F00B3D45B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A701175E20EE320F00B3D45B /* WebKit.framework */; };
 		A701176520EE677F00B3D45B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A701176320EE677F00B3D45B /* Main.storyboard */; };
 		A7458B4A20EF8286008F4899 /* GettingStartedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A7458B4920EF8286008F4899 /* GettingStartedViewController.m */; };
@@ -604,7 +603,6 @@
 				115550372B4B18D000DF24B5 /* Device.swift in Sources */,
 				11E7F5462B44295B00DF24B5 /* AboutView.swift in Sources */,
 				113DEF842B485B8500DF24B5 /* Utils.swift in Sources */,
-				7345FC7C2B4C5A060049C678 /* Sentry.swift in Sources */,
 				113DEF862B48935400DF24B5 /* PayloadStorage.swift in Sources */,
 				1158CFE92B39BDF400DF24B5 /* NXBootApp.swift in Sources */,
 				1155503F2B4B523B00DF24B5 /* FolderWatcher.swift in Sources */,

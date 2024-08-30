@@ -21,13 +21,13 @@ struct NXBootApp: App {
     // integration
     @State private var mainWindow: NSWindow?
     private let aboutWindowController = AboutWindowController.controller()
-    private let sentry: Sentry
+    // TODO: private let sentry: Sentry
 
     // settings
     @AppStorage("NXBootUseCloud") private var useCloud = { FileManager.default.ubiquityIdentityToken != nil }()
     @AppStorage("NXBootAutoBoot") private var autoBoot = false
-    @AppStorage("NXBootAllowCrashReports") private var allowCrashReports = Sentry.enableByDefault
-    @AppStorage("NXBootAllowUsagePings") private var allowUsagePings = Sentry.enableByDefault
+    @AppStorage("NXBootAllowCrashReports") private var allowCrashReports = false // TODO: Sentry.enableByDefault
+    @AppStorage("NXBootAllowUsagePings") private var allowUsagePings = false // TODO: Sentry.enableByDefault
 
     var body: some Scene {
         Window("NXBoot", id: "main") {
@@ -109,8 +109,10 @@ struct NXBootApp: App {
                 }
             }
         }
+        /*
         .onChange(of: allowCrashReports) { sentry.allowCrashReports = allowCrashReports }
         .onChange(of: allowUsagePings) { sentry.allowUsagePings = allowUsagePings }
+        */
 
         Settings {
             SettingsView(
@@ -125,7 +127,7 @@ struct NXBootApp: App {
     }
 
     init() {
-        sentry = Sentry()
+        // sentry = Sentry()
         let payloadsFolder = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
             .appendingPathComponent("NXBoot")
             .appendingPathComponent("Payloads")
@@ -157,10 +159,10 @@ struct NXBootApp: App {
             try await task.value
             print("App: Boot successful")
             lastBoot = .succeeded
-            sentry.usagePing(error: nil)
+            // TODO: sentry.usagePing(error: nil)
         } catch {
             lastBoot = .failed(error)
-            sentry.usagePing(error: error)
+            // TODO: sentry.usagePing(error: error)
         }
     }
 
