@@ -32,6 +32,10 @@ enum SettingsSection {
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
     switch (section) {
+        /* LATER:
+        case 0:
+            return @"Enable to keep payloads in sync between your iOS and macOS devices.";
+        */
         case SettingsSectionRememberPayload:
             return @"Keep the last payload selection across app restarts or navigation. It is booted immediately when a device is connected.";
         case SettingsSectionReportCrashes:
@@ -45,6 +49,15 @@ enum SettingsSection {
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SwitchTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchTableViewCell" forIndexPath:indexPath];
     switch (indexPath.section) {
+        /* LATER:
+        case 0:
+            cell.customLabel.text = @"Use iCloud";
+            cell.customSwitch.on = Settings.enableSync;
+            [cell.customSwitch addTarget:self
+                                  action:@selector(setEnableSync:)
+                        forControlEvents:UIControlEventTouchUpInside];
+            break;
+        */
         case SettingsSectionRememberPayload:
             cell.customLabel.text = @"Remember payload selection";
             cell.customSwitch.on = Settings.rememberPayload;
@@ -71,6 +84,12 @@ enum SettingsSection {
 }
 
 #pragma mark - Switch actions
+
+/* LATER:
+- (void)setEnableSync:(UISwitch *)sender {
+    Settings.enableSync = sender.on;
+}
+*/
 
 - (void)setRememberPayload:(UISwitch *)sender {
     Settings.rememberPayload = sender.on;

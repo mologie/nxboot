@@ -37,6 +37,7 @@ For installation instructions please visit the [project homepage at mologie.gith
 ## Components
 
 * NXBoot: The iOS 9+ UIKit app for jailbroken/TrollStore devices
+* NXBootMac: The macOS 14+ SwiftUI app
 * NXBootCmd: iOS 9+ and macOS 10.11+ command line tool for injecting payloads
 * NXBootKit: The framework that powers the above tools
 
