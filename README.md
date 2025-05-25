@@ -30,6 +30,10 @@ There is no ETA on those, it's just a bunch of ideas that I think are nice to ha
 * A USB 3 Type A to Type C cable
 * An OTG (Lightning to USB 2.0 or 3.0) adapter. Apple's costs $35, and cheaper third-party adapters may work.
 
+**OR**
+
+* TrollStore compatible iOS device with a native USB-C port
+
 ## Installation
 
 For installation instructions please visit the [project homepage at mologie.github.io](https://mologie.github.io/nxboot/). The apps and command line tool can be built from source via `build.sh` after running `quickstart.sh` once. You will need to edit `Config.xcconfig` for code signing settings.
